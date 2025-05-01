@@ -7,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserAddComponent implements OnInit {
 
+  name:any = null; 
+  surname:any = null;
+  email:any = null;
+  password:any = null;
+  confirmation_password:any = null;
+
   constructor() { }
 
   ngOnInit(): void {
