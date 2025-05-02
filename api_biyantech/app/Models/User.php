@@ -24,6 +24,7 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'password',
         "avatar",
+        "role_id",
         "state",//state 1 es activo y 2 es desactivo
         "type_user",// 1 es tipo cliente y 2 es tipo admin
     ];
@@ -65,5 +66,9 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function role(){
+        return $this->belongsTo(Role::class);
     }
 }
