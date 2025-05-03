@@ -39,5 +39,5 @@ Route::group([
     'middleware' => 'api',
 
 ], function ($router) {
-    Route::resource('/user', UserController::class);
+    Route::resource('/users', UserController::class);
 });

@@ -6,7 +6,7 @@
         <h2 class="fw-bolder">Add User</h2>
         <!--end::Modal title-->
         <!--begin::Close-->
-        <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close">
+        <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close" (click)="modal.dismiss();">
             <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
             <span class="svg-icon svg-icon-1">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -33,13 +33,13 @@
                     <!--begin::Image input-->
                     <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url('assets/media/svg/avatars/blank.svg')">
                         <!--begin::Preview existing avatar-->
-                        <div class="image-input-wrapper w-125px h-125px" style="background-image: url(assets/media/avatars/300-6.jpg);"></div>
+                        <div class="image-input-wrapper w-125px h-125px" [ngStyle]="{'background-image': 'url('+IMAGEN_PREVISUALIZA+')'}" style="background-image: url(assets/media/avatars/300-6.jpg);"></div>
                         <!--end::Preview existing avatar-->
                         <!--begin::Label-->
                         <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
                             <i class="bi bi-pencil-fill fs-7"></i>
                             <!--begin::Inputs-->
-                            <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+                            <input type="file" name="avatar" accept=".png, .jpg, .jpeg" (change)="processAvatar($event)"/>
                             <input type="hidden" name="avatar_remove" />
                             <!--end::Inputs-->
                         </label>
@@ -97,7 +97,7 @@
                     <label class="required fw-bold fs-6 mb-2">Contraseña:</label>
                     <!--end::Label-->
                     <!--begin::Input-->
-                    <input type="email" name="password" class="form-control form-control-solid mb-3 mb-lg-0" [(ngModel)]="password" placeholder="********"/>
+                    <input type="password" name="password" class="form-control form-control-solid mb-3 mb-lg-0" [(ngModel)]="password" placeholder="********"/>
                     <!--end::Input-->
                 </div>
                 <!--end::Input group-->
@@ -107,7 +107,7 @@
                     <label class="required fw-bold fs-6 mb-2">Repetir Contraseña:</label>
                     <!--end::Label-->
                     <!--begin::Input-->
-                    <input type="email" name="confirmation_password" class="form-control form-control-solid mb-3 mb-lg-0" [(ngModel)]="confirmation_password" placeholder="********"/>
+                    <input type="password" name="confirmation_password" class="form-control form-control-solid mb-3 mb-lg-0" [(ngModel)]="confirmation_password" placeholder="********"/>
                     <!--end::Input-->
                 </div>
                 <!--end::Input group-->
@@ -141,11 +141,12 @@
             <!--end::Scroll-->
             <!--begin::Actions-->
             <div class="text-center pt-15">
-                <button type="reset" class="btn btn-light me-3" data-kt-users-modal-action="cancel">Discard</button>
-                <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
-                    <span class="indicator-label">Submit</span>
-                    <span class="indicator-progress">Please wait...
-                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                <button type="reset" class="btn btn-light me-3" (click)="modal.dismiss();">Cerrar</button>
+                <button type="button" (click)="store()" class="btn btn-primary" data-kt-users-modal-action="submit">
+                    <span class="indicator-label">Registrar</span>
+                    <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
+                    <!--<span class="indicator-progress">Please wait...
+                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>-->
                 </button>
             </div>
             <!--end::Actions-->
