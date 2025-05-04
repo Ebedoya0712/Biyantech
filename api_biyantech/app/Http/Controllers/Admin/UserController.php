@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\User\UserGCollection;
+use App\Http\Resources\User\UserGResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -14,9 +16,17 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $name = $request->name;
+        $surname = $request->surname;
+        $email= $request->email;
+
+        $users = User::where("type_user",2)->orderBy("id","desc")->get();
+
+        return response()->json([
+            "users" => UserGCollection::make($users),
+        ]);
     }
 
     /**
@@ -46,7 +56,7 @@ class UserController extends Controller
         }
         $user = User::create($request->all());
 
-        return response()->json(["user" => $user]);
+        return response()->json(["user" => UserGResource::make($user)]);
     }
 
     /**
@@ -93,7 +103,7 @@ class UserController extends Controller
         }
             
             $user->update($request->all());
-            return response()->json(["user" => $user]);
+            return response()->json(["user" => UserGResource::make($user)]);
     }
 
     /**
