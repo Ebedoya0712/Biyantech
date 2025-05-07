@@ -18,11 +18,10 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $name = $request->name;
-        $surname = $request->surname;
-        $email= $request->email;
+        $search = $request->search;
+        $state = $request->state;
 
-        $users = User::where("type_user",2)->orderBy("id","desc")->get();
+        $users = User::filterAdvance($search,$state)->where("type_user",2)->orderBy("id","desc")->get();
 
         return response()->json([
             "users" => UserGCollection::make($users),

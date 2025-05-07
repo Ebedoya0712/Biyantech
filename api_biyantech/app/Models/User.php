@@ -71,4 +71,15 @@ class User extends Authenticatable implements JWTSubject
     public function role(){
         return $this->belongsTo(Role::class);
     }
+
+    function scopeFilterAdvance($query, $search, $state)
+    {
+        if($search){
+            $query->where("email","like","%".$search."%");
+        }
+        if($state){
+            $query->where("state",$state);
+        }
+        return $query;
+    }
 }

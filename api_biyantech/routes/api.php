@@ -40,4 +40,5 @@ Route::group([
 
 ], function ($router) {
     Route::resource('/users', UserController::class);
+    Route::post('/users/{id}', [UserController::class, "update"]);
 });

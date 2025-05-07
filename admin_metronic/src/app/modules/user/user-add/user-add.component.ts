@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Toast, Toaster } from 'ngx-toast-notifications';
 import { UserService } from '../service/user.service';
@@ -9,6 +9,8 @@ import { UserService } from '../service/user.service';
   styleUrls: ['./user-add.component.scss']
 })
 export class UserAddComponent implements OnInit {
+
+  @Output() UserC: EventEmitter<any> = new EventEmitter();
 
   name:any = null; 
   surname:any = null;
@@ -63,6 +65,7 @@ export class UserAddComponent implements OnInit {
 
       this.userService.register(formData).subscribe((resp:any) =>{
         //console.log(resp);
+        this.UserC.emit(resp.user);
         this.toaster.open({text: "EL USUARIO SE REGISTRO CORRECTAMENTE", caption: "INFORME", type: 'primary'});
         this.modal.close();
       })
