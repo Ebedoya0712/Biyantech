@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Course\Categorie;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Resources\Course\Categorie\CategorieResource;
+use App\Http\Resources\Course\Categorie\CategorieCollection;
 
 class CategorieController extends Controller
 {
