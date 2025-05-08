@@ -13,54 +13,54 @@ import { UserDeleteComponent } from '../user-delete/user-delete.component';
 export class UserListComponent implements OnInit {
 
   USERS: any = [];
-  isLoading: any = null;
-  search:any = null;
-  state:any = null;
-  constructor(
-    public modalService: NgbModal,
-    public userService: UserService,
-  ) { }
+    isLoading: any = null;
+    search:any = null;
+    state:any = null;
+    constructor(
+      public modalService: NgbModal,
+      public userService: UserService,
+    ) { }
 
-  ngOnInit(): void {
-    this.isLoading = this.userService.isLoading$;
+    ngOnInit(): void {
+      this.isLoading = this.userService.isLoading$;
 
-    this.listUser();
-  }
+      this.listUser();
+    }
 
-  listUser(){
-    this.userService.listUsers(this.search, this.state).subscribe((resp: any) => {
-      console.log(resp);
-      this.USERS = resp.users.data;
-    })
-  }
+    listUser(){
+      this.userService.listUsers(this.search, this.state).subscribe((resp: any) => {
+        console.log(resp);
+        this.USERS = resp.users.data;
+      })
+    }
 
-  openModalCreateUser() {
-    const modalRef = this.modalService.open(UserAddComponent, { centered: true, size: 'md' });
+    openModalCreateUser() {
+      const modalRef = this.modalService.open(UserAddComponent, { centered: true, size: 'md' });
 
-    modalRef.componentInstance.UserC.subscribe((User:any) =>{
-      console.log(User);
-      this.USERS.unshift(User);
-    })
-  }
+      modalRef.componentInstance.UserC.subscribe((User:any) =>{
+        console.log(User);
+        this.USERS.unshift(User);
+      })
+    }
 
-  editUser(USER:any){
-    const modalRef = this.modalService.open(UserEditComponent, { centered: true, size: 'md' });
-    modalRef.componentInstance.user = USER;
+    editUser(USER:any){
+      const modalRef = this.modalService.open(UserEditComponent, { centered: true, size: 'md' });
+      modalRef.componentInstance.user = USER;
 
-    modalRef.componentInstance.UserE.subscribe((User:any) =>{
-      console.log(User);
-      let INDEX = this.USERS.findIndex((item:any) => item.id == User.id);
-      this.USERS[INDEX] = User;
-    })
-  }
+      modalRef.componentInstance.UserE.subscribe((User:any) =>{
+        console.log(User);
+        let INDEX = this.USERS.findIndex((item:any) => item.id == User.id);
+        this.USERS[INDEX] = User;
+      })
+    }
 
-  deleteUser(USER:any){
-    const modalRef = this.modalService.open(UserDeleteComponent, { centered: true, size: 'md' });
-    modalRef.componentInstance.user = USER;
+    deleteUser(USER:any){
+      const modalRef = this.modalService.open(UserDeleteComponent, { centered: true, size: 'md' });
+      modalRef.componentInstance.user = USER;
 
-    modalRef.componentInstance.UserD.subscribe((respr:any) =>{
-      let INDEX = this.USERS.findIndex((item:any) => item.id == USER.id);
-      this.USERS.splice(INDEX,1);
-    })
-  }
+      modalRef.componentInstance.UserD.subscribe((respr:any) =>{
+        let INDEX = this.USERS.findIndex((item:any) => item.id == USER.id);
+        this.USERS.splice(INDEX,1);
+      })
+    }
 }
