@@ -23,7 +23,7 @@ class CategorieResource extends JsonResource
                 "name" => $this->resource->father->name,
                 "imagen" =>  $this->resource->father->imagen ? env("APP_URL")."storage/".$this->resource->imagen : NULL,
             ] : NULL,
-            "state"=>  $this->resource->state
+            "state"=>  $this->resource->state ?? 1,
         ];
     }
 }
