@@ -10,13 +10,10 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class CategorieAddComponent implements OnInit {
 
-  @Output() UserC: EventEmitter<any> = new EventEmitter();
+  @Output() CategorieC: EventEmitter<any> = new EventEmitter();
   
     name:any = null; 
-    surname:any = null;
-    email:any = null;
-    password:any = null;
-    confirmation_password:any = null;
+
     IMAGEN_PREVISUALIZA:any = "./assets/media/avatars/300-6.jpg";
     FILE_PORTADA: any = null;
     isLoading: any;
@@ -56,8 +53,8 @@ export class CategorieAddComponent implements OnInit {
   
         this.categorieService.registerCategorie(formData).subscribe((resp:any) =>{
           //console.log(resp);
-          this.UserC.emit(resp.user);
-          this.toaster.open({text: "EL USUARIO SE REGISTRO CORRECTAMENTE", caption: "INFORME", type: 'primary'});
+          this.CategorieC.emit(resp.categorie);
+          this.toaster.open({text: "LA CATEGORIA SE REGISTRO CORRECTAMENTE", caption: "INFORME", type: 'primary'});
           this.modal.close();
         })
       }
