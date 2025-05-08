@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\Course\CategorieController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,4 +42,7 @@ Route::group([
 ], function ($router) {
     Route::resource('/users', UserController::class);
     Route::post('/users/{id}', [UserController::class, "update"]);
+    //
+    Route::resource('/categorie', CategorieController::class);
+    Route::post('/categorie/{id}', [CategorieController::class, "update"]);
 });
