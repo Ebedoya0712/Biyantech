@@ -151,7 +151,25 @@
                     <!--end::Input row-->
                     <div class='separator separator-dashed my-5'></div>
                 </div>
-                <!--end::Input group-->
+
+                <div class="mb-7">
+                        <label class="form-label">¿Es instructor?</label>
+                        <div class="form-check form-check-custom form-check-solid mb-2">
+                            <input class="form-check-input" type="checkbox" value="1" [checked]="is_instructor" (click)="isInstructor()">
+                            <label class="form-check-label">Si</label>
+                        </div>
+                        <div class="text-muted fs-7">Habilita opcion.</div>
+                </div>
+
+                <div class="mb-7" *ngIf="is_instructor">
+                    <label class="required fw-bold fs-6 mb-2">Profesion:</label>
+                    <input type="text" name="user_name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Desarrollador web (Ejm)" [(ngModel)]="profesion"/>
+                </div>
+
+                <div class="mb-7" *ngIf="is_instructor">
+                    <label class="required fw-bold fs-6 mb-2">Descripcion:</label>
+                    <textarea name="description" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="*******" [(ngModel)]="description" id="" rows="5"></textarea>
+                </div>
             </div>
             <!--end::Scroll-->
             <!--begin::Actions-->
