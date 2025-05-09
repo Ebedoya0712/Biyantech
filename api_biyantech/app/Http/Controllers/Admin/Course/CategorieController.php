@@ -11,7 +11,7 @@ use App\Http\Resources\Course\Categorie\CategorieCollection;
 
 class CategorieController extends Controller
 {
-    /**
+     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -21,7 +21,7 @@ class CategorieController extends Controller
         $search = $request->search;
         $state = $request->state;
 
-        $categories = Categorie::filterAdvance($search,$state)->orderBy("id","desc")->get();
+        $categories = Categorie::filterAdvance($search,$state)->orderby("id","desc")->get();
 
         return response()->json([
             "categories" => CategorieCollection::make($categories),
@@ -47,8 +47,8 @@ class CategorieController extends Controller
     public function store(Request $request)
     {
         if($request->hasFile("portada")){
-                $path = Storage::putFile("categories",$request->file("portada"));
-                $request->request->add(["imagen" => $path]);
+            $path = Storage::putFile("categories",$request->file("portada"));
+            $request->request->add(["imagen" => $path]);
         }
         $categorie = Categorie::create($request->all());
 
@@ -85,7 +85,7 @@ class CategorieController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {   
+    {
         $categorie = Categorie::findOrFail($id);
         if($request->hasFile("portada")){
             if($categorie->imagen){
@@ -94,10 +94,10 @@ class CategorieController extends Controller
             $path = Storage::putFile("categories",$request->file("portada"));
             $request->request->add(["imagen" => $path]);
         }
-            
-            $categorie->update($request->all());
 
-            return response()->json(["categorie" => CategorieResource::make($categorie)]);
+        $categorie->update($request->all());
+
+        return response()->json(["categorie" => CategorieResource::make($categorie)]);
     }
 
     /**

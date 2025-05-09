@@ -14,16 +14,20 @@ class CategorieResource extends JsonResource
      */
     public function toArray($request)
     {
+        //CATEGORIA
+         // 1 DESARROLLO - IMAGEN
+        //SUBCATEGORIA
+        // 1 DESARROLLO WEB - NULL
         return [
             "id" => $this->resource->id,
-            "name"=> $this->resource->name,
-            "imagen"=> $this->resource->imagen ? env("APP_URL")."storage/".$this->resource->imagen : NULL,
-            "categorie_id"=> $this->resource->categorie_id,
-            "categorie"=> $this->resource->father ? [
+            "name" =>$this->resource->name,
+            "imagen" => $this->resource->imagen ? env("APP_URL")."storage/".$this->resource->imagen : NULL,
+            "categorie_id" =>$this->resource->categorie_id,
+            "categorie" =>$this->resource->father ? [
                 "name" => $this->resource->father->name,
-                "imagen" =>  $this->resource->father->imagen ? env("APP_URL")."storage/".$this->resource->imagen : NULL,
+                "imagen" => $this->resource->father->imagen ? env("APP_URL")."storage/".$this->resource->father->imagen : NULL,
             ] : NULL,
-            "state"=>  $this->resource->state ?? 1,
+            "state" =>$this->resource->state ?? 1,
         ];
     }
 }
