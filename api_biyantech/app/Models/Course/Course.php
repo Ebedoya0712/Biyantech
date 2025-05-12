@@ -17,6 +17,8 @@ class Course extends Model
         "slug",
         "subtitle",
         "imagen",
+        "precio_usd",
+        "precio_bs", //aqui se define precio en bolivares
         "user_id",
         "categorie_id",
         "sub_categorie_id",
@@ -26,7 +28,7 @@ class Course extends Model
         "time",
         "description",
         "requirements",
-        "who_is _it _for",
+        "who_is_it_for",
         "state"
     ];
 

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\Course\CategorieController;
+use App\Http\Controllers\Admin\Course\CourseGController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,4 +46,7 @@ Route::group([
     //
     Route::resource('/categorie', CategorieController::class);
     Route::post('/categorie/{id}', [CategorieController::class, "update"]);
+
+    Route::resource('/course', CourseGController::class);
+    Route::post('/course/{id}', [CourseGController::class, "update"]);
 });
