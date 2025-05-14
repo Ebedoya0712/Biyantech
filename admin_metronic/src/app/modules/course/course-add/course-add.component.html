@@ -64,6 +64,9 @@
 							accept=".jpeg, .bmp, .jpg, .png, .gif, .webp" (change)="processFile($event)">
 						<label class="custom-file-label" for="customFile">Choose file</label>
 					</div>
+					<div class="py-3" *ngIf="IMAGEN_PREVISUALIZA">
+						<img [src]="IMAGEN_PREVISUALIZA" width="250" alt="" srcset="">
+					</div>
 				</div>
 				<div class="col-2">
 					<label class="fs-6 fw-bold mt-2 mb-3">Nivel:</label>
@@ -108,11 +111,10 @@
 						<div class="col-12">
 							<div class="fs-6 fw-bold mt-2 mb-3">Requerimientos : </div>
 							<div class="d-flex">
-								<input type="text" class="form-control form-control-solid" name="requerimiento"
+								<input type="text" class="form-control form-control-solid" (keyup.enter)="addRequiriments()" [(ngModel)]="text_requiriments" name="requerimiento"
 									placeholder="Angular Basico">
-								<button class="btn btn-sm btn-primary mx-5">+</button>
+								<button class="btn btn-sm btn-primary mx-5" (click)="addRequiriments()">+</button>
 							</div>
-
 						</div>
 						<div class="col-12">
 							<div class="table-responsive">
@@ -124,12 +126,12 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
+										<tr *ngFor="let requiriment of requiriments; let i=index">
 											<td>
-												<a href="#" class="text-dark fw-bolder text-hover-primary mb-1 fs-6">JAVASCRIPT AVANZADO</a>
+												<a href="#" onclick="return false;" class="text-dark fw-bolder text-hover-primary mb-1 fs-6">{{ requiriment }}</a>
 											</td>
 											<td class="text-end text-muted fw-bold">
-												<button class="btn btn-sm btn-danger">X</button>
+												<button class="btn btn-sm btn-danger" (click)="removeRequiriment(i)">X</button>
 											</td>
 										</tr>
 									</tbody>
@@ -144,9 +146,9 @@
 						<div class="col-12">
 							<div class="fs-6 fw-bold mt-2 mb-3">¿ Para quien esta dirigido ?: </div>
 							<div class="d-flex">
-								<input type="text" class="form-control form-control-solid" name="what_is_for"
+								<input type="text" class="form-control form-control-solid" (keyup.enter)="addWhatIsFor()" [(ngModel)]="text_what_is_for"  name="what_is_for"
 									placeholder="Desarrolladores web">
-								<button class="btn btn-sm btn-primary mx-5">+</button>
+								<button class="btn btn-sm btn-primary mx-5" (click)="addWhatIsFor()">+</button>
 							</div>
 
 						</div>
@@ -161,12 +163,12 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
+										<tr *ngFor="let what_is_for of what_is_fors; let i=index">
 											<td>
-												<a href="#" class="text-dark fw-bolder text-hover-primary mb-1 fs-6">INGENIERO DE SISTEMAS</a>
+												<a href="#" onclick="return false;" class="text-dark fw-bolder text-hover-primary mb-1 fs-6">{{ what_is_for }}</a>
 											</td>
 											<td class="text-end text-muted fw-bold">
-												<button class="btn btn-sm btn-danger">X</button>
+												<button class="btn btn-sm btn-danger" (click)="removeWhatIsFor(i)">X</button>
 											</td>
 										</tr>
 									</tbody>
