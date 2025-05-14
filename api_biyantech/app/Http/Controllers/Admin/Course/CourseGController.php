@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 use App\Models\Course\Course;
+use App\Models\Course\Categorie;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\Course\CourseGResource;
 use App\Http\Resources\Course\CourseGCollection;
@@ -28,6 +30,24 @@ class CourseGController extends Controller
 
         return response()->json([
             "courses" => CourseGCollection::make($courses),
+        ]);
+    }
+
+    public function config(Request $request)
+    {
+        $categories = Categorie::where("categorie_id",NULL)->orderBy("id","desc")->get();
+        $subcategories = Categorie::where("categorie_id","<>",NULL)->orderBy("id","desc")->get();
+
+        $instructores = User::where("is_instructor",1)->orderBy("id","desc")->get();
+        return response()->json([
+            "categories" => $categories,
+            "subcategories" => $subcategories,
+            "instructores" => $instructores->map(function($user){
+                return[
+                "id" => $user->id,
+                "full_name" => $user->name.' '.$user->surname,
+                ];
+            }),
         ]);
     }
 

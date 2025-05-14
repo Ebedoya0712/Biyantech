@@ -46,7 +46,8 @@ Route::group([
     //
     Route::resource('/categorie', CategorieController::class);
     Route::post('/categorie/{id}', [CategorieController::class, "update"]);
-
+    
+    Route::get('course/config', [CourseGController::class, "config"]);
     Route::resource('/course', CourseGController::class);
     Route::post('/course/{id}', [CourseGController::class, "update"]);
 });

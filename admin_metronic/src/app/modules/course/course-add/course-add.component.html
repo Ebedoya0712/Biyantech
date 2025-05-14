@@ -9,6 +9,7 @@
 	<!--begin::Form-->
 	<form id="kt_project_settings_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate">
 		<!--begin::Card body-->
+		<span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
 		<div class="card-body p-9">
 			<!--begin::Row-->
 			<div class="row mb-8">
@@ -36,15 +37,21 @@
 				<div class="col-4">
 					<label class="fs-6 fw-bold mt-2 mb-3">Selecionar Categoria:</label>
 					<select class="form-control form-select-solid fw-bolder" name="categorie"
-						placeholder="Selecciona una Categoria">
-						<option value="">Todos</option>
+						placeholder="Selecciona una Categoria" (change)="selectCategorie($event)">
+						<ng-container *ngFor="let categorie of categories">
+							<option [value]="categorie.id">{{ categorie.name }}</option>
+						</ng-container>
+						
 					</select>
 				</div>
 				<div class="col-4">
 					<label class="fs-6 fw-bold mt-2 mb-3">Selecionar Subcategoria:</label>
 					<select class="form-control form-select-solid fw-bolder" name="subcategoria"
 						placeholder="Selecciona una SubCategoria">
-						<option value="">Todos</option>
+						<ng-container *ngFor="let subcategorie of subcategories_back">
+							<option [value]="subcategorie.id">{{ subcategorie.name }}</option>
+						</ng-container>
+						
 					</select>
 				</div>
 			</div>
@@ -80,7 +87,9 @@
 						<label class="fs-6 fw-bold mt-2 mb-3">Instructor:</label>
 					<select class="form-control form-select-solid fw-bolder" name="user"
 						placeholder="Selecciona un Instructor">
-						<option value="Lalo">Lalo</option>
+						<ng-container *ngFor="let instructor of instructores">
+						<option [value]="instructor.id">{{ instructor.full_name }}</option>
+						</ng-container>
 					</select>
 				</div>
 			</div>
