@@ -93,7 +93,11 @@ class CourseGController extends Controller
      */
     public function show($id)
     {
-        //
+        $course = Course::findOrFail($id);
+
+        return response()->json([
+            "course" => CourseGResource::make($course),
+        ]);
     }
 
     /**

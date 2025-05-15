@@ -46,6 +46,16 @@ export class CourseService {
         );
   }
 
+  showCourse(course_id:any){
+
+    let headers = new HttpHeaders({'Authorization': 'Bearer '+this.authservice.token});
+    let URL = URL_SERVICIOS+"/course/"+course_id;
+    this.isLoadingSubject.next(true);
+    return this.http.get(URL,{headers: headers}).pipe(
+          finalize(() => this.isLoadingSubject.next(false))
+        );
+  }
+
   registerCourses(data:any){
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({'Authorization': 'Bearer '+this.authservice.token});
