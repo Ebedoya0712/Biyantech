@@ -21,9 +21,9 @@ class CourseGResource extends JsonResource
             "imagen" => env("APP_URL")."storage/".$this->resource->imagen,
             "user_id" => $this->resource->user_id,
             "user" => [
-                "id" => $this->resource->user->id,
-                "full_name" => $this->resource->user->name.' '.$this->resource->user->surname,
-                "email" => $this->resource->user->email,
+                "id" => $this->resource->instructor->id,
+                "full_name" => $this->resource->instructor->name.' '.$this->resource->instructor->surname,
+                "email" => $this->resource->instructor->email,
             ],
             "categorie_id" => $this->resource->categorie_id,
             "categorie" => [
