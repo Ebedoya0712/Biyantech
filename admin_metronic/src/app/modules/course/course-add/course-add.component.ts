@@ -18,10 +18,22 @@ export class CourseAddComponent implements OnInit {
   FILE_PORTADA:any = null;
   IMAGEN_PREVISUALIZA:any = null;
 
-  text_requiriments:any = null;
-  requiriments:any = [];
+  text_requirements:any = null;
+  requirements:any = [];
   text_what_is_for:any = null;
   what_is_fors: any = [];
+
+  title:string = '';
+  subtitle:string = '';
+  precio_usd:number = 0;
+  precio_bs:number  = 0;
+  description:any = "<p>Descripcion del curso</p>";
+  categorie_id:any = null;
+  sub_categorie_id:any = null;
+  user_id:any = null;
+  level:any = null;
+  idioma:any = null;
+  //who_is_it_for
   constructor(
     public courseService: CourseService,
     public toaster: Toaster,
@@ -43,13 +55,13 @@ export class CourseAddComponent implements OnInit {
           this.subcategories_back = this.subcategories.filter((item:any) => item.categorie_id == VALUE);
       }
 
-      addRequiriments(){
-        if(!this.text_requiriments){
+      addRequirements(){
+        if(!this.text_requirements){
             this.toaster.open({text: 'NECESITAS INGRESAR UN REQUERIMIENTO',caption: 'VALIDACION', type: 'danger'});
             return;
         }
-          this.requiriments.push(this.text_requiriments);
-          this.text_requiriments = null;
+          this.requirements.push(this.text_requirements);
+          this.text_requirements = null;
       }
       addWhatIsFor(){
         if(!this.text_what_is_for){
@@ -61,14 +73,66 @@ export class CourseAddComponent implements OnInit {
       }
 
       removeRequiriment(index:number){
-        this.requiriments.splice(index,1);
+        this.requirements.splice(index,1);
       }
       removeWhatIsFor(index:number){
         this.what_is_fors.splice(index,1);
       }
-  save(){
-          
+
+      public onChange(event: any) {
+    this.description = event.editor.getData();
   }
+  save(){
+        console.log(this.description);
+        if(!this.title ||
+          !this.subtitle ||
+          !this.precio_usd ||
+          !this.precio_bs ||
+          !this.categorie_id){
+              this.toaster.open({text: "NECESITAS LLENAR TODOS LOS CAMPOS DEL FORMULARIO", caption: 'VALIDACION', type: 'danger'});
+              return;
+        }
+        let formData = new FormData();
+        formData.append("title", this.title);
+        formData.append("subtitle", this.subtitle);
+        formData.append("precio_usd", this.precio_usd+"");
+        formData.append("precio_bs", this.precio_bs+"");
+        formData.append("categorie_id", this.categorie_id);
+        formData.append("sub_categorie_id", this.sub_categorie_id);
+        formData.append("description", this.description);
+        formData.append("level", this.level);
+        formData.append("idioma", this.idioma);
+        formData.append("user_id", this.user_id);
+        formData.append("portada",this.FILE_PORTADA);
+        formData.append("requirements", this.requirements);
+        formData.append("who_is_it_for", this.what_is_fors);
+
+        this.courseService.registerCourses(formData).subscribe((resp:any) => {
+          console.log(resp);
+          if(resp.message == 403){
+              this.toaster.open({text: resp.message_text, caption: 'VALIDACION', type: 'danger'});
+              return;
+          }else{
+            this.toaster.open({text: "EL CURSO SE HA CREADO CON EXITO", caption: 'SUCCESS', type: 'primary'});
+            this.title = '';
+            this.subtitle = '';
+            this.precio_usd = 0;
+            this.precio_bs = 0;
+            this.categorie_id = null;
+            this.sub_categorie_id = null;
+            this.description = null;
+            this.level  = null;
+            this.idioma  = null;
+            this.user_id  = null;
+            this.FILE_PORTADA  = null;
+            this.requirements = [];
+            this.what_is_fors = [];
+            this.IMAGEN_PREVISUALIZA = null;
+            return;
+          }
+        });
+  }
+  
 
   processFile($event:any){
       if($event.target.files[0].type.indexOf("image") < 0){
