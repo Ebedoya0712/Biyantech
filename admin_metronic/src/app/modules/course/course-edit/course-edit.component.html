@@ -180,11 +180,25 @@
 					</div>
 				</div>
 			</div>
+            <div class="row mb-8">
+                <div class="col-3">
+                    <select
+                    class="form-control form-select-solid fw-bolder"
+                    name="status"
+                    placeholder="Filtrar por Estado"
+                    [(ngModel)]="state"
+                >
+                    <option value="1">PRUEBA</option>
+                    <option value="2">PUBLICO</option></select
+                >
+                </div>
+            </div>
 		</div>
+        
 		<!--end::Card body-->
 		<!--begin::Card footer-->
 		<div class="card-footer d-flex justify-content-end py-6 px-9">
-			<button type="button" (click)="save()" class="btn btn-primary" id="kt_project_settings_submit">GUARDAR CURSO</button>
+			<button type="button" (click)="save()" class="btn btn-primary" id="kt_project_settings_submit">GUARDAR CAMBIOS</button>
 		</div>
 		<!--end::Card footer-->
 		<input type="hidden">

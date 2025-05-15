@@ -35,6 +35,7 @@ export class CourseEditComponent implements OnInit {
     level:any = null;
     idioma:any = null;
     //who_is_it_for
+    state:any = 1;
 
     courses_id:any;
     course_selected:any = null;
@@ -79,6 +80,7 @@ export class CourseEditComponent implements OnInit {
               this.requirements = this.course_selected.requirements;
               this.what_is_fors = this.course_selected.who_is_it_for; 
               this.IMAGEN_PREVISUALIZA = this.course_selected.imagen;
+              this.state = this.course_selected.state;
             })
         }
         selectCategorie(event:any){
@@ -134,6 +136,7 @@ export class CourseEditComponent implements OnInit {
           formData.append("level", this.level);
           formData.append("idioma", this.idioma);
           formData.append("user_id", this.user_id);
+          formData.append("state",this.state);
           if(this.FILE_PORTADA){
             formData.append("portada",this.FILE_PORTADA);
           }

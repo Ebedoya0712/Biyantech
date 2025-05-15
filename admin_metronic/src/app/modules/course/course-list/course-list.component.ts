@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseService } from '../service/course.service';
+import { CourseDeleteComponent } from '../course-delete/course-delete.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-course-list',
@@ -14,6 +16,7 @@ export class CourseListComponent implements OnInit {
   state:any = null;
   constructor(
     public courseService:CourseService,
+    public modalService: NgbModal,
   ) { }
 
   ngOnInit(): void {
@@ -29,7 +32,13 @@ export class CourseListComponent implements OnInit {
   }
 
   deleteCourse(COURSE:any){
-
+    const modalRef = this.modalService.open(CourseDeleteComponent,{centered: true, size: 'md'});
+        modalRef.componentInstance.course = COURSE;
+    
+        modalRef.componentInstance.CourseD.subscribe((resp:any) => {
+          let INDEX = this.COURSES.findIndex((item:any) => item.id == COURSE.id);
+          this.COURSES.splice(INDEX,1);
+        })
   }
 
 }
