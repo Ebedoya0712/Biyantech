@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\Course\CourseGResource;
 use App\Http\Resources\Course\CourseGCollection;
 use Owenoj\LaravelGetId3\GetId3;
+use Vimeo\Laravel\Facades\Vimeo;
 
 class CourseGController extends Controller
 {
@@ -85,7 +86,7 @@ class CourseGController extends Controller
         //"course" => CourseGResource::make($course)
         return response()->json(["message" => 200]);
     }
-    public function upload_video(Request $request)
+    public function upload_video(Request $request, $id)
     {
         $time = 0;
 
@@ -93,8 +94,20 @@ class CourseGController extends Controller
         $track = new GetId3($request->file('video'));
         //get playtime
         $time = $track->getPlaytimeSeconds();
+
+        $response = Vimeo::upload($request->file('video'));
+
+        $course = Course::findOrFail($id);
+
+        error_log(json_encode(explode("/", $response)));
+
+        //vieos/85552
+        $vimeo_id = explode("/", $response)[2];
+
+        $course->update(["vimeo_id" => $vimeo_id,"time" => date("H:i:s",$time)]);
+
         return response()->json([
-            "time" => date("H:i:s",$time),
+            "link_video" => "https://player.vimeo.com/video/".$vimeo_id,
         ]);
     }
 

@@ -49,6 +49,6 @@ Route::group([
     
     Route::get('course/config', [CourseGController::class, "config"]);
     Route::resource('/course', CourseGController::class);
-    Route::post('/course/upload_video', [CourseGController::class, "upload_video"]);
+    Route::post('/course/upload_video/{id}', [CourseGController::class, "upload_video"]);
     Route::post('/course/{id}', [CourseGController::class, "update"]);
 });

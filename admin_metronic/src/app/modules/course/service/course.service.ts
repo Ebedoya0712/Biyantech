@@ -65,10 +65,10 @@ export class CourseService {
     );
   }
 
-  uploadVideo(data:any){
+  uploadVideo(data:any,courses_id:string){
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({'Authorization': 'Bearer '+this.authservice.token});
-    let URL = URL_SERVICIOS+"/course/upload_video";
+    let URL = URL_SERVICIOS+"/course/upload_video/"+courses_id;
     return this.http.post(URL,data,{headers: headers}).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );

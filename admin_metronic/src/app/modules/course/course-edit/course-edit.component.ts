@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CourseService } from '../service/course.service';
 import { Toaster } from 'ngx-toast-notifications';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-course-edit',
@@ -40,10 +41,13 @@ export class CourseEditComponent implements OnInit {
     courses_id:any;
     course_selected:any = null;
     video_curso:any = null;
+    link_video_course:any = null;
+    isUploadVideo:Boolean = false;
     constructor(
       public courseService: CourseService,
       public toaster: Toaster,
       public activedRoute:ActivatedRoute,
+      public sanitizer: DomSanitizer,
     ) { }
   
     ngOnInit(): void {
@@ -82,6 +86,11 @@ export class CourseEditComponent implements OnInit {
               this.what_is_fors = this.course_selected.who_is_it_for; 
               this.IMAGEN_PREVISUALIZA = this.course_selected.imagen;
               this.state = this.course_selected.state;
+
+              if(this.course_selected.vimeo_id){
+                  this.link_video_course = "https://player.vimeo.com/video/"+this.course_selected.vimeo_id;
+              }
+              
             })
         }
         selectCategorie(event:any){
@@ -174,9 +183,16 @@ export class CourseEditComponent implements OnInit {
         let formData = new FormData();
         formData.append("video",this.video_curso);
         console.log(this.video_curso);
-        this.courseService.uploadVideo(formData).subscribe((resp:any)=>{
+        this.isUploadVideo = true;
+        this.courseService.uploadVideo(formData,this.courses_id).subscribe((resp:any)=>{
+          this.isUploadVideo = false;
           console.log(resp);
+          this.link_video_course = resp.link_video;
         })
+    }
+
+    urlVideo(){
+        return this.sanitizer.bypassSecurityTrustResourceUrl(this.link_video_course);
     }
     
     processVideo($event:any){
