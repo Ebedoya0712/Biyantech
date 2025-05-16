@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\Course\CourseGResource;
 use App\Http\Resources\Course\CourseGCollection;
+use Owenoj\LaravelGetId3\GetId3;
 
 class CourseGController extends Controller
 {
@@ -26,7 +27,7 @@ class CourseGController extends Controller
         $state = $request->state;
 
         //filterAdvance($search,$state)->
-        $courses = Course::orderBy("id","desc")->get();
+        $courses = Course::filterAdvance($search,$state)->orderBy("id","desc")->get();
 
         return response()->json([
             "courses" => CourseGCollection::make($courses),
@@ -83,6 +84,18 @@ class CourseGController extends Controller
         $course = Course::create($request->all());
         //"course" => CourseGResource::make($course)
         return response()->json(["message" => 200]);
+    }
+    public function upload_video(Request $request)
+    {
+        $time = 0;
+
+        //instantiate class with file
+        $track = new GetId3($request->file('video'));
+        //get playtime
+        $time = $track->getPlaytimeSeconds();
+        return response()->json([
+            "time" => date("H:i:s",$time),
+        ]);
     }
 
     /**

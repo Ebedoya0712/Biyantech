@@ -39,6 +39,7 @@ export class CourseEditComponent implements OnInit {
 
     courses_id:any;
     course_selected:any = null;
+    video_curso:any = null;
     constructor(
       public courseService: CourseService,
       public toaster: Toaster,
@@ -168,7 +169,23 @@ export class CourseEditComponent implements OnInit {
             }
           });
     }
+
+    uploadVideo(){
+        let formData = new FormData();
+        formData.append("video",this.video_curso);
+        console.log(this.video_curso);
+        this.courseService.uploadVideo(formData).subscribe((resp:any)=>{
+          console.log(resp);
+        })
+    }
     
+    processVideo($event:any){
+      if($event.target.files[0].type.indexOf("video") < 0){
+        this.toaster.open({text: 'SOLAMENTE SE ACEPTAN VIDEOS', caption:'MENSAJE DE VALIDACIÓN',type: 'danger'})
+        return;
+      }
+      this.video_curso = $event.target.files[0];
+    }
   
     processFile($event:any){
         if($event.target.files[0].type.indexOf("image") < 0){

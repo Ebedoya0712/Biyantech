@@ -98,6 +98,20 @@
 				</div>
 			</div>
 			<div class="row mb-8">
+				<div class="col-5">
+					<label class="form-label">Sube tu video de trailer: *</label>
+					<div class="custom-file">
+						<!--(change)="processFile($event)"-->
+						<input type="file" class="custom-file-input" id="customFile"
+							accept=".mp4" (change)="processVideo($event)">
+						<label class="custom-file-label" for="customFile">Choose video</label>
+					</div>
+				</div>
+				<div class="col-5">
+					<button class="btn btn-sm btn-primary" (click)="uploadVideo()">+</button>
+				</div>
+			</div>
+			<div class="row mb-8">
 				<div class="col-xl-3">
 					<div class="fs-6 fw-bold mt-2 mb-3">Descripcion: </div>
 				</div>

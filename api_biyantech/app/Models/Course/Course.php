@@ -63,4 +63,15 @@ class Course extends Model
     {
             return $this->hasMany(CourseSection::class);
     }
+
+    function scopeFilterAdvance($query, $search, $state)
+    {
+        if($search){
+            $query->where("title","like","%".$search."%");
+        }
+        if($state){
+            $query->where("state",$state);
+        }
+        return $query;
+    }
 }
