@@ -87,29 +87,40 @@ class CourseGController extends Controller
         return response()->json(["message" => 200]);
     }
     public function upload_video(Request $request, $id)
-    {
-        $time = 0;
+{
+    $time = 0;
 
-        //instantiate class with file
-        $track = new GetId3($request->file('video'));
-        //get playtime
-        $time = $track->getPlaytimeSeconds();
+    // Obtener duración del video
+    $track = new GetId3($request->file('video'));
+    $time = $track->getPlaytimeSeconds();
 
-        $response = Vimeo::upload($request->file('video'));
+    // Subir a Vimeo
+    $response = Vimeo::upload($request->file('video'));
 
-        $course = Course::findOrFail($id);
+    // Obtener ID del curso
+    $course = Course::findOrFail($id);
 
-        error_log(json_encode(explode("/", $response)));
+    // Obtener ID del video
+    $vimeo_id = explode("/", $response)[2];
 
-        //vieos/85552
-        $vimeo_id = explode("/", $response)[2];
+    // Cambiar privacidad del video a público
+    Vimeo::request("/videos/" . $vimeo_id, [
+        'privacy' => [
+            'view' => 'anybody', // Hacer el video público
+        ]
+    ], 'PATCH');
 
-        $course->update(["vimeo_id" => $vimeo_id,"time" => date("H:i:s",$time)]);
+    // Actualizar curso con ID de Vimeo y duración
+    $course->update([
+        "vimeo_id" => $vimeo_id,
+        "time" => date("H:i:s", $time)
+    ]);
 
-        return response()->json([
-            "link_video" => "https://player.vimeo.com/video/".$vimeo_id,
-        ]);
-    }
+    // Responder con el link del reproductor
+    return response()->json([
+        "link_video" => "https://player.vimeo.com/video/" . $vimeo_id,
+    ]);
+}
 
     /**
      * Display the specified resource.
