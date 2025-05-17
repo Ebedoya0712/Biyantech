@@ -89,6 +89,10 @@ class SeccionGController extends Controller
     public function destroy($id)
     {
         $section = CourseSection::findOrFail($id);
+        //MUY IMPORTANTE
+        if($section->clases->count() > 0){
+            return response()->json(["message"=> 403, "message_text" => "NO PUEDES ELIMINAR ESTA SECCION PORQUE TIENE CLASES DENTRO"]);
+        }
         $section->delete();
 
         return response()->json(["message"=> 200]);

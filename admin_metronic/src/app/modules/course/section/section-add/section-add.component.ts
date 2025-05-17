@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Toaster } from 'ngx-toast-notifications';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SectionEditComponent } from '../section-edit/section-edit.component';
+import { SectionDeleteComponent } from '../section-delete/section-delete.component';
 
 @Component({
   selector: 'app-section-add',
@@ -46,6 +47,18 @@ export class SectionAddComponent implements OnInit {
         let INDEX = this.SECTIONS.findIndex(((item:any )=> item.id == newSection.id));
         if(INDEX != -1){
             this.SECTIONS[INDEX] = newSection;
+        }
+    });
+  }
+
+  deleteSection(SECTION:any){
+    const modalref = this.modalService.open(SectionDeleteComponent,{ centered: true, size: 'md'});
+    modalref.componentInstance.section_selected = SECTION;
+
+    modalref.componentInstance.SectionD.subscribe((newSection:any) =>{
+        let INDEX = this.SECTIONS.findIndex(((item:any )=> item.id == SECTION.id));
+        if(INDEX != -1){
+            this.SECTIONS.splice(INDEX,1);
         }
     });
   }
