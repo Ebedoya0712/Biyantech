@@ -71,7 +71,8 @@
 																<!--end::Table head-->
 																<!--begin::Table body-->
 																<tbody>
-																	<tr>
+                                                                    <ng-container *ngFor="let SECTION of SECTIONS;let i=index">
+                                                                    <tr>
 																		<td>
 																			<div class="symbol symbol-50px me-2">
 																				<span class="symbol-label bg-light-success">
@@ -88,16 +89,16 @@
 																			</div>
 																		</td>
 																		<td>
-																			<a href="#" class="text-dark fw-bolder text-hover-primary mb-1 fs-6">Media Device</a>
-                                                                            <!---->
-																			<span class="text-muted fw-bold d-block fs-7">Voice and video recorder</span>
+																			<a href="#" class="text-dark fw-bolder text-hover-primary mb-1 fs-6">{{ SECTION.name }}</a>
+																			<span class="text-muted fw-bold d-block fs-7">Seccion: {{ i + 1 }}</span>
 																		</td>
 																		<td class="text-end">
-																			<span class="text-muted fw-bold d-block fs-8">Ordered</span>
-																			<span class="text-dark fw-bolder d-block fs-7">5 day ago</span>
+																			<span class="text-muted fw-bold d-block fs-8">0</span>
+																			<span class="text-dark fw-bolder d-block fs-7">Numero de Clases</span>
 																		</td>
 																		<td class="text-end">
-																			<span class="badge badge-light-success fs-7 fw-bolder">Delivered</span>
+																			<span class="badge badge-light-success fs-7 fw-bolder" *ngIf="SECTION.state == 1">ACTIVO</span>
+                                                                            <span class="badge badge-light-danger fs-7 fw-bolder" *ngIf="SECTION.state == 2">DES-ACTIVO</span>
 																		</td>
 																		<td class="text-end">
 																			<a href="#" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
@@ -123,6 +124,8 @@
 																</a>
 																		</td>
 																	</tr>
+                                                                    </ng-container>
+																	
 																</tbody>
 																<!--end::Table body-->
 															</table>

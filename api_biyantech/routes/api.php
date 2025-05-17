@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\Course\CategorieController;
 use App\Http\Controllers\Admin\Course\CourseGController;
+use App\Http\Controllers\Admin\Course\SeccionGController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,4 +52,6 @@ Route::group([
     Route::resource('/course', CourseGController::class);
     Route::post('/course/upload_video/{id}', [CourseGController::class, "upload_video"]);
     Route::post('/course/{id}', [CourseGController::class, "update"]);
+
+    Route::resource('/course-section', SeccionGController::class);
 });
