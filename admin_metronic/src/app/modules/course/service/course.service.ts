@@ -113,7 +113,7 @@ updateSection(data:any,section_id:string){
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({'Authorization': 'Bearer '+this.authservice.token});
     let URL = URL_SERVICIOS+"/course-section/"+section_id;
-    return this.http.post(URL,data,{headers: headers}).pipe(
+    return this.http.put(URL,data,{headers: headers}).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );
   }

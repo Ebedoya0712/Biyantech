@@ -101,7 +101,8 @@
                                                                             <span class="badge badge-light-danger fs-7 fw-bolder" *ngIf="SECTION.state == 2">DES-ACTIVO</span>
 																		</td>
 																		<td class="text-end">
-																			<a href="#" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                                                            <div class="d-flex justify-content-between">
+																			<a href="#" onclick="return false;" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" (click)="editSection(SECTION)">
 																	<!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
 																	<span class="svg-icon svg-icon-3">
 																		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -122,6 +123,7 @@
 																	</span>
 																	<!--end::Svg Icon-->
 																</a>
+                                                                </div>
 																		</td>
 																	</tr>
                                                                     </ng-container>
