@@ -14,6 +14,26 @@ class CourseClaseResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            "id" => $this->resource->id,
+            "course_section_id" => $this->resource->id,
+            "name" => $this->resource->name,
+            "description" => $this->resource->description,
+            "state" => $this->resource->state,
+            "vimeo_id" => $this->resource->vimeo_id ? "https://player.vimeo.com/video/".$this->resource->vimeo_id : NULL,
+            "time" => $this->resource->time,
+            "files" => $this->resource->files->map(function($file){
+                return [
+                    "id" => $file->id,
+                    "course_clase_id" => $file-> course_clase_id,
+                    "name_file" => $file-> name_file,
+                    "size" => $file-> size,
+                    "time" => $file-> time,
+                    "resolution" => $file-> resolution,
+                    "file" => env("APP_URL")."storage/".$file-> file,
+                    "type" => $file-> type,
+                ];
+            }),
+        ];
     }
 }
