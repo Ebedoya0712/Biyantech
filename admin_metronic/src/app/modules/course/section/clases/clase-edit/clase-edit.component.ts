@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CourseService } from '../../../service/course.service';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Toaster } from 'ngx-toast-notifications';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ClaseFileDeleteComponent } from '../clase-file-delete/clase-file-delete.component';
 
 @Component({
   selector: 'app-clase-edit',
@@ -25,12 +26,14 @@ export class ClaseEditComponent implements OnInit {
   isUploadVideo:Boolean = false;
   isUploadFiles:Boolean = false;
   link_video_course:any = null;
+  state:any = 1;
 
   constructor(
     public courseService:CourseService,
     public modal: NgbActiveModal,
     public toaster: Toaster,
     public sanitizer: DomSanitizer,
+    public modalService:  NgbModal,
   ) { }
 
   ngOnInit(): void {
@@ -39,12 +42,14 @@ export class ClaseEditComponent implements OnInit {
     this.description = this.clase_selected.description;
     this.FILES_CLASE = this.clase_selected.files;
     this.link_video_course = this.clase_selected.vimeo_id;
+    this.state = this.clase_selected.state;
   }
 
   save(){
     let data = {
       name: this.title,
       description: this.description,
+      state: this.state,
     }
 
     this.courseService.updateClase(data,this.clase_selected.id).subscribe((resp:any) => {
@@ -107,7 +112,13 @@ export class ClaseEditComponent implements OnInit {
   }
 
   deleteFile(FILE:any){
+    const modalRef = this.modalService.open(ClaseFileDeleteComponent,{centered: true, size: 'sm'});
+    modalRef.componentInstance.file_selected = FILE;
 
+    modalRef.componentInstance.FileD.subscribe((resp:any) =>{
+        let INDEX = this.FILES_CLASE.findIndex((item:any) => item.id == FILE.id);
+        this.FILES_CLASE.splice(INDEX,1);
+    });
   }
 
 }
