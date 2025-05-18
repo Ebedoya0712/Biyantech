@@ -15,6 +15,9 @@ import { CKEditorModule } from 'ckeditor4-angular';
 import { SectionAddComponent } from './section/section-add/section-add.component';
 import { SectionEditComponent } from './section/section-edit/section-edit.component';
 import { SectionDeleteComponent } from './section/section-delete/section-delete.component';
+import { ClaseAddComponent } from './section/clases/clase-add/clase-add.component';
+import { ClaseEditComponent } from './section/clases/clase-edit/clase-edit.component';
+import { ClaseDeleteComponent } from './section/clases/clase-delete/clase-delete.component';
 
 
 @NgModule({
@@ -26,7 +29,10 @@ import { SectionDeleteComponent } from './section/section-delete/section-delete.
     CourseListComponent,
     SectionAddComponent,
     SectionEditComponent,
-    SectionDeleteComponent
+    SectionDeleteComponent,
+    ClaseAddComponent,
+    ClaseEditComponent,
+    ClaseDeleteComponent
   ],
   imports: [
     CommonModule,

@@ -5,7 +5,7 @@
 	<!--begin::Card header-->
 	<div class="card-header">
 		<!--begin::Card title-->
-		<div class="card-title fs-3 fw-bolder">Registrar Nueva Seccion</div>
+		<div class="card-title fs-3 fw-bolder">Registrar Nueva CLASE</div>
 		<!--end::Card title-->
 	</div>
 	<!--end::Card header-->
@@ -17,11 +17,88 @@
 			<!--begin::Row-->
 			<div class="row mb-8">
 				<div class="col-10">
-					<label class="fs-6 fw-bold mt-2 mb-3">Nombre de la seccion:</label>
+					<label class="fs-6 fw-bold mt-2 mb-3">Nombre de la clase:</label>
 					<input type="text" class="form-control form-control-solid" name="title" [(ngModel)]="title"  
 						placeholder="Colocar nombre para la seccion de cursos">
 				</div>
 			</div>
+
+            <div class="row mb-8">
+                <div class="col-12">
+					<div class="fs-6 fw-bold mt-2 mb-3">Descripcion: </div>
+				</div>
+				<div class="col-12 fv-row fv-plugins-icon-container">
+					<!--data="<p>Hello, world!</p>"-->
+					<ckeditor [data]="description" (change)="onChange($event)"></ckeditor>
+				</div>
+            </div>
+
+            <div class="row mb-8">
+                <div class="col-12">
+					<label class="form-label">Sube tus recursos de la clase: *</label>
+				</div>
+                <div class="col-5">
+					<div class="custom-file">
+						<input type="file" class="custom-file-input" id="customFile"
+							accept=".jpeg, .bmp, .jpg, .png, .gif, .webp" multiple (change)="processFile($event)">
+						<label class="custom-file-label" for="customFile">Choose file</label>
+					</div>
+				</div>
+                <div class="col-8">
+                    <div class="card card-flush">
+											<div class="card-header pt-7">
+												<h3 class="card-title align-items-start flex-column">
+													<span class="card-label fw-bolder text-dark">Lista de archivos</span>
+													<span class="text-gray-400 mt-1 fw-bold fs-6">Recursos descargables</span>
+												</h3>
+												<div class="card-toolbar">
+													
+												</div>
+											</div>
+											<div class="card-body">
+												<!--begin::Scroll-->
+												<div class="hover-scroll-overlay-y pe-6 me-n6">
+                                                    <ng-container *ngFor="let FILE of FILES">
+                                                        <!--begin::Item-->
+													<div class="rounded border-gray-300 border-1 border-gray-300 border-dashed px-7 py-3 mb-6">
+														<!--begin::Info-->
+														<div class="d-flex flex-stack mb-3">
+															<!--begin::Wrapper-->
+															<div class="me-3">
+																<!--begin::Icon-->
+																<img src="assets/media/svg/files/doc.svg" class="w-50px ms-n1 me-1" alt="">
+																<!--end::Icon-->
+																<!--begin::Title-->
+																<a href="#" onclick="return false;" class="text-gray-800 text-hover-primary fw-bolder">{{ FILE.name }}</a>
+																<!--end::Title-->
+															</div>
+															<!--end::Wrapper-->
+															<!--begin::Action-->
+															<div class="m-0">
+															</div>
+															<!--end::Action-->
+														</div>
+														<!--end::Info-->
+														<!--begin::Customer-->
+														<div class="d-flex flex-stack">
+															<!--begin::Name-->
+															<span class="text-gray-400 fw-bolder">Tamaño:
+															<a href="#" onclick="return false;" class="text-gray-800 text-hover-primary fw-bolder">{{ FILE.size }} KB</a></span>
+															<!--end::Name-->
+															<!--begin::Label-->
+															<span class="badge badge-light-success">Activo</span>
+															<!--end::Label-->
+														</div>
+														<!--end::Customer-->
+													</div>
+													<!--end::Item-->
+                                                    </ng-container>
+													
+												</div>
+											</div>
+										</div>
+                </div>
+            </div>
 		</div>
 		<!--end::Card body-->
 		<!--begin::Card footer-->
@@ -42,8 +119,8 @@
 											<!--begin::Header-->
 											<div class="card-header border-0 pt-5">
 												<h3 class="card-title align-items-start flex-column">
-													<span class="card-label fw-bolder fs-3 mb-1">Lista de secciones del curso</span>
-													<span class="text-muted mt-1 fw-bold fs-7">Secciones</span>
+													<span class="card-label fw-bolder fs-3 mb-1">Lista de las clases del curso</span>
+													<span class="text-muted mt-1 fw-bold fs-7">Clases</span>
 												</h3>
 												<div class="card-toolbar">
 													
@@ -71,7 +148,7 @@
 																<!--end::Table head-->
 																<!--begin::Table body-->
 																<tbody>
-                                                                    <ng-container *ngFor="let SECTION of SECTIONS;let i=index">
+                                                                    <ng-container *ngFor="let CLASE of CLASES;let i=index">
                                                                     <tr>
 																		<td>
 																			<div class="symbol symbol-50px me-2">
@@ -89,30 +166,20 @@
 																			</div>
 																		</td>
 																		<td>
-																			<a href="#" class="text-dark fw-bolder text-hover-primary mb-1 fs-6">{{ SECTION.name }}</a>
+																			<a href="#" class="text-dark fw-bolder text-hover-primary mb-1 fs-6">{{ CLASE.name }}</a>
 																			<span class="text-muted fw-bold d-block fs-7">Seccion: {{ i + 1 }}</span>
 																		</td>
 																		<td class="text-end">
 																			<span class="text-muted fw-bold d-block fs-8">0</span>
-																			<span class="text-dark fw-bolder d-block fs-7">Numero de Clases</span>
+																			<span class="text-dark fw-bolder d-block fs-7">Duracion</span>
 																		</td>
 																		<td class="text-end">
-																			<span class="badge badge-light-success fs-7 fw-bolder" *ngIf="SECTION.state == 1">ACTIVO</span>
-                                                                            <span class="badge badge-light-danger fs-7 fw-bolder" *ngIf="SECTION.state == 2">DES-ACTIVO</span>
+																			<span class="badge badge-light-success fs-7 fw-bolder" *ngIf="CLASE.state == 1">ACTIVO</span>
+                                                                            <span class="badge badge-light-danger fs-7 fw-bolder" *ngIf="CLASE.state == 2">DES-ACTIVO</span>
 																		</td>
 																		<td class="text-end">
 																			<div class="d-flex justify-content-between">
-																			<a href="#" onclick="return false;" [routerLink]="['/cursos/list/secciones/clases/', SECTION.id]" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-																	<!--begin::Svg Icon | path: icons/duotune/general/gen019.svg-->
-																	<span class="svg-icon svg-icon-3">
-																		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-																			<path d="M17.5 11H6.5C4 11 2 9 2 6.5C2 4 4 2 6.5 2H17.5C20 2 22 4 22 6.5C22 9 20 11 17.5 11ZM15 6.5C15 7.9 16.1 9 17.5 9C18.9 9 20 7.9 20 6.5C20 5.1 18.9 4 17.5 4C16.1 4 15 5.1 15 6.5Z" fill="currentColor"></path>
-																			<path opacity="0.3" d="M17.5 22H6.5C4 22 2 20 2 17.5C2 15 4 13 6.5 13H17.5C20 13 22 15 22 17.5C22 20 20 22 17.5 22ZM4 17.5C4 18.9 5.1 20 6.5 20C7.9 20 9 18.9 9 17.5C9 16.1 7.9 15 6.5 15C5.1 15 4 16.1 4 17.5Z" fill="currentColor"></path>
-																		</svg>
-																	</span>
-																	<!--end::Svg Icon-->
-																</a>
-																			<a href="#" onclick="return false;" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" (click)="editSection(SECTION)">
+																			<a href="#" onclick="return false;" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" (click)="editClases(CLASE)">
 																	<!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
 																	<span class="svg-icon svg-icon-3">
 																		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -122,7 +189,7 @@
 																	</span>
 																	<!--end::Svg Icon-->
 																</a>
-                                                                <a href="#" onclick="return false;" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" (click)="deleteSection(SECTION)">
+                                                                <a href="#" onclick="return false;" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" (click)="deleteClases(CLASE)">
 																	<!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
 																	<span class="svg-icon svg-icon-3">
 																		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
