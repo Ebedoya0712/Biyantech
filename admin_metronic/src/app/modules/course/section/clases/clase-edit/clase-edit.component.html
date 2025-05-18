@@ -78,6 +78,10 @@
 						<label class="custom-file-label" for="customFile">Choose file</label>
 					</div>
 				</div>
+                <div class="col-5">
+					<button class="btn btn-sm btn-primary" (click)="uploadFiles()" *ngIf="!isUploadFiles">+</button>
+					<span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isUploadFiles"></span>
+				</div>
                 <div class="col-8">
                     <div class="card card-flush">
 											<div class="card-header pt-7">

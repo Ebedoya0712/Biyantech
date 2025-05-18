@@ -23,6 +23,7 @@ export class ClaseEditComponent implements OnInit {
 
   video_curso:any = null;
   isUploadVideo:Boolean = false;
+  isUploadFiles:Boolean = false;
   link_video_course:any = null;
 
   constructor(
@@ -37,6 +38,7 @@ export class ClaseEditComponent implements OnInit {
     this.title = this.clase_selected.name;
     this.description = this.clase_selected.description;
     this.FILES_CLASE = this.clase_selected.files;
+    this.link_video_course = this.clase_selected.vimeo_id;
   }
 
   save(){
@@ -70,6 +72,25 @@ export class ClaseEditComponent implements OnInit {
   urlVideo(){
         return this.sanitizer.bypassSecurityTrustResourceUrl(this.link_video_course);
     }
+
+  uploadFiles(){
+    if(this.FILES.length == 0){
+        this.toaster.open({text: "NECESITAS SUBIR UN RECURSO A LA CLASE", caption:"VALIDACION", type: 'danger'});
+        return;
+      }
+    let formData = new FormData();
+    formData.append("course_clase_id", this.clase_selected.id);
+    this.FILES.forEach((file:any,index:number) => {
+        formData.append("files["+index+"]",file);
+      });
+    this.isUploadFiles = true;
+    this.courseService.registerClaseFile(formData).subscribe((resp:any) => {
+      this.isUploadFiles = false;
+      console.log(resp);
+      this.modal.close();
+      this.ClaseE.emit(resp.clase);
+    })
+  }
   processVideo($event:any){
       if($event.target.files[0].type.indexOf("video") < 0){
         this.toaster.open({text: 'SOLAMENTE SE ACEPTAN VIDEOS', caption:'MENSAJE DE VALIDACIÓN',type: 'danger'})
