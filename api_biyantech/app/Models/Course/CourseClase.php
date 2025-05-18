@@ -14,6 +14,7 @@ class CourseClase extends Model
     protected $fillable = [
         "course_section_id",
         "name",
+        "description",
         "state",
         "vimeo_id",
         "time"

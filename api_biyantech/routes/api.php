@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\Course\CategorieController;
+use App\Http\Controllers\Admin\Course\ClaseGController;
 use App\Http\Controllers\Admin\Course\CourseGController;
 use App\Http\Controllers\Admin\Course\SeccionGController;
 
@@ -54,4 +55,8 @@ Route::group([
     Route::post('/course/{id}', [CourseGController::class, "update"]);
 
     Route::resource('/course-section', SeccionGController::class);
+
+    Route::resource('/course-clases', ClaseGController::class);
+    Route::post('/course-clases-file', [ClaseGController::class, "addFiles"]);
+    Route::delete('/course-clases-file/{id}', [ClaseGController::class, "removeFiles"]);
 });

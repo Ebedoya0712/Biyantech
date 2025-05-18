@@ -13,9 +13,9 @@ class SeccionGController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $sections = CourseSection::orderBy("id","asc")->get();
+        $sections = CourseSection::where("course_id",$request->course_id)->orderBy("id","asc")->get();
 
         return response()->json(["sections" => $sections]);
     }

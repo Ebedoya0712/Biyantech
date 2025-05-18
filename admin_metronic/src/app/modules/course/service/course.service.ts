@@ -92,10 +92,10 @@ export class CourseService {
     );
   }
 
-  listSections(){
+  listSections(course_id:any){
 
     let headers = new HttpHeaders({'Authorization': 'Bearer '+this.authservice.token});
-    let URL = URL_SERVICIOS+"/course-section";
+    let URL = URL_SERVICIOS+"/course-section?course_id="+course_id;
     this.isLoadingSubject.next(true);
     return this.http.get(URL,{headers: headers}).pipe(
           finalize(() => this.isLoadingSubject.next(false))

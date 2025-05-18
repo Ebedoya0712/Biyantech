@@ -33,7 +33,7 @@ export class SectionAddComponent implements OnInit {
       this.course_id = resp.id;
     })
 
-    this.courseService.listSections().subscribe((resp:any) =>{
+    this.courseService.listSections(this.course_id).subscribe((resp:any) =>{
       console.log(resp);
       this.SECTIONS = resp.sections;
     })
