@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CourseService } from '../../../service/course.service';
 import { Toaster } from 'ngx-toast-notifications';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ClaseEditComponent } from '../clase-edit/clase-edit.component';
 
 @Component({
   selector: 'app-clase-add',
@@ -23,6 +25,7 @@ export class ClaseAddComponent implements OnInit {
     public courseService: CourseService,
     public activedRouter:ActivatedRoute,
     public toaster: Toaster,
+    public modalService: NgbModal,
   ) { }
 
   ngOnInit(): void {
@@ -33,7 +36,7 @@ export class ClaseAddComponent implements OnInit {
     this.isLoading = this.courseService.isLoading$;
     this.courseService.listClases(this.section_id).subscribe((resp:any) =>{
       console.log(resp);
-      this.CLASES = resp.clases;
+      this.CLASES = resp.clases.data;
     })
   }
 
@@ -65,7 +68,13 @@ export class ClaseAddComponent implements OnInit {
   }
 
   editClases(CLASE:any){
+    const modalRef = this.modalService.open(ClaseEditComponent,{centered: true, size: 'md'});
+    modalRef.componentInstance.clase_selected = CLASE;
 
+    modalRef.componentInstance.ClaseE.subscribe((CLASEE:any)=>{
+      let INDEX = this.CLASES.findIndex((item:any) => item.id == CLASEE.id);
+      this.CLASES[INDEX] = CLASEE;
+    })
   }
 
   deleteClases(CLASE:any){
