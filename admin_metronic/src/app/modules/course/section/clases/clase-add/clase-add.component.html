@@ -38,9 +38,10 @@
 					<label class="form-label">Sube tus recursos de la clase: *</label>
 				</div>
                 <div class="col-5">
+                    <!--accept=".jpeg, .bmp, .jpg, .png, .gif, .webp"-->
 					<div class="custom-file">
 						<input type="file" class="custom-file-input" id="customFile"
-							accept=".jpeg, .bmp, .jpg, .png, .gif, .webp" multiple (change)="processFile($event)">
+							multiple (change)="processFile($event)">
 						<label class="custom-file-label" for="customFile">Choose file</label>
 					</div>
 				</div>
@@ -170,7 +171,8 @@
 																			<span class="text-muted fw-bold d-block fs-7">Seccion: {{ i + 1 }}</span>
 																		</td>
 																		<td class="text-end">
-																			<span class="text-muted fw-bold d-block fs-8">0</span>
+																			<span class="text-muted fw-bold d-block fs-8" *ngIf="!CLASE.time">0</span>
+																			<span class="text-muted fw-bold d-block fs-8" *ngIf="CLASE.time">{{ CLASE.time }}</span>
 																			<span class="text-dark fw-bolder d-block fs-7">Duracion</span>
 																		</td>
 																		<td class="text-end">
