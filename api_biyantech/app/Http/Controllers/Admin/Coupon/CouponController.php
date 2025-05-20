@@ -20,7 +20,9 @@ class CouponController extends Controller
      */
     public function index(Request $request)
     {
-        $coupons = Coupon::orderBy("id","desc")->get();
+        $search = $request->search;
+        $state = $request->state;
+        $coupons = Coupon::filterAdvance($search,$state)->orderBy("id","desc")->get();
 
         return response()->json(["message" => 200, "coupons" => CouponCollection::make($coupons)]);
     }

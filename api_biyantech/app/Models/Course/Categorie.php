@@ -43,7 +43,7 @@ class Categorie extends Model
     function scopeFilterAdvance($query, $search, $state)
     {
         if($search){
-            $query->where("name","like","%".$search."%");
+            $query->where("code","like","%".$search."%");
         }
         if($state){
             $query->where("state",$state);
