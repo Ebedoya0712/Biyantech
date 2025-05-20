@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Coupon\CouponController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -60,4 +61,7 @@ Route::group([
     Route::post('/course-clases-file', [ClaseGController::class, "addFiles"]);
     Route::delete('/course-clases-file/{id}', [ClaseGController::class, "removeFiles"]);
     Route::post('/course-clases/upload_video/{id}', [ClaseGController::class, "upload_video"]);
+
+    Route::get('/coupon/config', [CouponController::class, "config"]);
+    Route::resource('/coupon', CouponController::class);
 });
