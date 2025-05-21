@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Coupon;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Course\Coupon\CouponCollection;
+use App\Http\Resources\Course\Coupon\CouponResource;
 use App\Models\Coupon\Coupon;
 use App\Models\Coupon\CouponCategorie;
 use App\Models\Coupon\CouponCourse;
@@ -105,7 +106,11 @@ class CouponController extends Controller
      */
     public function show($id)
     {
-        //
+        $coupon = Coupon::findOrFail($id);
+
+        return response()->json([
+            "coupon" => CouponResource::make($coupon),
+        ]);
     }
 
     /**
