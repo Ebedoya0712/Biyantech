@@ -16,6 +16,7 @@ export class EditComponent implements OnInit {
     type_count:number = 1;
     num_use:any = null;
     type_coupon:number = 1;
+    state:number = 1;
     // 
   
     categorie_id:any = null;
@@ -63,6 +64,7 @@ export class EditComponent implements OnInit {
         this.type_count = this.cupon_selected.type_count;
         this.num_use = this.cupon_selected.num_use;
         this.type_coupon = this.cupon_selected.type_coupon;
+        this.state = this.cupon_selected.state;
 
         if(this.type_coupon == 1){
           this.course_selecteds = this.cupon_selected.courses;
@@ -99,6 +101,7 @@ export class EditComponent implements OnInit {
         type_coupon: this.type_coupon,
         course_selected: this.course_selecteds,
         categorie_selected: this.categorie_selecteds,
+        state: this.state,
       };
       this.couponService.updateCoupon(data,this.coupon_id).subscribe((resp:any) => {
         console.log(resp);

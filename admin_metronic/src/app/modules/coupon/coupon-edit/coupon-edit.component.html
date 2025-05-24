@@ -75,6 +75,17 @@
                 <div class="col-3" *ngIf="type_count == 2">
                     <input type="number" class="form-control form-control-solid" name="num_use" [(ngModel)]="num_use" placeholder="30">
                 </div>
+                <div class="col-3">
+                    <select
+                        class="form-control"
+                        name="status"
+                        placeholder="Status"
+                        [(ngModel)]="state"
+                    >
+                        <option value="1">Activo</option>
+                        <option value="2">Desactivo</option></select
+                    >
+                </div>
             </div>
 
             <div class="row mb-8 align-items-center">
