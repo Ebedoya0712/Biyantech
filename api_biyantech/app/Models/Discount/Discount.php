@@ -15,7 +15,7 @@ class Discount extends Model
         "code",
         "type_discount",// 1 es % y 2 es monto fijo
         "discount",//el monto de descuento
-        "star_date",// 1 es ilimitado y 2 es limitado
+        "start_date",// 1 es ilimitado y 2 es limitado
         "end_date",// el numero de usos permitidos
         "discount_type" , // 1 es por productos y 2 es por categorias
         "type_campaing",
