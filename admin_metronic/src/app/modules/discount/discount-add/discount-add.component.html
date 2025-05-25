@@ -2,7 +2,7 @@
     <!--begin::Card header-->
     <div class="card-header">
         <!--begin::Card title-->
-        <div class="card-title fs-3 fw-bolder">Registrar Nueva Campaña De Descuento</div>
+        <div class="card-title fs-3 fw-bolder">Registrar Nueva Campaña de descuento</div>
         <!--end::Card title-->
     </div>
     <!--end::Card header-->
@@ -47,6 +47,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-3">
                     <div class="row g-9">
                         <div class="col-12">
@@ -72,28 +73,30 @@
                     </div>
                 </div>
                 <div class="col-3">
-                    <input type="number" class="form-control form-control-solid" name="bs" [(ngModel)]="discount" placeholder="30">
+                    <input type="number" class="form-control form-control-solid" name="pen" [(ngModel)]="discount" placeholder="30">
                 </div>
 
                 <div class="col-3">
                     <div class="row">
                         <div class="col-12">
-                        <label class="fs-6 fw-bold mt-2 mb-3">Fecha de inicio: </label>
-                    <div class="input-group input-group-solid">
-                    <input type="date"
-                    class="form-control form-control-lg form-control-solid"
-                    [(ngModel)]="start_date"
-                    />
-                    </div>
+                            <label class="fs-6 fw-bold mt-2 mb-3">Fecha de inicio: </label>
+                            <div class="input-group input-group-solid">
+                                <input type="date"
+                                class="form-control form-control-lg form-control-solid"
+                                name="start_date"
+                                [(ngModel)]="start_date"
+                                />
+                              </div>
                         </div>
                         <div class="col-12">
-                    <label class="fs-6 fw-bold mt-2 mb-3">Fecha de fin: </label>
-                    <div class="input-group input-group-solid">
-                    <input type="date"
-                    class="form-control form-control-lg form-control-solid"
-                    [(ngModel)]="end_date"
-                    />
-                </div>
+                            <label class="fs-6 fw-bold mt-2 mb-3">Fecha de fin: </label>
+                            <div class="input-group input-group-solid">
+                                <input type="date"
+                                class="form-control form-control-lg form-control-solid"
+                                name="end_date"
+                                [(ngModel)]="end_date"
+                                />
+                              </div>
                         </div>
                     </div>
                 </div>
@@ -261,7 +264,7 @@
         <!--end::Card body-->
         <!--begin::Card footer-->
         <div class="card-footer d-flex justify-content-end py-6 px-9">
-            <button type="button" (click)="save()" class="btn btn-primary" id="kt_project_settings_submit">GUARDAR CUPON</button>
+            <button type="button" (click)="save()" class="btn btn-primary" id="kt_project_settings_submit">GUARDAR DESCUENTO</button>
         </div>
         <!--end::Card footer-->
     <input type="hidden"><div></div></form>

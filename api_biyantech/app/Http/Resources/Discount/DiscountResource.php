@@ -2,8 +2,8 @@
 
 namespace App\Http\Resources\Discount;
 
-use Illuminate\Http\Resources\Json\JsonResource;
 use Carbon\Carbon;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class DiscountResource extends JsonResource
 {
