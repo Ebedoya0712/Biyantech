@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\Coupon\CouponController;
+use App\Http\Controllers\Admin\Discount\DiscountController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -64,4 +65,6 @@ Route::group([
 
     Route::get('/coupon/config', [CouponController::class, "config"]);
     Route::resource('/coupon', CouponController::class);
+
+    Route::resource('/discount', DiscountController::class);
 });

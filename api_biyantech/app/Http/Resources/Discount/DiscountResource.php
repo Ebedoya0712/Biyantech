@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Discount;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Carbon\Carbon;
 
 class DiscountResource extends JsonResource
 {
@@ -14,6 +15,32 @@ class DiscountResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            "id" => $this->resource->id,
+            "code" => $this->resource->code,
+            "type_discount" => $this->resource->type_discount,// 1 es % y 2 es monto fijo
+            "discount" => $this->resource->discount,//el monto de descuento
+            "start_date" => Carbon::parse($this->resource->start_date)->format("Y-m-d"),// 1 es ilimitado y 2 es limitado
+            "end_date" => Carbon::parse($this->resource->end_date)->format("Y-m-d"),// el numero de usos permitidos
+            "discount_type" => $this->resource->discount_type, // 1 es por productos y 2 es por categorias
+            "type_campaing" => $this->resource->type_campaing,
+            "state" => $this->resource->state ?? 1,
+            "courses" => $this->resource->courses->map(function($course_axu) {
+                return [
+                    "id" => $course_axu->course->id,
+                    "title" => $course_axu->course->title,
+                    "imagen" => env("APP_URL")."storage/".$course_axu->course->imagen,
+                    "axu_id" => $course_axu->id,
+                ];
+            }),
+            "categories" => $this->resource->categories->map(function($categorie_axu) {
+                return [
+                    "id" => $categorie_axu->categorie->id,
+                    "name" => $categorie_axu->categorie->name,
+                    "imagen" => env("APP_URL")."storage/".$categorie_axu->categorie->imagen,
+                    "axu_id" => $categorie_axu->id,
+                ];
+            }),
+        ];
     }
 }
