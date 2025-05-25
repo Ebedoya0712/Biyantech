@@ -2,7 +2,7 @@
     <!--begin::Card header-->
     <div class="card-header">
         <!--begin::Card title-->
-        <div class="card-title fs-3 fw-bolder">Registrar Nuevo Cupon</div>
+        <div class="card-title fs-3 fw-bolder">Registrar Nueva Campaña De Descuento</div>
         <!--end::Card title-->
     </div>
     <!--end::Card header-->
@@ -13,9 +13,39 @@
         <div class="card-body p-9">
             
             <div class="row mb-8 align-items-center">
-                <div class="col-4">
-                    <label class="fs-6 fw-bold mt-2 mb-3">Nombre del cupón: </label>
-                    <input type="text" class="form-control form-control-solid" name="title" [(ngModel)]="code" placeholder="PROMOABRIL">
+                <div class="col-3">
+                    <div class="row g-9">
+                        <div class="col-12">
+                            <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6" [ngClass]="{'active': type_campaing == 1}" data-kt-button="true">
+                                <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                    <input class="form-check-input" type="radio" name="type_campaing" [checked]="type_campaing == 1" (click)="selectedTypeCampaing(1)">
+                                </span>
+                                <span class="ms-5">
+                                    <span class="fs-6 fw-bolder mb-1 d-block">Campaña normal</span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="col-12">
+                            <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6" [ngClass]="{'active': type_campaing == 2}" data-kt-button="true">
+                                <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                    <input class="form-check-input" type="radio" name="type_campaing" [checked]="type_campaing == 2" (click)="selectedTypeCampaing(2)">
+                                </span>
+                                <span class="ms-5">
+                                    <span class="fs-6 fw-bolder mb-1 d-block">Campaña Flash</span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="col-12">
+                            <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6" [ngClass]="{'active': type_campaing == 3}" data-kt-button="true">
+                                <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                    <input class="form-check-input" type="radio" name="type_campaing" [checked]="type_campaing == 3" (click)="selectedTypeCampaing(3)">
+                                </span>
+                                <span class="ms-5">
+                                    <span class="fs-6 fw-bolder mb-1 d-block">Campaña Banner</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-3">
                     <div class="row g-9">
@@ -44,58 +74,52 @@
                 <div class="col-3">
                     <input type="number" class="form-control form-control-solid" name="bs" [(ngModel)]="discount" placeholder="30">
                 </div>
-            </div>
-            
-            <div class="row mb-8 align-items-center">
+
                 <div class="col-3">
-                    <div class="row g-9">
+                    <div class="row">
                         <div class="col-12">
-                            <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6" [ngClass]="{'active': type_count == 1}" data-kt-button="true">
-                                <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-                                    <input class="form-check-input" type="radio" name="type_count" [checked]="type_count == 1" (click)="selectedTypeCount(1)">
-                                </span>
-                                <span class="ms-5">
-                                    <span class="fs-6 fw-bolder mb-1 d-block">Ilimitado</span>
-                                </span>
-                            </label>
+                        <label class="fs-6 fw-bold mt-2 mb-3">Fecha de inicio: </label>
+                    <div class="input-group input-group-solid">
+                    <input type="date"
+                    class="form-control form-control-lg form-control-solid"
+                    [(ngModel)]="start_date"
+                    />
+                    </div>
                         </div>
                         <div class="col-12">
-                            <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6"[ngClass]="{'active': type_count == 2}"  data-kt-button="true">
-                                <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-                                    <input class="form-check-input" type="radio" name="type_count" [checked]="type_count == 2" (click)="selectedTypeCount(2)">
-                                </span>
-                                <span class="ms-5">
-                                    <span class="fs-6 fw-bolder mb-1 d-block">Limitado</span>
-                                </span>
-                            </label>
+                    <label class="fs-6 fw-bold mt-2 mb-3">Fecha de fin: </label>
+                    <div class="input-group input-group-solid">
+                    <input type="date"
+                    class="form-control form-control-lg form-control-solid"
+                    [(ngModel)]="end_date"
+                    />
+                </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-3" *ngIf="type_count == 2">
-                    <input type="number" class="form-control form-control-solid" name="num_use" [(ngModel)]="num_use" placeholder="30">
-                </div>
             </div>
+            
 
             <div class="row mb-8 align-items-center">
                 <div class="col-3">
                     <div class="row g-9">
                         <div class="col-12">
-                            <label class="fs-6 fw-bold mt-2 mb-3">Selec. Tipo de Cupón: </label>
+                            <label class="fs-6 fw-bold mt-2 mb-3">Selec. Tipo de Descuento: </label>
                         </div>
                         <div class="col-12">
-                            <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6" [ngClass]="{'active': type_coupon == 1}" data-kt-button="true">
+                            <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6" [ngClass]="{'active': discount_type == 1}" data-kt-button="true">
                                 <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-                                    <input class="form-check-input" type="radio" name="type_coupon" [checked]="type_coupon == 1" (click)="selectedTypeCoupon(1)">
+                                    <input class="form-check-input" type="radio" name="discount_type" [checked]="discount_type == 1" (click)="selectedTypeCoupon(1)">
                                 </span>
                                 <span class="ms-5">
                                     <span class="fs-6 fw-bolder mb-1 d-block">Curso</span>
                                 </span>
                             </label>
                         </div>
-                        <div class="col-12">
-                            <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6"[ngClass]="{'active': type_coupon == 2}"  data-kt-button="true">
+                        <div class="col-12" *ngIf="type_campaing == 1">
+                            <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6"[ngClass]="{'active': discount_type == 2}"  data-kt-button="true">
                                 <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-                                    <input class="form-check-input" type="radio" name="type_coupon" [checked]="type_coupon == 2" (click)="selectedTypeCoupon(2)">
+                                    <input class="form-check-input" type="radio" name="discount_type" [checked]="discount_type == 2" (click)="selectedTypeCoupon(2)">
                                 </span>
                                 <span class="ms-5">
                                     <span class="fs-6 fw-bolder mb-1 d-block">Categorias</span>
@@ -104,7 +128,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3" *ngIf="type_coupon == 2">
+                <div class="col-3" *ngIf="discount_type == 2">
                     <label class="fs-6 fw-bold mt-2 mb-3">Selec. Categoria: </label>
                     <select
                         class="form-control form-select-solid fw-bolder"
@@ -118,7 +142,7 @@
                     </select>
                     <button class="btn btn-sm btn-primary" (click)="addCategorieSelected()">+</button>
                 </div>
-                <div class="col-3" *ngIf="type_coupon == 1">
+                <div class="col-3" *ngIf="discount_type == 1">
                     <label class="fs-6 fw-bold mt-2 mb-3">Selec. Curso: </label>
                     <select
                         class="form-control form-select-solid fw-bolder"
@@ -132,7 +156,7 @@
                     </select>
                     <button class="btn btn-sm btn-primary" (click)="addCourseSelected()">+</button>
                 </div>
-                <div class="col-4" *ngIf="type_coupon == 1">
+                <div class="col-4" *ngIf="discount_type == 1">
                     <div class="table-responsive">
                         <!--begin::Table-->
                         <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
@@ -182,7 +206,7 @@
                         <!--end::Table-->
                     </div>
                 </div>
-                <div class="col-4" *ngIf="type_coupon == 2">
+                <div class="col-4" *ngIf="discount_type == 2">
                     <div class="table-responsive">
                         <!--begin::Table-->
                         <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
