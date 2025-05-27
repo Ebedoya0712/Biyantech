@@ -10,6 +10,8 @@ use App\Http\Controllers\Admin\Course\CategorieController;
 use App\Http\Controllers\Admin\Course\ClaseGController;
 use App\Http\Controllers\Admin\Course\CourseGController;
 use App\Http\Controllers\Admin\Course\SeccionGController;
+use App\Http\Controllers\Tienda\HomeController;
+use Illuminate\Routing\RouteGroup;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,4 +69,8 @@ Route::group([
     Route::resource('/coupon', CouponController::class);
 
     Route::resource('/discount', DiscountController::class);
+});
+
+Route::group(["prefix" => "ecommerce"], function($router){
+    Route::get("home",[HomeController::class,"home"]);
 });

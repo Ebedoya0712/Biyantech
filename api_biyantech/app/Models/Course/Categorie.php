@@ -40,6 +40,11 @@ class Categorie extends Model
         return $this->belongsTo(Categorie::class,"categorie_id");
     }
 
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
+
     function scopeFilterAdvance($query, $search, $state)
     {
         if($search){

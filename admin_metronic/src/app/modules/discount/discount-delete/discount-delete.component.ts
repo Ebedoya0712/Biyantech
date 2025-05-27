@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DiscountService } from '../service/discount.service';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Toaster } from 'ngx-toast-notifications';
 
 @Component({
   selector: 'app-discount-delete',
@@ -7,9 +10,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DiscountDeleteComponent implements OnInit {
 
-  constructor() { }
+  @Input() discount:any;
+
+  @Output() DiscountD: EventEmitter<any> = new EventEmitter();
+  isLoading:any;
+  constructor(
+    public discountService: DiscountService,
+    public toaster:Toaster,
+    public modal: NgbActiveModal,
+  ) { }
 
   ngOnInit(): void {
+    this.isLoading = this.discountService.isLoading$;
+  }
+
+  delete(){
+    this.discountService.deleteDiscount(this.discount.id).subscribe((resp:any) => {
+      // console.log(resp)
+      this.DiscountD.emit("");
+      this.modal.dismiss();
+    })
   }
 
 }

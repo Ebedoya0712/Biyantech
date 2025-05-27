@@ -5,7 +5,6 @@ import { DiscountAddComponent } from './discount-add/discount-add.component';
 import { DiscountEditComponent } from './discount-edit/discount-edit.component';
 import { DiscountListComponent } from './discount-list/discount-list.component';
 
-
 const routes: Routes = [{
   path: '',
   component: DiscountComponent,
@@ -15,7 +14,7 @@ const routes: Routes = [{
       component: DiscountAddComponent,
     },
     {
-      path: 'editar/:id',
+      path: 'list/editar/:id',
       component: DiscountEditComponent,
     },
     {
