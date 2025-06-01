@@ -11,6 +11,7 @@ declare function HOMEINIT([]):any;
 export class HomeComponent implements OnInit{
 
   CATEGORIES:any = [];
+  COURSES_HOME:any = [];
 
   constructor(
     public homeService: HomeService,
@@ -24,6 +25,7 @@ export class HomeComponent implements OnInit{
         this.homeService.home().subscribe((resp:any) => {
             console.log(resp);
             this.CATEGORIES = resp.categories;
+            this.COURSES_HOME = resp.courses_home.data;
         });
     }
 }

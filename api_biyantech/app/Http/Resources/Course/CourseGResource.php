@@ -19,23 +19,23 @@ class CourseGResource extends JsonResource
             "title" => $this->resource->title,
             "slug" => $this->resource->slug,
             "subtitle" => $this->resource->subtitle,
-            "imagen" => env("APP_URL")."storage/".$this->resource->imagen,
+            "imagen" => $this->resource->imagen ? env("APP_URL")."storage/".$this->resource->imagen : null,
             "user_id" => $this->resource->user_id,
-            "user" => [
+            "user" => $this->resource->instructor ? [
                 "id" => $this->resource->instructor->id,
                 "full_name" => $this->resource->instructor->name.' '.$this->resource->instructor->surname,
                 "email" => $this->resource->instructor->email,
-            ],
+            ] : null,
             "categorie_id" => $this->resource->categorie_id,
-            "categorie" => [
+            "categorie" => $this->resource->categorie ? [
                 "id" => $this->resource->categorie->id,
                 "name" => $this->resource->categorie->name
-            ],
+            ] : null,
             "sub_categorie_id" => $this->resource->sub_categorie_id,
-            "sub_categorie" => [
+            "sub_categorie" => $this->resource->sub_categorie ? [
                 "id" => $this->resource->sub_categorie->id,
                 "name" => $this->resource->sub_categorie->name
-            ],
+            ] : null,
             "precio_usd" => $this->resource->precio_usd,
             "precio_bs" => $this->resource->precio_bs,
             "level" => $this->resource->level,
