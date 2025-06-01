@@ -12,6 +12,7 @@ export class HomeComponent implements OnInit{
 
   CATEGORIES:any = [];
   COURSES_HOME:any = [];
+  group_courses_categories:any = [];
 
   constructor(
     public homeService: HomeService,
@@ -26,6 +27,7 @@ export class HomeComponent implements OnInit{
             console.log(resp);
             this.CATEGORIES = resp.categories;
             this.COURSES_HOME = resp.courses_home.data;
+            this.group_courses_categories = resp.group_courses_categories;
         });
     }
 }

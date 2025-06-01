@@ -16,6 +16,21 @@ class HomeController extends Controller
 
         $courses = Course::where("state",2)->inRandomOrder()->limit(3)->get();
 
+        $categories_courses = Categorie::where("categorie_id",NULL)->withCount("courses")
+                        ->having("courses_count",">",0)
+                        ->orderBy("id", "desc")->take(5)->get();
+        $group_courses_categories = collect([]);
+
+        foreach ($categories_courses as $key => $categories_course){
+            $group_courses_categories->push([
+                "id" => $categories_course->id,
+                "name" => $categories_course->name,
+                "name_empty" => str_replace(" ", "", $categories_course->name),
+                "courses_count" => $categories_course->courses_count,
+                "courses" => CourseHomeCollection::make($categories_course->courses),
+            ]);
+        }
+
         return response()->json([
             "categories" => $categories->map(function($categorie){
                 return [
@@ -26,6 +41,7 @@ class HomeController extends Controller
                 ];
             }),
             "courses_home" => CourseHomeCollection::make($courses),
+            "group_courses_categories" => $group_courses_categories,
         ]);
     }
 }
