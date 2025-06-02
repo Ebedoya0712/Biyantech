@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Tienda;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Ecommerce\Course\CourseHomeCollection;
+use App\Http\Resources\Ecommerce\Course\CourseHomeResource;
 use App\Models\Course\Categorie;
 use App\Models\Course\Course;
+use App\Models\Discount\Discount;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -31,6 +33,18 @@ class HomeController extends Controller
             ]);
         }
 
+        date_default_timezone_set("America/Caracas");
+        $DESCOUNT_BANNER = Discount::where("type_campaing", 3)->where("state",1)
+                        ->where("start_date","<=",today())
+                        ->where("end_date",">=",today())
+                        ->first();
+        
+        $DESCOUNT_BANNER_COURSES = collect([]);
+        if($DESCOUNT_BANNER){
+            foreach ($DESCOUNT_BANNER->courses as $key => $course_discount){
+                $DESCOUNT_BANNER_COURSES->push(CourseHomeResource::make($course_discount->course));
+            }
+        }
         return response()->json([
             "categories" => $categories->map(function($categorie){
                 return [
@@ -42,6 +56,8 @@ class HomeController extends Controller
             }),
             "courses_home" => CourseHomeCollection::make($courses),
             "group_courses_categories" => $group_courses_categories,
+            "DESCOUNT_BANNER" => $DESCOUNT_BANNER,
+            "DESCOUNT_BANNER_COURSES" => $DESCOUNT_BANNER_COURSES,
         ]);
     }
 }

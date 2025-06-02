@@ -141,14 +141,14 @@ function HOMEINIT($, undefined) {
         },
 
         eduSwiperActive: function () {
-            var swiper = new Swiper('.banner-swiper-active', {
-                effect: 'cards',
-                grabCursor: true,
-                pagination: {
-                    el: '.rbt-swiper-pagination',
-                    clickable: true,
-                },
-            });
+            //var swiper = new Swiper('.banner-swiper-active', {
+                //effect: 'cards',
+                //grabCursor: true,
+                //pagination: {
+                    //el: '.rbt-swiper-pagination',
+                    //clickable: true,
+                //},
+            //});
 
             var swiper = new Swiper('.team-slide-activation', {
                 slidesPerView: 1,
@@ -1044,4 +1044,15 @@ function HOMEINIT($, undefined) {
     .on('focus', 'input:not([type="radio"]),input:not([type="checkbox"]),textarea,select', inputFocus)
     /*.on('click', '.search-trigger-active', openSideNav)
     .on('click', '.side-nav-opened', closeSideNav)*/
+}
+
+function banner_home(){
+    var swiper = new Swiper('.banner-swiper-active', {
+                effect: 'cards',
+                grabCursor: true,
+                pagination: {
+                    el: '.rbt-swiper-pagination',
+                    clickable: true,
+                },
+            });
 }

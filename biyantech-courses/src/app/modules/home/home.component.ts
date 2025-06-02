@@ -3,6 +3,7 @@ import { HomeService } from './services/home.service';
 
 declare var $:any ;
 declare function HOMEINIT([]):any;
+declare function banner_home():any;
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -13,6 +14,8 @@ export class HomeComponent implements OnInit{
   CATEGORIES:any = [];
   COURSES_HOME:any = [];
   group_courses_categories:any = [];
+  DESCOUNT_BANNER:any = null;
+  DESCOUNT_BANNER_COURSES:any = [];
 
   constructor(
     public homeService: HomeService,
@@ -28,6 +31,20 @@ export class HomeComponent implements OnInit{
             this.CATEGORIES = resp.categories;
             this.COURSES_HOME = resp.courses_home.data;
             this.group_courses_categories = resp.group_courses_categories;
+            this.DESCOUNT_BANNER = resp. DESCOUNT_BANNER;
+            this.DESCOUNT_BANNER_COURSES = resp. DESCOUNT_BANNER_COURSES;
+
+            setTimeout(() => {
+                banner_home();
+            }, 50);
         });
     }
+
+    getNewTotal(COURSE:any, DESCOUNT_BANNER:any) {
+      if(DESCOUNT_BANNER.type_discount === 1) {
+        return COURSE.precio_usd - COURSE.precio_usd * (DESCOUNT_BANNER.discount * 0.01);
+      }else{
+        return COURSE.precio_usd - DESCOUNT_BANNER.discount;
+      }
+  }
 }

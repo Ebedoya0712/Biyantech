@@ -14,13 +14,6 @@ export const routes: Routes = [
       import('./modules/errors/errors.module').then((m) => m.ErrorsModule),
   },
   {
-    path: 'certificate',
-    loadChildren: () =>
-      import('./modules/certificate/certificate.module').then(
-        (m) => m.CertificateModule
-      ),
-  },
-  {
     path: '',
     canActivate: [AuthGuard],
     loadChildren: () =>
