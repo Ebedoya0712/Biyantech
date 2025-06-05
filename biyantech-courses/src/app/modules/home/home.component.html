@@ -140,221 +140,97 @@
         </div>
     </div>
 
-    <div class="rbt-counterup-area bg-color-white">
-        <div class="conter-style-2">
-            <div class="container">
-                <div class="row g-5 align-items-center">
-                    <div class="col-lg-6 order-2 order-lg-1">
-                        <div class="section-title text-start">
-                            <span class="subtitle bg-pink-opacity">Descuento</span>
-                            <h2 class="title">Aprovecha el 50% menos en estos cursos !</h2>
-                            <p class="description has-medium-font-size mt--20 mb--0">Tiempo limitado del 05/07/2023 a 15/07/2023.</p>
-                        </div>
-                        <div class="countdown-style-1 mt--50 d-flex justify-content-center">
-                            <div class="countdown" data-date="2023-12-30" style="">
-                                <div class="countdown-container days">
-                                    <span class="countdown-value">87</span>
-                                    <span class="countdown-heading">Days</span>
-                                </div>
-                                <div class="countdown-container hours">
-                                    <span class="countdown-value">23</span>
-                                    <span class="countdown-heading">Hours</span>
-                                </div>
-                                <div class="countdown-container minutes">
-                                    <span class="countdown-value">38</span>
-                                    <span class="countdown-heading">Minutes</span>
-                                </div>
-                                <div class="countdown-container seconds">
-                                    <span class="countdown-value">27</span>
-                                    <span class="countdown-heading">Seconds</span>
+    <div class="rbt-counterup-area bg-color-white" *ngIf="DESCOUNT_FLASH">
+            <div class="conter-style-2">
+                <div class="container">
+                    <div class="row g-5 align-items-center">
+                        <div class="col-lg-6 order-2 order-lg-1">
+                            <div class="section-title text-start">
+                                <span class="subtitle bg-pink-opacity">Descuento</span>
+                                <h2 class="title">Aprovecha el {{ DESCOUNT_FLASH.discount }}% menos en estos cursos !</h2>
+                                <p class="description has-medium-font-size mt--20 mb--0">Tiempo limitado del {{ DESCOUNT_FLASH.start_date_d }} a {{ DESCOUNT_FLASH.end_date_d }}.</p>
+                            </div>
+                            <div class="countdown-style-1 mt--50 d-flex justify-content-center">
+                                <div class="countdown" [attr.data-date]="DESCOUNT_FLASH.end_date" style="">
+                                    <div class="countdown-container days">
+                                        <span class="countdown-value">87</span>
+                                        <span class="countdown-heading">Days</span>
+                                    </div>
+                                    <div class="countdown-container hours">
+                                        <span class="countdown-value">23</span>
+                                        <span class="countdown-heading">Hours</span>
+                                    </div>
+                                    <div class="countdown-container minutes">
+                                        <span class="countdown-value">38</span>
+                                        <span class="countdown-heading">Minutes</span>
+                                    </div>
+                                    <div class="countdown-container seconds">
+                                        <span class="countdown-value">27</span>
+                                        <span class="countdown-heading">Seconds</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-6 order-1 order-lg-2">
-                        <div class="row">
-                            <!-- Start Single Course  -->
-                            <div class="col-md-6 col-sm-12 col-12 py-3">
-                                <div class="rbt-card variation-01 rbt-hover">
-                                    <div class="rbt-card-img">
-                                        <a href="course-details.html">
-                                            <img src="assets/images/course/course-online-01.jpg" alt="Card image">
-                                        </a>
-                                    </div>
-                                    <div class="rbt-card-body">
-                                        <div class="rbt-card-top">
-                                            <div class="rbt-review">
-                                                <div class="rating">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
+                        <div class="col-lg-6 order-1 order-lg-2">
+                            <div class="row">
+                                <ng-container *ngFor="let COURSE of DESCOUNT_FLASH_COURSES">
+                                    <div class="col-md-6 col-sm-12 col-12 py-3">
+                                    <div class="rbt-card variation-01 rbt-hover">
+                                        <div class="rbt-card-img">
+                                            <a href="course-details.html">
+                                                <img [src]="COURSE.imagen" alt="Card image">
+                                                <div class="rbt-badge-3 bg-white">
+                                                    <span *ngIf="DESCOUNT_FLASH.type_discount == 1">-{{ DESCOUNT_FLASH.discount }}%</span>
+                                                    <span *ngIf="DESCOUNT_FLASH.type_discount == 2">-{{ DESCOUNT_FLASH.discount }}USD</span>
+                                                    <span>Off</span>
                                                 </div>
-                                                <span class="rating-count"> (15 Reviews)</span>
-                                            </div>
-                                            <div class="rbt-bookmark-btn">
-                                                <a class="rbt-round-btn" title="Bookmark" href="#"><i
-                                            class="feather-bookmark"></i></a>
-                                            </div>
+                                            </a>
                                         </div>
-                                        <h4 class="rbt-card-title"><a href="course-details.html">React Front To Back</a>
-                                        </h4>
-                                        <ul class="rbt-meta">
-                                            <li><i class="feather-book"></i>20 Lessons</li>
-                                            <li><i class="feather-users"></i>40 Students</li>
-                                        </ul>
-
-                                        <div class="rbt-card-bottom">
-                                            <div class="rbt-price">
-                                                <span class="current-price">$60</span>
-                                                <span class="off-price">$120</span>
+                                        <div class="rbt-card-body">
+                                            <div class="rbt-card-top">
+                                                <div class="rbt-review">
+                                                    <div class="rating">
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                    </div>
+                                                    <span class="rating-count"> (15 Reviews)</span>
+                                                </div>
+                                                <div class="rbt-bookmark-btn">
+                                                    <a class="rbt-round-btn" title="Bookmark" href="#"><i
+                                                class="feather-bookmark"></i></a>
+                                                </div>
                                             </div>
-                                            <a class="rbt-btn-link" href="course-details.html">Learn
-                                                More<i class="feather-arrow-right"></i></a>
+                                            <h4 class="rbt-card-title"><a href="course-details.html">{{ COURSE.title }}</a>
+                                            </h4>
+                                            <ul class="rbt-meta">
+                                                <li><i class="feather-book"></i>{{ COURSE.count_class }} Lessons</li>
+                                                <li><i class="feather-users"></i>40 Students</li>
+                                                <li><i class="feather-users"></i>{{ COURSE.time_course }}</li>
+                                            </ul>
+
+                                            <div class="rbt-card-bottom">
+                                                <div class="rbt-price">
+                                                    <span class="current-price">{{ getNewTotal(COURSE, DESCOUNT_FLASH) }} USD</span>
+                                                    <span class="off-price">{{ COURSE.precio_usd }} USD</span>
+                                                </div>
+                                                <a class="rbt-btn-link" href="course-details.html">Learn
+                                                    More<i class="feather-arrow-right"></i></a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                </ng-container>
+                                
+                                <!-- End Single Course  -->
                             </div>
-                            <!-- End Single Course  -->
-                            <!-- Start Single Course  -->
-                            <div class="col-md-6 col-sm-12 col-12 py-3">
-                                <div class="rbt-card variation-01 rbt-hover">
-                                    <div class="rbt-card-img">
-                                        <a href="course-details.html">
-                                            <img src="assets/images/course/course-online-01.jpg" alt="Card image">
-                                        </a>
-                                    </div>
-                                    <div class="rbt-card-body">
-                                        <div class="rbt-card-top">
-                                            <div class="rbt-review">
-                                                <div class="rating">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                </div>
-                                                <span class="rating-count"> (15 Reviews)</span>
-                                            </div>
-                                            <div class="rbt-bookmark-btn">
-                                                <a class="rbt-round-btn" title="Bookmark" href="#"><i
-                                            class="feather-bookmark"></i></a>
-                                            </div>
-                                        </div>
-                                        <h4 class="rbt-card-title"><a href="course-details.html">React Front To Back</a>
-                                        </h4>
-                                        <ul class="rbt-meta">
-                                            <li><i class="feather-book"></i>20 Lessons</li>
-                                            <li><i class="feather-users"></i>40 Students</li>
-                                        </ul>
-
-                                        <div class="rbt-card-bottom">
-                                            <div class="rbt-price">
-                                                <span class="current-price">$60</span>
-                                                <span class="off-price">$120</span>
-                                            </div>
-                                            <a class="rbt-btn-link" href="course-details.html">Learn
-                                                More<i class="feather-arrow-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Course  -->
-                            <!-- Start Single Course  -->
-                            <div class="col-md-6 col-sm-12 col-12 py-3">
-                                <div class="rbt-card variation-01 rbt-hover">
-                                    <div class="rbt-card-img">
-                                        <a href="course-details.html">
-                                            <img src="assets/images/course/course-online-01.jpg" alt="Card image">
-                                        </a>
-                                    </div>
-                                    <div class="rbt-card-body">
-                                        <div class="rbt-card-top">
-                                            <div class="rbt-review">
-                                                <div class="rating">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                </div>
-                                                <span class="rating-count"> (15 Reviews)</span>
-                                            </div>
-                                            <div class="rbt-bookmark-btn">
-                                                <a class="rbt-round-btn" title="Bookmark" href="#"><i
-                                            class="feather-bookmark"></i></a>
-                                            </div>
-                                        </div>
-                                        <h4 class="rbt-card-title"><a href="course-details.html">React Front To Back</a>
-                                        </h4>
-                                        <ul class="rbt-meta">
-                                            <li><i class="feather-book"></i>20 Lessons</li>
-                                            <li><i class="feather-users"></i>40 Students</li>
-                                        </ul>
-
-                                        <div class="rbt-card-bottom">
-                                            <div class="rbt-price">
-                                                <span class="current-price">$60</span>
-                                                <span class="off-price">$120</span>
-                                            </div>
-                                            <a class="rbt-btn-link" href="course-details.html">Learn
-                                                More<i class="feather-arrow-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Course  -->
-                            <!-- Start Single Course  -->
-                            <div class="col-md-6 col-sm-12 col-12 py-3">
-                                <div class="rbt-card variation-01 rbt-hover">
-                                    <div class="rbt-card-img">
-                                        <a href="course-details.html">
-                                            <img src="assets/images/course/course-online-01.jpg" alt="Card image">
-                                        </a>
-                                    </div>
-                                    <div class="rbt-card-body">
-                                        <div class="rbt-card-top">
-                                            <div class="rbt-review">
-                                                <div class="rating">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                </div>
-                                                <span class="rating-count"> (15 Reviews)</span>
-                                            </div>
-                                            <div class="rbt-bookmark-btn">
-                                                <a class="rbt-round-btn" title="Bookmark" href="#"><i
-                                            class="feather-bookmark"></i></a>
-                                            </div>
-                                        </div>
-                                        <h4 class="rbt-card-title"><a href="course-details.html">React Front To Back</a>
-                                        </h4>
-                                        <ul class="rbt-meta">
-                                            <li><i class="feather-book"></i>20 Lessons</li>
-                                            <li><i class="feather-users"></i>40 Students</li>
-                                        </ul>
-
-                                        <div class="rbt-card-bottom">
-                                            <div class="rbt-price">
-                                                <span class="current-price">$60</span>
-                                                <span class="off-price">$120</span>
-                                            </div>
-                                            <a class="rbt-btn-link" href="course-details.html">Learn
-                                                More<i class="feather-arrow-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Course  -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
     <!-- Start Course Area -->
     <div class="rbt-course-area bg-color-extra2 rbt-section-gap">
