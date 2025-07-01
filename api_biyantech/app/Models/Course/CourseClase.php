@@ -3,9 +3,9 @@
 namespace App\Models\Course;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CourseClase extends Model
 {
@@ -15,30 +15,30 @@ class CourseClase extends Model
         "course_section_id",
         "name",
         "description",
-        "state",
         "vimeo_id",
-        "time"
+        "time",
+        "state",
     ];
 
     public function setCreatedAtAttribute($value)
     {
-        date_default_timezone_set("America/Caracas");
+        date_default_timezone_set("America/Lima");
         $this->attributes["created_at"] = Carbon::now();
     }
 
-    public function setUpdateAtAttribute($value)
+    public function setUpdatedAtAttribute($value)
     {
-        date_default_timezone_set("America/Caracas");
+        date_default_timezone_set("America/Lima");
         $this->attributes["updated_at"] = Carbon::now();
     }
 
     public function course_section()
     {
-            return $this->belongsTo(CourseSection::class);
+        return $this->belongsTo(CourseSection::class);
     }
 
     public function files()
     {
-            return $this->hasMany(CourseClaseFile::class, "course_clase_id");
+        return $this->hasMany(CourseClaseFile::class,"course_clase_id");
     }
 }

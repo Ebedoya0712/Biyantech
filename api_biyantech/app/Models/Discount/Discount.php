@@ -3,9 +3,9 @@
 namespace App\Models\Discount;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Discount extends Model
 {
@@ -24,13 +24,13 @@ class Discount extends Model
 
     public function setCreatedAtAttribute($value)
     {
-        date_default_timezone_set("America/Caracas");
+        date_default_timezone_set("America/Lima");
         $this->attributes["created_at"] = Carbon::now();
     }
 
     public function setUpdatedAtAttribute($value)
     {
-        date_default_timezone_set("America/Caracas");
+        date_default_timezone_set("America/Lima");
         $this->attributes["updated_at"] = Carbon::now();
     }
 
@@ -46,9 +46,9 @@ class Discount extends Model
 
     function scopeFilterAdvance($query,$state)
     {
-        //if($search){
-            //$query->where("code","like","%".$search."%");
-        //}
+        // if($search){
+        //     $query->where("code","like","%".$search."%");
+        // }
         if($state){
             $query->where("state",$state);
         }

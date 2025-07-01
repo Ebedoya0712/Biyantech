@@ -14,20 +14,45 @@ class CourseHomeResource extends JsonResource
      */
     public function toArray($request)
     {
+        // Es la campaña de descuento con la que esta relacionada
+        $discount_g = null;
+        // if(){ // CURSO TIENE DESCUENTO A NIVEL (DE CURSO Y A NIVEL CATEGORIA)
+            // $discount_g = AL DESCUENTO DE TIPO CATEGORIA
+        // }else{
+        //     if(){ // CURSO TIENE DESCUENTO A NIVEL DE CURSO Y NO  ANIVEL DE CATEGORIA
+            // $discount_g = AL DESCUENTO DE TIPO CURSO
+        //     }else{
+                //  if(){ // CURSO NO TIENE DESCUENTO A NIVEL DE CURSO  , PERO SI TIENE DESCUENTO A NIVEL DE CATEGORIA
+                    // $discount_g = AL DESCUENTO DE TIPO CATEGORIA
+                //  }
+        //     }
+        // }
+        if($this->resource->discount_c && $this->resource->discount_c_t){
+            $discount_g = $this->resource->discount_c_t;
+        }else{
+            if($this->resource->discount_c && !$this->resource->discount_c_t){
+                $discount_g = $this->resource->discount_c;
+            }else{
+                if(!$this->resource->discount_c && $this->resource->discount_c_t){
+                    $discount_g = $this->resource->discount_c_t;
+                }
+            }
+        }
         return [
             "id" => $this->resource->id,
             "title" => $this->resource->title,
             "subtitle" => $this->resource->subtitle,
-            "imagen" => env("APP_URL") . "storage/" . $this->resource->imagen,
+            "imagen" => env("APP_URL")."storage/".$this->resource->imagen,
             "precio_usd" => $this->resource->precio_usd,
-            "precio_bs" => $this->resource->precio_bs,
+            "precio_pen" => $this->resource->precio_pen,
             "count_class" => $this->resource->count_class,
             "time_course" => $this->resource->time_course,
+            "discount_g" => $discount_g,
             "instructor" => $this->resource->instructor ? [
                 "id" => $this->resource->instructor->id,
-                "full_name" => $this->resource->instructor->name . ' ' . $this->resource->instructor->surname,
-                "avatar" => env("APP_URL") . "storage/" . $this->resource->instructor->avatar,
-                "profesion" =>$this->resource->instructor->profesion,
+                "full_name" => $this->resource->instructor->name. ' '. $this->resource->instructor->surname,
+                "avatar" => env("APP_URL")."storage/".$this->resource->instructor->avatar,
+                "profesion" => $this->resource->instructor->profesion,
             ] : NULL
         ];
     }

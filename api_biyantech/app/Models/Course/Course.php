@@ -19,7 +19,7 @@ class Course extends Model
         "slug",
         "imagen",
         "precio_usd",
-        "precio_bs",
+        "precio_pen",
         "categorie_id",
         "sub_categorie_id",
         "user_id",
@@ -75,13 +75,17 @@ class Course extends Model
         date_default_timezone_set("America/Lima");
         $discount = null;
         foreach ($this->discount_courses as $key => $discount_course) {
-           if($discount_course->discount->type_campaing == 1 &&  $discount_course->discount->state == 1){
-            if(Carbon::now()->between($discount_course->discount->start_date,Carbon::parse($discount_course->discount->end_date)->addDays(1))){
-                // EXISTE UNA CAMPAÑA DE DESCUENTO CON EL CURSO
-                $discount = $discount_course->discount;
-                break;
+            if(
+                $discount_course->discount &&
+                $discount_course->discount->type_campaing == 1 &&
+                $discount_course->discount->state == 1
+            ){
+                if(Carbon::now()->between($discount_course->discount->start_date, $discount_course->discount->end_date)){
+                    // EXISTE UNA CAMPAÑA DE DESCUENTO CON EL CURSO
+                    $discount = $discount_course->discount;
+                    break;
+                }
             }
-           }
         }
         return $discount;
     }
@@ -90,29 +94,22 @@ class Course extends Model
     {
         date_default_timezone_set("America/Lima");
         $discount = null;
-        foreach ($this->categorie->discount_categories as $key => $discount_categorie) {
-           if($discount_categorie->discount->type_campaing == 1 && $discount_categorie->discount->state == 1){
-            if(Carbon::now()->between($discount_categorie->discount->start_date,Carbon::parse($discount_categorie->discount->end_date)->addDays(1))){
-                // EXISTE UNA CAMPAÑA DE DESCUENTO CON EL CURSO
-                $discount = $discount_categorie->discount;
-                break;
+        if($this->categorie && $this->categorie->discount_categories){
+            foreach ($this->categorie->discount_categories as $key => $discount_categorie) {
+                if(
+                    $discount_categorie->discount &&
+                    $discount_categorie->discount->type_campaing == 1 &&
+                    $discount_categorie->discount->state == 1
+                ){
+                    if(Carbon::now()->between($discount_categorie->discount->start_date, $discount_categorie->discount->end_date)){
+                        // EXISTE UNA CAMPAÑA DE DESCUENTO CON EL CURSO
+                        $discount = $discount_categorie->discount;
+                        break;
+                    }
+                }
             }
-           }
         }
         return $discount;
-    }
-
-    public function getFilesCountAttribute()
-    {
-        $files_count = 0;
-
-        foreach ($this->sections as $keyS => $section) {
-            foreach ($section->clases as $keyC => $clase) {
-                $files_count += $clase->files->count();
-            }
-        }
-
-        return $files_count;
     }
 
     function AddTimes($horas)

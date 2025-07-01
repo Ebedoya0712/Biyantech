@@ -157,7 +157,7 @@ class DiscountController extends Controller
                     return $q->where("categorie_id",$categorie["id"]);
                 })->whereBetween("start_date",[$request->start_date,$request->end_date])->first();
 
-                $IS_DISCOUNT_END_DATE = Discount::where("id","<>",$id)->where("type_campaing",$request->type_campaing)->where("discount_type",$request->discount_type)->whereHas("courses",function($q) use($categorie){
+                $IS_DISCOUNT_END_DATE = Discount::where("id","<>",$id)->where("type_campaing",$request->type_campaing)->where("discount_type",$request->discount_type)->whereHas("categories",function($q) use($categorie){
                     return $q->where("categorie_id",$categorie["id"]);
                 })->whereBetween("end_date",[$request->start_date,$request->end_date])->first();
 
@@ -167,7 +167,7 @@ class DiscountController extends Controller
             }
         }
 
-        $request->request->add(["code" => uniqid()]);
+        // $request->request->add(["code" => uniqid()]);
         $discount = Discount::findOrFail($id);
         $discount->update($request->all());
 
