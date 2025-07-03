@@ -34,7 +34,7 @@ class HomeController extends Controller
             ]);
         }
 
-        date_default_timezone_set("America/Lima");
+        date_default_timezone_set("America/Caracas");
         $DESCOUNT_BANNER = Discount::where("type_campaing",3)->where("state",1)
                             ->where("start_date","<=",today())
                             ->where("end_date",">=",today())
@@ -47,7 +47,7 @@ class HomeController extends Controller
             }
         }
 
-        date_default_timezone_set("America/Lima");
+        date_default_timezone_set("America/Caracas");
         $DESCOUNT_FLASH = Discount::where("type_campaing",2)->where("state",1)
                             ->where("start_date","<=",today())
                             ->where("end_date",">=",today())
@@ -55,6 +55,7 @@ class HomeController extends Controller
 
         $DESCOUNT_FLASH_COURSES = collect([]);
         if($DESCOUNT_FLASH){
+            $DESCOUNT_FLASH->end_date = Carbon::parse($DESCOUNT_FLASH->end_date)->addDays(1);
             foreach ($DESCOUNT_FLASH->courses as $key => $course_discount) {
                 $DESCOUNT_FLASH_COURSES->push(CourseHomeResource::make($course_discount->course));
             }
@@ -80,7 +81,7 @@ class HomeController extends Controller
                 "type_discount" => $DESCOUNT_FLASH->type_discount,
                 "end_date" => Carbon::parse($DESCOUNT_FLASH->end_date)->format("Y-m-d"), 
                 "start_date_d" =>  Carbon::parse($DESCOUNT_FLASH->start_date)->format("Y/m/d"), 
-                "end_date_d" =>  Carbon::parse($DESCOUNT_FLASH->end_date)->format("Y/m/d"), 
+                "end_date_d" =>  Carbon::parse($DESCOUNT_FLASH->end_date)->subDay(1)->format("Y/m/d"), 
             ] : NULL,
             "DESCOUNT_FLASH_COURSES" => $DESCOUNT_FLASH_COURSES,
         ]);
