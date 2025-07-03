@@ -11,6 +11,12 @@ export const routes: Routes = [
     loadChildren: () => import("./modules/home/home.module").then(m => m.HomeModule),
   },
   {
+    path: '',
+    //canActivate: [AuthGuard],
+    //loadChildren esta relacionado con la carga de modulos
+    loadChildren: () => import("./modules/tienda-guest/tienda-guest.module").then(m => m.TiendaGuestModule),
+  },
+  {
     path: 'auth',
     loadChildren: () => import("./modules/auth/auth.module").then(m => m.AuthModule),
   },

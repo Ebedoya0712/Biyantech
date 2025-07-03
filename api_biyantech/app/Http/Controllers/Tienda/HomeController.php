@@ -86,4 +86,14 @@ class HomeController extends Controller
             "DESCOUNT_FLASH_COURSES" => $DESCOUNT_FLASH_COURSES,
         ]);
     }
+
+    public function course_detail($slug)
+    {
+        $course = Course::where("slug", $slug)->first();
+        if(!$course){
+            return abort(404);
+        }
+
+        return response()->json(["course" => $course]);
+    }
 }

@@ -73,4 +73,5 @@ Route::group([
 
 Route::group(["prefix" => "ecommerce"], function($router){
     Route::get("home",[HomeController::class,"home"]);
+    Route::get("course-detail/{slug}",[HomeController::class,"course_detail"]);
 });
