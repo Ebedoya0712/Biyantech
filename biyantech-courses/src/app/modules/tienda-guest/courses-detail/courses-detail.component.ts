@@ -13,6 +13,7 @@ declare function courseView(): any;
 export class CoursesDetailComponent implements OnInit {
 
   SLUG:any = null;
+  LANDING_COURSE:any = null;
   constructor(
     public activedRouter: ActivatedRoute,
     public tiendaGuestService: TiendaGuestService,
@@ -27,6 +28,7 @@ export class CoursesDetailComponent implements OnInit {
     })
     this.tiendaGuestService.landingCourse(this.SLUG).subscribe((resp:any) => {
       console.log(resp);
+      this.LANDING_COURSE = resp.course;
     });
     setTimeout(() =>{
       courseView();

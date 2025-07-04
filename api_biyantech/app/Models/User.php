@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-
+use App\Models\Course\Course;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -73,6 +73,15 @@ class User extends Authenticatable implements JWTSubject
 
     public function role(){
         return $this->belongsTo(Role::class);
+    }
+
+    public function courses(){
+        return $this->hasMany(Course::class)->where("state",2);
+    }
+
+    public function getCoursesCountAttribute()
+    {
+        return $this->courses()->count();
     }
 
     function scopeFilterAdvance($query, $search, $state)

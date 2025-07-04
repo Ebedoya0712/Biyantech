@@ -10,6 +10,7 @@ use App\Models\Discount\Discount;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Ecommerce\Course\CourseHomeResource;
 use App\Http\Resources\Ecommerce\Course\CourseHomeCollection;
+use App\Http\Resources\Ecommerce\LandigCourse\LandigCourseResource;
 
 class HomeController extends Controller
 {
@@ -94,6 +95,6 @@ class HomeController extends Controller
             return abort(404);
         }
 
-        return response()->json(["course" => $course]);
+        return response()->json(["course" => LandigCourseResource::make($course)]);
     }
 }

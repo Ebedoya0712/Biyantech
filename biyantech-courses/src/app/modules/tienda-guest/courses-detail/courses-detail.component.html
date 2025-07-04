@@ -2,7 +2,7 @@
     <a class="close_side_menu" href="javascript:void(0);"></a>
 
     <!-- Start breadcrumb Area -->
-    <div class="rbt-breadcrumb-default rbt-breadcrumb-style-3">
+    <div class="rbt-breadcrumb-default rbt-breadcrumb-style-3" *ngIf="LANDING_COURSE">
         <div class="breadcrumb-inner">
             <img src="assets/images/bg/bg-image-10.jpg" alt="Education Images">
         </div>
@@ -17,9 +17,8 @@
                             </li>
                             <li class="rbt-breadcrumb-item active">Web Development</li>
                         </ul>
-                        <h2 class="title">The Complete Histudy 2022: From Zero to Expert!</h2>
-                        <p class="description">Master Python by building 100 projects in 100 days. Learn data
-                            science, automation, build websites, games and apps!</p>
+                        <h2 class="title">{{ LANDING_COURSE.title }}</h2>
+                        <p class="description">{{ LANDING_COURSE.subtitle }}</p>
 
                         <div class="d-flex align-items-center mb--20 flex-wrap rbt-course-details-feature">
 
@@ -52,17 +51,17 @@
                         <div class="rbt-author-meta mb--20">
                             <div class="rbt-avater">
                                 <a href="#">
-                                    <img src="assets/images/client/avatar-02.png" alt="Sophia Jaymes">
+                                    <img [src]="LANDING_COURSE.instructor.avatar" alt="Sophia Jaymes">
                                 </a>
                             </div>
                             <div class="rbt-author-info">
-                                By <a href="profile.html">Angela</a> In <a href="#">Development</a>
+                                By <a href="profile.html">{{ LANDING_COURSE.instructor.full_name }}</a> In <a href="#">{{ LANDING_COURSE.instructor.profesion }}</a>
                             </div>
                         </div>
 
                         <ul class="rbt-meta">
-                            <li><i class="feather-calendar"></i>Last updated 12/2024</li>
-                            <li><i class="feather-globe"></i>English</li>
+                            <li><i class="feather-calendar"></i>Last updated {{ LANDING_COURSE.instructor.updated_at }}</li>
+                            <li><i class="feather-globe"></i>{{ LANDING_COURSE.idioma }}</li>
                             <li><i class="feather-award"></i>Certified Course</li>
                         </ul>
 
@@ -73,14 +72,14 @@
     </div>
     <!-- End Breadcrumb Area -->
 
-    <div class="rbt-course-details-area ptb--60">
+    <div class="rbt-course-details-area ptb--60" *ngIf="LANDING_COURSE">
         <div class="container">
             <div class="row g-5">
 
                 <div class="col-lg-8">
                     <div class="course-details-content">
                         <div class="rbt-course-feature-box rbt-shadow-box thuumbnail">
-                            <img class="w-100" src="assets/images/course/course-01.jpg" alt="Card image">
+                            <img class="w-100" [src]="LANDING_COURSE.imagen" alt="Card image">
                         </div>
 
                         <div class="rbt-inner-onepage-navigation sticky-top mt--30">
@@ -107,16 +106,7 @@
 
                         <!-- Start Course Feature Box  -->
                         <div class="rbt-course-feature-box overview-wrapper rbt-shadow-box mt--30 has-show-more" id="overview">
-                            <div class="rbt-course-feature-inner has-show-more-inner-content">
-                                <div class="section-title">
-                                    <h4 class="rbt-title-style-3">What you'll learn</h4>
-                                </div>
-                                <p>Are you new to PHP or need a refresher? Then this course will help you get
-                                    all the fundamentals of Procedural PHP, Object Oriented PHP, MYSQLi and
-                                    ending the course by building a CMS system similar to WordPress, Joomla or
-                                    Drupal. Knowing PHP has allowed me to make enough money to stay home and
-                                    make courses like this one for students all over the world. </p>
-
+                            <div class="rbt-course-feature-inner has-show-more-inner-content" [innerHTML]="LANDING_COURSE.description">
                                 <div class="row g-5 mb--30">
                                     <!-- Start Feture Box  -->
                                     <div class="col-lg-6">
@@ -168,7 +158,7 @@
                                     pariatur et consectetur. Error vero, eum soluta delectus necessitatibus
                                     eligendi numquam hic at?</p>
                             </div>
-                            <div class="rbt-show-more-btn">Show More</div>
+                            <!--<div class="rbt-show-more-btn">Show More</div>-->
                         </div>
                         <!-- End Course Feature Box  -->
 
@@ -181,284 +171,39 @@
                                 <div class="rbt-accordion-style rbt-accordion-02 accordion">
                                     <div class="accordion" id="accordionExampleb2">
 
-                                        <div class="accordion-item card">
+                                        <ng-container *ngFor="let section of LANDING_COURSE.malla; let i = index">
+                                            <div class="accordion-item card">
                                             <h2 class="accordion-header card-header" id="headingTwo1">
-                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo1" aria-expanded="true" aria-controls="collapseTwo1">
-                                                    Intro to Course and Histudy <span class="rbt-badge-5 ml--10">1hr 30min</span>
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseTwo'+section.id" aria-expanded="true" [attr.aria-controls]="'#collapseTwo'+section.id">
+                                                    {{ section.name }} <span class="rbt-badge-5 ml--10">{{ section.time_section }}</span>
                                                 </button>
                                             </h2>
-                                            <div id="collapseTwo1" class="accordion-collapse collapse show" aria-labelledby="headingTwo1" data-bs-parent="#accordionExampleb2">
+                                            <div [attr.id]="'#collapseTwo'+section.id" class="accordion-collapse" [ngClass]="{'collapse show': i==0}" aria-labelledby="headingTwo1" data-bs-parent="#accordionExampleb2">
                                                 <div class="accordion-body card-body pr--0">
                                                     <ul class="rbt-course-main-content liststyle">
-                                                        <li>
+
+                                                        <ng-container *ngFor="let clase of section.clases">
+                                                            <li>
                                                             <a href="#">
                                                                 <div class="course-content-left">
                                                                     <i class="feather-play-circle"></i> <span
-                                                                        class="text">Course Intro</span>
+                                                                        class="text">{{ clase.name }}</span>
                                                                 </div>
                                                                 <div class="course-content-right">
-                                                                    <span class="min-lable">30 min</span>
-                                                                    <span class="rbt-badge variation-03 bg-primary-opacity"><i class="feather-eye"></i> Preview</span>
+                                                                    <span class="min-lable">{{ clase.time_clase }}</span>
+                                                                    <span class="rbt-badge variation-03 bg-primary-opacity">
+                                                                        <i class="feather-eye"></i> Preview</span>
                                                                 </div>
                                                             </a>
                                                         </li>
-
-                                                        <li>
-                                                            <a href="#">
-                                                                <div class="course-content-left">
-                                                                    <i class="feather-play-circle"></i> <span
-                                                                        class="text">Watch Before Start</span>
-                                                                </div>
-                                                                <div class="course-content-right">
-                                                                    <span class="min-lable">0.5 min</span>
-                                                                    <span class="rbt-badge variation-03 bg-primary-opacity"><i class="feather-eye"></i> Preview</span>
-                                                                </div>
-                                                            </a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="#">
-                                                                <div class="course-content-left">
-                                                                    <i class="feather-file-text"></i> <span
-                                                                        class="text">Read Before You Start</span>
-                                                                </div>
-                                                                <div class="course-content-right">
-                                                                    <span class="course-lock"><i class="feather-lock"></i></span>
-                                                                </div>
-                                                            </a>
-                                                        </li>
-
+                                                        </ng-container>
                                                     </ul>
                                                 </div>
                                             </div>
                                         </div>
+                                        </ng-container>
+                                        
 
-                                        <div class="accordion-item card">
-                                            <h2 class="accordion-header card-header" id="headingTwo2">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo2" aria-expanded="false" aria-controls="collapseTwo2">
-                                                    Course Fundamentals <span class="rbt-badge-5 ml--10">2hr 30min</span>
-                                                </button>
-                                            </h2>
-                                            <div id="collapseTwo2" class="accordion-collapse collapse" aria-labelledby="headingTwo2" data-bs-parent="#accordionExampleb2">
-                                                <div class="accordion-body card-body pr--0">
-                                                    <ul class="rbt-course-main-content liststyle">
-                                                        <li><a href="#">
-                                                                <div class="course-content-left">
-                                                                    <i class="feather-play-circle"></i> <span
-                                                                        class="text">Course Intro</span>
-                                                                </div>
-                                                                <div class="course-content-right">
-                                                                    <span class="course-lock"><i class="feather-lock"></i></span>
-                                                                </div>
-                                                            </a></li>
-                                                        <li><a href="#">
-                                                                <div class="course-content-left">
-                                                                    <i class="feather-file-text"></i> <span
-                                                                        class="text">Read Before You Start</span>
-                                                                </div>
-                                                                <div class="course-content-right">
-                                                                    <span class="course-lock"><i class="feather-lock"></i></span>
-                                                                </div>
-                                                            </a></li>
-
-                                                        <li><a href="#">
-                                                                <div class="course-content-left">
-                                                                    <i class="feather-play-circle"></i> <span
-                                                                        class="text">Why You Should Not Go To
-                                                                        Education.</span>
-                                                                </div>
-                                                                <div class="course-content-right">
-                                                                    <span class="course-lock"><i class="feather-lock"></i></span>
-                                                                </div>
-                                                            </a></li>
-
-                                                        <li><a href="#">
-                                                                <div class="course-content-left">
-                                                                    <i class="feather-file-text"></i> <span
-                                                                        class="text">Read Before You Start</span>
-                                                                </div>
-                                                                <div class="course-content-right">
-                                                                    <span class="course-lock"><i class="feather-lock"></i></span>
-                                                                </div>
-                                                            </a></li>
-
-
-                                                        <li><a href="#">
-                                                                <div class="course-content-left">
-                                                                    <i class="feather-play-circle"></i> <span
-                                                                        class="text">Ten Factors That Affect Education's
-                                                                        Longevity.</span>
-                                                                </div>
-                                                                <div class="course-content-right">
-                                                                    <span class="course-lock"><i class="feather-lock"></i></span>
-                                                                </div>
-                                                            </a></li>
-
-                                                        <li><a href="#">
-                                                                <div class="course-content-left">
-                                                                    <i class="feather-file-text"></i> <span
-                                                                        class="text">Read Before You Start</span>
-                                                                </div>
-                                                                <div class="course-content-right">
-                                                                    <span class="course-lock"><i class="feather-lock"></i></span>
-                                                                </div>
-                                                            </a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="accordion-item card">
-                                            <h2 class="accordion-header card-header" id="headingTwo3">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo3" aria-expanded="false" aria-controls="collapseTwo3">
-                                                    You can develop skill and setup <span class="rbt-badge-5 ml--10">1hr 50min</span>
-                                                </button>
-                                            </h2>
-                                            <div id="collapseTwo3" class="accordion-collapse collapse" aria-labelledby="headingTwo3" data-bs-parent="#accordionExampleb2">
-                                                <div class="accordion-body card-body pr--0">
-                                                    <ul class="rbt-course-main-content liststyle">
-                                                        <li><a href="#">
-                                                                <div class="course-content-left">
-                                                                    <i class="feather-play-circle"></i> <span
-                                                                        class="text">Course Intro</span>
-                                                                </div>
-                                                                <div class="course-content-right">
-                                                                    <span class="course-lock"><i class="feather-lock"></i></span>
-                                                                </div>
-                                                            </a></li>
-                                                        <li><a href="#">
-                                                                <div class="course-content-left">
-                                                                    <i class="feather-file-text"></i> <span
-                                                                        class="text">Read Before You Start</span>
-                                                                </div>
-                                                                <div class="course-content-right">
-                                                                    <span class="course-lock"><i class="feather-lock"></i></span>
-                                                                </div>
-                                                            </a></li>
-
-                                                        <li><a href="#">
-                                                                <div class="course-content-left">
-                                                                    <i class="feather-play-circle"></i> <span
-                                                                        class="text">Why You Should Not Go To
-                                                                        Education.</span>
-                                                                </div>
-                                                                <div class="course-content-right">
-                                                                    <span class="course-lock"><i class="feather-lock"></i></span>
-                                                                </div>
-                                                            </a></li>
-
-                                                        <li><a href="#">
-                                                                <div class="course-content-left">
-                                                                    <i class="feather-file-text"></i> <span
-                                                                        class="text">Read Before You Start</span>
-                                                                </div>
-                                                                <div class="course-content-right">
-                                                                    <span class="course-lock"><i class="feather-lock"></i></span>
-                                                                </div>
-                                                            </a></li>
-
-
-                                                        <li><a href="#">
-                                                                <div class="course-content-left">
-                                                                    <i class="feather-play-circle"></i> <span
-                                                                        class="text">Ten Factors That Affect Education's
-                                                                        Longevity.</span>
-                                                                </div>
-                                                                <div class="course-content-right">
-                                                                    <span class="course-lock"><i class="feather-lock"></i></span>
-                                                                </div>
-                                                            </a></li>
-
-                                                        <li><a href="#">
-                                                                <div class="course-content-left">
-                                                                    <i class="feather-file-text"></i> <span
-                                                                        class="text">Read Before You Start</span>
-                                                                </div>
-                                                                <div class="course-content-right">
-                                                                    <span class="course-lock"><i class="feather-lock"></i></span>
-                                                                </div>
-                                                            </a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="accordion-item card">
-                                            <h2 class="accordion-header card-header" id="headingTwo4">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo4" aria-expanded="false" aria-controls="collapseTwo4">
-                                                    15 Things To Know About Education? <span class="rbt-badge-5 ml--10">2hr 60min</span>
-                                                </button>
-                                            </h2>
-                                            <div id="collapseTwo4" class="accordion-collapse collapse" aria-labelledby="headingTwo4" data-bs-parent="#accordionExampleb2">
-                                                <div class="accordion-body card-body pr--0">
-                                                    <ul class="rbt-course-main-content liststyle">
-                                                        <li><a href="#">
-                                                                <div class="course-content-left">
-                                                                    <i class="feather-play-circle"></i> <span
-                                                                        class="text">Course Intro</span>
-                                                                </div>
-                                                                <div class="course-content-right">
-                                                                    <span class="course-lock"><i class="feather-lock"></i></span>
-                                                                </div>
-                                                            </a></li>
-                                                        <li><a href="#">
-                                                                <div class="course-content-left">
-                                                                    <i class="feather-file-text"></i> <span
-                                                                        class="text">Read Before You Start</span>
-                                                                </div>
-                                                                <div class="course-content-right">
-                                                                    <span class="course-lock"><i class="feather-lock"></i></span>
-                                                                </div>
-                                                            </a></li>
-
-                                                        <li><a href="#">
-                                                                <div class="course-content-left">
-                                                                    <i class="feather-play-circle"></i> <span
-                                                                        class="text">Why You Should Not Go To
-                                                                        Education.</span>
-                                                                </div>
-                                                                <div class="course-content-right">
-                                                                    <span class="course-lock"><i class="feather-lock"></i></span>
-                                                                </div>
-                                                            </a></li>
-
-                                                        <li><a href="#">
-                                                                <div class="course-content-left">
-                                                                    <i class="feather-file-text"></i> <span
-                                                                        class="text">Read Before You Start</span>
-                                                                </div>
-                                                                <div class="course-content-right">
-                                                                    <span class="course-lock"><i class="feather-lock"></i></span>
-                                                                </div>
-                                                            </a></li>
-
-
-                                                        <li><a href="#">
-                                                                <div class="course-content-left">
-                                                                    <i class="feather-play-circle"></i> <span
-                                                                        class="text">Ten Factors That Affect Education's
-                                                                        Longevity.</span>
-                                                                </div>
-                                                                <div class="course-content-right">
-                                                                    <span class="course-lock"><i class="feather-lock"></i></span>
-                                                                </div>
-                                                            </a></li>
-
-                                                        <li><a href="#">
-                                                                <div class="course-content-left">
-                                                                    <i class="feather-file-text"></i> <span
-                                                                        class="text">Read Before You Start</span>
-                                                                </div>
-                                                                <div class="course-content-right">
-                                                                    <span class="course-lock"><i class="feather-lock"></i></span>
-                                                                </div>
-                                                            </a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="accordion-item card">
                                             <h2 class="accordion-header card-header" id="headingTwo5">
                                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo5" aria-expanded="false" aria-controls="collapseTwo5">
                                                     Course Description <span class="rbt-badge-5 ml--10">2hr 20min</span>
@@ -531,7 +276,6 @@
                                                     </ul>
                                                 </div>
                                             </div>
-                                        </div>
 
                                     </div>
                                 </div>
@@ -545,17 +289,13 @@
                                 <!-- Start Feture Box  -->
                                 <div class="col-lg-6">
                                     <div class="section-title">
-                                        <h4 class="rbt-title-style-3 mb--20">Requirements</h4>
+                                        <h4 class="rbt-title-style-3 mb--20">Requerimientos</h4>
                                     </div>
                                     <ul class="rbt-list-style-1">
-                                        <li><i class="feather-check"></i>Become an advanced, confident, and modern
-                                            JavaScript developer from scratch.</li>
-                                        <li><i class="feather-check"></i>Have an intermediate skill level of Python
-                                            programming.</li>
-                                        <li><i class="feather-check"></i>Have a portfolio of various data analysis
-                                            projects.</li>
-                                        <li><i class="feather-check"></i>Use the numpy library to create and manipulate
-                                            arrays.</li>
+                                        <ng-container *ngFor="let requirement of LANDING_COURSE.requirements">
+                                            <li><i class="feather-check"></i>{{ requirement }}</li>
+                                        </ng-container>
+                                        
                                     </ul>
                                 </div>
                                 <!-- End Feture Box  -->
@@ -563,17 +303,15 @@
                                 <!-- Start Feture Box  -->
                                 <div class="col-lg-6">
                                     <div class="section-title">
-                                        <h4 class="rbt-title-style-3 mb--20">Description</h4>
+                                        <h4 class="rbt-title-style-3 mb--20">¿Para quien esta dirigido?</h4>
                                     </div>
                                     <ul class="rbt-list-style-1">
-                                        <li><i class="feather-check"></i>Use the Jupyter Notebook Environment.
-                                            JavaScript developer from scratch.</li>
-                                        <li><i class="feather-check"></i>Use the pandas module with Python to create and
-                                            structure data.</li>
-                                        <li><i class="feather-check"></i>Have a portfolio of various data analysis
-                                            projects.</li>
-                                        <li><i class="feather-check"></i>Create data visualizations using matplotlib and
-                                            the seaborn.</li>
+
+                                        <ng-container *ngFor="let who_is_it_f of LANDING_COURSE.who_is_it_for">
+                                            <li><i class="feather-check"></i>{{ who_is_it_f }}</li>
+                                        </ng-container>
+
+                                        
                                     </ul>
                                 </div>
                                 <!-- End Feture Box  -->
@@ -590,24 +328,23 @@
                                 <div class="media align-items-center">
                                     <div class="thumbnail">
                                         <a href="#">
-                                            <img src="assets/images/testimonial/testimonial-7.jpg" alt="Author Images">
+                                            <img [src]="LANDING_COURSE.instructor.avatar" alt="Author Images">
                                         </a>
                                     </div>
                                     <div class="media-body">
                                         <div class="author-info">
                                             <h5 class="title">
-                                                <a class="hover-flip-item-wrapper" href="author.html">B.M. Rafekul Islam</a>
+                                                <a class="hover-flip-item-wrapper" href="author.html">{{ LANDING_COURSE.instructor.full_name }}</a>
                                             </h5>
-                                            <span class="b3 subtitle">Advanced Educator</span>
+                                            <span class="b3 subtitle">{{ LANDING_COURSE.instructor.profesion }}</span>
                                             <ul class="rbt-meta mb--20 mt--10">
                                                 <li><i class="fa fa-star color-warning"></i>75,237 Reviews <span class="rbt-badge-5 ml--5">4.4 Rating</span></li>
                                                 <li><i class="feather-users"></i>912,970 Students</li>
-                                                <li><a href="#"><i class="feather-video"></i>16 Courses</a></li>
+                                                <li><a href="#"><i class="feather-video"></i>{{ LANDING_COURSE.instructor.courses_count }} Courses</a></li>
                                             </ul>
                                         </div>
                                         <div class="content">
-                                            <p class="description">John is a brilliant educator, whose life was spent
-                                                for computer science and love of nature.</p>
+                                            <p class="description">{{ LANDING_COURSE.instructor.description }}</p>
 
                                             <ul class="social-icon social-default icon-naked justify-content-start">
                                                 <li><a href="https://www.facebook.com/">
