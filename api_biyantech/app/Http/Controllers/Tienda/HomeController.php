@@ -94,7 +94,18 @@ class HomeController extends Controller
         if(!$course){
             return abort(404);
         }
+        $courses_related_instructor = Course::where("id","<>",$course->id)->where("user_id", $course->user_id)->inRandomOrder()->take(2)->get(); 
 
-        return response()->json(["course" => LandigCourseResource::make($course)]);
+        $courses_related_categories = Course::where("id","<>",$course->id)->where("categorie_id", $course->categorie_id)->inRandomOrder()->take(3)->get();
+
+        return response()->json([
+            "course" => LandigCourseResource::make($course),
+            "courses_related_instructor" => $courses_related_instructor->map(function($course){
+                return CourseHomeResource::make($course);
+            }),
+            "courses_related_categories" => $courses_related_categories->map(function($course){
+                return CourseHomeResource::make($course);
+            }),
+        ]);
     }
 }
