@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Ecommerce\LandigCourse;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class LandigCourseResource extends JsonResource
@@ -42,14 +43,16 @@ class LandigCourseResource extends JsonResource
             ] : null,
             "level" => $this->resource->level,
             "idioma" => $this->resource->idioma,
-            "vimeo_id" => $this->resource->vimeo_id,
+            "vimeo_id" => $this->resource->vimeo_id ? "https://player.vimeo.com/video/".$this->resource->vimeo_id : NULL,
             "time" => $this->resource->time,
             "imagen" => env("APP_URL")."storage/".$this->resource->imagen,
             "precio_usd" => $this->resource->precio_usd,
             "precio_pen" => $this->resource->precio_pen,
             "count_class" => $this->resource->count_class,
             "time_course" => $this->resource->time_course,
+            "files_count" => $this->resource->files_count,
             "discount_g" => $discount_g,
+            "discount_date" => $discount_g ? Carbon::parse($discount_g->end_date)->format("d/m") : NULL,
             "description" => $this->resource->description,
             "requirements" => json_decode($this->resource->requirements),
             "who_is_it_for" => json_decode($this->resource->who_is_it_for),

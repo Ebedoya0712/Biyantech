@@ -35,13 +35,13 @@ class Course extends Model
 
     public function setCreatedAtAttribute($value)
     {
-        date_default_timezone_set("America/Lima");
+        date_default_timezone_set("America/Caracas");
         $this->attributes["created_at"] = Carbon::now();
     }
 
     public function setUpdatedAtAttribute($value)
     {
-        date_default_timezone_set("America/Lima");
+        date_default_timezone_set("America/Caracas");
         $this->attributes["updated_at"] = Carbon::now();
     }
 
@@ -72,7 +72,7 @@ class Course extends Model
 
     public function getDiscountCAttribute()
     {
-        date_default_timezone_set("America/Lima");
+        date_default_timezone_set("America/Caracas");
         $discount = null;
         foreach ($this->discount_courses as $key => $discount_course) {
             if(
@@ -80,7 +80,7 @@ class Course extends Model
                 $discount_course->discount->type_campaing == 1 &&
                 $discount_course->discount->state == 1
             ){
-                if(Carbon::now()->between($discount_course->discount->start_date, $discount_course->discount->end_date)){
+                if(Carbon::now()->between($discount_course->discount->start_date, Carbon::parse($discount_course->discount->end_date)->addDay(1))){
                     // EXISTE UNA CAMPAÑA DE DESCUENTO CON EL CURSO
                     $discount = $discount_course->discount;
                     break;
@@ -92,7 +92,7 @@ class Course extends Model
 
     public function getDiscountCTAttribute()
     {
-        date_default_timezone_set("America/Lima");
+        date_default_timezone_set("America/Caracas");
         $discount = null;
         if($this->categorie && $this->categorie->discount_categories){
             foreach ($this->categorie->discount_categories as $key => $discount_categorie) {
@@ -101,7 +101,7 @@ class Course extends Model
                     $discount_categorie->discount->type_campaing == 1 &&
                     $discount_categorie->discount->state == 1
                 ){
-                    if(Carbon::now()->between($discount_categorie->discount->start_date, $discount_categorie->discount->end_date)){
+                    if(Carbon::now()->between($discount_categorie->discount->start_date, Carbon::parse($discount_categorie->discount->end_date)->addDay(1))){
                         // EXISTE UNA CAMPAÑA DE DESCUENTO CON EL CURSO
                         $discount = $discount_categorie->discount;
                         break;
@@ -112,12 +112,26 @@ class Course extends Model
         return $discount;
     }
 
+    public function getFilesCountAttribute()
+    {
+        $files_count = 0;
+        foreach ($this->sections as $key => $section) {
+            foreach ($section->clases as $keyC => $clase) {
+                $files_count += $clase->files->count();
+            }
+        }
+        return $files_count;
+    }
+
     function AddTimes($horas)
     {
         $total = 0;
         foreach($horas as $h) {
             $parts = explode(":", $h);
-            $total += $parts[2] + $parts[1]*60 + $parts[0]*3600;
+            // Validar que el formato sea correcto
+            if(count($parts) === 3) {
+                $total += $parts[2] + $parts[1]*60 + $parts[0]*3600;
+            }
         }
         $hours = floor($total / 3600);
         $minutes = floor(($total / 60) % 60);

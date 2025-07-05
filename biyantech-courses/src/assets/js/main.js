@@ -1074,3 +1074,29 @@ function courseView() {
                     $('.rbt-card').addClass('card-list-2');
                 })
         }
+
+        function showMoreBtn() {
+            $.fn.hasShowMore = function () {
+                return this.each(function () {
+                    $(this).toggleClass('active');
+                    $(this).text('Show Less');
+                    $(this).parent('.has-show-more').toggleClass('active');
+                    if ($(this).parent('.has-show-more').hasClass('active')) {
+                        $(this).text('Show Less');
+                    } else {
+                        $(this).text('Show More');
+                    }
+                });
+            };
+            $(document).on('click', '.rbt-show-more-btn', function () {
+                $(this).hasShowMore();
+            });
+        }
+
+        function magnigyPopup() {
+            //$(document).on('ready', function () {
+                $('.popup-video').magnificPopup({
+                    type: 'iframe'
+                });
+            //});
+        }

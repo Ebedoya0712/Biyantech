@@ -11,11 +11,15 @@
                 <div class="col-lg-8">
                     <div class="content text-start">
                         <ul class="page-list">
-                            <li class="rbt-breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="rbt-breadcrumb-item"><a href="/">Home</a></li>
                             <li>
                                 <div class="icon-right"><i class="feather-chevron-right"></i></div>
                             </li>
-                            <li class="rbt-breadcrumb-item active">Web Development</li>
+                            <li class="rbt-breadcrumb-item active">{{ LANDING_COURSE.categorie.name }}</li>
+                            <li>
+                                <div class="icon-right"><i class="feather-chevron-right"></i></div>
+                            </li>
+                            <li class="rbt-breadcrumb-item active">{{ LANDING_COURSE.sub_categorie.name }}</li>
                         </ul>
                         <h2 class="title">{{ LANDING_COURSE.title }}</h2>
                         <p class="description">{{ LANDING_COURSE.subtitle }}</p>
@@ -877,9 +881,9 @@
                         <div class="inner">
 
                             <!-- Start Viedo Wrapper  -->
-                            <a class="video-popup-with-text video-popup-wrapper text-center popup-video sidebar-video-hidden mb--15" href="https://www.youtube.com/watch?v=nA1Aqp0sPQo">
+                            <a class="video-popup-with-text video-popup-wrapper text-center popup-video sidebar-video-hidden mb--15" [href]="LANDING_COURSE.vimeo_id">
                                 <div class="video-content">
-                                    <img class="w-100 rbt-radius" src="assets/images/others/video-01.jpg" alt="Video Images">
+                                    <img class="w-100 rbt-radius" [src]="LANDING_COURSE.imagen" alt="Video Images">
                                     <div class="position-to-top">
                                         <span class="rbt-btn rounded-player-2 with-animation">
                                             <span class="play-icon"></span>
@@ -893,12 +897,13 @@
                             <div class="content-item-content">
                                 <div class="rbt-price-wrapper d-flex flex-wrap align-items-center justify-content-between">
                                     <div class="rbt-price">
-                                        <span class="current-price">$60.99</span>
-                                        <span class="off-price">$84.99</span>
+                                        <span class="current-price" *ngIf="!LANDING_COURSE.discount_g">{{ LANDING_COURSE.precio_usd }} USD</span>
+                                        <span class="current-price" *ngIf="LANDING_COURSE.discount_g">{{ getNewTotal(LANDING_COURSE,LANDING_COURSE.discount_g)}} USD</span>
+                                        <span class="off-price" *ngIf="LANDING_COURSE.discount_g">{{ LANDING_COURSE.precio_usd }} USD</span>
                                     </div>
-                                    <div class="discount-time">
+                                    <div class="discount-time" *ngIf="LANDING_COURSE.discount_g">
                                         <span class="rbt-badge color-danger bg-color-danger-opacity"><i
-                                                class="feather-clock"></i> 3 days left!</span>
+                                                class="feather-clock"></i> {{ LANDING_COURSE.discount_date }} left!</span>
                                     </div>
                                 </div>
 
@@ -922,12 +927,12 @@
 
                                 <div class="rbt-widget-details has-show-more">
                                     <ul class="has-show-more-inner-content rbt-course-details-list-wrapper">
-                                        <li><span>Start Date</span><span class="rbt-feature-value rbt-badge-5">5 Hrs 20 Min</span>
+                                        <li><span>Start Date</span><span class="rbt-feature-value rbt-badge-5">{{ LANDING_COURSE.time_course }}</span>
                                         </li>
                                         <li><span>Enrolled</span><span class="rbt-feature-value rbt-badge-5">100</span></li>
-                                        <li><span>Lectures</span><span class="rbt-feature-value rbt-badge-5">50</span></li>
-                                        <li><span>Skill Level</span><span class="rbt-feature-value rbt-badge-5">Basic</span></li>
-                                        <li><span>Language</span><span class="rbt-feature-value rbt-badge-5">English</span></li>
+                                        <li><span>Files Download</span><span class="rbt-feature-value rbt-badge-5">{{ LANDING_COURSE.files_count }}</span></li>
+                                        <li><span>Skill Level</span><span class="rbt-feature-value rbt-badge-5">{{ LANDING_COURSE.level }}</span></li>
+                                        <li><span>Language</span><span class="rbt-feature-value rbt-badge-5">{{ LANDING_COURSE.idioma }}</span></li>
                                         <li><span>Quizzes</span><span class="rbt-feature-value rbt-badge-5">10</span></li>
                                         <li><span>Certificate</span><span class="rbt-feature-value rbt-badge-5">Yes</span></li>
                                         <li><span>Pass Percentage</span><span class="rbt-feature-value rbt-badge-5">95%</span></li>

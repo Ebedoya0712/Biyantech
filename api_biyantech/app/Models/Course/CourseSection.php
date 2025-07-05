@@ -44,7 +44,10 @@ class CourseSection extends Model
         $total = 0;
         foreach($horas as $h) {
             $parts = explode(":", $h);
-            $total += $parts[2] + $parts[1]*60 + $parts[0]*3600;
+            // Validar que el formato sea correcto
+            if(count($parts) === 3) {
+                $total += $parts[2] + $parts[1]*60 + $parts[0]*3600;
+            }
         }
         $hours = floor($total / 3600);
         $minutes = floor(($total / 60) % 60);
