@@ -11,8 +11,12 @@ export class TiendaGuestService {
     public http: HttpClient,
   ) { }
 
-  landingCourse(slug: string){
-    let URL = URL_SERVICIOS + "/ecommerce/course-detail/" + slug;
+  landingCourse(slug:string,campaing_discount:any = null){
+    let LINK = "";
+    if(campaing_discount){
+      LINK = LINK + "?campaing_discount="+campaing_discount;
+    }
+    let URL = URL_SERVICIOS+"/ecommerce/course-detail/"+slug+LINK;
     return this.http.get(URL);
   }
 }
