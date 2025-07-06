@@ -49,7 +49,7 @@
                                 <div class="swiper-slide">
                                     <div class="rbt-card variation-01 rbt-hover">
                                         <div class="rbt-card-img">
-                                            <a href="course-details.html">
+                                            <a [routerLink]="['landing-curso/',COURSE.slug]" [queryParams]="{'campaing_discount': DESCOUNT_BANNER.id}">
                                                 <img [src]="COURSE.imagen" alt="Card image">
                                                 <div class="rbt-badge-3 bg-white">
                                                     <span *ngIf="DESCOUNT_BANNER.type_discount == 1">-{{ DESCOUNT_BANNER.discount }}%</span>
@@ -64,7 +64,7 @@
                                                 <li><i class="feather-users"></i>50 Students</li>
                                                 <li><i class="feather-play"></i>{{ COURSE.time_course }}</li>
                                             </ul>
-                                            <h4 class="rbt-card-title"><a href="course-details.html">{{ COURSE.title }}</a>
+                                            <h4 class="rbt-card-title"><a [routerLink]="['landing-curso/',COURSE.slug]" [queryParams]="{'campaing_discount': DESCOUNT_BANNER.id}">{{ COURSE.title }}</a>
                                             </h4>
                                             <p class="rbt-card-text">{{ COURSE.subtitle }}</p>
                                             <div class="rbt-review">
@@ -175,7 +175,7 @@
                             <div class="col-md-6 col-sm-12 col-12 py-3">
                                 <div class="rbt-card variation-01 rbt-hover">
                                     <div class="rbt-card-img">
-                                        <a href="course-details.html">
+                                        <a [routerLink]="['landing-curso/',COURSE.slug]" [queryParams]="{'campaing_discount': DESCOUNT_FLASH.id}">
                                             <img [src]="COURSE.imagen" alt="Card image">
                                             <div class="rbt-badge-3 bg-white">
                                                 <span *ngIf="DESCOUNT_FLASH.type_discount == 1">-{{ DESCOUNT_FLASH.discount }}%</span>
@@ -201,7 +201,7 @@
                                             class="feather-bookmark"></i></a>
                                             </div>
                                         </div>
-                                        <h4 class="rbt-card-title"><a href="course-details.html">{{ COURSE.title }}</a>
+                                        <h4 class="rbt-card-title"><a [routerLink]="['landing-curso/',COURSE.slug]" [queryParams]="{'campaing_discount': DESCOUNT_FLASH.id}">{{ COURSE.title }}</a>
                                         </h4>
                                         <ul class="rbt-meta">
                                             <li><i class="feather-book"></i>{{ COURSE.count_class }} Lessons</li>
@@ -249,7 +249,7 @@
                 <div class="col-lg-4 col-md-6 col-12">
                     <div class="rbt-card variation-01 rbt-hover">
                         <div class="rbt-card-img">
-                            <a href="course-details.html">
+                            <a [routerLink]="['landing-curso/',COURSE.slug]">
                                 <img [src]="COURSE.imagen" style="height: 244px;" alt="Card image">
                                 <div class="rbt-badge-3 bg-white" *ngIf="COURSE.discount_g">
                                     <span *ngIf="COURSE.discount_g.type_discount == 1">-{{ COURSE.discount_g.discount }}%</span>
@@ -274,7 +274,7 @@
                                     <a class="rbt-round-btn" title="Bookmark" href="#"><i class="feather-bookmark"></i></a>
                                 </div>
                             </div>
-                            <h4 class="rbt-card-title"><a href="course-details.html">{{ COURSE.title }}</a>
+                            <h4 class="rbt-card-title"><a [routerLink]="['landing-curso/',COURSE.slug]">{{ COURSE.title }}</a>
                             </h4>
                             <ul class="rbt-meta">
                                 <li><i class="feather-book"></i>{{ COURSE.count_class }} Lessons</li>
@@ -1045,7 +1045,7 @@
                                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-12">
                                     <div class="rbt-card variation-01 rbt-hover">
                                         <div class="rbt-card-img">
-                                            <a href="course-details.html">
+                                            <a [routerLink]="['landing-curso/',courses.slug]">
                                                 <img [src]="courses.imagen" style="height: 171px;" alt="Card image">
                                             </a>
                                             <div class="rbt-badge-3 bg-white" *ngIf="courses.discount_g">
@@ -1072,7 +1072,7 @@
                                                 class="feather-bookmark"></i></a>
                                                 </div>
                                             </div>
-                                            <h4 class="rbt-card-title"><a href="course-details.html">{{ courses.title }}</a>
+                                            <h4 class="rbt-card-title"><a [routerLink]="['landing-curso/',courses.slug]">{{ courses.title }}</a>
                                             </h4>
                                             <ul class="rbt-meta">
                                                 <li><i class="feather-book"></i>{{ courses.count_class }} Lessons</li>
@@ -1089,7 +1089,7 @@
                                                     <span class="current-price">{{ getTotalPriceCourse(courses) }} USD</span>
                                                     <span class="off-price" *ngIf="courses.discount_g">{{ courses.precio_usd }}</span>
                                                 </div>
-                                                <a class="rbt-btn-link" href="course-details.html">Learn
+                                                <a class="rbt-btn-link" [routerLink]="['landing-curso/',courses.slug]">Learn
                                                     More<i class="feather-arrow-right"></i></a>
                                             </div>
                                         </div>

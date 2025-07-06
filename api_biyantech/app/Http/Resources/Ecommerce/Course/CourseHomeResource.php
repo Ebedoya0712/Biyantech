@@ -41,6 +41,7 @@ class CourseHomeResource extends JsonResource
         return [
             "id" => $this->resource->id,
             "title" => $this->resource->title,
+            "slug" => $this->resource->slug,
             "subtitle" => $this->resource->subtitle,
             "imagen" => env("APP_URL")."storage/".$this->resource->imagen,
             "precio_usd" => $this->resource->precio_usd,
