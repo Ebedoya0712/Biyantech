@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Course\CategorieController;
 use App\Http\Controllers\Admin\Course\ClaseGController;
 use App\Http\Controllers\Admin\Course\CourseGController;
 use App\Http\Controllers\Admin\Course\SeccionGController;
+use App\Http\Controllers\Tienda\CartController;
 use App\Http\Controllers\Tienda\HomeController;
 use Illuminate\Routing\RouteGroup;
 
@@ -74,4 +75,5 @@ Route::group([
 Route::group(["prefix" => "ecommerce"], function($router){
     Route::get("home",[HomeController::class,"home"]);
     Route::get("course-detail/{slug}",[HomeController::class,"course_detail"]);
+    Route::resource('/cart', CartController::class);
 });
