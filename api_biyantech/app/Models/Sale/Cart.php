@@ -16,7 +16,7 @@ class Cart extends Model
         "course_id",
         "type_discount",
         "discount",
-        "type_campaign",
+        "type_campaing",
         "code_cupon",
         "code_discount",
         "precio_unitario",

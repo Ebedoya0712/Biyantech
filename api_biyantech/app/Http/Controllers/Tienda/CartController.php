@@ -41,7 +41,9 @@ class CartController extends Controller
     public function store(Request $request)
     {
         $user = auth('api')->user();
-        $is_exits_cart = Cart::where("user_id",$user->id)->Arr::where("course_id", $request->course_id)->first();
+        $is_exits_cart = Cart::where("user_id", $user->id)
+            ->where("course_id", $request->course_id)
+            ->first();
         if($is_exits_cart){
             return response()->json(["message" => 403, "message_text" => "EL CURSO YA EXISTE EN LA LISTA"]);
         }
