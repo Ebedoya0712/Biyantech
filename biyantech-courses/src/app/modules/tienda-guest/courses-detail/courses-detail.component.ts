@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TiendaGuestService } from '../service/tienda-guest.service';
+import { CartService } from '../service/cart.service';
 
 declare function courseView():any;
 declare function showMoreBtn():any;
@@ -21,6 +22,7 @@ export class CoursesDetailComponent implements OnInit{
   constructor(
     public activedRouter: ActivatedRoute,
     public tiendaGuestService: TiendaGuestService,
+    public cartService : CartService,
   ) {
     
   }
@@ -66,6 +68,10 @@ export class CoursesDetailComponent implements OnInit{
       return this.getNewTotal(COURSE,COURSE.discount_g);
     }
     return COURSE.precio_usd;
+  }
+
+  addCart(){
+      this.cartService.addCart({message: "PRUEBA EXITOSA"});
   }
 }
 
