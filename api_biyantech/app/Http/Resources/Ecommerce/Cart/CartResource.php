@@ -22,6 +22,7 @@ class CartResource extends JsonResource
                 "title" => $this->resource->course->title,
                 "imagen" => env("APP_URL")."storage/".$this->resource->course->imagen,
                 "subtitle" => $this->resource->course->subtitle,
+                "slug" => $this->resource->course->slug,
             ],
             "type_discount" => $this->type_discount,
             "discount" => $this->discount,

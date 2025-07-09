@@ -891,9 +891,9 @@
                         </li>
   
                         <li class="access-icon rbt-mini-cart">
-                            <a class="rbt-cart-sidenav-activation rbt-round-btn" href="#">
+                            <a class="rbt-cart-sidenav-activation rbt-round-btn" href="#" onclick="return false;">
                                 <i class="feather-shopping-cart"></i>
-                                <span class="rbt-cart-count">4</span>
+                                <span class="rbt-cart-count">{{ listCarts.length }}</span>
                             </a>
                         </li>
   
@@ -2046,69 +2046,24 @@
         </div>
         <nav class="side-nav w-100">
             <ul class="rbt-minicart-wrapper">
-                <li class="minicart-item">
+                <ng-container *ngFor="let cart of listCarts">
+                    <li class="minicart-item">
                     <div class="thumbnail">
                         <a href="#">
-                            <img src="assets/images/product/1.jpg" alt="Product Images">
+                            <img [src]="cart.course.imagen" alt="Product Images">
                         </a>
                     </div>
                     <div class="product-content">
-                        <h6 class="title"><a href="single-product.html">Miracle Morning</a></h6>
+                        <h6 class="title"><a [href]="'/landing-curso/'+cart.course.slug">{{ cart.course.title }}</a></h6>
   
-                        <span class="quantity">1 * <span class="price">$22</span></span>
+                        <span class="quantity"><span class="price">{{ cart.total }} USD</span></span>
                     </div>
                     <div class="close-btn">
                         <button class="rbt-round-btn"><i class="feather-x"></i></button>
                     </div>
                 </li>
-  
-                <li class="minicart-item">
-                    <div class="thumbnail">
-                        <a href="#">
-                            <img src="assets/images/product/7.jpg" alt="Product Images">
-                        </a>
-                    </div>
-                    <div class="product-content">
-                        <h6 class="title"><a href="single-product.html">Happy Strong</a></h6>
-  
-                        <span class="quantity">1 * <span class="price">$30</span></span>
-                    </div>
-                    <div class="close-btn">
-                        <button class="rbt-round-btn"><i class="feather-x"></i></button>
-                    </div>
-                </li>
-  
-                <li class="minicart-item">
-                    <div class="thumbnail">
-                        <a href="#">
-                            <img src="assets/images/product/3.jpg" alt="Product Images">
-                        </a>
-                    </div>
-                    <div class="product-content">
-                        <h6 class="title"><a href="single-product.html">Rich Dad Poor Dad</a></h6>
-  
-                        <span class="quantity">1 * <span class="price">$50</span></span>
-                    </div>
-                    <div class="close-btn">
-                        <button class="rbt-round-btn"><i class="feather-x"></i></button>
-                    </div>
-                </li>
-  
-                <li class="minicart-item">
-                    <div class="thumbnail">
-                        <a href="#">
-                            <img src="assets/images/product/4.jpg" alt="Product Images">
-                        </a>
-                    </div>
-                    <div class="product-content">
-                        <h6 class="title"><a href="single-product.html">Momentum Theorem</a></h6>
-  
-                        <span class="quantity">1 * <span class="price">$50</span></span>
-                    </div>
-                    <div class="close-btn">
-                        <button class="rbt-round-btn"><i class="feather-x"></i></button>
-                    </div>
-                </li>
+                </ng-container>
+                
             </ul>
         </nav>
   
@@ -2116,7 +2071,7 @@
             <hr class="mb--0">
             <div class="rbt-cart-subttotal">
                 <p class="subtotal"><strong>Subtotal:</strong></p>
-                <p class="price">$121</p>
+                <p class="price">{{ totalSum }} USD</p>
             </div>
             <hr class="mb--0">
             <div class="rbt-minicart-bottom mt--20">

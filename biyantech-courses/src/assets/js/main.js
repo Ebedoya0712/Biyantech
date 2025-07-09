@@ -1167,3 +1167,27 @@ function alertSuccess(TEXT){
       document.getElementById("notification-ecommerce-success")?.classList.remove("notification-show");
     });
 }
+
+function cartSidenav() {
+            if ($('.rbt-cart-sidenav-activation').length) {
+                $('.rbt-cart-sidenav-activation').on('click', function () {
+                    $('.rbt-cart-side-menu').addClass('side-menu-active'), 
+                    $('body').addClass('cart-sidenav-menu-active')
+                }),
+
+                $('.minicart-close-button').on('click', function () {
+                    $('.rbt-cart-side-menu').removeClass('side-menu-active'), 
+                    $('body').removeClass('cart-sidenav-menu-active')
+                }),
+
+                $('.side-menu .side-nav .navbar-nav li a').on('click', function () {
+                    $('.rbt-cart-side-menu').removeClass('side-menu-active'), 
+                    $('body').removeClass('cart-sidenav-menu-active')
+                }), 
+                
+                $('#btn_sideNavClose, .close_side_menu').on('click', function () {
+                    $('.rbt-cart-side-menu').removeClass('side-menu-active'), 
+                    $('body').removeClass('cart-sidenav-menu-active')
+                });
+            } 
+        }
