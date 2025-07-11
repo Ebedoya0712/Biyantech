@@ -3,6 +3,7 @@ import { AuthService } from 'src/app/modules/auth/service/auth.service';
 import { CartService } from 'src/app/modules/tienda-guest/service/cart.service';
 
 declare function cartSidenav(): any;
+declare function alertSuccess([]): any;
 
 @Component({
   selector: 'app-header',
@@ -47,5 +48,13 @@ export class HeaderComponent {
 
     logout(){
       this.authService.logout();
+    }
+
+    removeItem(cart:any){
+      this.cartService.deleteCart(cart.id).subscribe((resp:any) => {
+        console.log(resp);
+        alertSuccess("EL ITEM SE A ELIMINADO CORRECTAMENTE");
+        this.cartService.removeItemCart(cart);
+      });
     }
 }

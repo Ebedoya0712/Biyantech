@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from './services/home.service';
+import { CartService } from '../tienda-guest/service/cart.service';
+import { Router } from '@angular/router';
 
 declare var $:any ;
 declare function HOMEINIT([]):any;
 declare function banner_home():any;
 declare function countdownT():any;
+declare function alertWarning([]):any;
+declare function alertSuccess([]):any;
+declare function alertDanger([]):any;
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -20,10 +25,13 @@ export class HomeComponent implements OnInit{
 
   DESCOUNT_FLASH:any = null;
   DESCOUNT_FLASH_COURSES:any = [];
+  user:any = null;
 
 
   constructor(
     public homeService: HomeService,
+    public cartService: CartService,
+    public router: Router,
   ){
     setTimeout(() => {
       HOMEINIT($);
@@ -47,6 +55,7 @@ export class HomeComponent implements OnInit{
       }, 50);
     })
     
+    this.user = this.cartService.authService.user;
   }
 
   getNewTotal(COURSE:any,DESCOUNT_BANNER:any){
@@ -62,5 +71,38 @@ export class HomeComponent implements OnInit{
       return this.getNewTotal(COURSE,COURSE.discount_g);
     }
     return COURSE.precio_usd;
+  }
+
+  addCart(LANDING_COURSE: any,DESCOUNT_CAMPAING:any = null){
+    if(!this.user){
+      alertWarning(["NECESITAS REGISTRARTE EN LA TIENDA"]);
+      this.router.navigateByUrl('auth/login');
+      return;
+    }
+    
+    if(DESCOUNT_CAMPAING){
+      LANDING_COURSE.discount_g = DESCOUNT_CAMPAING;
+    }
+    let data = {
+        course_id: LANDING_COURSE.id,
+        type_discount: LANDING_COURSE.discount_g ? LANDING_COURSE.discount_g.type_discount : null,
+        discount: LANDING_COURSE.discount_g ? LANDING_COURSE.discount_g.discount : null,
+        type_campaing: LANDING_COURSE.discount_g ? LANDING_COURSE.discount_g.type_campaing : null,
+        code_cupon: null,
+        code_discount: LANDING_COURSE.discount_g ? LANDING_COURSE.discount_g.code : null,
+        precio_unitario: LANDING_COURSE.precio_usd,
+        total: this.getTotalPriceCourse(LANDING_COURSE),
+    };
+      this.cartService.registerCart(data).subscribe((resp:any) =>{
+        console.log(resp);
+        if(resp.message == 403){
+          alertDanger(resp.message_text);
+          return;
+        }else{
+          this.cartService.addCart(resp.cart);
+          alertSuccess("EL CURSO SE AGREGO AL CARRITO EXITOSAMENTE");
+        }
+      })
+      
   }
 }

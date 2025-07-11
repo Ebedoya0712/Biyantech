@@ -82,8 +82,9 @@
                                                     <span class="current-price">{{ getNewTotal(COURSE,DESCOUNT_BANNER) }} USD</span>
                                                     <span class="off-price">{{ COURSE.precio_usd }} USD</span>
                                                 </div>
-                                                <a class="rbt-btn-link" href="course-details.html">Learn More<i
-                                                        class="feather-arrow-right"></i></a>
+                                                <a class="rbt-btn-link" href="#" onclick="return false;" (click)="addCart(COURSE,DESCOUNT_BANNER)">
+                                                    <i class="feather-shopping-cart"></i> Add To Cart
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -214,8 +215,7 @@
                                                 <span class="current-price">{{ getNewTotal(COURSE,DESCOUNT_FLASH) }} USD</span>
                                                     <span class="off-price">{{ COURSE.precio_usd }} USD</span>
                                             </div>
-                                            <a class="rbt-btn-link" href="course-details.html">Learn
-                                                More<i class="feather-arrow-right"></i></a>
+                                            <a class="rbt-btn-link left-icon" href="#" onclick="return false;" (click)="addCart(COURSE,DESCOUNT_FLASH)"><i class="feather-shopping-cart"></i> Add To Cart</a>
                                         </div>
                                     </div>
                                 </div>
@@ -297,7 +297,7 @@
                                     <span class="current-price">{{ getTotalPriceCourse(COURSE) }} USD</span>
                                     <span class="off-price" *ngIf="COURSE.discount_g">{{ COURSE.precio_usd }}</span>
                                 </div>
-                                <a class="rbt-btn-link left-icon" href="course-details.html"><i class="feather-shopping-cart"></i> Add To Cart</a>
+
                             </div>
                         </div>
                     </div>
@@ -1089,8 +1089,7 @@
                                                     <span class="current-price">{{ getTotalPriceCourse(courses) }} USD</span>
                                                     <span class="off-price" *ngIf="courses.discount_g">{{ courses.precio_usd }}</span>
                                                 </div>
-                                                <a class="rbt-btn-link" [routerLink]="['landing-curso/',courses.slug]">Learn
-                                                    More<i class="feather-arrow-right"></i></a>
+                                                <a class="rbt-btn-link left-icon" href="#" onclick="return false;" (click)="addCart(courses)"><i class="feather-shopping-cart"></i> Add To Cart</a>
                                             </div>
                                         </div>
                                     </div>
