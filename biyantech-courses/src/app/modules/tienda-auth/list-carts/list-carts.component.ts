@@ -1,0 +1,55 @@
+import { Component, OnInit } from '@angular/core';
+import { CartService } from '../../tienda-guest/service/cart.service';
+
+declare function alertSuccess([]):any;
+@Component({
+  selector: 'app-list-carts',
+  templateUrl: './list-carts.component.html',
+  styleUrls: ['./list-carts.component.css']
+})
+export class ListCartsComponent implements OnInit {
+
+  listCarts:any = [];
+  totalSum:number = 0;
+  constructor(
+    public cartService: CartService
+  ){
+
+  }
+  ngOnInit(): void{
+    this.cartService.currentData$.subscribe((resp:any) =>  {
+      console.log(resp);
+      this.listCarts = resp;
+      this.totalSum = this.listCarts.reduce((sum:number, item:any) => sum + item.total,0);
+    })
+  }
+
+  getNameCampaing(type:number){
+    let Name = "";
+    switch (type) {
+      case 1:
+          Name = "CAMPAÑA NORMAL"
+        break;
+
+        case 2:
+          Name = "CAMPAÑA FLASH"
+        break;
+
+        case 3:
+          Name = "CAMPAÑA BANNER"
+        break;
+    
+      default:
+        break;
+    }
+
+    return Name;
+  }
+  removeItem(cart:any){
+      this.cartService.deleteCart(cart.id).subscribe((resp:any) => {
+        console.log(resp);
+        alertSuccess("EL ITEM SE A ELIMINADO CORRECTAMENTE");
+        this.cartService.removeItemCart(cart);
+      });
+    }
+}
