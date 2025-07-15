@@ -76,4 +76,5 @@ Route::group(["prefix" => "ecommerce"], function($router){
     Route::get("home",[HomeController::class,"home"]);
     Route::get("course-detail/{slug}",[HomeController::class,"course_detail"]);
     Route::resource('/cart', CartController::class);
+    Route::post('/apply_coupon', [CartController::class, "apply_coupon"]);
 });
