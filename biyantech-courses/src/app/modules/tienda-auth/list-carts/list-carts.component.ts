@@ -40,7 +40,14 @@ export class ListCartsComponent implements OnInit{
         createOrder: (data:any, actions:any) => {
             // pass in any options from the v2 orders create call:
             // https://developer.paypal.com/api/orders/v2/#orders-create-request-body
-
+            if(this.totalSum == 0){
+              alertDanger("NO PUEDES PAGAR UN MONTO DE 0");
+              return false;
+            }
+            if(this.listCarts.length == 0){
+              alertDanger("NO PUEDES PROCESAR EL PAGO CON NINGUN CURSO EN EL CARRITO");
+              return false;
+            }
             const createOrderPayload = {
               purchase_units: [
                 {
@@ -59,8 +66,17 @@ export class ListCartsComponent implements OnInit{
         onApprove: async (data:any, actions:any) => {
             
             let Order = await actions.order.capture();
-		// Order.purchase_units[0].payments.captures[0].id
-
+		        // Order.purchase_units[0].payments.captures[0].id
+            let dataT = {
+              method_payment: "PAYPAL",
+              currency_total: "USD",
+              currency_payment: "USD",
+              total: this.totalSum,
+              n_transaccion: Order.purchase_units[0].payments.captures[0].id,
+            }
+            this.cartService.checkout(dataT).subscribe((resp:any) => {
+                console.log(resp);
+            });
             //return actions.order.capture().then(captureOrderHandler);
         },
 

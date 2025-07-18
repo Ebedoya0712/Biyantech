@@ -39,20 +39,22 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
+        $request->request->add(["user_id" => auth("api")->user()->id]);
         $sale = Sale::create($request->all());
 
         $carts = Cart::where("user_id",auth('api')->user()->id)->get();
 
         foreach ($carts as $key => $cart){
-
+            //$cart->delete();
             $new_detail = [];
-            $new_detail["sale_id"] = $sale->id;
             $new_detail = $cart->toArray();
+            $new_detail["sale_id"] = $sale->id;
             SaleDetail::create($new_detail);
             CoursesStudent::create([
                 "course_id" => $new_detail ["course_id"],
                 "user_id" => auth('api')->user()->id,
             ]);
+            
         }
         //AQUI VA EL CODIGO PARA EL ENVIO DEL CORREO
         return response()->json(["message" => 200, "message_text" => "LOS CURSOS SE HAN ADQUIRIDO CORRECTAMENTE"]);
