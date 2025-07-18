@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Tienda;
 
 use App\Http\Controllers\Controller;
+use App\Models\CoursesStudent;
 use App\Models\Sale\Cart;
 use App\Models\Sale\Sale;
 use App\Models\Sale\SaleDetail;
@@ -47,7 +48,11 @@ class CheckoutController extends Controller
             $new_detail = [];
             $new_detail["sale_id"] = $sale->id;
             $new_detail = $cart->toArray();
-            SaleDetail::create($new_detail );
+            SaleDetail::create($new_detail);
+            CoursesStudent::create([
+                "course_id" => $new_detail ["course_id"],
+                "user_id" => auth('api')->user()->id,
+            ]);
         }
         //AQUI VA EL CODIGO PARA EL ENVIO DEL CORREO
         return response()->json(["message" => 200, "message_text" => "LOS CURSOS SE HAN ADQUIRIDO CORRECTAMENTE"]);
