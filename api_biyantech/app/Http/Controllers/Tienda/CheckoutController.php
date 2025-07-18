@@ -1,0 +1,100 @@
+<?php
+
+namespace App\Http\Controllers\Tienda;
+
+use App\Http\Controllers\Controller;
+use App\Models\Sale\Cart;
+use App\Models\Sale\Sale;
+use App\Models\Sale\SaleDetail;
+use Illuminate\Http\Request;
+
+class CheckoutController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $sale = Sale::create($request->all());
+
+        $carts = Cart::where("user_id",auth('api')->user()->id)->get();
+
+        foreach ($carts as $key => $cart){
+
+            $new_detail = [];
+            $new_detail["sale_id"] = $sale->id;
+            $new_detail = $cart->toArray();
+            SaleDetail::create($new_detail );
+        }
+        //AQUI VA EL CODIGO PARA EL ENVIO DEL CORREO
+        return response()->json(["message" => 200, "message_text" => "LOS CURSOS SE HAN ADQUIRIDO CORRECTAMENTE"]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+}
