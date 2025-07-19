@@ -2,11 +2,11 @@
 
 namespace App\Models\Sale;
 
-use App\Models\Course\Course;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Course\Course;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class SaleDetail extends Model
 {
@@ -23,24 +23,31 @@ class SaleDetail extends Model
         "precio_unitario",
         "total",
     ];
-
+    
     public function setCreatedAtAttribute($value)
     {
-        date_default_timezone_set("America/Caracas");
+        date_default_timezone_set("America/Lima");
         $this->attributes["created_at"] = Carbon::now();
     }
 
     public function setUpdatedAtAttribute($value)
     {
-        date_default_timezone_set("America/Caracas");
+        date_default_timezone_set("America/Lima");
         $this->attributes["updated_at"] = Carbon::now();
     }
 
-    public function course(){
+    public function course()
+    {
         return $this->belongsTo(Course::class);
     }
 
-    public function sale(){
+    public function sale()
+    {
         return $this->belongsTo(Sale::class);
+    }
+
+    public function review()
+    {
+        return $this->hasOne(Review::class);
     }
 }
