@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { URL_SERVICIOS } from 'src/app/config/config';
+import { AuthService } from '../../auth/service/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,14 +10,16 @@ export class TiendaGuestService {
 
   constructor(
     public http: HttpClient,
+    public authService: AuthService,
   ) { }
 
   landingCourse(slug:string,campaing_discount:any = null){
+    let headers = new HttpHeaders({"Authorization": "Bearer "+this.authService.token});
     let LINK = "";
     if(campaing_discount){
       LINK = LINK + "?campaing_discount="+campaing_discount;
     }
     let URL = URL_SERVICIOS+"/ecommerce/course-detail/"+slug+LINK;
-    return this.http.get(URL);
+    return this.http.get(URL,{headers: headers});
   }
 }

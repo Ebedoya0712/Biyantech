@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use App\Models\Course\Course;
+use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -23,13 +23,17 @@ class User extends Authenticatable implements JWTSubject
         "surname",
         'email',
         'password',
+
         "avatar",
         "role_id",
-        "state",//state 1 es activo y 2 es desactivo
-        "type_user",// 1 es tipo cliente y 2 es tipo admin
+
+        "state",//1 es activo y 2 es desactivo
+        "type_user",// 1 es de tipo cliente y 2 es de tipo admin
+    
         "is_instructor",
         "profesion",
-        "description"
+        "description",
+        "phone",
     ];
 
     /**
@@ -60,7 +64,7 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->getKey();
     }
-
+ 
     /**
      * Return a key value array, containing any custom claims to be added to the JWT.
      *
@@ -71,20 +75,38 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public function role(){
+    public function role()
+    {
         return $this->belongsTo(Role::class);
     }
 
-    public function courses(){
+    public function courses()
+    {
         return $this->hasMany(Course::class)->where("state",2);
     }
 
     public function getCoursesCountAttribute()
     {
-        return $this->courses()->count();
+        return $this->courses->count();
     }
 
-    function scopeFilterAdvance($query, $search, $state)
+    public function getAvgReviewsAttribute()
+    {
+        return $this->courses->avg("avg_reviews");
+    }
+
+    public function getCountReviewsAttribute()
+    {
+        return $this->courses->sum("count_reviews");
+    }
+
+    public function getCountStudentsAttribute()
+    {
+        return $this->courses->sum("count_students");
+    }
+
+
+    function scopeFilterAdvance($query,$search,$state)
     {
         if($search){
             $query->where("email","like","%".$search."%");
@@ -92,6 +114,7 @@ class User extends Authenticatable implements JWTSubject
         if($state){
             $query->where("state",$state);
         }
+        
         return $query;
     }
 }

@@ -8,21 +8,16 @@ use App\Models\Course\Course;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Cart extends Model
+class Review extends Model
 {
     use HasFactory;
     protected $fillable = [
-        "user_id",
         "course_id",
-        "type_discount",
-        "discount",
-        "type_campaing",
-        "code_cupon",
-        "code_discount",
-        "precio_unitario",
-        "total",
+        "user_id",
+        "sale_detail_id",
+        "message",
+        "rating",
     ];
-
     public function setCreatedAtAttribute($value)
     {
         date_default_timezone_set("America/Lima");
@@ -34,14 +29,19 @@ class Cart extends Model
         date_default_timezone_set("America/Lima");
         $this->attributes["updated_at"] = Carbon::now();
     }
-    
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function course()
+    public function sale_detail()
     {
-        return $this->belongsTo(Course::class);
+        return $this->belongsTo(SaleDetail::class);
     }
 }
