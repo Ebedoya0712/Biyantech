@@ -190,4 +190,23 @@ export class ProfileClientComponent implements OnInit{
   processFile($event:any){
     this.file_imagen = $event.target.files[0];
   }
+
+  downloadCertificate(enrolled_course: any) {
+        this.tiendaAuth.downloadCertificate(enrolled_course.id).subscribe(
+            (blob: Blob) => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `certificado-${enrolled_course.course.slug}.pdf`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+            },
+            (error) => {
+                console.error('Error downloading the certificate:', error);
+                alertDanger("No se pudo descargar el certificado. Asegúrate de haber completado el curso.");
+            }
+        );
+    }
 }

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from '../../auth/service/auth.service';
 import { URL_SERVICIOS } from 'src/app/config/config';
+import { Observable } from 'rxjs'; // Asegúrate de importar Observable
 
 @Injectable({
   providedIn: 'root'
@@ -35,5 +36,12 @@ export class TiendaAuthService {
     let headers = new HttpHeaders({'Authorization': 'Bearer '+this.authService.token});
     let URL = URL_SERVICIOS+"/ecommerce/update_client";
     return this.http.post(URL,data,{headers: headers});
+  }
+
+  // --- AÑADE ESTE NUEVO MÉTODO ---
+  downloadCertificate(courseStudentId: number): Observable<Blob> {
+    const headers = new HttpHeaders({'Authorization': 'Bearer ' + this.authService.token});
+    const URL = `${URL_SERVICIOS}/ecommerce/download-certificate/${courseStudentId}`;
+    return this.http.get(URL, { headers: headers, responseType: 'blob' });
   }
 }

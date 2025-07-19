@@ -10,6 +10,7 @@ use App\Models\Sale\SaleDetail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Resources\Ecommerce\Sale\SaleCollection;
 use App\Http\Resources\Ecommerce\Course\CourseHomeResource;
 
@@ -51,9 +52,9 @@ class ProfileClientController extends Controller
                 return [
                     "id" => $course_student->id,
                     "clases_checkeds" => $clases_checkeds,
-                    "percentage" => $course_student->course->count_class > 0 
-                    ? round((sizeof($clases_checkeds)/$course_student->course->count_class)*100,2) 
-                    : 0,
+                    "percentage" => $course_student->course->count_class > 0 ? 
+                        round((sizeof($clases_checkeds) / $course_student->course->count_class) * 100, 2) : 
+                    0,
 
                     "course" => CourseHomeResource::make($course_student->course),
                 ];
@@ -63,9 +64,9 @@ class ProfileClientController extends Controller
                 return [
                     "id" => $course_student->id,
                     "clases_checkeds" => $clases_checkeds,
-                    "percentage" => $course_student->course->count_class > 0 
-                        ? round((sizeof($clases_checkeds)/$course_student->course->count_class)*100,2) 
-                        : 0,
+                    "percentage" => $course_student->course->count_class > 0 ? 
+                    round((sizeof($clases_checkeds) / $course_student->course->count_class) * 100, 2) : 
+                0,
 
                     "course" => CourseHomeResource::make($course_student->course),
                 ];
@@ -75,9 +76,9 @@ class ProfileClientController extends Controller
                 return [
                     "id" => $course_student->id,
                     "clases_checkeds" => $clases_checkeds,
-                    "percentage" => $course_student->course->count_class > 0 
-                    ? round((sizeof($clases_checkeds)/$course_student->course->count_class)*100,2) 
-                    : 0,
+                    "percentage" => $course_student->course->count_class > 0 ? 
+                        round((sizeof($clases_checkeds) / $course_student->course->count_class) * 100, 2) : 
+                    0,
 
                     "course" => CourseHomeResource::make($course_student->course),
                 ];
@@ -97,6 +98,7 @@ class ProfileClientController extends Controller
             "sales" => SaleCollection::make($sales),
         ]);
     }
+    
 
     public function update_client(Request $request)
     {
@@ -116,5 +118,35 @@ class ProfileClientController extends Controller
         $user->update($request->all());
 
         return response()->json(["message" => 200]);
+    }
+
+    // --- AÑADE ESTE NUEVO MÉTODO ---
+    public function downloadCertificate(Request $request, $course_student_id)
+    {
+        // Buscamos la inscripción del curso
+        $course_student = CoursesStudent::findOrFail($course_student_id);
+
+        // Verificación de seguridad: el certificado solo lo puede descargar el dueño del curso
+        if ($course_student->user_id != auth('api')->user()->id) {
+            return response()->json(["message" => "No tienes permiso para descargar este certificado"], 403);
+        }
+
+        // Verificación de estado: el curso debe estar completado (state = 2)
+        if ($course_student->state != 2) {
+             return response()->json(["message" => "Debes completar el curso para descargar el certificado"], 403);
+        }
+
+        // Pasamos los datos del estudiante y del curso a una vista de Blade
+        $data = [
+            "user" => $course_student->user,
+            "course" => $course_student->course,
+        ];
+
+        // Generamos el PDF desde una vista de Blade llamada 'certificate-template'
+        // Debes crear este archivo en resources/views/certificate-template.blade.php
+        $pdf = PDF::loadView('certificate-template', $data)->setPaper('a4', 'landscape');
+        
+        // Enviamos el PDF para que se descargue en el navegador
+        return $pdf->download('certificado-'.$course_student->course->slug.'.pdf');
     }
 }

@@ -327,9 +327,12 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="rbt-card-bottom">
-                                                                <a class="rbt-btn btn-sm bg-primary-opacity w-100 text-center" href="#">Download Certificate</a>
-                                                            </div>
+                                                            <a class="rbt-btn btn-sm bg-primary-opacity w-100 text-center"
+                                                                href="#" onclick="return false;"
+                                                                (click)="downloadCertificate(enrolled_course)"
+                                                                *ngIf="enrolled_course.percentage == 100">
+                                                                    Download Certificate
+                                                                </a>
                                                         </div>
                                                     </div>
                                                 </div>
