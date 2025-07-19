@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Tienda;
 
 use App\Http\Controllers\Controller;
+use App\Mail\SaleMail;
 use App\Models\CoursesStudent;
 use App\Models\Sale\Cart;
 use App\Models\Sale\Sale;
 use App\Models\Sale\SaleDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
 {
@@ -57,6 +59,7 @@ class CheckoutController extends Controller
             
         }
         //AQUI VA EL CODIGO PARA EL ENVIO DEL CORREO
+        Mail::to($sale->user->email)->send(new SaleMail($sale)); 
         return response()->json(["message" => 200, "message_text" => "LOS CURSOS SE HAN ADQUIRIDO CORRECTAMENTE"]);
     }
 
