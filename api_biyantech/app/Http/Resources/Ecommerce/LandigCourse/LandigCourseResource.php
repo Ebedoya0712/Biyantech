@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Ecommerce\LandigCourse;
+namespace App\Http\Resources\Ecommerce\LandingCourse;
 
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -32,15 +32,15 @@ class LandigCourseResource extends JsonResource
             "title" => $this->resource->title,
             "subtitle" => $this->resource->subtitle,
             "categorie_id" => $this->resource->categorie_id,
-            "categorie" => $this->resource->categorie ? [
+            "categorie" => [
                 "id" => $this->resource->categorie->id,
                 "name" => $this->resource->categorie->name
-            ] : null,
+            ],
             "sub_categorie_id" => $this->resource->sub_categorie_id,
-            "sub_categorie" => $this->resource->sub_categorie ? [
+            "sub_categorie" => [
                 "id" => $this->resource->sub_categorie->id,
                 "name" => $this->resource->sub_categorie->name
-            ] : null,
+            ],
             "level" => $this->resource->level,
             "idioma" => $this->resource->idioma,
             "vimeo_id" => $this->resource->vimeo_id ? "https://player.vimeo.com/video/".$this->resource->vimeo_id : NULL,
@@ -51,6 +51,9 @@ class LandigCourseResource extends JsonResource
             "count_class" => $this->resource->count_class,
             "time_course" => $this->resource->time_course,
             "files_count" => $this->resource->files_count,
+            "count_students" => $this->resource->count_students,
+            "avg_reviews" => $this->resource->avg_reviews ? round($this->resource->avg_reviews,2): 0,
+            "count_reviews" => $this->resource->count_reviews,
             "discount_g" => $discount_g,
             "discount_date" => $discount_g ? Carbon::parse($discount_g->end_date)->format("d/m") : NULL,
             "description" => $this->resource->description,
@@ -61,25 +64,38 @@ class LandigCourseResource extends JsonResource
                 "full_name" => $this->resource->instructor->name. ' '. $this->resource->instructor->surname,
                 "avatar" => env("APP_URL")."storage/".$this->resource->instructor->avatar,
                 "profesion" => $this->resource->instructor->profesion,
-                "courses_count" => $this->resource->instructor->courses_count,
+                "courses_count"  => $this->resource->instructor->courses_count,
                 "description" => $this->resource->instructor->description,
+                "avg_reviews" => $this->resource->instructor->avg_reviews,
+                "count_reviews" => $this->resource->instructor->count_reviews,
+                "count_students" => $this->resource->instructor->count_students,
             ] : NULL,
-            //MALLA CURRICULAR
+            // MALLA CURRICULAR
             "malla" => $this->resource->sections->map(function($section){
                 return [
                     "id" => $section->id,
                     "name" => $section->name,
                     "time_section" => $section->time_section,
-                    "clases" => $section->clases->map(function($clase){
+                    "clases" => $section->clases->map(function($clase) {
                         return [
                             "id" => $clase->id,
                             "name" => $clase->name,
                             "time_clase" => $clase->time_clase,
                         ];
-                    }),
+                    })
                 ];
             }),
-            "updated_at" => $this->resource->updated_at->format('m/Y'),
+            "updated_at" => $this->resource->updated_at->format("m/Y"),
+            "reviews" => $this->resource->reviews->map(function($review){
+                return [
+                    "message" => $review->message,
+                    "rating" => $review->rating,
+                    "user" => [
+                        "full_name" =>  $review->user->name.' '.$review->user->surname,
+                        "avatar" => env("APP_URL")."storage/".$review->user->avatar,
+                    ],
+                ];
+            })
         ];
     }
 }
