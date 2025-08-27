@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Tienda;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Course\Course;
+use App\Models\CoursesStudent;
 use App\Models\Course\Categorie;
 use App\Models\Discount\Discount;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\Ecommerce\Course\CourseHomeResource;
 use App\Http\Resources\Ecommerce\Course\CourseHomeCollection;
-use App\Http\Resources\Ecommerce\LandigCourse\LandigCourseResource;
 use App\Http\Resources\Ecommerce\LandingCourse\LandingCourseResource;
 
 class HomeController extends Controller
@@ -99,15 +100,22 @@ class HomeController extends Controller
             $discount = Discount::findOrFail($campaing_discount);
         }
         $course = Course::where("slug",$slug)->first();
+        $is_have_course = false;
         if(!$course){
             return abort(404);
+        }
+        if(Auth::guard("api")->check()){
+            $course_student = CoursesStudent::where("user_id",auth("api")->user()->id)->where("course_id",$course->id)->first();
+            if($course_student){
+                $is_have_course = true;
+            }
         }
         $courses_related_instructor = Course::where("id","<>",$course->id)->where("user_id",$course->user_id)->inRandomOrder()->take(2)->get();
 
         $courses_related_categories = Course::where("id","<>",$course->id)->where("categorie_id",$course->categorie_id)->inRandomOrder()->take(3)->get();
 
         return response()->json([
-            "course" => LandigCourseResource::make($course),
+            "course" => LandingCourseResource::make($course),
             "courses_related_instructor" => $courses_related_instructor->map(function($course){
                 return CourseHomeResource::make($course);
             }),
@@ -115,6 +123,7 @@ class HomeController extends Controller
                 return CourseHomeResource::make($course);
             }),
             "DISCOUNT" => $discount,
+            "is_have_course" => $is_have_course,
         ]);
     }
 }
