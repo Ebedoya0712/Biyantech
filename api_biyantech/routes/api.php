@@ -72,18 +72,20 @@ Route::group([
 
 Route::group(["prefix" => "ecommerce"],function($router){
     Route::get("home",[HomeController::class,"home"]);
+    Route::get("config_all",[HomeController::class,"config_all"]);
+    Route::post("list_courses",[HomeController::class,"listCourses"]);
+
     Route::get("course-detail/{slug}",[HomeController::class,"course_detail"]);
     
     Route::group([
         'middleware' => 'api',
     ], function ($router) {
+        Route::get("course_leason/{slug}",[HomeController::class,"course_leason"]);
         Route::post('/apply_coupon',[CartController::class, "apply_coupon"]);
         Route::resource('/cart',CartController::class);
         Route::post('/checkout',[CheckoutController::class,"store"]);
         Route::post('/profile',[ProfileClientController::class,"profile"]);
         Route::post('/update_client',[ProfileClientController::class,"update_client"]);
-        Route::get('/download-certificate/{id}', [ProfileClientController::class, 'downloadCertificate']);
         Route::resource('/review',ReviewController::class);
-        Route::get('/download-certificate/{course_student}', [ProfileClientController::class, 'downloadCertificate']);
     });
 });

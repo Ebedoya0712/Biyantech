@@ -278,7 +278,7 @@
                     <nav class="mainmenu-nav">
                         <ul class="mainmenu">
                             <li class="with-megamenu has-menu-child-item position-static">
-                                <a href="#">Inicio <i class="feather-chevron-down"></i></a>
+                                <a href="#">Home <i class="feather-chevron-down"></i></a>
                                 <!-- Start Mega Menu  -->
                                 <div class="rbt-megamenu menu-skin-dark">
                                     <div class="wrapper">
@@ -1090,7 +1090,7 @@
                     </ul>
   
                     <div class="rbt-btn-wrapper d-none d-xl-block">
-                        <a class="rbt-btn rbt-marquee-btn marquee-auto btn-border-gradient radius-round btn-sm hover-transform-none" href="#">
+                        <a class="rbt-btn rbt-marquee-btn marquee-auto btn-border-gradient radius-round btn-sm hover-transform-none" href="/listado-de-cursos">
                             <span data-text="Enroll Now">Enroll Now</span>
                         </a>
                     </div>
@@ -1114,7 +1114,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <form action="#">
-                            <input type="text" placeholder="What are you looking for?">
+                            <input type="text" [(ngModel)]="search" name="search" (keyup.enter)="searchCourses()" #filter placeholder="What are you looking for?">
                             <div class="submit-btn">
                                 <a class="rbt-btn btn-gradient btn-md" href="#">Search</a>
                             </div>
@@ -1134,132 +1134,40 @@
                     </div>
   
                     <!-- Start Single Card  -->
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-                        <div class="rbt-card variation-01 rbt-hover">
-                            <div class="rbt-card-img">
-                                <a href="course-details.html">
-                                    <img src="assets/images/course/course-online-01.jpg" alt="Card image">
-                                </a>
-                            </div>
-                            <div class="rbt-card-body">
-                                <h5 class="rbt-card-title"><a href="course-details.html">React Js</a>
-                                </h5>
-                                <div class="rbt-review">
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <span class="rating-count"> (15 Reviews)</span>
+                    <ng-container *ngFor="let COURSE of listCourses">
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                            <div class="rbt-card variation-01 rbt-hover">
+                                <div class="rbt-card-img">
+                                    <a [href]="'landing-curso/'+COURSE.slug" target="_blank">
+                                        <img [src]="COURSE.imagen" alt="Card image">
+                                    </a>
                                 </div>
-                                <div class="rbt-card-bottom">
-                                    <div class="rbt-price">
-                                        <span class="current-price">$15</span>
-                                        <span class="off-price">$25</span>
+                                <div class="rbt-card-body">
+                                    <h5 class="rbt-card-title"><a [href]="'landing-curso/'+COURSE.slug" target="_blank">{{ COURSE.title }}</a>
+                                    </h5>
+                                    <div class="rbt-review">
+                                        <div class="rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <span class="rating-count"> ({{ COURSE.count_reviews }} Reviews)</span>
+                                    </div>
+                                    <div class="rbt-card-bottom">
+                                        <div class="rbt-price">
+                                            <span class="current-price">${{ COURSE.precio_usd }}</span>
+                                            <!-- <span class="off-price">$25</span> -->
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </ng-container>
+                    
                     <!-- End Single Card  -->
   
-                    <!-- Start Single Card  -->
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-                        <div class="rbt-card variation-01 rbt-hover">
-                            <div class="rbt-card-img">
-                                <a href="course-details.html">
-                                    <img src="assets/images/course/course-online-02.jpg" alt="Card image">
-                                </a>
-                            </div>
-                            <div class="rbt-card-body">
-                                <h5 class="rbt-card-title"><a href="course-details.html">Java Program</a>
-                                </h5>
-                                <div class="rbt-review">
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <span class="rating-count"> (15 Reviews)</span>
-                                </div>
-                                <div class="rbt-card-bottom">
-                                    <div class="rbt-price">
-                                        <span class="current-price">$10</span>
-                                        <span class="off-price">$40</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single Card  -->
-  
-                    <!-- Start Single Card  -->
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-                        <div class="rbt-card variation-01 rbt-hover">
-                            <div class="rbt-card-img">
-                                <a href="course-details.html">
-                                    <img src="assets/images/course/course-online-03.jpg" alt="Card image">
-                                </a>
-                            </div>
-                            <div class="rbt-card-body">
-                                <h5 class="rbt-card-title"><a href="course-details.html">Web Design</a>
-                                </h5>
-                                <div class="rbt-review">
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <span class="rating-count"> (15 Reviews)</span>
-                                </div>
-                                <div class="rbt-card-bottom">
-                                    <div class="rbt-price">
-                                        <span class="current-price">$10</span>
-                                        <span class="off-price">$20</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single Card  -->
-  
-                    <!-- Start Single Card  -->
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-                        <div class="rbt-card variation-01 rbt-hover">
-                            <div class="rbt-card-img">
-                                <a href="course-details.html">
-                                    <img src="assets/images/course/course-online-04.jpg" alt="Card image">
-                                </a>
-                            </div>
-                            <div class="rbt-card-body">
-                                <h5 class="rbt-card-title"><a href="course-details.html">Web Design</a>
-                                </h5>
-                                <div class="rbt-review">
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <span class="rating-count"> (15 Reviews)</span>
-                                </div>
-                                <div class="rbt-card-bottom">
-                                    <div class="rbt-price">
-                                        <span class="current-price">$20</span>
-                                        <span class="off-price">$40</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single Card  -->
                 </div>
   
             </div>
@@ -1376,7 +1284,7 @@
         <div class="inner-top">
             <div class="content">
                 <div class="logo">
-                    <a routerLink="/">
+                    <a href="index.html">
                         <img src="assets/images/logo/logo.png" alt="Education Logo Images">
                     </a>
                 </div>
@@ -1398,7 +1306,7 @@
         <nav class="mainmenu-nav">
             <ul class="mainmenu">
                 <li class="with-megamenu has-menu-child-item position-static">
-                    <a href="#">Inicio <i class="feather-chevron-down"></i></a>
+                    <a href="#">Home <i class="feather-chevron-down"></i></a>
                     <!-- Start Mega Menu  -->
                     <div class="rbt-megamenu menu-skin-dark">
                         <div class="wrapper">
@@ -2048,22 +1956,23 @@
             <ul class="rbt-minicart-wrapper">
                 <ng-container *ngFor="let cart of listCarts">
                     <li class="minicart-item">
-                    <div class="thumbnail">
-                        <a href="#">
-                            <img [src]="cart.course.imagen" alt="Product Images">
-                        </a>
-                    </div>
-                    <div class="product-content">
-                        <h6 class="title"><a [href]="'/landing-curso/'+cart.course.slug">{{ cart.course.title }}</a></h6>
-  
-                        <span class="quantity"><span class="price">{{ cart.total }} USD</span></span>
-                    </div>
-                    <div class="close-btn">
-                        <button class="rbt-round-btn" (click)="removeItem(cart)"><i class="feather-x"></i></button>
-                    </div>
-                </li>
+                        <div class="thumbnail">
+                            <a href="#">
+                                <img [src]="cart.course.imagen" alt="Product Images">
+                            </a>
+                        </div>
+                        <div class="product-content">
+                            <h6 class="title"><a [href]="'/landing-curso/'+cart.course.slug">{{ cart.course.title }}</a></h6>
+      
+                            <span class="quantity"><span class="price">{{ cart.total }} USD</span></span>
+                        </div>
+                        <div class="close-btn">
+                            <button class="rbt-round-btn" (click)="removeItem(cart)"><i class="feather-x"></i></button>
+                        </div>
+                    </li>
                 </ng-container>
                 
+
             </ul>
         </nav>
   
@@ -2081,16 +1990,16 @@
                         <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                     </a>
                 </div>
-                <!--<div class="checkout-btn mt--20">
+                <!-- <div class="checkout-btn mt--20">
                     <a class="rbt-btn btn-gradient icon-hover w-100 text-center" href="#">
                         <span class="btn-text">Checkout</span>
                         <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                     </a>
-                </div>-->
+                </div> -->
             </div>
         </div>
-        
+  
     </div>
-</div>
-<!-- End Side Vav -->
-<a class="close_side_menu" href="javascript:void(0);"></a>
+  </div>
+  <!-- End Side Vav -->
+  <a class="close_side_menu" href="javascript:void(0);"></a>    

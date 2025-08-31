@@ -44,4 +44,24 @@ export class TiendaAuthService {
     const URL = `${URL_SERVICIOS}/ecommerce/download-certificate/${courseStudentId}`;
     return this.http.get(URL, { headers: headers, responseType: 'blob' });
   }
+
+  landingCourse(slug:string,campaing_discount:any = null){
+    let headers = new HttpHeaders({"Authorization": "Bearer "+this.authService.token});
+    let LINK = "";
+    if(campaing_discount){
+      LINK = LINK + "?campaing_discount="+campaing_discount;
+    }
+    let URL = URL_SERVICIOS+"/ecommerce/course-detail/"+slug+LINK;
+    return this.http.get(URL,{headers: headers});
+  }
+
+  listCourses(data:any){
+    let URL = URL_SERVICIOS+"/ecommerce/list_courses";
+    return this.http.post(URL,data);
+  }
+
+  listConfig(){
+    let URL = URL_SERVICIOS+"/ecommerce/config_all";
+    return this.http.get(URL);
+  }
 }

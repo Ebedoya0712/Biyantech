@@ -22,4 +22,14 @@ export class TiendaGuestService {
     let URL = URL_SERVICIOS+"/ecommerce/course-detail/"+slug+LINK;
     return this.http.get(URL,{headers: headers});
   }
+
+  listCourses(data:any){
+    let URL = URL_SERVICIOS+"/ecommerce/list_courses";
+    return this.http.post(URL,data);
+  }
+
+  listConfig(){
+    let URL = URL_SERVICIOS+"/ecommerce/config_all";
+    return this.http.get(URL);
+  }
 }
