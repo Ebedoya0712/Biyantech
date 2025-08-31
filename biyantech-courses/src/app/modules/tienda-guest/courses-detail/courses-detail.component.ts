@@ -64,13 +64,16 @@ export class CoursesDetailComponent implements OnInit{
     this.user = this.cartService.authService.user;
   }
 
-  getNewTotal(COURSE:any,DESCOUNT_BANNER:any){
-    if(DESCOUNT_BANNER.type_discount == 1){
-      return COURSE.precio_usd - COURSE.precio_usd*(DESCOUNT_BANNER.discount*0.01);
-    }else{
-      return COURSE.precio_usd - DESCOUNT_BANNER.discount;
-    }
+  getNewTotal(COURSE:any, DESCOUNT_BANNER:any) {
+  let new_total = 0;
+  if (DESCOUNT_BANNER.type_discount == 1) { // Descuento por porcentaje
+    new_total = COURSE.precio_usd - (COURSE.precio_usd * (DESCOUNT_BANNER.discount * 0.01));
+  } else { // Descuento por monto fijo
+    new_total = COURSE.precio_usd - DESCOUNT_BANNER.discount;
   }
+  // Aplicamos .toFixed(2) para asegurar que siempre haya dos decimales
+  return new_total.toFixed(2);
+}
 
   getTotalPriceCourse(COURSE:any){
     if(COURSE.discount_g){
