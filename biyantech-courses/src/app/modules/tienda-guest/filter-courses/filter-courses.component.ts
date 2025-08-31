@@ -132,20 +132,24 @@ export class FilterCoursesComponent {
     })
   }
 
-  getNewTotal(COURSE:any,DESCOUNT_BANNER:any){
-    if(DESCOUNT_BANNER.type_discount == 1){
-      return COURSE.precio_usd - COURSE.precio_usd*(DESCOUNT_BANNER.discount*0.01);
-    }else{
-      return COURSE.precio_usd - DESCOUNT_BANNER.discount;
-    }
+  getNewTotal(COURSE:any, DESCOUNT_BANNER:any) {
+  let new_total = 0;
+  if (DESCOUNT_BANNER.type_discount == 1) { // Descuento por porcentaje
+    new_total = COURSE.precio_usd - (COURSE.precio_usd * (DESCOUNT_BANNER.discount * 0.01));
+  } else { // Descuento por monto fijo
+    new_total = COURSE.precio_usd - DESCOUNT_BANNER.discount;
   }
+  return new_total.toFixed(2);
+}
 
-  getTotalPriceCourse(COURSE:any){
-    if(COURSE.discount_g){
-      return this.getNewTotal(COURSE,COURSE.discount_g);
-    }
-    return COURSE.precio_usd;
+getTotalPriceCourse(COURSE:any) {
+  if (COURSE.discount_g) {
+    // getNewTotal ya devuelve el valor formateado
+    return this.getNewTotal(COURSE, COURSE.discount_g);
   }
+  // Aseguramos que el precio sin descuento también tenga formato
+  return COURSE.precio_usd.toFixed(2);
+}
 
   addCart(LANDING_COURSE:any,DESCOUNT_CAMPAING:any = null){
     if(!this.user){
