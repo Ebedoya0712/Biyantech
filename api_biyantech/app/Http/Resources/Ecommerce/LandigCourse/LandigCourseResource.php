@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Ecommerce\LandigCourse;
+namespace App\Http\Resources\Ecommerce\LandingCourse;
 
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -66,7 +66,7 @@ class LandigCourseResource extends JsonResource
                 "profesion" => $this->resource->instructor->profesion,
                 "courses_count"  => $this->resource->instructor->courses_count,
                 "description" => $this->resource->instructor->description,
-                "avg_reviews" => $this->resource->instructor->avg_reviews,
+                "avg_reviews" => round($this->resource->instructor->avg_reviews,2),
                 "count_reviews" => $this->resource->instructor->count_reviews,
                 "count_students" => $this->resource->instructor->count_students,
             ] : NULL,
@@ -81,6 +81,14 @@ class LandigCourseResource extends JsonResource
                             "id" => $clase->id,
                             "name" => $clase->name,
                             "time_clase" => $clase->time_clase,
+                            "vimeo" => $clase->vimeo_id ? "https://player.vimeo.com/video/".$clase->vimeo_id : NULL,
+                            "files" => $clase->files->map(function($file) {
+                                return [
+                                    "name" => $file->name_file,
+                                    "url" => env("APP_URL")."storage/".$file->file,
+                                    "size" => $file->size,
+                                ];
+                            })
                         ];
                     })
                 ];

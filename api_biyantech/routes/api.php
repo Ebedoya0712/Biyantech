@@ -86,6 +86,8 @@ Route::group(["prefix" => "ecommerce"],function($router){
         Route::post('/checkout',[CheckoutController::class,"store"]);
         Route::post('/profile',[ProfileClientController::class,"profile"]);
         Route::post('/update_client',[ProfileClientController::class,"update_client"]);
+        Route::get('/download-certificate/{id}', [ProfileClientController::class, 'downloadCertificate']);
         Route::resource('/review',ReviewController::class);
+        Route::get('/download-certificate/{course_student}', [ProfileClientController::class, 'downloadCertificate']);
     });
 });
