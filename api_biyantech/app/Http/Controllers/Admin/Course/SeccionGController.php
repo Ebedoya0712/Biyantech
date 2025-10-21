@@ -15,8 +15,7 @@ class SeccionGController extends Controller
      */
     public function index(Request $request)
     {
-        $sections = CourseSection::where("course_id",$request->course_id)->orderBy("id","asc")->get();
-
+        $sections = CourseSection::withCount("clases")->where("course_id",$request->course_id)->orderBy("id","asc")->get();
         return response()->json(["sections" => $sections]);
     }
 
