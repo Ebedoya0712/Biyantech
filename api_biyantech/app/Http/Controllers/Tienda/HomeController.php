@@ -14,7 +14,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\Ecommerce\Course\CourseHomeResource;
 use App\Http\Resources\Ecommerce\Course\CourseHomeCollection;
-use App\Http\Resources\Ecommerce\LandingCourse\LandingCourseResource;
+use App\Http\Resources\Ecommerce\LandigCourse\LandigCourseResource;
+// If LandingCourseResource does not exist, create it at:
+// app/Http/Resources/Ecommerce/LandingCourse/LandingCourseResource.php
 
 class HomeController extends Controller
 {
@@ -117,7 +119,7 @@ class HomeController extends Controller
         $courses_related_categories = Course::where("id","<>",$course->id)->where("categorie_id",$course->categorie_id)->inRandomOrder()->take(3)->get();
 
         return response()->json([
-            "course" => LandingCourseResource::make($course),
+            "course" => LandigCourseResource::make($course),
             "courses_related_instructor" => $courses_related_instructor->map(function($course){
                 return CourseHomeResource::make($course);
             }),
@@ -144,7 +146,7 @@ class HomeController extends Controller
         }
         
         return response()->json([
-            "course" => LandingCourseResource::make($course),
+            "course" => LandigCourseResource::make($course),
         ]);
     }
     public function listCourses(Request $request)

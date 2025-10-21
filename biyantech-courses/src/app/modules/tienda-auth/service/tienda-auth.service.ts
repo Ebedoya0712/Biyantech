@@ -38,6 +38,12 @@ export class TiendaAuthService {
     return this.http.post(URL,data,{headers: headers});
   }
 
+  showCourse(slug:any){
+    let headers = new HttpHeaders({'Authorization': 'Bearer '+this.authService.token});
+    let URL = URL_SERVICIOS+"/ecommerce/course_leason/"+slug;
+    return this.http.get(URL,{headers: headers});
+  }
+
   // --- AÑADE ESTE NUEVO MÉTODO ---
   downloadCertificate(courseStudentId: number): Observable<Blob> {
     const headers = new HttpHeaders({'Authorization': 'Bearer ' + this.authService.token});
@@ -64,4 +70,5 @@ export class TiendaAuthService {
     let URL = URL_SERVICIOS+"/ecommerce/config_all";
     return this.http.get(URL);
   }
+  
 }

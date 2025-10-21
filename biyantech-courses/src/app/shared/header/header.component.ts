@@ -95,4 +95,3 @@ export class HeaderComponent implements OnInit, AfterViewInit{
     window.location.href = "/listado-de-cursos?search="+this.search;
   }
 }
-
