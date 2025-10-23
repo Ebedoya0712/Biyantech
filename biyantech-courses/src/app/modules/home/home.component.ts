@@ -101,4 +101,14 @@ export class HomeComponent implements OnInit{
       }
     })
   }
+
+  /**
+   * FUNCIÓN AÑADIDA: Desplaza la página al inicio (top: 0) con animación suave.
+   */
+  scrollToTop(): void {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
 }
