@@ -72,7 +72,7 @@
                                                 </div>
                                                 
                                                 <a class="rbt-btn-link" href="#" onclick="return false;" (click)="addCart(COURSE,DESCOUNT_BANNER)">
-                                                    <i class="feather-shopping-cart"></i> Add To Cart
+                                                    <i class="feather-shopping-cart"></i> Agregar al Carrito
                                                 </a>
                                             </div>
                                         </div>
@@ -204,7 +204,7 @@
                                                 <span class="current-price">{{ getNewTotal(COURSE,DESCOUNT_FLASH) }} USD</span>
                                                     <span class="off-price">{{ COURSE.precio_usd }} USD</span>
                                             </div>
-                                            <a class="rbt-btn-link left-icon" href="#" onclick="return false;" (click)="addCart(COURSE,DESCOUNT_FLASH)"><i class="feather-shopping-cart"></i> Add To Cart</a>
+                                            <a class="rbt-btn-link left-icon" href="#" onclick="return false;" (click)="addCart(COURSE,DESCOUNT_FLASH)"><i class="feather-shopping-cart"></i> Agregar al Carrito</a>
                                         </div>
                                     </div>
                                 </div>
@@ -286,7 +286,7 @@
                                     <span class="current-price">{{ getTotalPriceCourse(COURSE) }} USD</span>
                                     <span class="off-price" *ngIf="COURSE.discount_g">{{ COURSE.precio_usd }}</span>
                                 </div>
-                                <a class="rbt-btn-link left-icon" href="#" onclick="return false;" (click)="addCart(COURSE)"><i class="feather-shopping-cart"></i> Add To Cart</a>
+                                <a class="rbt-btn-link left-icon" href="#" onclick="return false;" (click)="addCart(COURSE)"><i class="feather-shopping-cart"></i> Agregar al Carrito</a>
                             </div>
                         </div>
                     </div>
@@ -607,7 +607,7 @@
                                                     <span class="current-price">{{ getTotalPriceCourse(courses) }} USD</span>
                                                     <span class="off-price" *ngIf="courses.discount_g">{{ courses.precio_usd }}</span>
                                                 </div>
-                                                <a class="rbt-btn-link left-icon" href="#" onclick="return false;" (click)="addCart(courses)"><i class="feather-shopping-cart"></i> Add To Cart</a>
+                                                <a class="rbt-btn-link left-icon" href="#" onclick="return false;" (click)="addCart(courses)"><i class="feather-shopping-cart"></i> Agregar al Carrito</a>
                                             </div>
                                         </div>
                                     </div>
@@ -636,8 +636,8 @@
           <div class="row mb--60">
               <div class="col-lg-12">
                   <div class="section-title text-center">
-                      <span class="subtitle bg-primary-opacity">Our Teacher</span>
-                      <h2 class="title">Whose Inspirations You</h2>
+                      <span class="subtitle bg-primary-opacity">Descubre tu Próximo Nivel</span>
+                      <h2 class="title">Explora Nuestras Categorías de Cursos Destacadas</h2>
                   </div>
               </div>
           </div>
@@ -650,259 +650,268 @@
                           <div class="inner">
                               <div class="rbt-team-thumbnail">
                                   <div class="thumb">
-                                      <img src="assets/images/team/team-01.jpg" alt="Testimonial Images">
+                                      <img src="assets/images/team/idiomas-y-cultura.png" alt="Testimonial Images">
                                   </div>
                               </div>
                               <div class="rbt-team-details">
-                                  <div class="author-info">
-                                      <h4 class="title">Mames Mary</h4>
-                                      <span class="designation theme-gradient">English Teacher</span>
-                                      <span class="team-form">
-                          <i class="feather-map-pin"></i>
-                          <span class="location">CO Miego, AD,USA</span>
-                                      </span>
-                                  </div>
-                                  <p>Histudy The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.</p>
-                                  <ul class="social-icon social-default mt--20 justify-content-start">
-                                      <li><a href="https://www.facebook.com/">
-                                              <i class="feather-facebook"></i>
-                                          </a>
-                                      </li>
-                                      <li><a href="https://www.twitter.com">
-                                              <i class="feather-twitter"></i>
-                                          </a>
-                                      </li>
-                                      <li><a href="https://www.instagram.com/">
-                                              <i class="feather-instagram"></i>
-                                          </a>
-                                      </li>
-                                  </ul>
-                                  <ul class="rbt-information-list mt--25">
-                                      <li>
-                                          <a href="#"><i class="feather-phone"></i>+1-202-555-0174</a>
-                                      </li>
-                                      <li>
-                                          <a href="mailto:hello@example.com"><i class="feather-mail"></i>example@gmail.com</a>
-                                      </li>
-                                  </ul>
-                              </div>
-                          </div>
-                      </div>
+    <div class="card-body p-0">
+        <!-- Título Destacado (Ahora más grande) -->
+        <h3 class="fs-3 fw-bold text-primary mb-2">
+            Idioma y Cultura
+        </h3>
+        <!-- Subtítulo (Ahora más grande) -->
+        <h4 class="fs-5 text-dark mb-4">
+            Inmersión Global y Excelencia Lingüística
+        </h4>
+        
+        <!-- Puntos de Valor -->
+        <p class="text-secondary mb-4">
+            Sumérgete en un aprendizaje que va más allá de las palabras, preparándote para la comunicación fluida y la negociación culturalmente inteligente.
+        </p>
+        
+        <!-- Título de Lo que vas a aprender (Ahora más grande) -->
+        <h5 class="fs-5 fw-bold text-dark pt-3 border-top border-2 border-light mb-3">
+            Lo que Vas a Aprender:
+        </h5>
+        
+        <!-- Lista de aprendizaje -->
+        <ul class="list-unstyled mb-4 text-secondary">
+            <li class="d-flex align-items-start mb-3">
+                <span class="text-success me-2"><i class="bi bi-check-circle-fill"></i></span> <span class="fw-bold">Dominio Conversacional Fluido.</span>
+            </li>
+            <li class="d-flex align-items-start mb-3">
+                <span class="text-success me-2"><i class="bi bi-check-circle-fill"></i></span> <span class="fw-bold">Estrategias de Adaptación Cultural.</span>
+            </li>
+        </ul>
+    </div>
+</div>
+</div>
+</div>
 
                       <div class="tab-pane fade" id="team-tab2" role="tabpanel" aria-labelledby="team-tab2-tab">
-                          <div class="inner">
-                              <div class="rbt-team-thumbnail">
-                                  <div class="thumb">
-                                      <img src="assets/images/team/team-02.jpg" alt="Testimonial Images">
-                                  </div>
-                              </div>
-                              <div class="rbt-team-details">
-                                  <div class="author-info">
-                                      <h4 class="title">Robert Song</h4>
-                                      <span class="designation theme-gradient">Math Teacher</span>
-                                      <span class="team-form">
-                          <i class="feather-map-pin"></i>
-                          <span class="location">CO Miego, AD,USA</span>
-                                      </span>
-                                  </div>
-                                  <p>Education The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.</p>
-                                  <ul class="social-icon social-default mt--20 justify-content-start">
-                                      <li><a href="https://www.facebook.com/">
-                                              <i class="feather-facebook"></i>
-                                          </a>
-                                      </li>
-                                      <li><a href="https://www.twitter.com">
-                                              <i class="feather-twitter"></i>
-                                          </a>
-                                      </li>
-                                      <li><a href="https://www.instagram.com/">
-                                              <i class="feather-instagram"></i>
-                                          </a>
-                                      </li>
-                                  </ul>
-                                  <ul class="rbt-information-list mt--25">
-                                      <li>
-                                          <a href="#"><i class="feather-phone"></i>+1-202-555-0174</a>
-                                      </li>
-                                      <li>
-                                          <a href="mailto:hello@example.com"><i class="feather-mail"></i>example@gmail.com</a>
-                                      </li>
-                                  </ul>
-                              </div>
-                          </div>
-                      </div>
+    <div class="inner">
+        <div class="rbt-team-thumbnail">
+            <div class="thumb">
+                <!-- Imagen de Capibara de Negocios y Emprendimiento -->
+                <img src="assets/images/team/negocios-y-emprendimiento.png" alt="Capibara de Negocios">
+            </div>
+        </div>
+        <div class="rbt-team-details">
+            <div class="card-body p-0">
+                <!-- Título Destacado -->
+                <h3 class="fs-3 fw-bold text-success mb-2">
+                    Negocios y Emprendimiento
+                </h3>
+                <!-- Subtítulo -->
+                <h4 class="fs-5 text-dark mb-4">
+                    Estrategia Empresarial y Análisis de Mercado
+                </h4>
+                
+                <!-- Puntos de Valor -->
+                <p class="text-secondary mb-4">
+                    Adquiere las habilidades fundamentales para la toma de decisiones financieras, la gestión estratégica y la comprensión del entorno económico global.
+                </p>
+                
+                <!-- Título de Lo que vas a aprender -->
+                <h5 class="fs-5 fw-bold text-dark pt-3 border-top border-2 border-light mb-3">
+                    Lo que Vas a Aprender:
+                </h5>
+                
+                <!-- Lista de aprendizaje -->
+                <ul class="list-unstyled mb-4 text-secondary">
+                    <li class="d-flex align-items-start mb-3">
+                        <span class="text-success me-2"><i class="bi bi-check-circle-fill"></i></span> <span class="fw-bold">Planificación Estratégica y Liderazgo.</span>
+                    </li>
+                    <li class="d-flex align-items-start mb-3">
+                        <span class="text-success me-2"><i class="bi bi-check-circle-fill"></i></span> <span class="fw-bold">Modelado y Análisis Financiero.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 
                       <div class="tab-pane fade" id="team-tab3" role="tabpanel" aria-labelledby="team-tab3-tab">
-                          <div class="inner">
-                              <div class="rbt-team-thumbnail">
-                                  <div class="thumb">
-                                      <img src="assets/images/team/team-03.jpg" alt="Testimonial Images">
-                                  </div>
-                              </div>
-                              <div class="rbt-team-details">
-                                  <div class="author-info">
-                                      <h4 class="title">William Susan</h4>
-                                      <span class="designation theme-gradient">React Teacher</span>
-                                      <span class="team-form">
-                          <i class="feather-map-pin"></i>
-                          <span class="location">CO Miego, AD,USA</span>
-                                      </span>
-                                  </div>
-                                  <p>React The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.</p>
-                                  <ul class="social-icon social-default mt--20 justify-content-start">
-                                      <li><a href="https://www.facebook.com/">
-                                              <i class="feather-facebook"></i>
-                                          </a>
-                                      </li>
-                                      <li><a href="https://www.twitter.com">
-                                              <i class="feather-twitter"></i>
-                                          </a>
-                                      </li>
-                                      <li><a href="https://www.instagram.com/">
-                                              <i class="feather-instagram"></i>
-                                          </a>
-                                      </li>
-                                  </ul>
-                                  <ul class="rbt-information-list mt--25">
-                                      <li>
-                                          <a href="#"><i class="feather-phone"></i>+1-202-555-0174</a>
-                                      </li>
-                                      <li>
-                                          <a href="mailto:hello@example.com"><i class="feather-mail"></i>example@gmail.com</a>
-                                      </li>
-                                  </ul>
-                              </div>
-                          </div>
-                      </div>
+    <div class="inner">
+        <div class="rbt-team-thumbnail">
+            <div class="thumb">
+                <!-- Imagen de Capibara de Tecnología e Innovación -->
+                <img src="assets/images/team/tecnologias.png" alt="Capibara de Tecnología e Innovación">
+            </div>
+        </div>
+        <div class="rbt-team-details">
+            <div class="card-body p-0">
+                <!-- Título Destacado (CORREGIDO) -->
+                <h3 class="fs-3 fw-bold text-primary mb-2">
+                    Tecnología e Innovación
+                </h3>
+                <!-- Subtítulo -->
+                <h4 class="fs-5 text-dark mb-4">
+                    Desarrollo Web, IA y Pensamiento Disruptivo
+                </h4>
+                
+                <!-- Puntos de Valor -->
+                <p class="text-secondary mb-4">
+                    Domina las herramientas esenciales del siglo XXI, desde la **programación** hasta la aplicación de la **inteligencia artificial**, para impulsar la innovación y transformar negocios.
+                </p>
+                
+                <!-- Título de Lo que vas a aprender -->
+                <h5 class="fs-5 fw-bold text-dark pt-3 border-top border-2 border-light mb-3">
+                    Lo que Vas a Aprender:
+                </h5>
+                
+                <!-- Lista de aprendizaje -->
+                <ul class="list-unstyled mb-4 text-secondary">
+                    <li class="d-flex align-items-start mb-3">
+                        <span class="text-primary me-2"><i class="bi bi-check-circle-fill"></i></span> <span class="fw-bold">Fundamentos de Programación (Python/JS).</span>
+                    </li>
+                    <li class="d-flex align-items-start mb-3">
+                        <span class="text-primary me-2"><i class="bi bi-check-circle-fill"></i></span> <span class="fw-bold">Aplicación de Inteligencia Artificial y Machine Learning.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
 
                       <div class="tab-pane fade" id="team-tab4" role="tabpanel" aria-labelledby="team-tab4-tab">
-                          <div class="inner">
-                              <div class="rbt-team-thumbnail">
-                                  <div class="thumb">
-                                      <img src="assets/images/team/team-04.jpg" alt="Testimonial Images">
-                                  </div>
-                              </div>
-                              <div class="rbt-team-details">
-                                  <div class="author-info">
-                                      <h4 class="title">Soseph Sara</h4>
-                                      <span class="designation theme-gradient">Web Teacher</span>
-                                      <span class="team-form">
-                          <i class="feather-map-pin"></i>
-                          <span class="location">CO Miego, AD,USA</span>
-                                      </span>
-                                  </div>
-                                  <p>Histudy The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.</p>
-                                  <ul class="social-icon social-default mt--20 justify-content-start">
-                                      <li><a href="https://www.facebook.com/">
-                                              <i class="feather-facebook"></i>
-                                          </a>
-                                      </li>
-                                      <li><a href="https://www.twitter.com">
-                                              <i class="feather-twitter"></i>
-                                          </a>
-                                      </li>
-                                      <li><a href="https://www.instagram.com/">
-                                              <i class="feather-instagram"></i>
-                                          </a>
-                                      </li>
-                                  </ul>
-                                  <ul class="rbt-information-list mt--25">
-                                      <li>
-                                          <a href="#"><i class="feather-phone"></i>+1-202-555-0174</a>
-                                      </li>
-                                      <li>
-                                          <a href="mailto:hello@example.com"><i class="feather-mail"></i>example@gmail.com</a>
-                                      </li>
-                                  </ul>
-                              </div>
-                          </div>
-                      </div>
+    <div class="inner">
+        <div class="rbt-team-thumbnail">
+            <div class="thumb">
+                <!-- Imagen de Capibara de Crecimiento Personal y Negocios -->
+                <img src="assets/images/team/crecimiento-personal.png" alt="Capibara de Crecimiento Personal y Habilidades para los Negocios">
+            </div>
+        </div>
+        <div class="rbt-team-details">
+            <div class="card-body p-0">
+                <!-- Título Destacado -->
+                <h3 class="fs-3 fw-bold text-warning mb-2">
+                    Crecimiento Personal y Habilidades para los Negocios
+                </h3>
+                <!-- Subtítulo -->
+                <h4 class="fs-5 text-dark mb-4">
+                    Productividad, Liderazgo e Inteligencia Emocional
+                </h4>
+                
+                <!-- Puntos de Valor -->
+                <p class="text-secondary mb-4">
+                    Desarrolla las **habilidades blandas** esenciales para el éxito profesional, mejorando tu influencia, gestión del tiempo y la toma de decisiones en el entorno empresarial.
+                </p>
+                
+                <!-- Título de Lo que vas a aprender -->
+                <h5 class="fs-5 fw-bold text-dark pt-3 border-top border-2 border-light mb-3">
+                    Lo que Vas a Aprender:
+                </h5>
+                
+                <!-- Lista de aprendizaje -->
+                <ul class="list-unstyled mb-4 text-secondary">
+                    <li class="d-flex align-items-start mb-3">
+                        <span class="text-warning me-2"><i class="bi bi-check-circle-fill"></i></span> <span class="fw-bold">Gestión Efectiva del Tiempo y Productividad.</span>
+                    </li>
+                    <li class="d-flex align-items-start mb-3">
+                        <span class="text-warning me-2"><i class="bi bi-check-circle-fill"></i></span> <span class="fw-bold">Inteligencia Emocional y Resolución de Conflictos.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
 
                       <div class="tab-pane fade" id="team-tab5" role="tabpanel" aria-labelledby="team-tab5-tab">
-                          <div class="inner">
-                              <div class="rbt-team-thumbnail">
-                                  <div class="thumb">
-                                      <img src="assets/images/team/team-05.jpg" alt="Testimonial Images">
-                                  </div>
-                              </div>
-                              <div class="rbt-team-details">
-                                  <div class="author-info">
-                                      <h4 class="title">Thomas Dal</h4>
-                                      <span class="designation theme-gradient">Graphic Teacher</span>
-                                      <span class="team-form">
-                          <i class="feather-map-pin"></i>
-                          <span class="location">CO Miego, AD,USA</span>
-                                      </span>
-                                  </div>
-                                  <p>Histudy The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.</p>
-                                  <ul class="social-icon social-default mt--20 justify-content-start">
-                                      <li><a href="https://www.facebook.com/">
-                                              <i class="feather-facebook"></i>
-                                          </a>
-                                      </li>
-                                      <li><a href="https://www.twitter.com">
-                                              <i class="feather-twitter"></i>
-                                          </a>
-                                      </li>
-                                      <li><a href="https://www.instagram.com/">
-                                              <i class="feather-instagram"></i>
-                                          </a>
-                                      </li>
-                                  </ul>
-                                  <ul class="rbt-information-list mt--25">
-                                      <li>
-                                          <a href="#"><i class="feather-phone"></i>+1-202-555-0174</a>
-                                      </li>
-                                      <li>
-                                          <a href="mailto:hello@example.com"><i class="feather-mail"></i>example@gmail.com</a>
-                                      </li>
-                                  </ul>
-                              </div>
-                          </div>
-                      </div>
+                          <div class="tab-pane fade show active" id="team-tab5" role="tabpanel" aria-labelledby="team-tab5-tab">
+    <div class="inner">
+        <div class="rbt-team-thumbnail">
+            <div class="thumb">
+                <!-- Imagen para Arte, Diseño y Creatividad -->
+                <img src="assets/images/team/arte_y_creatividad.png" alt="Imagen del curso de Arte, Diseño y Creatividad">
+            </div>
+        </div>
+        <div class="rbt-team-details">
+            <!-- La nueva estructura comienza aquí, reemplazando la información del profesor -->
+            <div class="card-body p-0">
+                
+                <!-- Título Destacado de la Categoría -->
+                <h3 class="fs-3 fw-bold text-warning mb-2">
+                    Arte, Diseño y Creatividad Digital
+                </h3>
+                
+                <!-- Subtítulo / Temas clave -->
+                <h4 class="fs-5 text-dark mb-4">
+                    Composición, Herramientas de Software y Prototipado
+                </h4>
+                
+                <!-- Párrafo Resumen de Valor -->
+                <p class="text-secondary mb-4">
+                    Desarrolla las **bases de la composición, la teoría del color y las herramientas esenciales de software (como Adobe Suite o Figma)** para transformar ideas abstractas en proyectos visuales coherentes y profesionales, listos para impresión o web.
+                </p>
+                
+                <!-- Título de Lo que vas a aprender -->
+                <h5 class="fs-5 fw-bold text-dark pt-3 border-top border-2 border-light mb-3">
+                    Lo que Vas a Aprender:
+                </h5>
+                
+                <!-- Lista de aprendizaje específica con iconos -->
+                <ul class="list-unstyled mb-4 text-secondary">
+                    <li class="d-flex align-items-start mb-3">
+                        <!-- Nota: Se usa bi-check-circle-fill según tu plantilla, asumiendo que los íconos de Bootstrap están cargados. -->
+                        <span class="text-warning me-2"><i class="bi bi-check-circle-fill"></i></span> <span class="fw-bold">Dominio en software de diseño (Adobe Suite, Figma, etc.).</span>
+                    </li>
+                    <li class="d-flex align-items-start mb-3">
+                        <span class="text-warning me-2"><i class="bi bi-check-circle-fill"></i></span> <span class="fw-bold">Aplicación práctica de la teoría del color y la tipografía.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 
                       <div class="tab-pane fade" id="team-tab6" role="tabpanel" aria-labelledby="team-tab6-tab">
                           <div class="inner">
-                              <div class="rbt-team-thumbnail">
-                                  <div class="thumb">
-                                      <img src="assets/images/team/team-06.jpg" alt="Testimonial Images">
-                                  </div>
-                              </div>
-                              <div class="rbt-team-details">
-                                  <div class="author-info">
-                                      <h4 class="title">Christopher Lisa</h4>
-                                      <span class="designation theme-gradient">English Teacher</span>
-                                      <span class="team-form">
-                          <i class="feather-map-pin"></i>
-                          <span class="location">CO Miego, AD,USA</span>
-                                      </span>
-                                  </div>
-                                  <p>Histudy The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.</p>
-                                  <ul class="social-icon social-default mt--20 justify-content-start">
-                                      <li><a href="https://www.facebook.com/">
-                                              <i class="feather-facebook"></i>
-                                          </a>
-                                      </li>
-                                      <li><a href="https://www.twitter.com">
-                                              <i class="feather-twitter"></i>
-                                          </a>
-                                      </li>
-                                      <li><a href="https://www.instagram.com/">
-                                              <i class="feather-instagram"></i>
-                                          </a>
-                                      </li>
-                                  </ul>
-                                  <ul class="rbt-information-list mt--25">
-                                      <li>
-                                          <a href="#"><i class="feather-phone"></i>+1-202-555-0174</a>
-                                      </li>
-                                      <li>
-                                          <a href="mailto:hello@example.com"><i class="feather-mail"></i>example@gmail.com</a>
-                                      </li>
-                                  </ul>
-                              </div>
-                          </div>
-                      </div>
+        <div class="rbt-team-thumbnail">
+            <div class="thumb">
+                <!-- Imagen para Medicina y Ciencias de la Salud -->
+                <img src="assets/images/team/medicina-y-ciencias.png" alt="Imagen del curso de Medicina y Ciencias de la Salud">
+            </div>
+        </div>
+        <div class="rbt-team-details">
+            <div class="card-body p-0">
+                
+                <!-- Título Destacado de la Categoría -->
+                <h3 class="fs-3 fw-bold text-success mb-2">
+                    Medicina y Ciencias de la Salud
+                </h3>
+                
+                <!-- Subtítulo / Temas clave -->
+                <h4 class="fs-5 text-dark mb-4">
+                    Biomedicina, Nutrición Avanzada y Cuidado Clínico
+                </h4>
+                
+                <!-- Párrafo Resumen de Valor -->
+                <p class="text-secondary mb-4">
+                    Profundiza en el conocimiento del **cuerpo humano, diagnóstico, nutrición y las últimas innovaciones en tratamientos y tecnologías médicas**. Cursos diseñados para profesionales de la salud que buscan especialización y actualización.
+                </p>
+                
+                <!-- Título de Lo que vas a aprender -->
+                <h5 class="fs-5 fw-bold text-dark pt-3 border-top border-2 border-light mb-3">
+                    Lo que Vas a Aprender:
+                </h5>
+                
+                <!-- Lista de aprendizaje específica con iconos -->
+                <ul class="list-unstyled mb-4 text-secondary">
+                    <li class="d-flex align-items-start mb-3">
+                        <span class="text-success me-2"><i class="bi bi-check-circle-fill"></i></span> <span class="fw-bold">Bases de la fisiología humana y patologías comunes.</span>
+                    </li>
+                    <li class="d-flex align-items-start mb-3">
+                        <span class="text-success me-2"><i class="bi bi-check-circle-fill"></i></span> <span class="fw-bold">Protocolos actualizados de cuidado clínico y atención al paciente.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 
                       <div class="top-circle-shape"></div>
                   </div>
@@ -916,7 +925,7 @@
                           <a class="active" id="team-tab1-tab" data-bs-toggle="tab" data-bs-target="#team-tab1" role="tab" aria-controls="team-tab1" aria-selected="true">
                               <div class="rbt-team-thumbnail">
                                   <div class="thumb">
-                                      <img src="assets/images/team/team-01.jpg" alt="Testimonial Images">
+                                      <img src="assets/images/team/idiomas-y-cultura.png" alt="Testimonial Images">
                                   </div>
                               </div>
                           </a>
@@ -926,7 +935,7 @@
                           <a id="team-tab2-tab" data-bs-toggle="tab" data-bs-target="#team-tab2" role="tab" aria-controls="team-tab2" aria-selected="false">
                               <div class="rbt-team-thumbnail">
                                   <div class="thumb">
-                                      <img src="assets/images/team/team-02.jpg" alt="Testimonial Images">
+                                      <img src="assets/images/team/negocios-y-emprendimiento.png" alt="Testimonial Images">
                                   </div>
                               </div>
                           </a>
@@ -936,7 +945,7 @@
                           <a id="team-tab3-tab" data-bs-toggle="tab" data-bs-target="#team-tab3" role="tab" aria-controls="team-tab3" aria-selected="false">
                               <div class="rbt-team-thumbnail">
                                   <div class="thumb">
-                                      <img src="assets/images/team/team-03.jpg" alt="Testimonial Images">
+                                      <img src="assets/images/team/tecnologias.png" alt="Testimonial Images">
                                   </div>
                               </div>
                           </a>
@@ -945,7 +954,7 @@
                           <a id="team-tab4-tab" data-bs-toggle="tab" data-bs-target="#team-tab4" role="tab" aria-controls="team-tab4" aria-selected="false">
                               <div class="rbt-team-thumbnail">
                                   <div class="thumb">
-                                      <img src="assets/images/team/team-04.jpg" alt="Testimonial Images">
+                                      <img src="assets/images/team/crecimiento-personal.png" alt="Testimonial Images">
                                   </div>
                               </div>
                           </a>
@@ -955,7 +964,7 @@
                           <a id="team-tab5-tab" data-bs-toggle="tab" data-bs-target="#team-tab5" role="tab" aria-controls="team-tab5" aria-selected="false">
                               <div class="rbt-team-thumbnail">
                                   <div class="thumb">
-                                      <img src="assets/images/team/team-05.jpg" alt="Testimonial Images">
+                                      <img src="assets/images/team/arte_y_creatividad.png" alt="Testimonial Images">
                                   </div>
                               </div>
                           </a>
@@ -965,7 +974,7 @@
                           <a id="team-tab6-tab" data-bs-toggle="tab" data-bs-target="#team-tab6" role="tab" aria-controls="team-tab6" aria-selected="false">
                               <div class="rbt-team-thumbnail">
                                   <div class="thumb">
-                                      <img src="assets/images/team/team-06.jpg" alt="Testimonial Images">
+                                      <img src="assets/images/team/medicina-y-ciencias.png" alt="Testimonial Images">
                                   </div>
                               </div>
                           </a>
