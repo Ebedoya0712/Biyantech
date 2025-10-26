@@ -4,13 +4,14 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="breadcrumb-inner text-center">
-                    <h2 class="title">Cart</h2>
+                    <h2 class="title">Carrito de Compras</h2>
+                    
                     <ul class="page-list">
-                        <li class="rbt-breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="rbt-breadcrumb-item"><a href="index.html">Inicio</a></li>
                         <li>
                             <div class="icon-right"><i class="feather-chevron-right"></i></div>
                         </li>
-                        <li class="rbt-breadcrumb-item active">Cart</li>
+                        <li class="rbt-breadcrumb-item active">Carrito</li>
                     </ul>
                 </div>
             </div>
@@ -28,16 +29,16 @@
                         <!-- Cart Table -->
                         <div class="cart-table table-responsive mb--60">
                             <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th class="pro-thumbnail">Image</th>
-                                        <th class="pro-title">Course</th>
-                                        <th class="pro-price">Price</th>
-                                        <th class="pro-quantity">Detalle</th>
-                                        <th class="pro-subtotal">Total</th>
-                                        <th class="pro-remove">Remove</th>
-                                    </tr>
-                                </thead>
+                            <thead>
+                                <tr>
+                                    <th class="pro-thumbnail">Imagen</th>
+                                    <th class="pro-title">Curso</th>
+                                    <th class="pro-price">Precio</th>
+                                    <th class="pro-quantity">Detalle</th>
+                                    <th class="pro-subtotal">Total</th>
+                                    <th class="pro-remove">Quitar</th>
+                                </tr>
+                            </thead>
                                 <tbody>
                                     <ng-container *ngFor="let cart of listCarts">
                                         <tr>
@@ -82,7 +83,7 @@
                             <!-- Discount Coupon -->
                             <div class="discount-coupon edu-bg-shade">
                                 <div class="section-title text-start">
-                                    <h4 class="title mb--30">Discount Coupon Code</h4>
+                                    <h4 class="title mb--30">Código de Cupón de Descuento</h4>
                                 </div>
                                 <form action="#">
                                     <div class="row">
@@ -92,7 +93,7 @@
                                         <div class="col-md-6 col-12 mb--25">
                                             <button class="rbt-btn btn-gradient hover-icon-reverse btn-sm" (click)="applyCupon()">
                                                 <span class="icon-reverse-wrapper">
-                                                    <span class="btn-text">Apply Code</span>
+                                                    <span class="btn-text">Aplicar Código</span>
                                                 <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                                                 <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                                                 </span>
@@ -108,11 +109,11 @@
                             <div class="cart-summary">
                                 <div class="cart-summary-wrap">
                                     <div class="section-title text-start">
-                                        <h4 class="title mb--30">Cart Summary</h4>
+                                        <h4 class="title mb--30">Resumen del Carrito</h4>
                                     </div>
-                                    <p>Sub Total <span>${{ totalSum }}</span></p>
-                                    <p>Shipping Cost <span>$00.00</span></p>
-                                    <h2>Grand Total <span>${{ totalSum }}</span></h2>
+                                    <p>Subtotal <span>${{ totalSum }}</span></p>
+                                    <p>Costo de Envío <span>$00.00</span></p>
+                                    <h2>Total Final <span>${{ totalSum }}</span></h2>
                                 </div>
 
                                 <div class="cart-submit-btn-group">

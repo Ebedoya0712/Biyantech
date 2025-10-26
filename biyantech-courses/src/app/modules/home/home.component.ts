@@ -10,6 +10,7 @@ declare function countdownT():any;
 declare function alertWarning([]):any;
 declare function alertDanger([]):any;
 declare function alertSuccess([]):any;
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -26,6 +27,7 @@ export class HomeComponent implements OnInit{
   DESCOUNT_FLASH:any = null;
   DESCOUNT_FLASH_COURSES:any = [];
   user:any = null;
+
   constructor(
     public homeService: HomeService,
     public cartService:CartService,
@@ -56,19 +58,33 @@ export class HomeComponent implements OnInit{
     this.user = this.cartService.authService.user;
   }
 
+  /**
+   * FUNCIÓN CORREGIDA: Calcula el nuevo precio total con descuento.
+   * Se añade Math.round() y toFixed(2) para limitar a dos decimales y evitar 
+   * el problema de la precisión de coma flotante (ej: 48.949999999999996).
+   */
   getNewTotal(COURSE:any,DESCOUNT_BANNER:any){
+    let newPrice: number;
+
     if(DESCOUNT_BANNER.type_discount == 1){
-      return COURSE.precio_usd - COURSE.precio_usd*(DESCOUNT_BANNER.discount*0.01);
-    }else{
-      return COURSE.precio_usd - DESCOUNT_BANNER.discount;
+      // Descuento por porcentaje
+      newPrice = COURSE.precio_usd - COURSE.precio_usd*(DESCOUNT_BANNER.discount*0.01);
+    } else {
+      // Descuento fijo
+      newPrice = COURSE.precio_usd - DESCOUNT_BANNER.discount;
     }
+    
+    // Redondea el resultado a dos decimales para el formato de precio.
+    // toFixed(2) devuelve el resultado como string.
+    return (Math.round(newPrice * 100) / 100).toFixed(2);
   }
 
   getTotalPriceCourse(COURSE:any){
     if(COURSE.discount_g){
       return this.getNewTotal(COURSE,COURSE.discount_g);
     }
-    return COURSE.precio_usd;
+    // Usar toFixed(2) también aquí para asegurar que el precio sin descuento también tiene dos decimales.
+    return COURSE.precio_usd.toFixed(2); 
   }
 
   addCart(LANDING_COURSE:any,DESCOUNT_CAMPAING:any = null){

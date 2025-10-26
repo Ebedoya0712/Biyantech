@@ -20729,49 +20729,57 @@ ul.testimonial-thumb-wrapper li a.active .thumb img {
     Countdown Styles  
 -------------------------*/
 .countdown-style-1 .countdown {
-  display: flex;
-  margin: 0 -20px;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  margin: -10px;
+    display: flex;
+    justify-content: center; 
+    flex-wrap: wrap;
+    gap: 20px; 
+    margin: 0;
 }
 .countdown-style-1 .countdown .countdown-container {
-  margin: 10px;
-  position: relative;
-  transition: 0.4s;
-  text-align: center;
-  padding: 15px 20px;
-  background: var(--white-opacity);
-  border-radius: 10px;
-  min-width: 120px;
+    margin: 0;
+    position: relative;
+    transition: 0.4s;
+    text-align: center;
+    padding: 15px 15px; 
+    
+    background: #e8eaf6; /* Fondo azul muy claro de Biyantech */
+    border-radius: 8px;
+    min-width: 100px; 
+    
+    border: 1px solid #3f51b5; /* Borde del azul principal de Biyantech */
 }
 .countdown-style-1 .countdown .countdown-container .countdown-heading {
-  display: block;
-  color: var(--color-white);
-  text-align: center;
-  text-transform: uppercase;
-  margin-top: 0;
-  display: block;
-  font-weight: 300;
-  font-size: 18px;
-  line-height: 36px;
-  transition: 0.4s;
-  opacity: 0.7;
+    display: block;
+    color: #333333; /* Texto oscuro */
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 5px; 
+    font-weight: 500; 
+    font-size: 14px; 
+    line-height: 1.2;
+    opacity: 0.7; 
+    letter-spacing: 0.5px; 
 }
 .countdown-style-1 .countdown .countdown-container .countdown-value {
-  display: block;
-  font-weight: 600;
-  font-size: 40px;
-  line-height: 1.24;
-  color: var(--color-white);
-  text-align: center;
-  position: relative;
-  transition: 0.4s;
+    display: block;
+    font-weight: 700; 
+    font-size: 38px; 
+    line-height: 1.2;
+    color: #3f51b5; /* Números en azul principal de Biyantech */
+    text-align: center;
+    position: relative;
+    transition: 0.4s;
 }
 @media only screen and (max-width: 767px) {
-  .countdown-style-1 .countdown .countdown-container .countdown-value {
-    font-size: 24px;
-  }
+    .countdown-style-1 .countdown .countdown-container {
+        min-width: 80px; 
+    }
+    .countdown-style-1 .countdown .countdown-container .countdown-value {
+        font-size: 28px; 
+    }
+    .countdown-style-1 .countdown .countdown-container .countdown-heading {
+        font-size: 12px; 
+    }
 }
 
 /*-----------------------
@@ -28573,7 +28581,12 @@ Course Sidebar
   }
 }
 /*# sourceMappingURL=../maps/style.css.map */
-.countdown{
-  background-color: #807bf2;
-  border-radius: 10px;
+
+/* Contenedor principal del Countdown: Fondo azul y bordes redondeados */
+.countdown {
+    background-color: #ffffff; /* Fondo Blanco */
+    border-radius: 15px; 
+    padding: 30px; 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); /* Sombra de modal/alerta */
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
