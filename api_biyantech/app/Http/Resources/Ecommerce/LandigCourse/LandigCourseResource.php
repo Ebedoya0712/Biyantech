@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Ecommerce\LandingCourse;
+namespace App\Http\Resources\Ecommerce\LandigCourse;
 
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;

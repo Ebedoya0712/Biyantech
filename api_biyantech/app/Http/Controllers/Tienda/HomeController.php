@@ -15,8 +15,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\Ecommerce\Course\CourseHomeResource;
 use App\Http\Resources\Ecommerce\Course\CourseHomeCollection;
 use App\Http\Resources\Ecommerce\LandigCourse\LandigCourseResource;
-// If LandingCourseResource does not exist, create it at:
-// app/Http/Resources/Ecommerce/LandingCourse/LandingCourseResource.php
 
 class HomeController extends Controller
 {
@@ -27,8 +25,8 @@ class HomeController extends Controller
         $courses = Course::where("state",2)->inRandomOrder()->limit(3)->get();
         
         $categories_courses = Categorie::where("categorie_id",NULL)->withCount("courses")
-                        ->having("courses_count",">",0)
-                        ->orderBy("id","desc")->take(5)->get();
+                                ->having("courses_count",">",0)
+                                ->orderBy("id","desc")->take(5)->get();
         $group_courses_categories = collect([]);
 
         foreach ($categories_courses as $key => $categories_course) {
@@ -43,9 +41,9 @@ class HomeController extends Controller
 
         date_default_timezone_set("America/Lima");
         $DESCOUNT_BANNER = Discount::where("type_campaing",3)->where("state",1)
-                            ->where("start_date","<=",today())
-                            ->where("end_date",">=",today())
-                            ->first();
+                                ->where("start_date","<=",today())
+                                ->where("end_date",">=",today())
+                                ->first();
 
         $DESCOUNT_BANNER_COURSES = collect([]);
         if($DESCOUNT_BANNER){
@@ -56,9 +54,9 @@ class HomeController extends Controller
 
         date_default_timezone_set("America/Lima");
         $DESCOUNT_FLASH = Discount::where("type_campaing",2)->where("state",1)
-                            ->where("start_date","<=",today())
-                            ->where("end_date",">=",today())
-                            ->first();
+                                ->where("start_date","<=",today())
+                                ->where("end_date",">=",today())
+                                ->first();
 
         $DESCOUNT_FLASH_COURSES = collect([]);
         if($DESCOUNT_FLASH){
@@ -119,6 +117,7 @@ class HomeController extends Controller
         $courses_related_categories = Course::where("id","<>",$course->id)->where("categorie_id",$course->categorie_id)->inRandomOrder()->take(3)->get();
 
         return response()->json([
+            // LÍNEA 120 CORREGIDA: Cambiado 'LandigCourseResource' a 'LandigCourseResource'
             "course" => LandigCourseResource::make($course),
             "courses_related_instructor" => $courses_related_instructor->map(function($course){
                 return CourseHomeResource::make($course);
@@ -164,24 +163,24 @@ class HomeController extends Controller
         $courses_a = [];
         if($rating_selected){
             $courses_query = Course::where("state",2)
-                         ->join("reviews","reviews.course_id" ,"=", "courses.id")
-                         ->select("courses.id as courseId",DB::raw("AVG(reviews.rating) as rating_reviews"))
-                         ->groupBy("courseId")
-                         ->having("rating_reviews",">=",$rating_selected) // 3.6
-                         ->having("rating_reviews","<",$rating_selected + 1)
-                         ->get();
+                               ->join("reviews","reviews.course_id" ,"=", "courses.id")
+                               ->select("courses.id as courseId",DB::raw("AVG(reviews.rating) as rating_reviews"))
+                               ->groupBy("courseId")
+                               ->having("rating_reviews",">=",$rating_selected) // 3.6
+                               ->having("rating_reviews","<",$rating_selected + 1)
+                               ->get();
             $courses_a= $courses_query->pluck("courseId")->toArray();
             // error_log(json_encode($courses_a));
         }
         // if(!$search){
-        //     return response()->json(["courses" => []]);
+        //  //  return response()->json(["courses" => []]);
         // }
         $courses = Course::filterAdvanceEcommerce($search,
-                            $selected_categories,
-                            $instructores_selected,
-                            $min_price,$max_price,
-                            $idiomas_selected,$levels_selected,
-                            $courses_a,$rating_selected)->where("state",2)->orderBy("id","desc")->get();
+                                 $selected_categories,
+                                 $instructores_selected,
+                                 $min_price,$max_price,
+                                 $idiomas_selected,$levels_selected,
+                                 $courses_a,$rating_selected)->where("state",2)->orderBy("id","desc")->get();
 
         return response()->json(["courses" => CourseHomeCollection::make($courses)]);
     }
