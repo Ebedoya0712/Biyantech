@@ -892,22 +892,8 @@
                                         </li>
                                     </ul>
                                     <hr class="mt--10 mb--10">
-                                    <ul class="user-list-wrapper">
-                                        <li>
-                                            <a href="#">
-                                                <i class="feather-book-open"></i>
-                                                <span>Getting Started</span>
-                                            </a>
-                                        </li>
-                                    </ul>
                                     <hr class="mt--10 mb--10">
                                     <ul class="user-list-wrapper">
-                                        <li>
-                                            <a href="instructor-settings.html">
-                                                <i class="feather-settings"></i>
-                                                <span>Settings</span>
-                                            </a>
-                                        </li>
                                         <li *ngIf="user">
                                             <a href="#" onclick="return false;" (click)="logout()">
                                                 <i class="feather-log-out"></i>
@@ -918,7 +904,7 @@
                                         <li *ngIf="!user">
                                             <a [routerLink]="[ '/auth/login' ]">
                                                 <i class="feather-log-out"></i>
-                                                <span>Login</span>
+                                                <span>Iniciar Sesión</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -1021,7 +1007,7 @@
   
                     <div class="rbt-btn-wrapper d-none d-xl-block">
                         <a class="rbt-btn rbt-marquee-btn marquee-auto btn-border-gradient radius-round btn-sm hover-transform-none" href="/listado-de-cursos">
-                            <span data-text="Ver todos">Ver todos</span>
+                            <span data-text="Ver todos los cursos">Ver todos los cursos</span>
                         </a>
                     </div>
   
