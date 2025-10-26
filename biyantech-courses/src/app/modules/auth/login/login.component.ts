@@ -3,6 +3,7 @@ import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
 
 declare function _clickDoc():any;
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -10,30 +11,62 @@ declare function _clickDoc():any;
 })
 export class LoginComponent implements OnInit {
 
-  //auth-login
+  // Variable de control para alternar entre Login (true) y Register (false)
+  isLoginView: boolean = true; 
+
+  // auth-login
   email:any = null;
   password:any = null;
 
-  //auth-register
+  // auth-register
   email_register:any = null;
   password_register:any = null;
   name: any = null;
   surname: any = null;
   password_confirmation: any = null;
+  
   constructor(
     public authService: AuthService,
     public router: Router,
   ){}
 
   ngOnInit(): void {
-      setTimeout(() =>{
-        _clickDoc();
-      }, 50);
+    // Lógica existente de inicialización y redirección
+    setTimeout(() =>{
+      _clickDoc();
+    }, 50);
 
-      if(this.authService.user){
-          this.router.navigateByUrl("/");
-          return;
-      }
+    if(this.authService.user){
+        this.router.navigateByUrl("/");
+        return;
+    }
+  }
+
+  // Nueva función para alternar la vista (Login <-> Register)
+  toggleView() {
+    this.isLoginView = !this.isLoginView;
+    
+    // Opcional: Limpiar los campos cuando se cambia de vista
+    if(this.isLoginView) {
+      this.clearRegisterFields();
+    } else {
+      this.clearLoginFields();
+    }
+  }
+
+  // Función de limpieza para los campos de Login
+  clearLoginFields() {
+    this.email = null;
+    this.password = null;
+  }
+
+  // Función de limpieza para los campos de Register
+  clearRegisterFields() {
+    this.email_register = null;
+    this.name = null;
+    this.surname = null;
+    this.password_register = null;
+    this.password_confirmation = null;
   }
 
   login(){
@@ -69,6 +102,12 @@ export class LoginComponent implements OnInit {
     this.authService.register(data).subscribe((resp:any) => {
       console.log(resp);
       alert("EL USUARIO SE HA REGISTRADO CORRECTAMENTE");
+      
+      // Tras el registro exitoso, puedes cambiar automáticamente a la vista de Login
+      this.toggleView(); // Mueve a la vista de Login
+      this.email = data.email; // Pre-llena el email en el formulario de Login
+      this.password = null; // Mantiene el campo de contraseña vacío para que inicie sesión
+      
     }, error => {
       alert("LAS CREDENCIALES INGRESADAS NO SON CORRECTAS O YA EXISTEN");
       console.log(error);
