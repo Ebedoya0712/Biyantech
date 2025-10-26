@@ -1,3 +1,4 @@
+/* Este código es la parte de jQuery/plugin de contador */
 ! function(c) {
     function e(n) {
         return n < 10 ? "0" + n : n
@@ -14,7 +15,8 @@
         var s = Math.floor(a / 60),
             a = Math.floor(a % 60),
             n = "";
-        0 != t && (n += "<div class='countdown-container days'>", n += "<span class='countdown-value days-bottom'>" + e(t) + "</span>", n += "<span class='countdown-heading days-top'>Days</span>", n += "</div>"), n += "<div class='countdown-container hours'>", n += "<span class='countdown-value hours-bottom'>" + e(o) + "</span>", n += "<span class='countdown-heading hours-top'>Hrs</span>", n += "</div>", n += "<div class='countdown-container minutes'>", n += "<span class='countdown-value minutes-bottom'>" + e(s) + "</span>", n += "<span class='countdown-heading minutes-top'>Mins</span>", n += "</div>", n += "<div class='countdown-container seconds'>", n += "<span class='countdown-value seconds-bottom'>" + e(a) + "</span>", n += "<span class='countdown-heading seconds-top'>Secs</span>", this.html(n += "</div>")
+        /* Etiquetas de tiempo traducidas en el plugin de jQuery */
+        0 != t && (n += "<div class='countdown-container days'>", n += "<span class='countdown-value days-bottom'>" + e(t) + "</span>", n += "<span class='countdown-heading days-top'>Días</span>", n += "</div>"), n += "<div class='countdown-container hours'>", n += "<span class='countdown-value hours-bottom'>" + e(o) + "</span>", n += "<span class='countdown-heading hours-top'>Horas</span>", n += "</div>", n += "<div class='countdown-container minutes'>", n += "<span class='countdown-value minutes-bottom'>" + e(s) + "</span>", n += "<span class='countdown-heading minutes-top'>Mins</span>", n += "</div>", n += "<div class='countdown-container seconds'>", n += "<span class='countdown-value seconds-bottom'>" + e(a) + "</span>", n += "<span class='countdown-heading seconds-top'>Segs</span>", this.html(n += "</div>")
     }, c.fn.countdown = function() {
         var n = c(this);
         n.showclock(), setInterval(function() {
@@ -23,13 +25,11 @@
     }
 }(jQuery), jQuery(document).ready(function() {
     0 < jQuery(".countdown").length && jQuery(".countdown").each(function() {
-        // jQuery(this).countdown()
-        // deploy_countdown(jQuery);
         countdownT();
     })
 });
 
-
+/* Este código es la parte de las funciones de soporte 'T' */
 function eT(n) {
     return n < 10 ? "0" + n : n
 }
@@ -46,7 +46,25 @@ function showclockT() {
     var s = Math.floor(a / 60),
         a = Math.floor(a % 60),
         n = "";
-    0 != t && (n += "<div class='countdown-container days'>", n += "<span class='countdown-value days-bottom'>" + eT(t) + "</span>", n += "<span class='countdown-heading days-top'>Days</span>", n += "</div>"), n += "<div class='countdown-container hours'>", n += "<span class='countdown-value hours-bottom'>" + eT(o) + "</span>", n += "<span class='countdown-heading hours-top'>Hrs</span>", n += "</div>", n += "<div class='countdown-container minutes'>", n += "<span class='countdown-value minutes-bottom'>" + eT(s) + "</span>", n += "<span class='countdown-heading minutes-top'>Mins</span>", n += "</div>", n += "<div class='countdown-container seconds'>", n += "<span class='countdown-value seconds-bottom'>" + eT(a) + "</span>", n += "<span class='countdown-heading seconds-top'>Secs</span>", jQuery(".countdown").html(n += "</div>")
+    /* Etiquetas de tiempo traducidas en la función de soporte 'T' */
+    if (0 != t) {
+        n += "<div class='countdown-container days'>";
+        n += "<span class='countdown-value days-bottom'>" + eT(t) + "</span>";
+        n += "<span class='countdown-heading days-top'>Días</span>"; // CAMBIO AQUÍ
+        n += "</div>";
+    }
+    n += "<div class='countdown-container hours'>";
+    n += "<span class='countdown-value hours-bottom'>" + eT(o) + "</span>";
+    n += "<span class='countdown-heading hours-top'>Horas</span>"; // CAMBIO AQUÍ
+    n += "</div>";
+    n += "<div class='countdown-container minutes'>";
+    n += "<span class='countdown-value minutes-bottom'>" + eT(s) + "</span>";
+    n += "<span class='countdown-heading minutes-top'>Mins</span>"; // CAMBIO AQUÍ
+    n += "</div>";
+    n += "<div class='countdown-container seconds'>";
+    n += "<span class='countdown-value seconds-bottom'>" + eT(a) + "</span>";
+    n += "<span class='countdown-heading seconds-top'>Segs</span>"; // CAMBIO AQUÍ
+    jQuery(".countdown").html(n += "</div>")
 }
 
 function countdownT() {
@@ -55,4 +73,3 @@ function countdownT() {
         showclockT()
     }, 1e3)
 }
-

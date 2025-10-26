@@ -119,6 +119,9 @@
 /*-- Variables --*/
 @import url("https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;0,900;1,400&display=swap");
 :root {
+  --biyantech-blue: #3f51b5; /* Azul principal fuerte para el fondo */
+  --biyantech-light-blue: #5c6bc0; /* Tono más claro para detalles */
+  --color-white: #ffffff;
   --color-primary: #2f57ef;
   --color-secondary: #b966e7;
   --color-coral: #E9967A;
@@ -20729,49 +20732,62 @@ ul.testimonial-thumb-wrapper li a.active .thumb img {
     Countdown Styles  
 -------------------------*/
 .countdown-style-1 .countdown {
-  display: flex;
-  margin: 0 -20px;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  margin: -10px;
+    display: flex;
+    justify-content: center; 
+    flex-wrap: wrap;
+    gap: 15px; 
+    margin: 0;
 }
 .countdown-style-1 .countdown .countdown-container {
-  margin: 10px;
-  position: relative;
-  transition: 0.4s;
-  text-align: center;
-  padding: 15px 20px;
-  background: var(--white-opacity);
-  border-radius: 10px;
-  min-width: 120px;
+    margin: 0;
+    position: relative;
+    transition: 0.4s;
+    text-align: center;
+    padding: 15px 15px; 
+    /* Fondo con opacidad del azul más claro para que los números destaquen */
+    background: var(--biyantech-light-blue); 
+    border-radius: 8px;
+    min-width: 100px; 
+    /* Borde sutil del mismo color para dar profundidad */
+    border: 1px solid rgba(255, 255, 255, 0.2); 
 }
+
+/* Etiquetas (Días, Horas, etc.) */
 .countdown-style-1 .countdown .countdown-container .countdown-heading {
-  display: block;
-  color: var(--color-white);
-  text-align: center;
-  text-transform: uppercase;
-  margin-top: 0;
-  display: block;
-  font-weight: 300;
-  font-size: 18px;
-  line-height: 36px;
-  transition: 0.4s;
-  opacity: 0.7;
+    display: block;
+    color: var(--color-white);
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 5px; 
+    font-weight: 500; 
+    font-size: 14px; 
+    line-height: 1.2;
+    opacity: 0.8; /* Ligeramente más transparente que los números */
+    letter-spacing: 0.5px; 
 }
+
+/* Valores (Números del contador) */
 .countdown-style-1 .countdown .countdown-container .countdown-value {
-  display: block;
-  font-weight: 600;
-  font-size: 40px;
-  line-height: 1.24;
-  color: var(--color-white);
-  text-align: center;
-  position: relative;
-  transition: 0.4s;
+    display: block;
+    font-weight: 700; 
+    font-size: 38px; 
+    line-height: 1.2;
+    color: var(--color-white); 
+    text-align: center;
+    position: relative;
+    transition: 0.4s;
 }
+
 @media only screen and (max-width: 767px) {
-  .countdown-style-1 .countdown .countdown-container .countdown-value {
-    font-size: 24px;
-  }
+    .countdown-style-1 .countdown .countdown-container {
+        min-width: 80px; 
+    }
+    .countdown-style-1 .countdown .countdown-container .countdown-value {
+        font-size: 28px; 
+    }
+    .countdown-style-1 .countdown .countdown-container .countdown-heading {
+        font-size: 12px; 
+    }
 }
 
 /*-----------------------
@@ -28573,7 +28589,11 @@ Course Sidebar
   }
 }
 /*# sourceMappingURL=../maps/style.css.map */
-.countdown{
-  background-color: #807bf2;
-  border-radius: 10px;
+
+/* Contenedor principal del Countdown: Fondo azul y bordes redondeados */
+.countdown {
+    background-color: var(--biyantech-blue); 
+    border-radius: 12px;
+    padding: 20px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
 }
