@@ -22,8 +22,8 @@
                             <div class="tutor-content">
                                 <h5 class="title" *ngIf="user">{{ user.name + ' '+user.surname }}</h5>
                                 <ul class="rbt-meta rbt-meta-white mt--5">
-                                    <li><i class="feather-book"></i>{{ enrolled_course_count }} Courses Enroled</li>
-                                    <li><i class="feather-award"></i>{{ termined_course_count }} Certificate</li>
+                                    <li><i class="feather-book"></i>{{ enrolled_course_count }} Cursos Inscritos</li>
+                                    <li><i class="feather-award"></i>{{ termined_course_count }} Certificados</li>
                                 </ul>
                             </div>
                         </div>
@@ -50,20 +50,20 @@
                                             <ul class="dashboard-mainmenu rbt-default-sidebar-list">
                                                 <!-- class="active" -->
                                                 <li><a href="#" onclick="return false;" (click)="navOption(1)" [ngClass]="{'active': nav_option == 1}"><i class="feather-home"></i><span>Dashboard</span></a></li>
-                                                <li><a href="#" onclick="return false;" (click)="navOption(2)" [ngClass]="{'active': nav_option == 2}"><i class="feather-book-open"></i><span>Enrolled Courses</span></a></li>
-                                                <li><a href="#" onclick="return false;" (click)="navOption(3)" [ngClass]="{'active': nav_option == 3}"><i class="feather-star"></i><span>Reviews</span></a></li>
-                                                <li><a href="#" onclick="return false;" (click)="navOption(4)" [ngClass]="{'active': nav_option == 4}"><i class="feather-shopping-bag"></i><span>Order History</span></a></li>
+                                                <li><a href="#" onclick="return false;" (click)="navOption(2)" [ngClass]="{'active': nav_option == 2}"><i class="feather-book-open"></i><span>Cursos Inscritos</span></a></li>
+                                                <li><a href="#" onclick="return false;" (click)="navOption(3)" [ngClass]="{'active': nav_option == 3}"><i class="feather-star"></i><span>Reseñas</span></a></li>
+                                                <li><a href="#" onclick="return false;" (click)="navOption(4)" [ngClass]="{'active': nav_option == 4}"><i class="feather-shopping-bag"></i><span>Historial de Compras</span></a></li>
                                             </ul>
                                         </nav>
 
                                         <div class="section-title mt--40 mb--20">
-                                            <h6 class="rbt-title-style-2">User</h6>
+                                            <h6 class="rbt-title-style-2">Usuario</h6>
                                         </div>
 
                                         <nav class="mainmenu-nav">
                                             <ul class="dashboard-mainmenu rbt-default-sidebar-list">
-                                                <li><a  href="#" onclick="return false;" (click)="navOption(5)" [ngClass]="{'active': nav_option == 5}" ><i class="feather-settings"></i><span>Settings</span></a></li>
-                                                <li><a href="#" onclick="return false;" (click)="logout()"><i class="feather-log-out"></i><span>Logout</span></a></li>
+                                                <li><a  href="#" onclick="return false;" (click)="navOption(5)" [ngClass]="{'active': nav_option == 5}" ><i class="feather-settings"></i><span>Configuración</span></a></li>
+                                                <li><a href="#" onclick="return false;" (click)="logout()"><i class="feather-log-out"></i><span>Cerrar Sesión</span></a></li>
                                             </ul>
                                         </nav>
                                     </div>
@@ -92,7 +92,7 @@
                                                 <div class="content">
                                                     <h3 class="counter without-icon color-primary"><span class="odometer" data-count="30">{{ enrolled_course_count }}</span>
                                                     </h3>
-                                                    <span class="rbt-title-style-2 d-block">Enrolled Courses</span>
+                                                    <span class="rbt-title-style-2 d-block">Cursos Inscritos</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -109,7 +109,7 @@
                                                 <div class="content">
                                                     <h3 class="counter without-icon color-secondary"><span class="odometer" data-count="10">{{ active_course_count }}</span>
                                                     </h3>
-                                                    <span class="rbt-title-style-2 d-block">ACTIVE COURSES</span>
+                                                    <span class="rbt-title-style-2 d-block">Cursos Activos</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -127,7 +127,7 @@
                                                 <div class="content">
                                                     <h3 class="counter without-icon color-violet"><span class="odometer" data-count="7">{{ termined_course_count }}</span>
                                                     </h3>
-                                                    <span class="rbt-title-style-2 d-block">Completed Courses</span>
+                                                    <span class="rbt-title-style-2 d-block">Cursos Completados</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -142,24 +142,24 @@
                             <div class="content">
 
                                 <div class="section-title">
-                                    <h4 class="rbt-title-style-3">Enrolled Courses</h4>
+                                    <h4 class="rbt-title-style-3">Cursos Inscritos</h4>
                                 </div>
 
                                 <div class="advance-tab-button mb--30">
                                     <ul class="nav nav-tabs tab-button-style-2 justify-content-start" id="myTab-4" role="tablist">
                                         <li role="presentation">
                                             <a href="#" class="tab-button active" id="home-tab-4" data-bs-toggle="tab" data-bs-target="#home-4" role="tab" aria-controls="home-4" aria-selected="true">
-                                                <span class="title">Enrolled Courses</span>
+                                                <span class="title">Cursos Inscritos</span>
                                             </a>
                                         </li>
                                         <li role="presentation">
                                             <a href="#" class="tab-button" id="profile-tab-4" data-bs-toggle="tab" data-bs-target="#profile-4" role="tab" aria-controls="profile-4" aria-selected="false">
-                                                <span class="title">Active Courses</span>
+                                                <span class="title">Cursos Activos</span>
                                             </a>
                                         </li>
                                         <li role="presentation">
                                             <a href="#" class="tab-button" id="contact-tab-4" data-bs-toggle="tab" data-bs-target="#contact-4" role="tab" aria-controls="contact-4" aria-selected="false">
-                                                <span class="title">Completed Courses</span>
+                                                <span class="title">Cursos Completados</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -187,7 +187,7 @@
                                                                         <i class="fas fa-star"></i>
                                                                         <i class="fas fa-star"></i>
                                                                     </div>
-                                                                    <span class="rating-count"> (15 Reviews)</span>
+                                                                    <span class="rating-count"> (15 Reseñas)</span>
                                                                 </div>
                                                                 <div class="rbt-bookmark-btn">
                                                                     <a class="rbt-round-btn" title="Bookmark" href="#"><i class="feather-bookmark"></i></a>
@@ -246,7 +246,7 @@
                                                                         <i class="fas fa-star"></i>
                                                                         <i class="fas fa-star"></i>
                                                                     </div>
-                                                                    <span class="rating-count"> (15 Reviews)</span>
+                                                                    <span class="rating-count"> (15 Reseñas)</span>
                                                                 </div>
                                                                 <div class="rbt-bookmark-btn">
                                                                     <a class="rbt-round-btn" title="Bookmark" href="#"><i class="feather-bookmark"></i></a>
@@ -303,7 +303,7 @@
                                                                         <i class="fas fa-star"></i>
                                                                         <i class="fas fa-star"></i>
                                                                     </div>
-                                                                    <span class="rating-count"> (15 Reviews)</span>
+                                                                    <span class="rating-count"> (15 Reseñas)</span>
                                                                 </div>
                                                                 <div class="rbt-bookmark-btn">
                                                                     <a class="rbt-round-btn" title="Bookmark" href="#"><i class="feather-bookmark"></i></a>
@@ -349,15 +349,15 @@
                         <div class="rbt-dashboard-content bg-color-white rbt-shadow-box" *ngIf="nav_option == 3">
                             <div class="content">
                                 <div class="section-title">
-                                    <h4 class="rbt-title-style-3">Reviews</h4>
+                                    <h4 class="rbt-title-style-3">Reseñas</h4>
                                 </div>
 
                                 <div class="rbt-dashboard-table table-responsive mobile-table-750" *ngIf="!sale_detail_selected">
                                     <table class="rbt-table table table-borderless">
                                         <thead>
                                             <tr>
-                                                <th>Course</th>
-                                                <th>Feedback</th>
+                                                <th>Curso</th>
+                                                <th>Comentarios</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -436,18 +436,18 @@
                         <div class="rbt-dashboard-content bg-color-white rbt-shadow-box"  *ngIf="nav_option == 4">
                             <div class="content">
                                 <div class="section-title">
-                                    <h4 class="rbt-title-style-3">Order History</h4>
+                                    <h4 class="rbt-title-style-3">Historial de Compras</h4>
                                 </div>
 
                                 <div class="rbt-dashboard-table table-responsive mobile-table-750" *ngIf="!sale_selected">
                                     <table class="rbt-table table table-borderless">
                                         <thead>
                                             <tr>
-                                                <th>Order ID</th>
-                                                <th>Method Payment</th>
-                                                <th>Date</th>
+                                                <th>ID de Pedido</th>
+                                                <th>Método de Pago</th>
+                                                <th>Fecha</th>
                                                 <th>Total</th>
-                                                <th>Show Detail</th>
+                                                <th>Ver Detalle</th>
                                             </tr>
                                         </thead>
 
@@ -529,24 +529,19 @@
                             <div class="content">
 
                                 <div class="section-title">
-                                    <h4 class="rbt-title-style-3">Settings</h4>
+                                    <h4 class="rbt-title-style-3">Configuración</h4>
                                 </div>
 
                                 <div class="advance-tab-button mb--30">
                                     <ul class="nav nav-tabs tab-button-style-2 justify-content-start" id="settinsTab-4" role="tablist">
                                         <li role="presentation">
                                             <a href="#" class="tab-button active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" role="tab" aria-controls="profile" aria-selected="true">
-                                                <span class="title">Profile</span>
+                                                <span class="title">Perfil</span>
                                             </a>
                                         </li>
                                         <li role="presentation">
                                             <a href="#" class="tab-button" id="password-tab" data-bs-toggle="tab" data-bs-target="#password" role="tab" aria-controls="password" aria-selected="false">
-                                                <span class="title">Password</span>
-                                            </a>
-                                        </li>
-                                        <li role="presentation">
-                                            <a href="#" class="tab-button" id="social-tab" data-bs-toggle="tab" data-bs-target="#social" role="tab" aria-controls="social" aria-selected="false">
-                                                <span class="title">Social Share</span>
+                                                <span class="title">Contraseña</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -561,16 +556,6 @@
                                                 <div class="rbt-tutor-information-left">
                                                     <div class="thumbnail rbt-avatars size-lg position-relative">
                                                         <img *ngIf="user" [src]="user.avatar" alt="Instructor">
-                                                        <div class="rbt-edit-photo-inner">
-                                                            <button class="rbt-edit-photo" title="Upload Photo">
-                                                                <i class="feather-camera"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="rbt-tutor-information-right">
-                                                    <div class="tutor-btn">
-                                                        <a class="rbt-btn btn-sm btn-border color-white radius-round-10" href="#">Edit Cover Photo</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -580,51 +565,50 @@
                                         <form action="#" class="rbt-profile-row rbt-default-form row row--15">
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                                 <div class="rbt-form-group">
-                                                    <label for="firstname">First Name</label>
+                                                    <label for="firstname">Nombre</label>
                                                     <input id="firstname" type="text" [(ngModel)]="name" name="name" value="John">
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                                 <div class="rbt-form-group">
-                                                    <label for="lastname">Last Name</label>
+                                                    <label for="lastname">Apellido</label>
                                                     <input id="lastname" type="text"  [(ngModel)]="surname" name="surname" value="Due">
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                                 <div class="rbt-form-group">
-                                                    <label for="username">Email</label>
+                                                    <label for="username">Correo Electrónico</label>
                                                     <input id="username" type="text" [(ngModel)]="email" name="email" value="johndue">
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                                 <div class="rbt-form-group">
-                                                    <label for="phonenumber">Phone Number</label>
+                                                    <label for="phonenumber">Número de Teléfono</label>
                                                     <input id="phonenumber" type="tel" [(ngModel)]="phone" name="phone" value="+1-202-555-0174">
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                                 <div class="rbt-form-group">
-                                                    <label for="skill">Skill/Occupation</label>
+                                                    <label for="skill">Habilidad/Ocupación</label>
                                                     <input id="skill" type="text" [(ngModel)]="profession" name="profession" value="Full Stack Developer">
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 col-md-6 col-sm-12 my-2">
-                                                <label class="form-label">Sube tu imagen: *</label>
+                                                <label class="form-label">Sube tu imagen:</label>
                                                 <div class="custom-file">
                                                     <input type="file" class="custom-file-input" id="customFile"  accept=".jpeg, .bmp, .jpg, .png, .gif, .webp"  (change)="processFile($event)">
-                                                    <label class="custom-file-label" for="customFile">Choose file</label>
                                                 </div>
                                             </div>
 
                                             <div class="col-12">
                                                 <div class="rbt-form-group">
-                                                    <label for="bio">Bio</label>
+                                                    <label for="bio">Biografía</label>
                                                     <textarea id="bio" cols="20" [(ngModel)]="description" name="description" rows="5"></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-12 mt--20">
                                                 <div class="rbt-form-group">
-                                                    <a class="rbt-btn btn-gradient" href="#" onclick="return false;" (click)="updateUser()">Update Info</a>
+                                                    <a class="rbt-btn btn-gradient" href="#" onclick="return false;" (click)="updateUser()">Actualizar Información</a>
                                                 </div>
                                             </div>
                                         </form>
@@ -642,19 +626,19 @@
                                             </div> -->
                                             <div class="col-12">
                                                 <div class="rbt-form-group">
-                                                    <label for="newpassword">New Password</label>
-                                                    <input id="newpassword" type="password" [(ngModel)]="password" name="password" placeholder="New Password">
+                                                    <label for="newpassword">Nueva Contraseña</label>
+                                                    <input id="newpassword" type="password" [(ngModel)]="password" name="password" placeholder="Nueva Contraseña">
                                                 </div>
                                             </div>
                                             <div class="col-12">
                                                 <div class="rbt-form-group">
-                                                    <label for="retypenewpassword">Re-type New Password</label>
-                                                    <input id="retypenewpassword" type="password" [(ngModel)]="new_password" name="new_password" placeholder="Re-type New Password">
+                                                    <label for="retypenewpassword">Repetir Nueva Contraseña</label>
+                                                    <input id="retypenewpassword" type="password" [(ngModel)]="new_password" name="new_password" placeholder="Repetir Nueva Contraseña">
                                                 </div>
                                             </div>
                                             <div class="col-12 mt--10">
                                                 <div class="rbt-form-group">
-                                                    <a class="rbt-btn btn-gradient" href="#" onclick="return false;" (click)="updateUser()">Update Password</a>
+                                                    <a class="rbt-btn btn-gradient" href="#" onclick="return false;" (click)="updateUser()">Actualizar Contraseña</a>
                                                 </div>
                                             </div>
                                         </form>

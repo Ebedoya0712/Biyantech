@@ -47,7 +47,7 @@ class CheckoutController extends Controller
         $carts = Cart::where("user_id",auth('api')->user()->id)->get();
 
         foreach ($carts as $key => $cart){
-            //$cart->delete();
+            $cart->delete();
             $new_detail = [];
             $new_detail = $cart->toArray();
             $new_detail["sale_id"] = $sale->id;
