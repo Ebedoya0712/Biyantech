@@ -891,12 +891,12 @@ function HOMEINIT($, undefined) {
             $.fn.hasShowMore = function () {
                 return this.each(function () {
                     $(this).toggleClass('active');
-                    $(this).text('Show Less');
+                    $(this).text('Ver menos');
                     $(this).parent('.has-show-more').toggleClass('active');
                     if ($(this).parent('.has-show-more').hasClass('active')) {
-                        $(this).text('Show Less');
+                        $(this).text('Ver menos');
                     } else {
-                        $(this).text('Show More');
+                        $(this).text('Mostrar más');
                     }
                 });
             };
@@ -1111,12 +1111,12 @@ function showMoreBtn() {
     $.fn.hasShowMore = function () {
         return this.each(function () {
             $(this).toggleClass('active');
-            $(this).text('Show Less');
+            $(this).text('Ver menos');
             $(this).parent('.has-show-more').toggleClass('active');
             if ($(this).parent('.has-show-more').hasClass('active')) {
-                $(this).text('Show Less');
+                $(this).text('Ver menos');
             } else {
-                $(this).text('Show More');
+                $(this).text('Mostrar más');
             }
         });
     };

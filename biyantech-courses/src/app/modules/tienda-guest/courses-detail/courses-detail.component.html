@@ -216,7 +216,7 @@
                                         <ul class="rbt-meta mb--20 mt--10">
                                             <li><i class="fa fa-star color-warning"></i>{{ LANDING_COURSE.instructor.count_reviews }} Reseñas <span class="rbt-badge-5 ml--5">{{ LANDING_COURSE.instructor.avg_reviews }} Puntuación</span></li>
                                             <li><i class="feather-users"></i>{{ LANDING_COURSE.instructor.count_students }} Estudiantes</li>
-                                            <li><a href="#"><i class="feather-video"></i>{{ LANDING_COURSE.instructor.courses_count }} Cursos</a></li>
+                                            <li><i class="feather-video"></i>{{ LANDING_COURSE.instructor.courses_count }} Cursos</li>
                                         </ul>
                                     </div>
                                     <div class="content">
@@ -377,7 +377,7 @@
     
     <!-- Agregamos el evento de click y la lógica para cambiar el texto del botón -->
     <div class="rbt-show-more-btn" (click)="toggleDetails()">
-        {{ showAllDetails ? 'Mostrar Menos' : 'Mostrar Más' }}
+        {{ showAllDetails ? 'Mostrar menos' : 'Mostrar más' }}
     </div>
 </div>
                             </div>

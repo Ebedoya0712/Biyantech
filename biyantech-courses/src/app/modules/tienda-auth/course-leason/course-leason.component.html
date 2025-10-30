@@ -14,12 +14,6 @@
                             <div class="content text-center">
 
                                 <div class="d-flex align-items-center flex-wrap justify-content-center mb--15 rbt-course-details-feature">
-                                    <div class="feature-sin best-seller-badge">
-                                        <span class="rbt-badge-2">
-                                                <span class="image"><img src="assets/images/icons/card-icon-1.png"
-                                                        alt="Best Seller Icon"></span> Bestseller
-                                        </span>
-                                    </div>
                                     <div class="feature-sin rating">
                                         <a href="#">{{ courses_selected.avg_reviews }}</a>
                                         <a href="#"><i class="fa fa-star" [ngClass]="{'rating-a': courses_selected.avg_reviews < 1}"></i></a>
@@ -29,10 +23,10 @@
                                         <a href="#"><i class="fa fa-star" [ngClass]="{'rating-a': courses_selected.avg_reviews < 5}"></i></a>
                                     </div>
                                     <div class="feature-sin total-rating">
-                                        <a class="rbt-badge-4" href="#">{{ courses_selected.count_reviews }} rating</a>
+                                        <a class="rbt-badge-4" href="#">{{ courses_selected.count_reviews }} valoraciones</a>
                                     </div>
                                     <div class="feature-sin total-student">
-                                        <span>{{ courses_selected.count_students }} students</span>
+                                        <span>{{ courses_selected.count_students }} estudiantes</span>
                                     </div>
                                 </div>
                                 <h2 class="title theme-gradient">{{ courses_selected.title }}</h2>
@@ -44,14 +38,14 @@
                                         </a>
                                     </div>
                                     <div class="rbt-author-info">
-                                        By <a href="#" onclick="return false;">{{ courses_selected.instructor.full_name }}</a> In <a href="#">{{ courses_selected.instructor.profesion }}</a>
+                                        Curso hecho por: <a href="#" onclick="return false;">{{ courses_selected.instructor.full_name }}</a> - profesional en: <a href="#">{{ courses_selected.instructor.profesion }}</a>
                                     </div>
                                 </div>
 
                                 <ul class="rbt-meta">
-                                    <li><i class="feather-calendar"></i>Last updated {{ courses_selected.updated_at }}</li>
+                                    <li><i class="feather-calendar"></i>Última actualización {{ courses_selected.updated_at }}</li>
                                     <li><i class="feather-globe"></i>{{ courses_selected.idioma }}</li>
-                                    <li><i class="feather-award"></i>Certified Course</li>
+                                    <li><i class="feather-award"></i>Curso con certificado incluido</li>
                                 </ul>
                             </div>
                         </div>
@@ -137,7 +131,7 @@
                                                 <li><span>Certificate</span><span class="rbt-feature-value rbt-badge-5">Yes</span></li>
                                                 <li><span>Pass Percentage</span><span class="rbt-feature-value rbt-badge-5">95%</span></li>
                                             </ul>
-                                            <div class="rbt-show-more-btn">Show More</div>
+                                            <div class="rbt-show-more-btn">Ver mas</div>
                                         </div>
 
                                         <div class="social-share-wrapper mt--30 text-center">
@@ -175,33 +169,12 @@
                         <div class="col-lg-8">
                             <!-- Start Course Details  -->
                             <div class="course-details-content">
-                                <div class="rbt-inner-onepage-navigation sticky-top">
-                                    <nav class="mainmenu-nav onepagenav">
-                                        <ul class="mainmenu">
-                                            <li class="current">
-                                                <a href="#coursecontent">Course Content</a>
-                                            </li>
-                                            <li >
-                                                <a href="#overview">Overview</a>
-                                            </li>
-                                            <li>
-                                                <a href="#details">Details</a>
-                                            </li>
-                                            <li>
-                                                <a href="#intructor">Intructor</a>
-                                            </li>
-                                            <!-- <li>
-                                                <a href="#review">Review</a>
-                                            </li> -->
-                                        </ul>
-                                    </nav>
-                                </div>
 
                                 <!-- Start Course Content  -->
                                 <div class="course-content rbt-shadow-box coursecontent-wrapper mt--30 has-show-more" id="coursecontent">
                                     <div class="rbt-course-feature-inner">
                                         <div class="section-title">
-                                            <h4 class="rbt-title-style-3">Course Content</h4>
+                                            <h4 class="rbt-title-style-3">Contenido del curso</h4>
                                         </div>
                                         <div class="rbt-accordion-style rbt-accordion-02 accordion">
                                             <div class="accordion" id="accordionExampleb2">
@@ -278,8 +251,6 @@
                                                                                 </div>
                                                                                 <div class="course-content-right">
                                                                                     <span class="min-lable">{{ clase.time_clase }}</span>
-                                                                                    <span class="rbt-badge variation-03 bg-primary-opacity">
-                                                                                        <i class="feather-eye"></i> Preview</span>
                                                                                 </div>
                                                                             </a>
                                                                         </li>
@@ -332,20 +303,25 @@
                                 </div>
                                 <!-- End Course Resource  -->
 
-                                <!-- Start Course Feature Box  -->
+                                <!-- Inicio Bloque de Características del Curso -->
+
                                 <div class="rbt-course-feature-box overview-wrapper rbt-shadow-box mt--30" id="overview">
-                                    <div class="rbt-course-feature-inner has-show-more-inner-content" [innerHtml]="courses_selected.description">
-                                    </div>
-                                    <!-- <div class="rbt-show-more-btn">Show More</div> -->
+                                <h4 class="rbt-title-style-3">Descripción</h4>
+                                <!-- Se añadió max-height y overflow-y: auto para permitir el desplazamiento vertical -->
+                                <div class="rbt-course-feature-inner has-show-more-inner-content"
+                                [innerHtml]="courses_selected.description"
+                                style="max-height: 300px; overflow-y: auto; padding-right: 10px;">
                                 </div>
-                                <!-- End Course Feature Box  -->
+                                <!-- <div class="rbt-show-more-btn">Ver Más</div> -->
+                                </div>
+                                <!-- Fin Bloque de Características del Curso -->
 
                                 <!-- Start Course Feature Box  -->
                                 <div class="rbt-course-feature-box rbt-shadow-box details-wrapper mt--30" id="details">
                                     <div class="row g-5">
                                         <div class="col-lg-6">
                                             <div class="section-title">
-                                                <h4 class="rbt-title-style-3 mb--20">Requirements</h4>
+                                                <h4 class="rbt-title-style-3 mb--20">Requisitos</h4>
                                             </div>
                                             <ul class="rbt-list-style-1">
                                                 <ng-container *ngFor="let requirement of courses_selected.requirements">
@@ -393,32 +369,16 @@
                                                     </h5>
                                                     <span class="b3 subtitle">{{ courses_selected.instructor.profesion }}</span>
                                                     <ul class="rbt-meta mb--20 mt--10">
-                                                        <li><i class="fa fa-star color-warning"></i>{{ courses_selected.instructor.count_reviews }} Reviews <span class="rbt-badge-5 ml--5">{{ courses_selected.instructor.avg_reviews }} Rating</span></li>
-                                                        <li><i class="feather-users"></i>{{ courses_selected.instructor.count_students }} Students</li>
-                                                        <li><a href="#"><i class="feather-video"></i>{{ courses_selected.instructor.courses_count }} Courses</a></li>
+                                                        <li><i class="fa fa-star color-warning"></i>{{ courses_selected.instructor.count_reviews }} Reseñas <span class="rbt-badge-5 ml--5">{{ courses_selected.instructor.avg_reviews }} Puntuación</span></li>
+                                                        <li><i class="feather-users"></i>{{ courses_selected.instructor.count_students }} Estudiantes</li>
+                                                        <li>
+                                                        <i class="feather-video"></i>
+                                                        {{ courses_selected.instructor.courses_count }} Cursos
+                                                    </li>
                                                     </ul>
                                                 </div>
                                                 <div class="content">
                                                     <p class="description">{{ courses_selected.instructor.description }}</p>
-            
-                                                    <ul class="social-icon social-default icon-naked justify-content-start">
-                                                        <li><a href="https://www.facebook.com/">
-                                                                <i class="feather-facebook"></i>
-                                                            </a>
-                                                        </li>
-                                                        <li><a href="https://www.twitter.com">
-                                                                <i class="feather-twitter"></i>
-                                                            </a>
-                                                        </li>
-                                                        <li><a href="https://www.instagram.com/">
-                                                                <i class="feather-instagram"></i>
-                                                            </a>
-                                                        </li>
-                                                        <li><a href="https://www.linkdin.com/">
-                                                                <i class="feather-linkedin"></i>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
             
                                                 </div>
             
