@@ -22,6 +22,7 @@ export class CoursesDetailComponent implements OnInit{
   courses_related_instructor:any = [];
   courses_related_categories:any = [];
   campaing_discount_id:any
+  showAllDetails: boolean = false;
   DISCOUNT:any = null;
   user: any = null;
 
@@ -34,6 +35,12 @@ export class CoursesDetailComponent implements OnInit{
   ) {
     
   }
+
+  toggleDetails() {
+        this.showAllDetails = !this.showAllDetails;
+        // console.log('Estado de detalles:', this.showAllDetails); // Opcional para depuración
+    }
+    
   ngOnInit(): void {
     this.activedRouter.params.subscribe((resp:any) => {
       console.log(resp);
@@ -81,6 +88,8 @@ export class CoursesDetailComponent implements OnInit{
     }
     return COURSE.precio_usd;
   }
+
+  
 
   addCart(){
     if(!this.user){
