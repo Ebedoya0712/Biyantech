@@ -13,18 +13,18 @@
                     <div class="col-lg-12">
                         <!-- Start Breadcrumb Area  -->
                         <ul class="page-list">
-                            <li class="rbt-breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="rbt-breadcrumb-item"><a href="index.html">Inicio</a></li>
                             <li>
                                 <div class="icon-right"><i class="feather-chevron-right"></i></div>
                             </li>
-                            <li class="rbt-breadcrumb-item active">All Courses</li>
+                            <li class="rbt-breadcrumb-item active">Todos los cursos</li>
                         </ul>
                         <!-- End Breadcrumb Area  -->
 
                         <div class=" title-wrapper">
-                            <h1 class="title mb--0">All Courses</h1>
+                            <h1 class="title mb--0">Todos los cursos</h1>
                         </div>
-                        <p class="description">Courses that help beginner designers become true unicorns. </p>
+                        <p class="description">Cursos que forjan a principiantes en profesionales de alto rendimiento. </p>
                     </div>
                 </div>
             </div>
@@ -38,8 +38,8 @@
                         <div class="rbt-sorting-list d-flex flex-wrap align-items-center">
                             <div class="rbt-short-item switch-layout-container">
                                 <ul class="course-switch-layout">
-                                    <li class="course-switch-item"><button class="rbt-grid-view" [ngClass]="{'active': selected_option == 1}" title="Grid Layout" (click)="addOption(1)"><i class="feather-grid"></i> <span class="text">Off</span></button></li>
-                                    <li class="course-switch-item"><button class="rbt-list-view" [ngClass]="{'active': selected_option == 2}" title="List Layout" (click)="addOption(2)"><i class="feather-list"></i> <span class="text">On</span></button></li>
+                                    <li class="course-switch-item"><button class="rbt-grid-view" [ngClass]="{'active': selected_option == 1}" title="Grid Layout" (click)="addOption(1)"><i class="feather-grid"></i> <span class="text">Desactivar filtro</span></button></li>
+                                    <li class="course-switch-item"><button class="rbt-list-view" [ngClass]="{'active': selected_option == 2}" title="List Layout" (click)="addOption(2)"><i class="feather-list"></i> <span class="text">Activar filtro</span></button></li>
                                 </ul>
                             </div>
                         </div>
@@ -375,19 +375,6 @@
                     </ng-container>
                     
 
-                </div>
-                <div class="row">
-                    <div class="col-lg-12 mt--60">
-                        <nav>
-                            <ul class="rbt-pagination">
-                                <li><a href="#" aria-label="Previous"><i class="feather-chevron-left"></i></a></li>
-                                <li><a href="#">1</a></li>
-                                <li class="active"><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#" aria-label="Next"><i class="feather-chevron-right"></i></a></li>
-                            </ul>
-                        </nav>
-                    </div>
                 </div>
             </div>
         </div>
