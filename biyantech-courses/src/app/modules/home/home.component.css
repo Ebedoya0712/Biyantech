@@ -8,3 +8,19 @@
     color: black !important;
     margin-right: 0px;
 }
+
+.float-animation {
+    animation: float 3s ease-in-out infinite; /* Nombre de la animación, duración, tipo y si se repite */
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px); /* Posición inicial */
+    }
+    50% {
+        transform: translateY(-20px); /* Sube 20px */
+    }
+    100% {
+        transform: translateY(0px); /* Vuelve a la posición inicial */
+    }
+}
