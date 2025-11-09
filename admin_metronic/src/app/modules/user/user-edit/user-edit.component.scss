@@ -1,0 +1,102 @@
+.stepper-nav {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.stepper-item {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  position: relative;
+}
+
+.stepper-line {
+  flex: 1;
+  height: 2px;
+  background-color: #e5eaee;
+  margin: 0 1rem;
+}
+
+.stepper-item.current .stepper-line {
+  background-color: #009ef7;
+}
+
+.stepper-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #e5eaee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #5e6278;
+}
+
+.stepper-item.current .stepper-icon {
+  background-color: #009ef7;
+  color: white;
+}
+
+.stepper-label {
+  margin-left: 1rem;
+}
+
+.stepper-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  color: #5e6278;
+}
+
+.stepper-item.current .stepper-title {
+  color: #009ef7;
+}
+
+.stepper-desc {
+  font-size: 0.875rem;
+  color: #a1a5b7;
+  margin: 0;
+}
+
+/* Avatar Styles */
+.avatar-preview {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #e5eaee;
+  margin-bottom: 1rem;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-input-placeholder {
+  text-align: center;
+}
+
+/* Step Content */
+.step-content {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Form Styles */
+.form-control-solid {
+  background-color: #f5f8fa;
+  border-color: #f5f8fa;
+}
+
+.form-control-solid:focus {
+  background-color: #fff;
+  border-color: #009ef7;
+}

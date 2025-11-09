@@ -47,6 +47,8 @@ Route::group([
 ], function ($router) {
     Route::resource('/users',UserController::class);
     Route::post('/users/{id}',[UserController::class, "update"]);
+    Route::get('/roles', [UserController::class, 'getRoles']);
+    Route::get('/users/roles', [UserController::class, 'getRoles']);
     // 
     Route::resource('/categorie',CategorieController::class);
     Route::post('/categorie/{id}',[CategorieController::class, "update"]);
@@ -90,4 +92,6 @@ Route::group(["prefix" => "ecommerce"],function($router){
         Route::resource('/review',ReviewController::class);
         Route::get('/download-certificate/{course_student}', [ProfileClientController::class, 'downloadCertificate']);
     });
+
+
 });

@@ -1,147 +1,592 @@
 <!-- Start breadcrumb Area -->
-<div class="rbt-breadcrumb-default ptb--100 ptb_md--50 ptb_sm--30 bg-gradient-1">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="breadcrumb-inner text-center">
-                    <h2 class="title">Carrito de Compras</h2>
-                    
-                    <ul class="page-list">
-                        <li class="rbt-breadcrumb-item"><a href="index.html">Inicio</a></li>
-                        <li>
-                            <div class="icon-right"><i class="feather-chevron-right"></i></div>
-                        </li>
-                        <li class="rbt-breadcrumb-item active">Carrito</li>
-                    </ul>
-                </div>
-            </div>
+<div
+  class="rbt-breadcrumb-default ptb--100 ptb_md--50 ptb_sm--30 bg-gradient-1"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="breadcrumb-inner text-center">
+          <h2 class="title">Carrito de Compras</h2>
+
+          <ul class="page-list">
+            <li class="rbt-breadcrumb-item"><a href="index.html">Inicio</a></li>
+            <li>
+              <div class="icon-right">
+                <i class="feather-chevron-right"></i>
+              </div>
+            </li>
+            <li class="rbt-breadcrumb-item active">Carrito</li>
+          </ul>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 <!-- End Breadcrumb Area -->
 
 <div class="rbt-cart-area bg-color-white rbt-section-gap">
-    <div class="cart_area">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <form action="#">
-                        <!-- Cart Table -->
-                        <div class="cart-table table-responsive mb--60">
-                            <table class="table">
-                            <thead>
-                                <tr>
-                                    <th class="pro-thumbnail">Imagen</th>
-                                    <th class="pro-title">Curso</th>
-                                    <th class="pro-price">Precio</th>
-                                    <th class="pro-quantity">Detalle</th>
-                                    <th class="pro-subtotal">Total</th>
-                                    <th class="pro-remove">Quitar</th>
-                                </tr>
-                            </thead>
-                                <tbody>
-                                    <ng-container *ngFor="let cart of listCarts">
-                                        <tr>
-                                            <td class="pro-thumbnail"><a [href]="'/landing-curso/'+cart.course.slug" target="_blank"><img [src]="cart.course.imagen" alt="Product"></a></td>
-                                            <td class="pro-title"><a [href]="'/landing-curso/'+cart.course.slug" target="_blank">{{ cart.course.title }}</a></td>
-                                            <td class="pro-price"><span>${{ cart.precio_unitario }}</span></td>
-                                            <td class="pro-quantity">
-                                                <ng-container *ngIf="cart.code_cupon">
-                                                    <small *ngIf="cart.type_discount == 1"> Descuento : - {{ cart.discount }} %</small>
-                                                    <!-- <br> -->
-                                                    <small *ngIf="cart.type_discount == 2"> Descuento : - {{ cart.discount }} USD</small>
-                                                    <br>
-                                                    <small > CODIGO:  {{ cart.code_cupon }} </small>
-                                                </ng-container>
-                                                <ng-container *ngIf="cart.code_discount">
-                                                    <small *ngIf="cart.type_discount == 1"> Descuento : - {{ cart.discount }} %</small>
-                                                    <!-- <br> -->
-                                                    <small *ngIf="cart.type_discount == 2"> Descuento : - {{ cart.discount }} USD</small>
-                                                    <br>
-                                                    <small > CODIGO:  {{ cart.code_discount }} </small>
-                                                    <br>
-                                                    <small > TIPO DE CAMPAÑA:  {{ getNameCampaing(cart.type_campaing) }} </small>
-                                                </ng-container>
-                                                
-                                            </td>
-                                            <td class="pro-subtotal"><span>$ {{ cart.total }}</span></td>
-                                            <td class="pro-remove"><a href="#" onclick="return false;" (click)="removeItem(cart)"><i class="feather-x"></i></a>
-                                            </td>
-                                        </tr>
-                                    </ng-container>
-                                    
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    </form>
+  <div class="cart_area">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <form action="#">
+            <!-- Cart Table -->
+            <div class="cart-table table-responsive mb--60">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="pro-thumbnail">Imagen</th>
+                    <th class="pro-title">Curso</th>
+                    <th class="pro-price">Precio</th>
+                    <th class="pro-quantity">Detalle</th>
+                    <th class="pro-subtotal">Total</th>
+                    <th class="pro-remove">Quitar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <ng-container *ngFor="let cart of listCarts">
+                    <tr>
+                      <td class="pro-thumbnail">
+                        <a
+                          [href]="'/landing-curso/' + cart.course.slug"
+                          target="_blank"
+                          ><img [src]="cart.course.imagen" alt="Product"
+                        /></a>
+                      </td>
+                      <td class="pro-title">
+                        <a
+                          [href]="'/landing-curso/' + cart.course.slug"
+                          target="_blank"
+                          >{{ cart.course.title }}</a
+                        >
+                      </td>
+                      <td class="pro-price">
+                        <span>${{ cart.precio_unitario }}</span>
+                      </td>
+                      <td class="pro-quantity">
+                        <ng-container *ngIf="cart.code_cupon">
+                          <small *ngIf="cart.type_discount == 1">
+                            Descuento : - {{ cart.discount }} %</small
+                          >
+                          <!-- <br> -->
+                          <small *ngIf="cart.type_discount == 2">
+                            Descuento : - {{ cart.discount }} USD</small
+                          >
+                          <br />
+                          <small> CODIGO: {{ cart.code_cupon }} </small>
+                        </ng-container>
+                        <ng-container *ngIf="cart.code_discount">
+                          <small *ngIf="cart.type_discount == 1">
+                            Descuento : - {{ cart.discount }} %</small
+                          >
+                          <!-- <br> -->
+                          <small *ngIf="cart.type_discount == 2">
+                            Descuento : - {{ cart.discount }} USD</small
+                          >
+                          <br />
+                          <small> CODIGO: {{ cart.code_discount }} </small>
+                          <br />
+                          <small>
+                            TIPO DE CAMPAÑA:
+                            {{ getNameCampaing(cart.type_campaing) }}
+                          </small>
+                        </ng-container>
+                      </td>
+                      <td class="pro-subtotal">
+                        <span>$ {{ cart.total }}</span>
+                      </td>
+                      <td class="pro-remove">
+                        <a
+                          href="#"
+                          onclick="return false;"
+                          (click)="removeItem(cart)"
+                          ><i class="feather-x"></i
+                        ></a>
+                      </td>
+                    </tr>
+                  </ng-container>
+                </tbody>
+              </table>
+            </div>
+          </form>
 
-                    <div class="row g-5">
+          <div class="row g-5">
+            <div class="col-lg-6 col-12">
+              <!-- Discount Coupon -->
+              <div class="discount-coupon edu-bg-shade">
+                <div class="section-title text-start">
+                  <h4 class="title mb--30">Código de Cupón de Descuento</h4>
+                </div>
+                <form action="#">
+                  <div class="row">
+                    <div class="col-md-6 col-12 mb--25">
+                      <input
+                        type="text"
+                        placeholder="Coupon Code"
+                        name="code"
+                        [(ngModel)]="code"
+                      />
+                    </div>
+                    <div class="col-md-6 col-12 mb--25">
+                      <button
+                        class="rbt-btn btn-gradient hover-icon-reverse btn-sm"
+                        (click)="applyCupon()"
+                      >
+                        <span class="icon-reverse-wrapper">
+                          <span class="btn-text">Aplicar Código</span>
+                          <span class="btn-icon"
+                            ><i class="feather-arrow-right"></i
+                          ></span>
+                          <span class="btn-icon"
+                            ><i class="feather-arrow-right"></i
+                          ></span>
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <!-- Cart Summary -->
 
-                        <div class="col-lg-6 col-12">
+            <div class="col-lg-5 offset-lg-1 col-12">
+              <div class="cart-summary">
+                <div class="cart-summary-wrap">
+                  <div class="section-title text-start">
+                    <h4 class="title mb--30">Resumen del Carrito</h4>
+                  </div>
+                  <p>
+                    Subtotal <span>${{ totalSum }}</span>
+                  </p>
+                  <p>Costo de Envío <span>$00.00</span></p>
+                  <h2>
+                    Total Final <span>${{ totalSum }}</span>
+                  </h2>
+                </div>
 
-                            <!-- Discount Coupon -->
-                            <div class="discount-coupon edu-bg-shade">
-                                <div class="section-title text-start">
-                                    <h4 class="title mb--30">Código de Cupón de Descuento</h4>
-                                </div>
-                                <form action="#">
-                                    <div class="row">
-                                        <div class="col-md-6 col-12 mb--25">
-                                            <input type="text" placeholder="Coupon Code" name="code" [(ngModel)]="code">
-                                        </div>
-                                        <div class="col-md-6 col-12 mb--25">
-                                            <button class="rbt-btn btn-gradient hover-icon-reverse btn-sm" (click)="applyCupon()">
-                                                <span class="icon-reverse-wrapper">
-                                                    <span class="btn-text">Aplicar Código</span>
-                                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                                </span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <!-- Cart Summary -->
-
-                        <div class="col-lg-5 offset-lg-1 col-12">
-                            <div class="cart-summary">
-                                <div class="cart-summary-wrap">
-                                    <div class="section-title text-start">
-                                        <h4 class="title mb--30">Resumen del Carrito</h4>
-                                    </div>
-                                    <p>Subtotal <span>${{ totalSum }}</span></p>
-                                    <p>Costo de Envío <span>$00.00</span></p>
-                                    <h2>Total Final <span>${{ totalSum }}</span></h2>
-                                </div>
-
-                                <div class="cart-submit-btn-group">
-                                    <div class="single-button w-100">
-                                        <!--<button class="rbt-btn btn-gradient rbt-switch-btn rbt-switch-y w-100">
+                <div class="cart-submit-btn-group">
+                  <div class="single-button w-100">
+                    <!--<button class="rbt-btn btn-gradient rbt-switch-btn rbt-switch-y w-100">
                                             <span data-text="Checkout">Checkout</span>
                                         </button>-->
-                                        <div #paypal ></div>
-                                    </div>
-                                    <!--<div class="single-button w-50">
+
+                    <!-- list-carts.component.html -->
+                    <!-- ... tu código existente ... -->
+
+                    <div class="payment-options mt-4">
+                      <h5 class="mb-3">Métodos de Pago</h5>
+
+                      <!-- Botones personalizados -->
+                      <div class="custom-payment-buttons">
+                        <!-- Botón Pago Móvil -->
+                        <button
+                          role="button"
+                          class=" rbt-btn btn-gradient my-auto hover-icon-reverse btn-sm align-items-center payment-button payment-button-pago-movil mt-5 w-100 mb-2"
+                          [class.loading]="isPagoMovilLoading"
+                          (click)="onPagoMovilClick()"
+                          [disabled]="
+                            isPagoMovilLoading ||
+                            isBinanceLoading ||
+                            isProcessingPaypal
+                          "
+                          aria-label="Pago Móvil"
+                        >
+                          <div class="payment-button-label-container">
+                            <i
+                              alt="Pago Móvil"
+                              class="payment-button-logo text-white mb-2 bi bi-phone" 
+                              ><svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="18"
+                                height="28"
+                                viewBox="0 0 20 20"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="feather feather-smartphone"
+                              >
+                                <rect
+                                  x="5"
+                                  y="2"
+                                  width="14"
+                                  height="20"
+                                  rx="2"
+                                  ry="2"
+                                />
+                                <line x1="12" y1="18" x2="12.01" y2="18" />
+                              </svg>
+                            </i>
+                            <span class="payment-button-text">
+                              {{
+                                isPagoMovilLoading
+                                  ? "Procesando..."
+                                  : "Pago Móvil"
+                              }}
+                            </span>
+                          </div>
+
+                          <div class="payment-button-spinner"></div>
+                        </button>
+
+                        <!-- Botón Binance -->
+                        <button
+                          role="button"
+                          class="payment-button payment-button-binance w-100 mt-4"
+                          [class.loading]="isBinanceLoading"
+                          (click)="onBinanceClick()"
+                          [disabled]="
+                            isBinanceLoading ||
+                            isPagoMovilLoading ||
+                            isProcessingPaypal
+                          "
+                          aria-label="Binance"
+                        >
+                          <div class="payment-button-label-container">
+                            <img
+                              [src]="binanceLogo"
+                              alt="Binance"
+                              class="payment-button-logo"
+                            />
+                            <span class="payment-button-text">
+                              {{
+                                isBinanceLoading ? "Procesando..." : "Binance"
+                              }}
+                            </span>
+                          </div>
+
+                          <div class="payment-button-spinner"></div>
+                        </button>
+                      </div>
+                      <!-- Botón PayPal (existente) -->
+                      <div #paypal class="paypal-container mb-3 mt-4"></div>
+                    </div>
+                  </div>
+                  <!--<div class="single-button w-50">
                                         <button class="rbt-btn rbt-switch-btn rbt-switch-y w-100 btn-border">
                                             <span data-text="Update Cart">Update Cart</span>
                                         </button>
                                     </div>-->
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="rbt-separator-mid">
-    <div class="container">
-        <hr class="rbt-separator m-0">
+  <div class="container">
+    <hr class="rbt-separator m-0" />
+  </div>
+</div>
+
+<!-- Modal de Pago Móvil - Diseño Ultra Moderno -->
+<div class="modal fade" id="pagoMovilModal" tabindex="-1" aria-labelledby="pagoMovilModalLabel" aria-hidden="true" #pagoMovilModal>
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content modern-modal">
+      
+      <!-- Header Elegante con Gradiente -->
+      <div class="modal-header ">
+        <div class="header-content w-100 text-center">
+      
+          <div class="">
+            <div class="method-header">
+              <i class="bi bi-phone-vibrate method-icon"></i>
+              <div class="method-info">
+          <h4 class=" h2  align-items-center my-auto py-4">PAGO MOVIL</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn-close  modern-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body modern-body">
+        
+        <!-- Paso 1: Información del Pago -->
+        <div *ngIf="currentStep === 1" class="step-content">
+          <!-- Método de Pago -->
+          
+
+          <!-- Título Sección -->
+          <div class="section-title modern-section-title">
+            <span class="title-text">Completá estos datos</span>
+            <div class="title-line"></div>
+          </div>
+
+          <!-- Datos de Transferencia -->
+          <div class=" row gap-5">
+            <div class="col data-card modern-data-card">
+              <div class="data-icon">
+                <i class="bi bi-building"></i>
+              </div>
+              <div class="data-content">
+                <label class="data-label">Banco Destino</label>
+                <div class="data-value">0102 - Banco de Venezuela</div>
+              </div>
+              <i class="bi bi-check-circle-fill data-check"></i>
+            </div>
+
+            <div class="col data-card modern-data-card">
+              <div class="data-icon">
+                <i class="bi bi-telephone"></i>
+              </div>
+              <div class="data-content">
+                <label class="data-label">Teléfono</label>
+                <div class="data-value">0412-1234567</div>
+              </div>
+              <i class="bi bi-check-circle-fill data-check"></i>
+            </div>
+
+            <div class="col data-card modern-data-card">
+              <div class="data-icon">
+                <i class="bi bi-person-badge"></i>
+              </div>
+              <div class="col data-content">
+                <label class="data-label">Cédula</label>
+                <div class="data-value">V-12345678</div>
+              </div>
+              <i class="bi bi-check-circle-fill data-check"></i>
+            </div>
+
+            <!-- En tu modal, actualiza la sección del monto -->
+<div class="data-card modern-data-card highlight">
+  <div class="data-icon">
+    <i class="bi bi-currency-exchange"></i>
+  </div>
+  <div class="data-content">
+    <label class="data-label">Monto a Transferir</label>
+    <div class="data-value amount">
+      <div class="amount-usd">${{ totalSum }} USD</div>
+      <div class="amount-bs" *ngIf="totalSumBs > 0">
+        ≈ {{ formatNumber(totalSumBs) }} Bs
+      </div>
     </div>
+  </div>
+  <i class="bi bi-arrow-right-circle data-arrow"></i>
+</div>
+
+<!-- Información de tasa de cambio oficial -->
+<div class="exchange-info official-rate" *ngIf="exchangeRate">
+  <div class="exchange-header">
+    <i class="bi bi-bank"></i>
+    <strong>Tasa Oficial BCV</strong>
+  </div>
+  <div class="exchange-details">
+    <div class="rate-info">
+      <span class="rate-value">1 USD = {{ formatNumber(usdToBsRate) }} Bs</span>
+      <span class="rate-source">({{ getRateSource() }})</span>
+    </div>
+    <div class="rate-breakdown" *ngIf="exchangeRate.compra || exchangeRate.venta">
+      <small class="text-muted">
+        <span *ngIf="exchangeRate.compra">Compra: {{ formatNumber(exchangeRate.compra) }}</span>
+        <span *ngIf="exchangeRate.venta"> | Venta: {{ formatNumber(exchangeRate.venta) }}</span>
+        <span *ngIf="exchangeRate.promedio"> | Promedio: {{ formatNumber(exchangeRate.promedio) }}</span>
+      </small>
+    </div>
+    <div class="last-update">
+      <small class="text-muted">
+        <i class="bi bi-clock"></i>
+        Actualizado: {{ lastUpdate }}
+      </small>
+      <button class="btn btn-sm btn-outline-primary ms-2" 
+              (click)="refreshRates()" 
+              [disabled]="isLoadingRates"
+              title="Actualizar tasa">
+        <i class="bi bi-arrow-clockwise" [class.spin]="isLoadingRates"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="exchange-info default-rate" *ngIf="!exchangeRate && usdToBsRate > 0">
+  <div class="exchange-header">
+    <i class="bi bi-exclamation-triangle"></i>
+    <strong>Tasa por Defecto</strong>
+  </div>
+  <div class="exchange-details">
+    <div class="rate-info">
+      <span class="rate-value">1 USD = {{ formatNumber(usdToBsRate) }} Bs</span>
+    </div>
+    <div class="last-update">
+      <small class="text-muted">
+        No se pudo cargar la tasa oficial
+      </small>
+      <button class="btn btn-sm btn-outline-primary ms-2" 
+              (click)="refreshRates()" 
+              [disabled]="isLoadingRates">
+        <i class="bi bi-arrow-clockwise" [class.spin]="isLoadingRates"></i>
+      </button>
+    </div>
+  </div>
+</div>
+          </div>
+
+          <!-- Información Importante -->
+          <div class="info-card col-12  my-4 modern-info-card">
+            <div class="info-icon">
+              <i class="bi bi-info-circle"></i>
+            </div>
+            <div class="info-content">
+              <h6 class="info-title">Importante</h6>
+              <p class="info-text">Realiza la transferencia con los datos proporcionados y guarda el comprobante para el siguiente paso.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Paso 2: Subir Comprobante -->
+        <div *ngIf="currentStep === 2" class="step-content">
+          <div class="upload-section text-center">
+            <div class="upload-icon">
+              <i class="bi bi-cloud-arrow-up"></i>
+            </div>
+            <h4 class="upload-title">Subí tu comprobante</h4>
+            <p class="upload-subtitle">Adjuntá la imagen del comprobante de transferencia</p>
+
+            <!-- Área de Upload Moderna -->
+            <div class="modern-upload-area"
+                 (click)="fileInput.click()"
+                 [class.upload-active]="isFileOver"
+                 (dragover)="onDragOver($event)"
+                 (dragleave)="onDragLeave($event)"
+                 (drop)="onFileDrop($event)">
+              <input #fileInput type="file" (change)="onFileSelected($event)" accept="image/*" hidden>
+              
+              <div *ngIf="!selectedFile" class="upload-placeholder">
+                <i class="bi bi-cloud-arrow-up upload-placeholder-icon"></i>
+                <div class="upload-text">
+                  <p class="upload-main-text">Hacé clic o arrastrá una imagen</p>
+                  <p class="upload-hint">Formatos: JPG, PNG, GIF · Máx. 5MB</p>
+                </div>
+              </div>
+
+              <div *ngIf="selectedFile" class="file-preview-modern">
+                <div class="preview-container">
+                  <img [src]="filePreview" class="preview-image-modern" alt="Vista previa">
+                  <div class="preview-overlay">
+                    <button type="button" class="btn btn-light btn-sm preview-remove" 
+                            (click)="removeFile($event)">
+                      <i class="bi bi-x"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="file-info-modern">
+                  <i class="bi bi-check-circle-fill text-success me-2"></i>
+                  <span class="file-name">{{ selectedFile.name }}</span>
+                  <span class="file-size">({{ (selectedFile.size / 1024 / 1024).toFixed(2) }} MB)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="upload-tips">
+              <i class="bi bi-lightbulb"></i>
+              <span>Asegurate de que el comprobante sea legible</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Paso 3: Verificación -->
+        <div *ngIf="currentStep === 3" class="step-content">
+          <div class="verification-section text-center">
+            <div class="verification-icon" [class.verified]="isVerificationComplete">
+              <i class="bi" [class.bi-shield-check]="isVerificationComplete" [class.bi-shield]="!isVerificationComplete"></i>
+            </div>
+            
+            <h4 class="verification-title" [class.text-success]="isVerificationComplete">
+              {{ isVerificationComplete ? '¡Pago Confirmado!' : 'Verificando tu pago' }}
+            </h4>
+            
+            <p class="verification-text" *ngIf="!isVerificationComplete">
+              Estamos validando tu comprobante de pago
+            </p>
+            
+            <p class="verification-success" *ngIf="isVerificationComplete">
+              ¡Tu curso está disponible! Te amamos ❤️
+            </p>
+
+            <!-- Barra de Progreso Animada -->
+            <div class="progress-modern" *ngIf="!isVerificationComplete">
+              <div class="progress-bar-modern" [style.width]="verificationProgress + '%'"></div>
+              <div class="progress-text">{{ verificationProgress }}%</div>
+            </div>
+
+            <!-- Resumen de Compra -->
+            <div class="purchase-summary">
+              <div class="summary-header">
+                <i class="bi bi-receipt"></i>
+                <span>Resumen de compra</span>
+              </div>
+              <div class="summary-items">
+                <div class="summary-item">
+                  <span>Productos</span>
+                  <span>${{ totalSum }}</span>
+                </div>
+                <div class="summary-item">
+                  <span>Total</span>
+                  <span class="summary-total">${{ totalSum }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer Moderno -->
+      <div class="modal-footer modern-footer">
+        <!-- Indicador de Pasos Moderno -->
+        <div class="modern-step-indicator mx-auto">
+          <div class="step-dots">
+            <div class="step-dot" [class.active]="currentStep === 1"></div>
+            <div class="step-dot" [class.active]="currentStep === 2"></div>
+            <div class="step-dot" [class.active]="currentStep === 3"></div>
+          </div>
+          <div class="step-labels">
+            <span class="step-label" [class.active]="currentStep === 1">Datos</span>
+            <span class="step-label" [class.active]="currentStep === 2">Comprobante</span>
+            <span class="step-label" [class.active]="currentStep === 3">Confirmación</span>
+          </div>
+        </div>
+
+        <!-- Botones de Navegación -->
+        <div class="modern-actions">
+          <button *ngIf="currentStep > 1" 
+                  type="button" 
+                  class="btn btn-modern-secondary"
+                  (click)="previousStep()">
+            <i class="bi bi-arrow-left"></i>
+            Volver
+          </button>
+          
+          <button *ngIf="currentStep === 1" 
+                  type="button" 
+                  class="btn btn-modern-primary"
+                  (click)="nextStep()">
+            Continuar
+            <i class="bi bi-arrow-right"></i>
+          </button>
+          
+          <button *ngIf="currentStep === 2 && selectedFile" 
+                  type="button" 
+                  class="btn btn-modern-success"
+                  (click)="submitPayment()">
+            <i class="bi bi-send-check"></i>
+            Enviar Comprobante
+          </button>
+          
+          <button *ngIf="currentStep === 3 && isVerificationComplete" 
+                  type="button" 
+                  class="btn btn-modern-success"
+                  (click)="onPaymentComplete()">
+            <i class="bi bi-rocket-takeoff"></i>
+            Ver mi curso
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
