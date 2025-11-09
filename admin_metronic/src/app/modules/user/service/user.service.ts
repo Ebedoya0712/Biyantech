@@ -20,44 +20,61 @@ export class UserService {
     this.isLoading$ = this.isLoadingSubject.asObservable();
   }
 
-  listUsers(search:any, state:any){
+  getHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      'Authorization': 'Bearer ' + this.authservice.token
+    });
+  }
+
+  listUsers(search: any, state: any) {
     this.isLoadingSubject.next(true);
-    let headers = new HttpHeaders({'Authorization': 'Bearer'+this.authservice.token});
+    let headers = this.getHeaders();
     let LINK = "?T=";
-    if(search){
-      LINK += "&search="+search;
+    if(search) {
+      LINK += "&search=" + search;
     }
-    if(state){
-      LINK += "&state="+state;
+    if(state) {
+      LINK += "&state=" + state;
     }
-    let URL = URL_SERVICIOS+"/users"+LINK;
-    return this.http.get(URL,{headers: headers}).pipe(
-      finalize(() => this.isLoadingSubject.next(false))
-    );
-  }
-  register(data:any){
-    this.isLoadingSubject.next(true);
-    let headers = new HttpHeaders({'Authorization': 'Bearer'+this.authservice.token});
-    let URL = URL_SERVICIOS+"/users";
-    return this.http.post(URL,data,{headers: headers}).pipe(
+    let URL = URL_SERVICIOS + "/users" + LINK;
+    return this.http.get(URL, { headers: headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );
   }
 
-  update(data:any,user_id:string){
+  // ✅ Método para obtener roles
+  getRoles() {
     this.isLoadingSubject.next(true);
-    let headers = new HttpHeaders({'Authorization': 'Bearer'+this.authservice.token});
-    let URL = URL_SERVICIOS+"/users/"+user_id;
-    return this.http.post(URL,data,{headers: headers}).pipe(
+    let headers = this.getHeaders();
+    let URL = URL_SERVICIOS + "/users/roles";
+    return this.http.get(URL, { headers: headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );
   }
 
-  deleteUser(user_id:string){
+  register(data: any) {
     this.isLoadingSubject.next(true);
-    let headers = new HttpHeaders({'Authorization': 'Bearer'+this.authservice.token});
-    let URL = URL_SERVICIOS+"/users/"+user_id;
-    return this.http.delete(URL,{headers: headers}).pipe(
+    let headers = this.getHeaders();
+    let URL = URL_SERVICIOS + "/users";
+    return this.http.post(URL, data, { headers: headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+
+  update(data: any, user_id: string) {
+    this.isLoadingSubject.next(true);
+    let headers = this.getHeaders();
+    let URL = URL_SERVICIOS + "/users/" + user_id;
+    return this.http.post(URL, data, { headers: headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+
+  deleteUser(user_id: string) {
+    this.isLoadingSubject.next(true);
+    let headers = this.getHeaders();
+    let URL = URL_SERVICIOS + "/users/" + user_id;
+    return this.http.delete(URL, { headers: headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );
   }

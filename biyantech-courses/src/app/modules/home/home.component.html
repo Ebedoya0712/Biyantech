@@ -519,7 +519,7 @@
           <div class="col-lg-12">
               <div class="section-title text-center">
                   <span class="subtitle bg-primary-opacity">Nuestros Cursos</span>
-                  <h2 class="title">EXPLORA NUESTRO CATÁLOGO:</h2>
+                  <h2 class="title text-white text-decoration-underline">EXPLORA NUESTROS CATÁLOGO:</h2>
               </div>
           </div>
       </div>
@@ -531,7 +531,7 @@
                       <li class="nav-item" role="presentation">
                           <button [ngClass]="{'active': i == 0}" id="all-tab" data-bs-toggle="tab" [attr.data-bs-target]="'#'+group_courses_categ.name_empty" type="button" role="tab" aria-controls="all" aria-selected="true"><span class="filter-text">
                             {{ group_courses_categ.name }}
-                            </span> <span class="course-number">{{ group_courses_categ.courses_count }}</span></button>
+                            </span> <span class="course-number btn-group">{{ group_courses_categ.courses_count }}</span></button>
                       </li>
                   </ng-container>
                   
