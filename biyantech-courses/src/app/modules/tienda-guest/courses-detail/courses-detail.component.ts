@@ -38,7 +38,7 @@ export class CoursesDetailComponent implements OnInit{
 
   toggleDetails() {
         this.showAllDetails = !this.showAllDetails;
-        // console.log('Estado de detalles:', this.showAllDetails); // Opcional para depuración
+        console.log('Estado de detalles:', this.showAllDetails); // Opcional para depuración
     }
     
   ngOnInit(): void {

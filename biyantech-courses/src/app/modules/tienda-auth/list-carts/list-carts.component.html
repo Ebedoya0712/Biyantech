@@ -286,7 +286,7 @@
 
 <!-- Modal de Pago Móvil - Diseño Ultra Moderno -->
 <div class="modal fade" id="pagoMovilModal" tabindex="-1" aria-labelledby="pagoMovilModalLabel" aria-hidden="true" #pagoMovilModal>
-  <div class="modal-dialog modal-dialog-centered modal-lg">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content modern-modal">
       
       <!-- Header Elegante con Gradiente -->
@@ -314,117 +314,93 @@
 
           <!-- Título Sección -->
           <div class="section-title modern-section-title">
-            <span class="title-text">Completá estos datos</span>
+            <span class="title-text fs-2">Completá estos datos</span> 
             <div class="title-line"></div>
-          </div>
+        </div>
 
           <!-- Datos de Transferencia -->
-          <div class=" row gap-5">
-            <div class="col data-card modern-data-card">
-              <div class="data-icon">
-                <i class="bi bi-building"></i>
-              </div>
-              <div class="data-content">
-                <label class="data-label">Banco Destino</label>
-                <div class="data-value">0102 - Banco de Venezuela</div>
-              </div>
-              <i class="bi bi-check-circle-fill data-check"></i>
-            </div>
+          <div class="row gap-5">
+    <div class="col data-card modern-data-card">
+        <div class="data-icon" style="font-size: 3rem;">
+            <i class="fas fa-building"></i>
+        </div>
+        <div class="data-content">
+            <label class="data-label fs-5">Banco Destino</label>
+            <div class="data-value fs-3">0102 - Banco de Venezuela</div>
+        </div>
+        <i class="bi bi-check-circle-fill data-check" style="font-size: 1.8rem;"></i>
+    </div>
 
             <div class="col data-card modern-data-card">
-              <div class="data-icon">
-                <i class="bi bi-telephone"></i>
-              </div>
-              <div class="data-content">
-                <label class="data-label">Teléfono</label>
-                <div class="data-value">0412-1234567</div>
-              </div>
-              <i class="bi bi-check-circle-fill data-check"></i>
+            <div class="data-icon" style="font-size: 3rem;">
+                <i class="fas fa-phone"></i>
             </div>
-
-            <div class="col data-card modern-data-card">
-              <div class="data-icon">
-                <i class="bi bi-person-badge"></i>
-              </div>
-              <div class="col data-content">
-                <label class="data-label">Cédula</label>
-                <div class="data-value">V-12345678</div>
-              </div>
-              <i class="bi bi-check-circle-fill data-check"></i>
+            <div class="data-content">
+                <label class="data-label fs-5">Teléfono</label>
+                <div class="data-value fs-3">0412-1234567</div>
             </div>
+            <i class="bi bi-check-circle-fill data-check" style="font-size: 1.8rem;"></i>
+        </div>
 
-            <!-- En tu modal, actualiza la sección del monto -->
-<div class="data-card modern-data-card highlight">
-  <div class="data-icon">
-    <i class="bi bi-currency-exchange"></i>
-  </div>
-  <div class="data-content">
-    <label class="data-label">Monto a Transferir</label>
-    <div class="data-value amount">
-      <div class="amount-usd">${{ totalSum }} USD</div>
-      <div class="amount-bs" *ngIf="totalSumBs > 0">
-        ≈ {{ formatNumber(totalSumBs) }} Bs
-      </div>
-    </div>
-  </div>
-  <i class="bi bi-arrow-right-circle data-arrow"></i>
-</div>
-
-<!-- Información de tasa de cambio oficial -->
-<div class="exchange-info official-rate" *ngIf="exchangeRate">
-  <div class="exchange-header">
-    <i class="bi bi-bank"></i>
-    <strong>Tasa Oficial BCV</strong>
-  </div>
-  <div class="exchange-details">
-    <div class="rate-info">
-      <span class="rate-value">1 USD = {{ formatNumber(usdToBsRate) }} Bs</span>
-      <span class="rate-source">({{ getRateSource() }})</span>
-    </div>
-    <div class="rate-breakdown" *ngIf="exchangeRate.compra || exchangeRate.venta">
-      <small class="text-muted">
-        <span *ngIf="exchangeRate.compra">Compra: {{ formatNumber(exchangeRate.compra) }}</span>
-        <span *ngIf="exchangeRate.venta"> | Venta: {{ formatNumber(exchangeRate.venta) }}</span>
-        <span *ngIf="exchangeRate.promedio"> | Promedio: {{ formatNumber(exchangeRate.promedio) }}</span>
-      </small>
-    </div>
-    <div class="last-update">
-      <small class="text-muted">
-        <i class="bi bi-clock"></i>
-        Actualizado: {{ lastUpdate }}
-      </small>
-      <button class="btn btn-sm btn-outline-primary ms-2" 
-              (click)="refreshRates()" 
-              [disabled]="isLoadingRates"
-              title="Actualizar tasa">
-        <i class="bi bi-arrow-clockwise" [class.spin]="isLoadingRates"></i>
-      </button>
-    </div>
-  </div>
-</div>
-
-<div class="exchange-info default-rate" *ngIf="!exchangeRate && usdToBsRate > 0">
-  <div class="exchange-header">
-    <i class="bi bi-exclamation-triangle"></i>
-    <strong>Tasa por Defecto</strong>
-  </div>
-  <div class="exchange-details">
-    <div class="rate-info">
-      <span class="rate-value">1 USD = {{ formatNumber(usdToBsRate) }} Bs</span>
-    </div>
-    <div class="last-update">
-      <small class="text-muted">
-        No se pudo cargar la tasa oficial
-      </small>
-      <button class="btn btn-sm btn-outline-primary ms-2" 
-              (click)="refreshRates()" 
-              [disabled]="isLoadingRates">
-        <i class="bi bi-arrow-clockwise" [class.spin]="isLoadingRates"></i>
-      </button>
-    </div>
-  </div>
-</div>
+          <div class="col data-card modern-data-card">
+          <div class="data-icon" style="font-size: 3rem;">
+              <i class="fas fa-id-card"></i>
           </div>
+          <div class="data-content">
+              <label class="data-label fs-5">Cédula</label>
+              <div class="data-value fs-3">V-12345678</div>
+          </div>
+          <i class="" style="font-size: 1.8rem;"></i>
+      </div>
+
+            <div class="data-card modern-data-card highlight">
+    <div class="data-icon" style="font-size: 3rem;">
+        <i class="fas fa-exchange-alt"></i> 
+    </div>
+    <div class="data-content">
+        <label class="data-label fs-5">Monto a Transferir</label>
+        <div class="data-value amount">
+            <div class="amount-usd fs-2">${{ totalSum }} USD</div> 
+            <div class="amount-bs fs-5" *ngIf="totalSumBs > 0">
+                ≈ {{ formatNumber(totalSumBs) }} Bs
+            </div>
+        </div>
+    </div>
+    <i class="" style="font-size: 2rem;"></i>
+</div>
+
+<div class="exchange-info official-rate" *ngIf="exchangeRate">
+    <div class="exchange-header">
+        <i class="fas fa-university" style="font-size: 1.25rem;"></i>
+        <strong class="fs-5">Tasa Oficial BCV</strong>
+    </div>
+    <div class="exchange-details">
+        <div class="rate-info">
+            <span class="rate-value fs-3">1 USD = {{ formatNumber(usdToBsRate) }} Bs</span>
+            <span class="rate-source fs-6">({{ getRateSource() }})</span>
+        </div>
+        <div class="rate-breakdown" *ngIf="exchangeRate.compra || exchangeRate.venta">
+            <small class="text-muted fs-6">
+                <span *ngIf="exchangeRate.compra">Compra: {{ formatNumber(exchangeRate.compra) }}</span>
+                <span *ngIf="exchangeRate.venta"> | Venta: {{ formatNumber(exchangeRate.venta) }}</span>
+                <span *ngIf="exchangeRate.promedio"> | Promedio: {{ formatNumber(exchangeRate.promedio) }}</span>
+            </small>
+        </div>
+        <div class="last-update">
+            <small class="text-muted fs-6">
+                <i class="fas fa-clock" style="font-size: 1.1rem;"></i>
+                Actualizado: {{ lastUpdate }}
+            </small>
+            <button class="btn btn-sm btn-outline-primary ms-2" 
+                    (click)="refreshRates()" 
+                    [disabled]="isLoadingRates"
+                    title="Actualizar tasa">
+                <i class="fas fa-sync-alt" [class.spin]="isLoadingRates" style="font-size: 1.1rem;"></i>
+            </button>
+        </div>
+    </div>
+</div>
+</div>  
 
           <!-- Información Importante -->
           <div class="info-card col-12  my-4 modern-info-card">
@@ -483,8 +459,8 @@
             </div>
 
             <div class="upload-tips">
-              <i class="bi bi-lightbulb"></i>
-              <span>Asegurate de que el comprobante sea legible</span>
+                <i class="fas fa-lightbulb" style="font-size: 1.5rem;"></i>
+                <span class="fs-5">Asegurate de que el comprobante sea legible</span>
             </div>
           </div>
         </div>
@@ -546,45 +522,46 @@
             <div class="step-dot" [class.active]="currentStep === 3"></div>
           </div>
           <div class="step-labels">
-            <span class="step-label" [class.active]="currentStep === 1">Datos</span>
-            <span class="step-label" [class.active]="currentStep === 2">Comprobante</span>
-            <span class="step-label" [class.active]="currentStep === 3">Confirmación</span>
+          <span class="step-label fs-4" [class.active]="currentStep === 1">Datos</span>
+          <span class="step-label fs-4" [class.active]="currentStep === 2">Comprobante</span>
+          <span class="step-label fs-4" [class.active]="currentStep === 3">Confirmación</span>
           </div>
         </div>
 
         <!-- Botones de Navegación -->
         <div class="modern-actions">
-          <button *ngIf="currentStep > 1" 
-                  type="button" 
-                  class="btn btn-modern-secondary"
-                  (click)="previousStep()">
-            <i class="bi bi-arrow-left"></i>
+        <button *ngIf="currentStep > 1" 
+                type="button" 
+                class="btn btn-modern-secondary btn-lg"
+                (click)="previousStep()">
+            <i class="fas fa-arrow-left"></i>
             Volver
-          </button>
+        </button>
+
           
           <button *ngIf="currentStep === 1" 
-                  type="button" 
-                  class="btn btn-modern-primary"
-                  (click)="nextStep()">
-            Continuar
-            <i class="bi bi-arrow-right"></i>
-          </button>
+            type="button" 
+            class="btn btn-modern-primary btn-lg"
+            (click)="nextStep()">
+        Continuar
+        <i class="fas fa-arrow-right"></i> 
+        </button>
           
           <button *ngIf="currentStep === 2 && selectedFile" 
-                  type="button" 
-                  class="btn btn-modern-success"
-                  (click)="submitPayment()">
-            <i class="bi bi-send-check"></i>
-            Enviar Comprobante
-          </button>
+              type="button" 
+              class="btn btn-modern-success btn-lg"
+              (click)="submitPayment()">
+          <i class="fas fa-paper-plane"></i> 
+          Enviar Comprobante
+      </button>
           
           <button *ngIf="currentStep === 3 && isVerificationComplete" 
-                  type="button" 
-                  class="btn btn-modern-success"
-                  (click)="onPaymentComplete()">
-            <i class="bi bi-rocket-takeoff"></i>
-            Ver mi curso
-          </button>
+              type="button" 
+              class="btn btn-modern-success btn-lg"
+              (click)="onPaymentComplete()">
+          <i class="fas fa-graduation-cap"></i> 
+          Ver mi curso
+      </button>
         </div>
       </div>
     </div>
