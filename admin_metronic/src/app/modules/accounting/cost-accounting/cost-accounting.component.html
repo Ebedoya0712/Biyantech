@@ -1,0 +1,300 @@
+<div class="card">
+  <!--begin::Card header-->
+  <div class="card-header border-0 pt-6">
+    <div class="card-title">
+      <h2 class="fw-bolder mb-0">Contabilidad de Costos - Plataforma de Cursos</h2>
+    </div>
+    <!--begin::Card toolbar-->
+    <div class="card-toolbar">
+      <!--begin::Toolbar-->
+      <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
+        <!--begin::Add user-->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_cost">
+          <i class="ki-duotone ki-plus fs-2"></i>Agregar Costo
+        </button>
+        <!--end::Add user-->
+      </div>
+      <!--end::Toolbar-->
+    </div>
+    <!--end::Card toolbar-->
+  </div>
+  <!--end::Card header-->
+
+  <!--begin::Card body-->
+  <div class="card-body py-4">
+    <!--begin::Stats-->
+    <div class="row g-6 mb-6">
+      <div class="col-xl-3 col-sm-6">
+        <div class="card card-dashed bg-light-danger h-xl-100 flex-row flex-stack flex-wrap p-6">
+          <div class="d-flex flex-column">
+            <div class="d-flex align-items-center py-2">
+              <span class="fs-4 fw-semibold text-danger me-2">$</span>
+              <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2">{{getTotalCosts() | number}}</span>
+            </div>
+            <span class="fs-6 fw-semibold text-gray-600">Costos Totales</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-sm-6">
+        <div class="card card-dashed bg-light-warning h-xl-100 flex-row flex-stack flex-wrap p-6">
+          <div class="d-flex flex-column">
+            <div class="d-flex align-items-center py-2">
+              <span class="fs-4 fw-semibold text-warning me-2">$</span>
+              <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2">{{getCostsByCategory('DOCENTES') | number}}</span>
+            </div>
+            <span class="fs-6 fw-semibold text-gray-600">Pagos a Docentes</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-sm-6">
+        <div class="card card-dashed bg-light-info h-xl-100 flex-row flex-stack flex-wrap p-6">
+          <div class="d-flex flex-column">
+            <div class="d-flex align-items-center py-2">
+              <span class="fs-4 fw-semibold text-info me-2">$</span>
+              <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2">{{getCostsByCategory('PRODUCCION') | number}}</span>
+            </div>
+            <span class="fs-6 fw-semibold text-gray-600">Producción Videos</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-sm-6">
+        <div class="card card-dashed bg-light-success h-xl-100 flex-row flex-stack flex-wrap p-6">
+          <div class="d-flex flex-column">
+            <div class="d-flex align-items-center py-2">
+              <span class="fs-4 fw-semibold text-success me-2">%</span>
+              <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2">{{calculateMargin()}}</span>
+            </div>
+            <span class="fs-6 fw-semibold text-gray-600">Margen de Utilidad</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--end::Stats-->
+
+    <!--begin::Table-->
+    <div class="card card-dashed">
+      <div class="card-header">
+        <h3 class="card-title">Gestión de Costos</h3>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+            <thead>
+              <tr class="fw-bold text-muted">
+                <th class="w-25px">
+                  <div class="form-check form-check-sm form-check-custom form-check-solid">
+                    <input class="form-check-input" type="checkbox" value="1" (change)="toggleSelectAll($event)">
+                  </div>
+                </th>
+                <th>Concepto</th>
+                <th>Categoría</th>
+                <th class="text-end">Monto</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+                <th class="text-end">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let cost of costs">
+                <td>
+                  <div class="form-check form-check-sm form-check-custom form-check-solid">
+                    <input class="form-check-input" type="checkbox" value="1" [checked]="cost.selected">
+                  </div>
+                </td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <div class="symbol symbol-45px me-5">
+                      <span [ngClass]="getCategoryIcon(cost.category)" class="symbol-label"></span>
+                    </div>
+                    <div class="d-flex justify-content-start flex-column">
+                      <span class="fs-6 fw-bold">{{cost.concept}}</span>
+                      <span class="fs-7 text-muted">{{cost.description}}</span>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <span [ngClass]="getCategoryBadge(cost.category)" class="badge">
+                    {{getCategoryName(cost.category)}}
+                  </span>
+                </td>
+                <td class="text-end">
+                  <span class="fs-6 fw-bold text-gray-800">${{cost.amount | number}}</span>
+                </td>
+                <td>
+                  <span class="fs-7 fw-semibold">{{cost.date | date:'dd/MM/yyyy'}}</span>
+                </td>
+                <td>
+                  <span [ngClass]="cost.status === 'ACTIVE' ? 'badge-success' : 'badge-warning'" class="badge">
+                    {{cost.status === 'ACTIVE' ? 'Activo' : 'Inactivo'}}
+                  </span>
+                </td>
+                <td class="text-end">
+                  <div class="d-flex justify-content-end">
+                    <button class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2"
+                            (click)="editCost(cost)">
+                      <i class="fas fa-edit fs-4"></i>
+                    </button>
+                    <button class="btn btn-icon btn-bg-light btn-active-color-danger btn-sm"
+                            (click)="deleteCost(cost.id)">
+                      <i class="fas fa-trash fs-4"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!--end::Table-->
+
+    <!--begin::Distribution Chart-->
+    <div class="row g-6 mt-6">
+      <div class="col-xl-6">
+        <div class="card card-dashed h-md-100">
+          <div class="card-header">
+            <h3 class="card-title">Distribución de Costos por Categoría</h3>
+          </div>
+          <div class="card-body">
+            <div class="d-flex flex-column">
+              <div *ngFor="let category of getCostDistribution()" 
+                   class="d-flex align-items-center justify-content-between mb-4">
+                <div class="d-flex align-items-center">
+                  <span [ngClass]="getCategoryIcon(category.key)" class="symbol symbol-20px me-3"></span>
+                  <span class="fs-6 fw-semibold">{{getCategoryName(category.key)}}</span>
+                </div>
+                <div class="d-flex align-items-center">
+                  <span class="badge badge-light fs-7 me-3">${{category.total | number}}</span>
+                  <span class="badge badge-light-success fs-7">{{category.percentage}}%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-6">
+        <div class="card card-dashed h-md-100">
+          <div class="card-header">
+            <h3 class="card-title">Resumen de Costos Mensuales</h3>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+                <thead>
+                  <tr class="fw-bold text-muted">
+                    <th>Mes</th>
+                    <th class="text-end">Docentes</th>
+                    <th class="text-end">Producción</th>
+                    <th class="text-end">Marketing</th>
+                    <th class="text-end">Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let month of getMonthlySummary()">
+                    <td>{{month.name}}</td>
+                    <td class="text-end">${{month.docentes | number}}</td>
+                    <td class="text-end">${{month.produccion | number}}</td>
+                    <td class="text-end">${{month.marketing | number}}</td>
+                    <td class="text-end fw-bold">${{month.total | number}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--end::Distribution Chart-->
+  </div>
+  <!--end::Card body-->
+</div>
+
+<!--begin::Modal - Add Cost-->
+<div class="modal fade" id="kt_modal_add_cost" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered mw-650px">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="fw-bolder">{{editingCost ? 'Editar' : 'Agregar'}} Costo</h2>
+        <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+          <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+        </div>
+      </div>
+      <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+        <form [formGroup]="costForm" (ngSubmit)="saveCost()">
+          <div class="row g-9 mb-7">
+            <div class="col-md-6">
+              <label class="required fs-6 fw-semibold mb-2">Concepto</label>
+              <input type="text" class="form-control form-control-solid" placeholder="Ej: Pago docente curso Angular"
+                     formControlName="concept"/>
+            </div>
+            <div class="col-md-6">
+              <label class="required fs-6 fw-semibold mb-2">Categoría</label>
+              <select class="form-select form-select-solid" formControlName="category">
+                <option value="">Seleccionar categoría...</option>
+                <option value="DOCENTES">Pagos a Docentes</option>
+                <option value="PRODUCCION">Producción de Videos</option>
+                <option value="EQUIPOS">Equipos de Producción</option>
+                <option value="MARKETING">Publicidad y Marketing</option>
+                <option value="EMPLEADOS">Pago de Empleados</option>
+                <option value="PLATAFORMA">Plataforma y Hosting</option>
+                <option value="OTROS">Otros Gastos</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row g-9 mb-7">
+            <div class="col-md-6">
+              <label class="required fs-6 fw-semibold mb-2">Monto</label>
+              <div class="input-group input-group-solid">
+                <span class="input-group-text">$</span>
+                <input type="number" class="form-control" placeholder="0.00" formControlName="amount" step="0.01"/>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="required fs-6 fw-semibold mb-2">Fecha</label>
+              <input type="date" class="form-control form-control-solid" formControlName="date"/>
+            </div>
+          </div>
+
+          <div class="row g-9 mb-7">
+            <div class="col-md-12">
+              <label class="fs-6 fw-semibold mb-2">Descripción</label>
+              <textarea class="form-control form-control-solid" rows="3"
+                        placeholder="Descripción detallada del costo..."
+                        formControlName="description"></textarea>
+            </div>
+          </div>
+
+          <div class="row g-9 mb-7">
+            <div class="col-md-6">
+              <label class="fs-6 fw-semibold mb-2">Estado</label>
+              <select class="form-select form-select-solid" formControlName="status">
+                <option value="ACTIVE">Activo</option>
+                <option value="INACTIVE">Inactivo</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="fs-6 fw-semibold mb-2">Curso Relacionado</label>
+              <select class="form-select form-select-solid" formControlName="courseId">
+                <option value="">Sin curso específico</option>
+                <option *ngFor="let course of courses" [value]="course.id">{{course.name}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="text-center pt-10">
+            <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!costForm.valid">
+              <span class="indicator-label">{{editingCost ? 'Actualizar' : 'Guardar'}}</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!--end::Modal - Add Cost-->
