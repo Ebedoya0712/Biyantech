@@ -1,11 +1,11 @@
 <!-- begin::Brand -->
-<div class="aside-logo flex-column-auto" id="kt_aside_logo">
+<div class="aside-logo flex-column-auto" id="kt_aside_brand">
   <!-- begin::Logo -->
   <ng-container *ngIf="asideTheme === 'dark'">
     <a routerLink="/dashboard">
       <img
-        alt="Logo"
-        class="h-35px mx-4 logo"
+        alt="Logo Biyantech"
+        class="h-35px mx-4 logo logo-dark"
         src="./assets/media/logos/logo-biyantech.png"
       />
     </a>
@@ -14,13 +14,12 @@
   <ng-container *ngIf="asideTheme === 'light'">
     <a routerLink="/dashboard">
       <img
-        alt="Logo"
-        class="h-25px mx-auto logo"
+        alt="Logo Biyantech"
+        class="h-25px mx-auto logo logo-light"
         src="./assets/media/logos/logo-biyantech.png"
       />
     </a>
   </ng-container>
-
   <!-- end::Logo -->
 
   <!-- begin::Aside toggle -->
@@ -52,12 +51,12 @@
     data-kt-scroll="true"
     data-kt-scroll-activate="{default: false, lg: true}"
     data-kt-scroll-height="auto"
-    data-kt-scroll-dependencies="#kt_aside_logo, #kt_aside_footer"
+    data-kt-scroll-dependencies="#kt_aside_brand, #kt_aside_footer"
     data-kt-scroll-wrappers="#kt_aside_menu"
     data-kt-scroll-offset="0"
   >
     <div
-      id="#kt_aside_menu"
+      id="kt_aside_menu"
       data-kt-menu="true"
       class="
         menu
@@ -83,8 +82,8 @@
     [href]="appPreviewDocsUrl"
     data-bs-toggle="tooltip"
     data-bs-trigger="hover"
-    data-bs-dismiss-="click"
-    ngbDropdown="Check out the complete documentation with over 100 components"
+    data-bs-dismiss="click"
+    title="Check out the complete documentation with over 100 components"
   >
     <span class="btn-label">Docs & Components</span>
     <span
