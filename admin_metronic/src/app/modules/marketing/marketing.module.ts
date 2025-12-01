@@ -11,7 +11,7 @@ import { PromocionesComponent } from './components/promociones/promociones.compo
     VentasComponent,
     AutorizacionPagosComponent,
     CampanasComponent,
-    PromocionesComponent
+    PromocionesComponent,
   ],
   imports: [
     CommonModule,

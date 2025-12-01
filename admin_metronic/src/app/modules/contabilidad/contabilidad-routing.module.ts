@@ -10,7 +10,6 @@ const routes: Routes = [
   { path: 'ingresos', component: IngresosComponent },
   { path: 'costos', component: CostosComponent },
   { path: 'departamentos', component: DepartamentosComponent },
-  { path: '', redirectTo: 'financiera', pathMatch: 'full' }
 ];
 
 @NgModule({

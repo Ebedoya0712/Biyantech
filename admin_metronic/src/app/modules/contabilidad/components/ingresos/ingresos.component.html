@@ -1,1 +1,141 @@
-<p>ingresos works!</p>
+<div class="card">
+  <div class="card-header border-0 pt-6">
+    <div class="card-title">
+      <h2 class="fw-bolder mb-0">Contabilidad de Ingresos</h2>
+      <span class="text-muted fs-6">Análisis detallado de todas las fuentes de ingresos</span>
+    </div>
+    <div class="card-toolbar">
+      <div class="d-flex align-items-center gap-4">
+        <select class="form-select form-select-solid w-150px">
+          <option>Este Mes</option>
+          <option>Mes Anterior</option>
+          <option>Últimos 3 Meses</option>
+          <option>Este Año</option>
+        </select>
+        <button class="btn btn-light-primary">
+          <i class="fas fa-download me-2"></i>Exportar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body pt-0">
+    <!-- Métricas de Ingresos -->
+    <div class="row g-6 g-xl-9 mb-10">
+      <div class="col-xl-2 col-md-4">
+        <div class="card card-dashed h-xl-100 flex-center flex-column py-5">
+          <i class="fas fa-graduation-cap fa-2x text-primary mb-3"></i>
+          <div class="fs-2 fw-bolder text-primary">$45,230</div>
+          <div class="fs-7 text-gray-600">Cursos Vendidos</div>
+        </div>
+      </div>
+      <div class="col-xl-2 col-md-4">
+        <div class="card card-dashed h-xl-100 flex-center flex-column py-5">
+          <i class="fas fa-users fa-2x text-success mb-3"></i>
+          <div class="fs-2 fw-bolder text-success">$12,450</div>
+          <div class="fs-7 text-gray-600">Suscripciones</div>
+        </div>
+      </div>
+      <div class="col-xl-2 col-md-4">
+        <div class="card card-dashed h-xl-100 flex-center flex-column py-5">
+          <i class="fas fa-code fa-2x text-info mb-3"></i>
+          <div class="fs-2 fw-bolder text-info">$18,740</div>
+          <div class="fs-7 text-gray-600">Servicios Dev</div>
+        </div>
+      </div>
+      <div class="col-xl-2 col-md-4">
+        <div class="card card-dashed h-xl-100 flex-center flex-column py-5">
+          <i class="fas fa-palette fa-2x text-warning mb-3"></i>
+          <div class="fs-2 fw-bolder text-warning">$8,560</div>
+          <div class="fs-7 text-gray-600">Servicios Diseño</div>
+        </div>
+      </div>
+      <div class="col-xl-2 col-md-4">
+        <div class="card card-dashed h-xl-100 flex-center flex-column py-5">
+          <i class="fas fa-handshake fa-2x text-danger mb-3"></i>
+          <div class="fs-2 fw-bolder text-danger">$4,320</div>
+          <div class="fs-7 text-gray-600">Consultorías</div>
+        </div>
+      </div>
+      <div class="col-xl-2 col-md-4">
+        <div class="card card-dashed h-xl-100 flex-center flex-column py-5">
+          <i class="fas fa-gift fa-2x text-dark mb-3"></i>
+          <div class="fs-2 fw-bolder text-dark">$1,120</div>
+          <div class="fs-7 text-gray-600">Otros Ingresos</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gráficos y Análisis -->
+    <div class="row g-6 g-xl-9">
+      <div class="col-xl-8">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title fw-bolder">Evolución de Ingresos Mensuales</h3>
+          </div>
+          <div class="card-body">
+            <div id="chart_evolucion_ingresos" style="height: 350px;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title fw-bolder">Distribución por Método de Pago</h3>
+          </div>
+          <div class="card-body">
+            <div id="chart_metodos_pago" style="height: 350px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabla Detallada -->
+    <div class="card mt-10">
+      <div class="card-header">
+        <h3 class="card-title fw-bolder">Detalle de Ingresos</h3>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+            <thead>
+              <tr class="fw-bolder text-muted bg-light">
+                <th class="ps-4">Fecha</th>
+                <th>Concepto</th>
+                <th>Fuente</th>
+                <th>Método Pago</th>
+                <th class="text-end">Monto</th>
+                <th class="text-end">Comisión</th>
+                <th class="text-end">Neto</th>
+                <th class="text-end">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let ingreso of ingresos">
+                <td class="ps-4 fw-bolder">{{ingreso.fecha}}</td>
+                <td>{{ingreso.concepto}}</td>
+                <td>
+                  <span [class]="'badge badge-light-' + ingreso.color">{{ingreso.fuente}}</span>
+                </td>
+                <td>
+                  <span [class]="'badge badge-light-' + ingreso.metodoColor">{{ingreso.metodoPago}}</span>
+                </td>
+                <td class="text-end fw-bolder text-success">${{ingreso.monto}}</td>
+                <td class="text-end fw-bolder text-danger">${{ingreso.comision}}</td>
+                <td class="text-end fw-bolder text-primary">${{ingreso.neto}}</td>
+                <td class="text-end">
+                  <button class="btn btn-sm btn-light-primary me-1">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                  <button class="btn btn-sm btn-light-danger">
+                    <i class="fas fa-file-invoice"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

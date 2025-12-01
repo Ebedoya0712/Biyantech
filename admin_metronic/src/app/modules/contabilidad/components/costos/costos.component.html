@@ -1,1 +1,250 @@
-<p>costos works!</p>
+<div class="card">
+  <div class="card-header border-0 pt-6">
+    <div class="card-title">
+      <h2 class="fw-bolder mb-0">Contabilidad de Costos</h2>
+      <span class="text-muted fs-6">Control y análisis de todos los costos operativos</span>
+    </div>
+    <div class="card-toolbar">
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRegistroCosto">
+        <i class="fas fa-plus me-2"></i>Registrar Costo
+      </button>
+    </div>
+  </div>
+
+  <div class="card-body pt-0">
+    <!-- Resumen de Costos -->
+    <div class="row g-6 g-xl-9 mb-10">
+      <div class="col-xl-3">
+        <div class="card bg-danger bg-opacity-10 border border-danger">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <div class="flex-grow-1">
+                <span class="text-muted fw-semibold d-block fs-7">Costos Directos</span>
+                <span class="text-danger fw-bolder fs-2">$18,450</span>
+                <span class="text-danger fw-semibold fs-8">45% del total</span>
+              </div>
+              <i class="fas fa-money-bill-wave fa-2x text-danger"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-xl-3">
+        <div class="card bg-warning bg-opacity-10 border border-warning">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <div class="flex-grow-1">
+                <span class="text-muted fw-semibold d-block fs-7">Costos Indirectos</span>
+                <span class="text-warning fw-bolder fs-2">$12,780</span>
+                <span class="text-warning fw-semibold fs-8">31% del total</span>
+              </div>
+              <i class="fas fa-cogs fa-2x text-warning"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-xl-3">
+        <div class="card bg-info bg-opacity-10 border border-info">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <div class="flex-grow-1">
+                <span class="text-muted fw-semibold d-block fs-7">Costos Fijos</span>
+                <span class="text-info fw-bolder fs-2">$8,320</span>
+                <span class="text-info fw-semibold fs-8">20% del total</span>
+              </div>
+              <i class="fas fa-home fa-2x text-info"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-xl-3">
+        <div class="card bg-success bg-opacity-10 border border-success">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <div class="flex-grow-1">
+                <span class="text-muted fw-semibold d-block fs-7">Costos Variables</span>
+                <span class="text-success fw-bolder fs-2">$1,560</span>
+                <span class="text-success fw-semibold fs-8">4% del total</span>
+              </div>
+              <i class="fas fa-chart-line fa-2x text-success"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Análisis de Costos -->
+    <div class="row g-6 g-xl-9">
+      <div class="col-xl-6">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title fw-bolder">Distribución de Costos por Categoría</h3>
+          </div>
+          <div class="card-body">
+            <div id="chart_distribucion_costos" style="height: 300px;"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-xl-6">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title fw-bolder">Evolución Mensual de Costos</h3>
+          </div>
+          <div class="card-body">
+            <div id="chart_evolucion_costos" style="height: 300px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabla de Costos Detallados -->
+    <div class="card mt-10">
+      <div class="card-header">
+        <h3 class="card-title fw-bolder">Registro Detallado de Costos</h3>
+        <div class="card-toolbar">
+          <div class="d-flex gap-3">
+            <select class="form-select form-select-sm w-150px">
+              <option>Todos los tipos</option>
+              <option>Pagos Docentes</option>
+              <option>Marketing</option>
+              <option>Hosting</option>
+              <option>Desarrollo</option>
+              <option>Referidos</option>
+            </select>
+            <button class="btn btn-sm btn-light-primary">Generar Reporte</button>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+            <thead>
+              <tr class="fw-bolder text-muted bg-light">
+                <th class="ps-4">Fecha</th>
+                <th>Descripción</th>
+                <th>Categoría</th>
+                <th>Proveedor/Beneficiario</th>
+                <th class="text-end">Monto</th>
+                <th class="text-end">IVA</th>
+                <th class="text-end">Total</th>
+                <th class="text-end">Estado</th>
+                <th class="text-end">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="ps-4 fw-bolder">15/03/2024</td>
+                <td>Pago comisión docente - Curso Angular Avanzado</td>
+                <td><span class="badge badge-light-primary">Pagos Docentes</span></td>
+                <td>Prof. María González</td>
+                <td class="text-end fw-bolder text-dark">$120.00</td>
+                <td class="text-end fw-bolder text-muted">$0.00</td>
+                <td class="text-end fw-bolder text-danger">$120.00</td>
+                <td class="text-end"><span class="badge badge-light-success">Pagado</span></td>
+                <td class="text-end">
+                  <button class="btn btn-sm btn-light-primary me-1">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="btn btn-sm btn-light-danger">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+              
+              <tr>
+                <td class="ps-4 fw-bolder">14/03/2024</td>
+                <td>Campaña marketing digital - Facebook Ads</td>
+                <td><span class="badge badge-light-success">Marketing</span></td>
+                <td>Meta Platforms</td>
+                <td class="text-end fw-bolder text-dark">$350.00</td>
+                <td class="text-end fw-bolder text-muted">$52.50</td>
+                <td class="text-end fw-bolder text-danger">$402.50</td>
+                <td class="text-end"><span class="badge badge-light-warning">Pendiente</span></td>
+                <td class="text-end">
+                  <button class="btn btn-sm btn-light-primary me-1">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="btn btn-sm btn-light-danger">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="ps-4 fw-bolder">13/03/2024</td>
+                <td>Servicio hosting premium - Amazon AWS</td>
+                <td><span class="badge badge-light-info">Hosting</span></td>
+                <td>Amazon Web Services</td>
+                <td class="text-end fw-bolder text-dark">$89.00</td>
+                <td class="text-end fw-bolder text-muted">$13.35</td>
+                <td class="text-end fw-bolder text-danger">$102.35</td>
+                <td class="text-end"><span class="badge badge-light-success">Pagado</span></td>
+                <td class="text-end">
+                  <button class="btn btn-sm btn-light-primary me-1">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="btn btn-sm btn-light-danger">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para Registrar Costo -->
+<div class="modal fade" id="modalRegistroCosto" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Registrar Nuevo Costo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="row g-4">
+            <div class="col-md-6">
+              <label class="form-label">Tipo de Costo</label>
+              <select class="form-select">
+                <option>Pagos Docentes</option>
+                <option>Marketing</option>
+                <option>Hosting y Servidores</option>
+                <option>Desarrollo y Mantenimiento</option>
+                <option>Programa de Referidos</option>
+                <option>Gastos Administrativos</option>
+                <option>Otros</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Monto</label>
+              <input type="number" class="form-control" placeholder="0.00">
+            </div>
+            <div class="col-12">
+              <label class="form-label">Descripción</label>
+              <textarea class="form-control" rows="3" placeholder="Descripción detallada del costo..."></textarea>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Proveedor/Beneficiario</label>
+              <input type="text" class="form-control" placeholder="Nombre del proveedor o beneficiario">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Fecha</label>
+              <input type="date" class="form-control">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary">Guardar Costo</button>
+      </div>
+    </div>
+  </div>
+</div>

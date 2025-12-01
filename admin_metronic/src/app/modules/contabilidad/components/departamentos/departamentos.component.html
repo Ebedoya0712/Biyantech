@@ -1,1 +1,285 @@
-<p>departamentos works!</p>
+<div class="card">
+  <div class="card-header border-0 pt-6">
+    <div class="card-title">
+      <h2 class="fw-bolder mb-0">Contabilidad por Departamentos</h2>
+      <span class="text-muted fs-6">Análisis de rentabilidad por áreas de negocio</span>
+    </div>
+    <div class="card-toolbar">
+      <select class="form-select form-select-solid w-200px me-4">
+        <option>Últimos 30 días</option>
+        <option>Este Trimestre</option>
+        <option>Este Año</option>
+        <option>Personalizado</option>
+      </select>
+      <button class="btn btn-light-primary">
+        <i class="fas fa-chart-bar me-2"></i>Reporte Ejecutivo
+      </button>
+    </div>
+  </div>
+
+  <div class="card-body pt-0">
+    <!-- KPIs por Departamento -->
+    <div class="row g-6 g-xl-9 mb-10">
+      <div class="col-xl-3">
+        <div class="card card-dashed h-100">
+          <div class="card-header flex-nowrap">
+            <h4 class="card-title fw-bolder">Plataforma Educativa</h4>
+            <span class="badge badge-light-success">Alta Rentabilidad</span>
+          </div>
+          <div class="card-body">
+            <div class="d-flex flex-column">
+              <div class="d-flex justify-content-between mb-3">
+                <span class="text-muted">Ingresos:</span>
+                <span class="fw-bolder text-success">$45,230</span>
+              </div>
+              <div class="d-flex justify-content-between mb-3">
+                <span class="text-muted">Costos:</span>
+                <span class="fw-bolder text-danger">$12,780</span>
+              </div>
+              <div class="d-flex justify-content-between mb-3">
+                <span class="text-muted">Utilidad:</span>
+                <span class="fw-bolder text-primary">$32,450</span>
+              </div>
+              <div class="d-flex justify-content-between">
+                <span class="text-muted">Margen:</span>
+                <span class="fw-bolder text-warning">71.7%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3">
+        <div class="card card-dashed h-100">
+          <div class="card-header flex-nowrap">
+            <h4 class="card-title fw-bolder">Servicios Desarrollo</h4>
+            <span class="badge badge-light-warning">Media Rentabilidad</span>
+          </div>
+          <div class="card-body">
+            <div class="d-flex flex-column">
+              <div class="d-flex justify-content-between mb-3">
+                <span class="text-muted">Ingresos:</span>
+                <span class="fw-bolder text-success">$18,740</span>
+              </div>
+              <div class="d-flex justify-content-between mb-3">
+                <span class="text-muted">Costos:</span>
+                <span class="fw-bolder text-danger">$9,850</span>
+              </div>
+              <div class="d-flex justify-content-between mb-3">
+                <span class="text-muted">Utilidad:</span>
+                <span class="fw-bolder text-primary">$8,890</span>
+              </div>
+              <div class="d-flex justify-content-between">
+                <span class="text-muted">Margen:</span>
+                <span class="fw-bolder text-warning">47.4%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3">
+        <div class="card card-dashed h-100">
+          <div class="card-header flex-nowrap">
+            <h4 class="card-title fw-bolder">Servicios Diseño</h4>
+            <span class="badge badge-light-primary">Buena Rentabilidad</span>
+          </div>
+          <div class="card-body">
+            <div class="d-flex flex-column">
+              <div class="d-flex justify-content-between mb-3">
+                <span class="text-muted">Ingresos:</span>
+                <span class="fw-bolder text-success">$8,560</span>
+              </div>
+              <div class="d-flex justify-content-between mb-3">
+                <span class="text-muted">Costos:</span>
+                <span class="fw-bolder text-danger">$3,210</span>
+              </div>
+              <div class="d-flex justify-content-between mb-3">
+                <span class="text-muted">Utilidad:</span>
+                <span class="fw-bolder text-primary">$5,350</span>
+              </div>
+              <div class="d-flex justify-content-between">
+                <span class="text-muted">Margen:</span>
+                <span class="fw-bolder text-warning">62.5%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3">
+        <div class="card card-dashed h-100">
+          <div class="card-header flex-nowrap">
+            <h4 class="card-title fw-bolder">Consultorías</h4>
+            <span class="badge badge-light-danger">Baja Rentabilidad</span>
+          </div>
+          <div class="card-body">
+            <div class="d-flex flex-column">
+              <div class="d-flex justify-content-between mb-3">
+                <span class="text-muted">Ingresos:</span>
+                <span class="fw-bolder text-success">$4,320</span>
+              </div>
+              <div class="d-flex justify-content-between mb-3">
+                <span class="text-muted">Costos:</span>
+                <span class="fw-bolder text-danger">$3,890</span>
+              </div>
+              <div class="d-flex justify-content-between mb-3">
+                <span class="text-muted">Utilidad:</span>
+                <span class="fw-bolder text-primary">$430</span>
+              </div>
+              <div class="d-flex justify-content-between">
+                <span class="text-muted">Margen:</span>
+                <span class="fw-bolder text-warning">10.0%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Análisis Comparativo -->
+    <div class="row g-6 g-xl-9">
+      <div class="col-xl-8">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title fw-bolder">Comparativa de Rentabilidad por Departamento</h3>
+          </div>
+          <div class="card-body">
+            <div id="chart_comparativa_departamentos" style="height: 400px;"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-xl-4">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title fw-bolder">Distribución de Ingresos</h3>
+          </div>
+          <div class="card-body">
+            <div id="chart_distribucion_ingresos" style="height: 400px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabla Detallada por Departamento -->
+    <div class="card mt-10">
+      <div class="card-header">
+        <h3 class="card-title fw-bolder">Detalle de Performance por Departamento</h3>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+            <thead>
+              <tr class="fw-bolder text-muted bg-light">
+                <th class="ps-4">Departamento</th>
+                <th class="text-end">Ingresos</th>
+                <th class="text-end">Costos Directos</th>
+                <th class="text-end">Costos Indirectos</th>
+                <th class="text-end">Total Costos</th>
+                <th class="text-end">Utilidad Neta</th>
+                <th class="text-end">Margen %</th>
+                <th class="text-end">ROI</th>
+                <th class="text-end">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="ps-4">
+                  <div class="d-flex align-items-center">
+                    <div class="symbol symbol-40px me-3">
+                      <span class="symbol-label bg-success">
+                        <i class="fas fa-graduation-cap text-white"></i>
+                      </span>
+                    </div>
+                    <div>
+                      <span class="fw-bolder text-dark">Plataforma Educativa</span>
+                      <span class="text-muted d-block fs-8">Cursos y suscripciones</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="text-end fw-bolder text-success">$45,230</td>
+                <td class="text-end fw-bolder text-danger">$8,450</td>
+                <td class="text-end fw-bolder text-warning">$4,330</td>
+                <td class="text-end fw-bolder text-danger">$12,780</td>
+                <td class="text-end fw-bolder text-primary">$32,450</td>
+                <td class="text-end fw-bolder text-warning">71.7%</td>
+                <td class="text-end fw-bolder text-success">254%</td>
+                <td class="text-end">
+                  <button class="btn btn-sm btn-light-primary me-1">
+                    <i class="fas fa-chart-line"></i>
+                  </button>
+                  <button class="btn btn-sm btn-light-info">
+                    <i class="fas fa-download"></i>
+                  </button>
+                </td>
+              </tr>
+              
+              <tr>
+                <td class="ps-4">
+                  <div class="d-flex align-items-center">
+                    <div class="symbol symbol-40px me-3">
+                      <span class="symbol-label bg-info">
+                        <i class="fas fa-code text-white"></i>
+                      </span>
+                    </div>
+                    <div>
+                      <span class="fw-bolder text-dark">Servicios Desarrollo</span>
+                      <span class="text-muted d-block fs-8">Proyectos personalizados</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="text-end fw-bolder text-success">$18,740</td>
+                <td class="text-end fw-bolder text-danger">$6,210</td>
+                <td class="text-end fw-bolder text-warning">$3,640</td>
+                <td class="text-end fw-bolder text-danger">$9,850</td>
+                <td class="text-end fw-bolder text-primary">$8,890</td>
+                <td class="text-end fw-bolder text-warning">47.4%</td>
+                <td class="text-end fw-bolder text-success">90%</td>
+                <td class="text-end">
+                  <button class="btn btn-sm btn-light-primary me-1">
+                    <i class="fas fa-chart-line"></i>
+                  </button>
+                  <button class="btn btn-sm btn-light-info">
+                    <i class="fas fa-download"></i>
+                  </button>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="ps-4">
+                  <div class="d-flex align-items-center">
+                    <div class="symbol symbol-40px me-3">
+                      <span class="symbol-label bg-warning">
+                        <i class="fas fa-palette text-white"></i>
+                      </span>
+                    </div>
+                    <div>
+                      <span class="fw-bolder text-dark">Servicios Diseño</span>
+                      <span class="text-muted d-block fs-8">Diseño UI/UX y branding</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="text-end fw-bolder text-success">$8,560</td>
+                <td class="text-end fw-bolder text-danger">$2,150</td>
+                <td class="text-end fw-bolder text-warning">$1,060</td>
+                <td class="text-end fw-bolder text-danger">$3,210</td>
+                <td class="text-end fw-bolder text-primary">$5,350</td>
+                <td class="text-end fw-bolder text-warning">62.5%</td>
+                <td class="text-end fw-bolder text-success">167%</td>
+                <td class="text-end">
+                  <button class="btn btn-sm btn-light-primary me-1">
+                    <i class="fas fa-chart-line"></i>
+                  </button>
+                  <button class="btn btn-sm btn-light-info">
+                    <i class="fas fa-download"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

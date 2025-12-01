@@ -62,46 +62,19 @@ const Routing: Routes = [
     path: 'descuento',
     loadChildren: () =>
       import('../modules/discount/discount.module').then((m) => m.DiscountModule),
-  }, {
-    path: 'ventas',
-    loadChildren: () =>
-      import('../modules/marketing/marketing.module').then((m) => m.MarketingModule),
-  },  {
-  path: 'campanas',
-    loadChildren: () =>
-      import('../modules/marketing/marketing.module').then((m) => m.MarketingModule),
-  },
+  }, 
+  // MÓDULO DE CONTABILIDAD - UNA SOLA ENTRADA
   {
-  path: 'promociones',
+    path: 'contabilidad',
     loadChildren: () =>
-      import('../modules/marketing/marketing.module').then((m) => m.MarketingModule),
+      import('../modules/contabilidad/contabilidad.module').then((m) => m.ContabilidadModule),
   },
+  // MÓDULO DE MARKETING - UNA SOLA ENTRADA
   {
-  path: 'autorizacion-pagos',
+    path: 'marketing',
     loadChildren: () =>
       import('../modules/marketing/marketing.module').then((m) => m.MarketingModule),
   },
-   {
-    path: 'contabilidad/financiera',
-    loadChildren: () =>
-      import('../modules/contabilidad/contabilidad.module').then((m) => m.ContabilidadModule),
-  }, 
-    {
-    path: 'contabilidad/ingresos',
-    loadChildren: () =>
-      import('../modules/contabilidad/contabilidad.module').then((m) => m.ContabilidadModule),
-  }, 
-    {
-    path: 'contabilidad/costos',
-    loadChildren: () =>
-      import('../modules/contabilidad/contabilidad.module').then((m) => m.ContabilidadModule),
-  }, 
-    {
-    path: 'contabilidad/departamentos',
-    loadChildren: () =>
-      import('../modules/contabilidad/contabilidad.module').then((m) => m.ContabilidadModule),
-  }, 
- 
   {
     path: '',
     redirectTo: '/dashboard',
