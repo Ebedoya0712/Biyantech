@@ -1,1 +1,159 @@
-<p>ventas works!</p>
+<div class="card">
+  <div class="card-header border-0 pt-6">
+    <div class="card-title">
+      <h2 class="fw-bolder mb-0">Gestión de Ventas</h2>
+      <span class="text-muted fs-6">Seguimiento y análisis del funnel de ventas</span>
+    </div>
+    <div class="card-toolbar">
+      <div class="d-flex align-items-center gap-4">
+        <div class="d-flex align-items-center position-relative">
+          <span class="svg-icon svg-icon-1 position-absolute ms-6">
+            <i class="fas fa-search"></i>
+          </span>
+          <input type="text" class="form-control form-control-solid w-250px ps-15" placeholder="Buscar ventas...">
+        </div>
+        <button class="btn btn-primary">
+          <i class="fas fa-plus me-2"></i>Nueva Venta
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body pt-0">
+    <!-- Funnel de Ventas -->
+    <div class="row g-6 g-xl-9 mb-10">
+      <div class="col-xl-12">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title fw-bolder">Funnel de Ventas - Conversiones</h3>
+          </div>
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-10">
+              <div *ngFor="let etapa of funnelVentas" class="text-center flex-fill">
+                <div class="symbol symbol-80px symbol-circle mb-4">
+                  <span [class]="'symbol-label bg-' + etapa.color">
+                    <i [class]="etapa.icono + ' text-white fs-2'"></i>
+                  </span>
+                </div>
+                <div class="fw-bolder fs-5 text-dark">{{etapa.cantidad}}</div>
+                <div class="text-muted fs-7">{{etapa.nombre}}</div>
+                <div class="text-muted fs-8">{{etapa.tasa}}% de conversión</div>
+              </div>
+            </div>
+            <div class="progress h-10px bg-light mb-2">
+              <div class="progress-bar bg-primary" style="width: 100%"></div>
+            </div>
+            <div class="d-flex justify-content-between text-muted fs-8">
+              <span>Visitantes: 15,842</span>
+              <span>Clientes: 1,248</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Métricas de Ventas -->
+    <div class="row g-6 g-xl-9 mb-10">
+      <div class="col-xl-3">
+        <div class="card card-dashed h-xl-100 flex-center flex-column py-5">
+          <i class="fas fa-shopping-cart fa-2x text-primary mb-3"></i>
+          <div class="fs-2 fw-bolder text-primary">1,248</div>
+          <div class="fs-7 text-gray-600">Ventas Totales</div>
+          <div class="fs-8 text-success">+12% este mes</div>
+        </div>
+      </div>
+      <div class="col-xl-3">
+        <div class="card card-dashed h-xl-100 flex-center flex-column py-5">
+          <i class="fas fa-dollar-sign fa-2x text-success mb-3"></i>
+          <div class="fs-2 fw-bolder text-success">$124,580</div>
+          <div class="fs-7 text-gray-600">Ingresos Totales</div>
+          <div class="fs-8 text-success">+18% este mes</div>
+        </div>
+      </div>
+      <div class="col-xl-3">
+        <div class="card card-dashed h-xl-100 flex-center flex-column py-5">
+          <i class="fas fa-percentage fa-2x text-warning mb-3"></i>
+          <div class="fs-2 fw-bolder text-warning">3.2%</div>
+          <div class="fs-7 text-gray-600">Tasa Conversión</div>
+          <div class="fs-8 text-success">+0.4% mejoría</div>
+        </div>
+      </div>
+      <div class="col-xl-3">
+        <div class="card card-dashed h-xl-100 flex-center flex-column py-5">
+          <i class="fas fa-cart-arrow-down fa-2x text-info mb-3"></i>
+          <div class="fs-2 fw-bolder text-info">$98.75</div>
+          <div class="fs-7 text-gray-600">Ticket Promedio</div>
+          <div class="fs-8 text-success">+$8.25 vs anterior</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ventas Recientes -->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title fw-bolder">Ventas Recientes</h3>
+        <div class="card-toolbar">
+          <select class="form-select form-select-sm w-150px">
+            <option>Hoy</option>
+            <option>Últimos 7 días</option>
+            <option selected>Últimos 30 días</option>
+          </select>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
+            <thead>
+              <tr class="fw-bolder text-muted bg-light">
+                <th class="ps-4">Orden #</th>
+                <th>Cliente</th>
+                <th>Producto</th>
+                <th class="text-end">Monto</th>
+                <th>Método Pago</th>
+                <th>Fecha</th>
+                <th class="text-end">Estado</th>
+                <th class="text-end">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let venta of ventasRecientes">
+                <td class="ps-4 fw-bolder">#{{venta.orden}}</td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <div class="symbol symbol-40px me-3">
+                      <img [src]="venta.avatar" alt="Avatar">
+                    </div>
+                    <div>
+                      <span class="fw-bolder text-dark d-block">{{venta.cliente}}</span>
+                      <span class="text-muted fs-8">{{venta.email}}</span>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <span class="fw-bolder text-dark d-block">{{venta.producto}}</span>
+                  <span class="text-muted fs-8">{{venta.categoria}}</span>
+                </td>
+                <td class="text-end fw-bolder text-success">${{venta.monto}}</td>
+                <td>
+                  <span [class]="'badge badge-light-' + venta.metodoColor">{{venta.metodoPago}}</span>
+                </td>
+                <td class="fw-bolder">{{venta.fecha}}</td>
+                <td class="text-end">
+                  <span [class]="'badge badge-light-' + venta.estadoColor">{{venta.estado}}</span>
+                </td>
+                <td class="text-end">
+                  <button class="btn btn-sm btn-light-primary me-1">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                  <button class="btn btn-sm btn-light-info">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
