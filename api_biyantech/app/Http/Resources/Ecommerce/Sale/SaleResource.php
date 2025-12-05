@@ -14,12 +14,28 @@ class SaleResource extends JsonResource
      */
     public function toArray($request)
     {
+        // Usamos $this->resource para referirnos a la instancia del modelo Sale
         return [
             "id" => $this->resource->id,
             "method_payment" => $this->resource->method_payment,
             "currency_payment" => $this->resource->currency_payment,
-            "total" => $this->resource->id,
+            "total" => $this->resource->total, // CORREGIDO: Usar $this->resource->total en lugar de $this->resource->id
+            
+            // --- NUEVOS CAMPOS AÑADIDOS PARA PAGO MÓVIL Y TASAS ---
+            "total_bs" => $this->resource->total_bs,
+            "exchange_rate" => $this->resource->exchange_rate,
+            "exchange_source" => $this->resource->exchange_source,
+            "capture_pgmovil" => $this->resource->capture_pgmovil ? env("APP_URL")."storage/".$this->resource->capture_pgmovil : null, // 🚨 Generamos la URL completa
+            "status_pgmovil" => $this->resource->status_pgmovil, // Estado de verificación (0/1)
             "n_transaccion" => $this->resource->n_transaccion,
+            
+            // --- INFORMACIÓN DEL USUARIO/CLIENTE ---
+            "user" => $this->resource->user ? [
+                "id" => $this->resource->user->id,
+                "name" => $this->resource->user->name,
+                "email" => $this->resource->user->email,
+            ] : null,
+            
             "sale_details" => $this->resource->sale_details->map(function($sale_detail){
                 return [
                     "id" => $sale_detail->id,

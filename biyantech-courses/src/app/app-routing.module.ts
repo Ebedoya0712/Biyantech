@@ -2,8 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './modules/auth/service/auth.guard';
+import { HomeComponent } from './modules/home/home.component'; // Importar si es necesario para el path loading
 
 export const routes: Routes = [
+  // 🚨 RUTA TEMPORAL AÑADIDA PARA FORZAR LA RECARGA DESDE EL CHECKOUT
+  // Nota: Esta ruta permite el salto temporal sin cambiar la URL visible.
+  {
+    path: 'home-loading', 
+    loadChildren: () => import("./modules/home/home.module").then(m => m.HomeModule),
+  },
+  
   {
     path: '',
     //canActivate: [AuthGuard],
@@ -36,7 +44,6 @@ export const routes: Routes = [
     redirectTo: 'error/404'
   }
 ];
-
 
 
 @NgModule({

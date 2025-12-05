@@ -43,7 +43,7 @@ export class ListCartsComponent implements OnInit{
   @ViewChild('paypal',{static: true}) paypalElement?: ElementRef;
   @ViewChild('pagoMovilModal') pagoMovilModal!: ElementRef;
   
-  // Logos como base64
+  // Logos como base64 (Se han mantenido por compatibilidad)
   pagoMovilLogo = `data:image/svg+xml;base64,${btoa(`
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M17 1H7C5.9 1 5 1.9 5 3V21C5 22.1 5.9 23 7 23H17C18.1 23 19 22.1 19 21V3C19 1.9 18.1 1 17 1ZM17 19H7V5H17V19Z" fill="currentColor"/>
@@ -88,6 +88,7 @@ export class ListCartsComponent implements OnInit{
   loadOfficialExchangeRate() {
     this.isLoadingRates = true;
     
+    // Usamos el endpoint de la API para obtener la tasa oficial del BCV
     this.http.get('https://ve.dolarapi.com/v1/dolares/oficial').subscribe({
       next: (rate: any) => {
         this.exchangeRate = rate;
@@ -252,7 +253,7 @@ export class ListCartsComponent implements OnInit{
     }).render(this.paypalElement?.nativeElement);
   }
 
-  // MÉTODO ACTUALIZADO PARA PAGO MÓVIL - AHORA ABRE EL MODAL
+  // MÉTODO PARA PAGO MÓVIL - ABRE EL MODAL
   onPagoMovilClick() {
     if(this.totalSum == 0){
       alertDanger("NO PUEDES PAGAR UN MONTO DE 0");
@@ -306,15 +307,24 @@ export class ListCartsComponent implements OnInit{
     }, 2000);
   }
 
-  // Método común para procesar pagos (ACTUALIZADO para Pago Móvil)
   processPayment(dataT: any) {
     this.cartService.checkout(dataT).subscribe({
       next: (resp:any) => {
         console.log(resp);
         if (resp.message == 200) {
-          alertSuccess(resp.message_text);
+          
+          // 🚨 SOLUCIÓN 1: PERSISTIR EL MENSAJE ANTES DE LA RECARGA
+          // Guardamos el mensaje de éxito en sessionStorage para que app.component lo lea al inicio.
+          sessionStorage.setItem('checkoutSuccessMessage', resp.message_text);
+          
           this.cartService.resetCart();
-          this.router.navigate(['/']);
+          
+          // 🚨 SOLUCIÓN 2: RECARGA NATIVA
+          // Navegación a la ruta de inicio, forzando la recarga total del navegador.
+          this.router.navigate(['/']).then(() => {
+             window.location.href = "/"; 
+          });
+          
         } else {
           alertDanger(resp.message_text || "Ocurrió un error desconocido al finalizar la compra.");
         }
@@ -339,6 +349,7 @@ export class ListCartsComponent implements OnInit{
   // FUNCIONES DEL MODAL DE PAGO MÓVIL
   openPagoMovilModal() {
     this.resetModal();
+    // Usamos el hook de Bootstrap para mostrar el modal
     const modal = new bootstrap.Modal(this.pagoMovilModal.nativeElement);
     modal.show();
   }
@@ -364,6 +375,7 @@ export class ListCartsComponent implements OnInit{
     }
   }
 
+  // Lógica de drag and drop y manejo de archivos (Subir Comprobante)
   onDragOver(event: DragEvent) {
     event.preventDefault();
     this.isFileOver = true;
@@ -392,13 +404,11 @@ export class ListCartsComponent implements OnInit{
   }
 
   handleFile(file: File) {
-    // Validar tipo de archivo
+    // Validar tipo de archivo y tamaño
     if (!file.type.startsWith('image/')) {
       alertDanger('Por favor, selecciona solo archivos de imagen');
       return;
     }
-
-    // Validar tamaño (5MB máximo)
     if (file.size > 5 * 1024 * 1024) {
       alertDanger('El archivo es demasiado grande. Máximo 5MB');
       return;
@@ -406,7 +416,7 @@ export class ListCartsComponent implements OnInit{
 
     this.selectedFile = file;
     
-    // Crear preview
+    // Crear preview de la imagen en Base64
     const reader = new FileReader();
     reader.onload = (e: any) => {
       this.filePreview = e.target.result;
@@ -420,10 +430,11 @@ export class ListCartsComponent implements OnInit{
       return;
     }
 
-    this.currentStep = 3;
+    this.currentStep = 3; // Mover al paso de verificación
     this.startVerificationProcess();
   }
 
+  // Lógica de la simulación de verificación (Paso 3)
   startVerificationProcess() {
     this.verificationProgress = 0;
     
@@ -432,9 +443,9 @@ export class ListCartsComponent implements OnInit{
       
       if (this.verificationProgress >= 100) {
         this.clearVerificationInterval();
-        this.isVerificationComplete = true;
+        this.isVerificationComplete = true; // Simula la confirmación del pago
       }
-    }, 1000);
+    }, 100); // Velocidad de la barra de progreso
   }
 
   clearVerificationInterval() {
@@ -443,38 +454,30 @@ export class ListCartsComponent implements OnInit{
       this.verificationInterval = null;
     }
   }
-
-  checkVerificationStatus() {
-    // Simular verificación del estado
-    if (this.verificationProgress < 100) {
-      this.verificationProgress = Math.min(this.verificationProgress + 20, 100);
-      
-      if (this.verificationProgress >= 100) {
-        this.isVerificationComplete = true;
-        this.clearVerificationInterval();
-      }
-    }
-  }
+  
+  
 
   onPaymentComplete() {
-    // Cerrar modal primero
+    // Cerrar modal
     const modal = bootstrap.Modal.getInstance(this.pagoMovilModal.nativeElement);
     if (modal) {
       modal.hide();
     }
 
-    // Procesar el pago con los datos actualizados
+    // Preparar el objeto de datos que incluye todos los campos nuevos para el backend
     let dataT = {
       method_payment: "PAGO_MOVIL",
       currency_total: "USD",
-      currency_payment: "VES", // Cambiado a Bolívares
+      currency_payment: "VES",
       total: this.totalSum,
-      total_bs: this.totalSumBs, // Enviar monto en Bs
-      exchange_rate: this.usdToBsRate, // Enviar tasa de cambio usada
-      exchange_source: this.getRateSource(), // Fuente de la tasa
-      exchange_last_update: this.lastUpdate, // Última actualización
-      n_transaccion: "PM_" + Date.now(),
-      comprobante: this.filePreview // Enviar el comprobante en base64
+      
+      // 🚨 CAMPOS NUEVOS PARA EL BACKEND (MIGRACIÓN Y CONTROLADOR)
+      total_bs: this.totalSumBs, 
+      exchange_rate: this.usdToBsRate, 
+      exchange_source: this.getRateSource(), 
+      comprobante: this.filePreview, // Campo que Laravel usa para crear 'capture_pgmovil'
+      
+      n_transaccion: "PM_" + Date.now(), // ID de transacción temporal
     }
     
     this.processPayment(dataT);
@@ -486,7 +489,7 @@ export class ListCartsComponent implements OnInit{
     alertSuccess('Tasa de cambio actualizada');
   }
 
-  // TUS FUNCIONES ORIGINALES (SIN CAMBIOS)
+  // TUS FUNCIONES ORIGINALES
   getNameCampaing(type:number){
     let Name = "";
     switch (type) {

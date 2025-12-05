@@ -15,50 +15,52 @@ import { environment } from 'src/environments/environment';
 import { FakeAPIService } from './_fake/fake-api.service';
 // #fake-end#
 import { CKEditorModule } from 'ckeditor4-angular';
-
 import { ToastNotificationsModule } from 'ngx-toast-notifications';
 
+// NOTA IMPORTANTE: La importación de PagosMovilPendientesComponent se eliminó aquí
+// ya que está declarado en CourseModule (NG6007).
+
 function appInitializer(authService: AuthService) {
-  return () => {
-    return new Promise((resolve) => {
-      //@ts-ignore
-      authService.getUserByToken().subscribe().add(resolve);
-    });
-  };
+  return () => {
+    return new Promise((resolve) => {
+      //@ts-ignore
+      authService.getUserByToken().subscribe().add(resolve);
+    });
+  };
 }
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    TranslateModule.forRoot(),
-    HttpClientModule,
-    ClipboardModule,
-    // #fake-start#
-    environment.isMockEnabled
-      ? HttpClientInMemoryWebApiModule.forRoot(FakeAPIService, {
-          passThruUnknownUrl: true,
-          dataEncapsulation: false,
-        })
-      : [],
-    // #fake-end#
-    AppRoutingModule,
-    InlineSVGModule.forRoot(),
-    NgbModule,
-    //
-    CKEditorModule,
-    //
-    ToastNotificationsModule.forRoot({duration: 6000, type: 'primary',position: 'top-right'}),
-  ],
-  providers: [
-    {
-      provide: APP_INITIALIZER,
-      useFactory: appInitializer,
-      multi: true,
-      deps: [AuthService],
-    },
-  ],
-  bootstrap: [AppComponent],
+  // Se elimina PagosMovilPendientesComponent de declarations
+  declarations: [AppComponent], 
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    TranslateModule.forRoot(),
+    HttpClientModule,
+    ClipboardModule,
+    // #fake-start#
+    // Corrección de sintaxis para incluir módulos condicionalmente:
+    ...(environment.isMockEnabled
+      ? [HttpClientInMemoryWebApiModule.forRoot(FakeAPIService, {
+          passThruUnknownUrl: true,
+          dataEncapsulation: false,
+        })]
+      : []),
+    // #fake-end#
+    AppRoutingModule,
+    InlineSVGModule.forRoot(),
+    NgbModule,
+    CKEditorModule,
+    ToastNotificationsModule.forRoot({duration: 6000, type: 'primary',position: 'top-right'}),
+  ],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: appInitializer,
+      multi: true,
+      deps: [AuthService],
+    },
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
