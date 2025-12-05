@@ -119,4 +119,37 @@ export class PagosMovilPendientesComponent implements OnInit {
             }
         });
     }
+
+    rejectPayment(pago: any) {
+        // Confirmación antes de rechazar
+        if (!confirm(`¿Está seguro de RECHAZAR el pago #${pago.id} de ${pago.user?.name || 'Usuario'}? Esta acción eliminará permanentemente el registro de la venta.`)) {
+            return;
+        }
+
+        // Llamamos al método de rechazo del servicio
+        this.courseService.rejectPagoMovil(pago.id).subscribe((resp: any) => {
+
+            if (resp.message === 200) {
+                alert("Pago rechazado y eliminado exitosamente.");
+
+                // Recargar la lista después de rechazar
+                this.listPagos();
+
+            } else {
+                alert(resp.message_text || "Error al rechazar el pago.");
+                console.error("Error en respuesta:", resp);
+            }
+        }, (error: any) => {
+            console.error("Error al rechazar:", error);
+
+            // Mostrar mensaje más específico según el error
+            if (error.status === 400) {
+                alert("Error: " + (error.error?.message_text || "No se puede rechazar este pago."));
+            } else if (error.status === 404) {
+                alert("Error: No se encontró el pago.");
+            } else {
+                alert("Error de conexión al intentar rechazar el pago.");
+            }
+        });
+    }
 }

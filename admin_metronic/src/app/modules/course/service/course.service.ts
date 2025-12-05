@@ -216,4 +216,15 @@ export class CourseService {
       finalize(() => this.isLoadingSubject.next(false))
     );
   }
+
+  // 🚨 NUEVO MÉTODO PARA RECHAZAR PAGOS MÓVILES
+  rejectPagoMovil(saleId: number) {
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+    let URL = URL_SERVICIOS + `/pagos/movil-rechazar/${saleId}`;
+
+    return this.http.delete(URL, { headers: headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
 }

@@ -98,16 +98,23 @@
                                 <span *ngIf="!pago.capture_pgmovil" class="text-muted fs-7">N/A</span>
                             </td>
 
-                            <td class="p-3 text-end">
-                                <button *ngIf="pago.status_pgmovil == 0"
-                                    class="btn btn-sm btn-light-success fw-bolder px-4 py-2 rounded-lg shadow-sm hover:bg-success hover:text-white transition duration-200"
-                                    (click)="approvePayment(pago)">
-                                    <i class="fa fa-check me-1"></i> Aprobar
+                            <td class="text-center">
+                                <!-- Botón Aprobar (solo si está pendiente) -->
+                                <button *ngIf="pago.status_pgmovil == 0" class="btn btn-sm btn-success me-2"
+                                    (click)="approvePayment(pago)" title="Aprobar pago">
+                                    <i class="bi bi-check-circle"></i> Aprobar
                                 </button>
-                                <div *ngIf="pago.status_pgmovil == 1"
-                                    class="badge badge-light-success fw-bolder fs-7 px-4 py-2">
-                                    <i class="fa fa-check-circle me-1"></i> APROBADO
-                                </div>
+
+                                <!-- Botón Rechazar (solo si está pendiente) -->
+                                <button *ngIf="pago.status_pgmovil == 0" class="btn btn-sm btn-danger"
+                                    (click)="rejectPayment(pago)" title="Rechazar y eliminar pago">
+                                    <i class="bi bi-x-circle"></i> Rechazar
+                                </button>
+
+                                <!-- Badge Aprobado (si ya fue aprobado) -->
+                                <span *ngIf="pago.status_pgmovil == 1" class="badge badge-success">
+                                    <i class="bi bi-check-circle-fill"></i> APROBADO
+                                </span>
                             </td>
                         </tr>
                     </ng-container>
