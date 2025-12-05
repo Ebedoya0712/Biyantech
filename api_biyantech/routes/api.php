@@ -45,19 +45,6 @@ Route::group([
 Route::group([
     'middleware' => 'api',
 ], function ($router) {
-    Route::resource('/users',UserController::class);
-    Route::post('/users/{id}',[UserController::class, "update"]);
-    Route::get('/roles', [UserController::class, 'getRoles']);
-    Route::get('/users/roles', [UserController::class, 'getRoles']);
-
-    Route::get('/pagos/movil-pendientes', [CheckoutController::class, 'listPagosMovilPendientes']);
-    Route::put('/pagos/movil-aprobar/{id}', [CheckoutController::class, 'approvePagoMovil']);
-    // 
-    Route::resource('/categorie',CategorieController::class);
-    Route::post('/categorie/{id}',[CategorieController::class, "update"]);
-
-    // 
-    Route::get('/course/config',[CourseGController::class, "config"]);
     Route::resource('/course',CourseGController::class);
     Route::post('/course/upload_video/{id}',[CourseGController::class, "upload_video"]);
     Route::post('/course/{id}',[CourseGController::class, "update"]);
@@ -71,6 +58,11 @@ Route::group([
 
     Route::get('/coupon/config',[CouponController::class, "config"]);
     Route::resource('/coupon',CouponController::class);
+
+    // Rutas para gestión de pagos móviles
+    Route::get('/pagos/movil-pendientes', [CheckoutController::class, 'listPagosMovilPendientes']);
+    Route::put('/pagos/movil-aprobar/{id}', [CheckoutController::class, 'approvePagoMovil']);
+    Route::delete('/pagos/movil-rechazar/{id}', [CheckoutController::class, 'rejectPagoMovil']);
 
     Route::resource('/discount',DiscountController::class);
 });

@@ -193,6 +193,56 @@ class CheckoutController extends Controller
     }
 
     /**
+     * Rechaza y elimina un pago móvil pendiente.
+     * Elimina el registro de venta y sus detalles asociados.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function rejectPagoMovil($id)
+    {
+        // 1. Buscar la venta por ID
+        $sale = Sale::with(['sale_details'])->find($id);
+
+        if (!$sale) {
+            return response()->json([
+                "message" => 404,
+                "message_text" => "Venta no encontrada."
+            ], 404);
+        }
+
+        // 2. Verificar que sea un pago móvil
+        if ($sale->method_payment !== 'PAGO_MOVIL') {
+            return response()->json([
+                "message" => 400,
+                "message_text" => "Esta venta no es un pago móvil."
+            ], 400);
+        }
+
+        // 3. Verificar que esté pendiente (no se puede rechazar un pago ya aprobado)
+        if ($sale->status_pgmovil == 1) {
+            return response()->json([
+                "message" => 400,
+                "message_text" => "No se puede rechazar un pago que ya fue aprobado."
+            ], 400);
+        }
+
+        // 4. Eliminar los detalles de venta primero (por la relación de clave foránea)
+        foreach ($sale->sale_details as $detail) {
+            $detail->delete();
+        }
+
+        // 5. Eliminar la venta
+        $sale->delete();
+
+        // 6. Retornar respuesta exitosa
+        return response()->json([
+            "message" => 200,
+            "message_text" => "Pago móvil rechazado y eliminado exitosamente."
+        ], 200);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
