@@ -19,7 +19,12 @@ class Sale extends Model
         "currency_payment",
         "total",
         "price_dolar",
-        "n_transaccion"
+        "n_transaccion",
+        "total_bs",            // Monto total en Bolívares
+        "exchange_rate",       // Tasa de cambio usada
+        "exchange_source",     // Fuente de la tasa (ej: BCV Oficial)
+        "capture_pgmovil",     // Ruta de la imagen del comprobante de Pago Móvil
+        "status_pgmovil", 
     ];
 
     public function setCreatedAtAttribute($value)

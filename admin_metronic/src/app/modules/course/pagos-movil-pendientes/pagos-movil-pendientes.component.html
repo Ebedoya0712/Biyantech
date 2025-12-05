@@ -1,0 +1,139 @@
+<span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
+
+<div class="card shadow-lg rounded-xl">
+    <div class="card-header border-0 pt-6">
+        <div class="card-title">
+            <h3 class="fw-bolder m-0 fs-2 text-gray-800">
+                Pagos Móviles Pendientes de Revisión ({{ totalItems }})
+            </h3>
+        </div>
+        <div class="card-toolbar">
+            <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
+                <button (click)="listPagos()"
+                    class="btn btn-icon btn-light-primary me-2 p-2 rounded-lg hover:shadow-md transition duration-150"
+                    [disabled]="isLoading | async">
+                    <span class="svg-icon svg-icon-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path
+                                d="M14.5 20.725V18.125H16.275C17.8 18.125 18.875 17.05 18.875 15.525V9.175H10.575C10.05 9.175 9.625 8.75 9.625 8.225C9.625 7.7 10.05 7.275 10.575 7.275H18.875V5.725C18.875 4.2 17.8 3.125 16.275 3.125H14.5V0.525C14.5 0.25 14.25 0 13.975 0C13.7 0 13.45 0.25 13.45 0.525V3.125H11.725C10.2 3.125 9.125 4.2 9.125 5.725V12.075H17.425C17.95 12.075 18.375 12.5 18.375 13.025C18.375 13.55 17.95 13.975 17.425 13.975H9.125V15.525C9.125 17.05 10.2 18.125 11.725 18.125H13.45V20.725C13.45 21 13.7 21.25 13.975 21.25C14.25 21.25 14.5 21 14.5 20.725Z"
+                                fill="currentColor" />
+                        </svg>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body py-4">
+        <div class="table-responsive">
+            <table class="table align-middle table-row-dashed fs-6 gy-5 w-100" id="kt_table_payments">
+                <thead>
+                    <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                        <th class="min-w-50px p-3 text-start">ID VENTA</th>
+                        <th class="min-w-150px p-3 text-start">CLIENTE / EMAIL</th>
+
+                        <th class="min-w-100px p-3 text-start">FECHA PAGO</th>
+                        <th class="min-w-100px p-3 text-end">MONTO (USD)</th>
+                        <th class="min-w-100px p-3 text-end">MONTO (BS)</th>
+
+                        <th class="min-w-100px p-3 text-start">TASA APLICADA</th>
+                        <th class="min-w-100px p-3 text-start">ESTADO</th>
+                        <th class="min-w-100px p-3 text-center">COMPROBANTE</th>
+                        <th class="text-end min-w-100px p-3 text-end">ACCIÓN</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-600 fw-bold">
+                    <tr *ngIf="PAGOS_PENDIENTES.length === 0 && !(isLoading | async)">
+                        <td colspan="10" class="text-center text-muted py-5">
+                            No hay pagos móviles pendientes de verificación.
+                        </td>
+                    </tr>
+
+                    <ng-container *ngFor="let pago of PAGOS_PENDIENTES">
+                        <tr class="hover:bg-gray-100 transition duration-150">
+
+                            <td class="p-3 text-start">
+                                <span class="text-gray-800 text-hover-primary fw-boldest fs-7">{{ pago.id }}</span>
+                            </td>
+
+                            <td class="p-3 text-start">
+                                <div class="d-flex flex-column">
+                                    <span class="text-gray-800 text-hover-primary fw-bolder fs-7">{{ pago.user?.name
+                                        }}</span>
+                                    <span class="text-muted fs-8">{{ pago.user?.email }}</span>
+                                </div>
+                            </td>
+
+                            <td class="p-3 text-start">
+                                <span class="text-gray-600 fs-7">{{ pago.created_at }}</span>
+                            </td>
+
+                            <td class="p-3 text-end">
+                                <span class="fw-bolder text-success fs-7">${{ pago.total | number:'1.2-2' }}</span>
+                            </td>
+
+                            <td class="p-3 text-end">
+                                <span class="fw-bolder text-primary fs-7">{{ pago.total_bs | number:'1.2-2' }} Bs</span>
+                            </td>
+
+                            <td class="p-3 text-start">
+                                <span class="fs-7 text-gray-700">{{ pago.exchange_rate | number:'1.4-4' }}</span>
+                                <span class="text-muted fs-8 d-block">({{ pago.exchange_source }})</span>
+                            </td>
+
+                            <td class="p-3 text-start">
+                                <div class="badge badge-light-warning fw-bolder" *ngIf="pago.status_pgmovil == 0">
+                                    PENDIENTE</div>
+                                <div class="badge badge-light-success fw-bolder" *ngIf="pago.status_pgmovil == 1">
+                                    APROBADO</div>
+                            </td>
+
+                            <td class="p-3 text-center">
+                                <a [href]="pago.capture_pgmovil" target="_blank"
+                                    class="btn btn-icon btn-light-info btn-sm p-2 rounded-lg hover:bg-info-light"
+                                    title="Ver imagen del comprobante" *ngIf="pago.capture_pgmovil">
+                                    <span class="svg-icon svg-icon-3">
+                                        <i class="fa fa-eye"></i>
+                                    </span>
+                                </a>
+                                <span *ngIf="!pago.capture_pgmovil" class="text-muted fs-7">N/A</span>
+                            </td>
+
+                            <td class="p-3 text-end">
+                                <button *ngIf="pago.status_pgmovil == 0"
+                                    class="btn btn-sm btn-light-success fw-bolder px-4 py-2 rounded-lg shadow-sm hover:bg-success hover:text-white transition duration-200"
+                                    (click)="approvePayment(pago)">
+                                    <i class="fa fa-check me-1"></i> Aprobar
+                                </button>
+                                <div *ngIf="pago.status_pgmovil == 1"
+                                    class="badge badge-light-success fw-bolder fs-7 px-4 py-2">
+                                    <i class="fa fa-check-circle me-1"></i> APROBADO
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div *ngIf="lastPage > 1 && !(isLoading | async)" class="card-footer py-5 d-flex justify-content-center">
+        <ul class="pagination">
+            <li class="page-item" [ngClass]="{'disabled': page === 1}">
+                <a class="page-link" (click)="goToPage(page - 1)" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            <ng-container *ngFor="let p of [].constructor(lastPage); let i = index">
+                <li class="page-item" [ngClass]="{'active': page === i + 1}">
+                    <a class="page-link" (click)="goToPage(i + 1)">{{ i + 1 }}</a>
+                </li>
+            </ng-container>
+
+            <li class="page-item" [ngClass]="{'disabled': page === lastPage}">
+                <a class="page-link" (click)="goToPage(page + 1)" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

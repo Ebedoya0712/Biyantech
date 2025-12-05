@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core'; 
 import { HomeService } from './services/home.service';
 import { CartService } from '../tienda-guest/service/cart.service';
 import { Router } from '@angular/router';
@@ -16,15 +16,19 @@ declare function alertSuccess([]):any;
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit, AfterViewInit { // Implementamos AfterViewInit
 
+  // Variables para la animación Scroll Reveal
+  @ViewChild('bannerArea') bannerArea!: ElementRef; // Referencia al div HTML
+  isBannerVisible: boolean = false; // Propiedad para el estado de la animación
+  
   CATEGORIES:any = [];
   COURSES_HOME:any = [];
   group_courses_categories:any = [];
   DESCOUNT_BANNER:any = null;
   DESCOUNT_BANNER_COURSES:any = [];
 
-  DESCOUNT_FLASH:any = null;
+  DESCOUNT_FLASH:any = null; // Variable clave para el error
   DESCOUNT_FLASH_COURSES:any = [];
   user:any = null;
 
@@ -49,15 +53,52 @@ export class HomeComponent implements OnInit{
       this.DESCOUNT_BANNER_COURSES = resp.DESCOUNT_BANNER_COURSES;
       this.DESCOUNT_FLASH = resp.DESCOUNT_FLASH;
       this.DESCOUNT_FLASH_COURSES = resp.DESCOUNT_FLASH_COURSES;
+      
       setTimeout(() => {
-        banner_home();
-        countdownT();
+        // 🚨 CORRECCIÓN DE ERROR DE COUNTDOWN: Validamos la existencia del descuento flash
+        if (this.DESCOUNT_BANNER) {
+             banner_home();
+        }
+        
+        if (this.DESCOUNT_FLASH) { // 👈 Solo llama a countdownT si existen datos
+            countdownT(); 
+        }
+       
+        // Llamada a la función del observador
+        this.setupIntersectionObserver(); 
       }, 50);
     })
     
     this.user = this.cartService.authService.user;
   }
 
+  ngAfterViewInit(): void {
+    // Si la inicialización del observador estuviera aquí, se podría llamar también.
+  }
+
+  // Lógica del Intersection Observer (Detector de Scroll)
+  private setupIntersectionObserver(): void {
+    setTimeout(() => { 
+        // Verificamos si la referencia al elemento existe antes de observar
+        if (!this.bannerArea) {
+            return;
+        }
+
+        const options = { root: null, rootMargin: '0px', threshold: 0.1 };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.isBannerVisible = true; // Activa la clase CSS .is-visible
+                    observer.unobserve(entry.target); 
+                }
+            });
+        }, options);
+
+        observer.observe(this.bannerArea.nativeElement);
+    }, 100); // Retraso de 100ms para evitar el parpadeo
+  }
+  
   /**
    * FUNCIÓN CORREGIDA: Calcula el nuevo precio total con descuento.
    * Se añade Math.round() y toFixed(2) para limitar a dos decimales y evitar 

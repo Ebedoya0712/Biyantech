@@ -9,6 +9,7 @@ use App\Models\Course\Course;
 use App\Models\CoursesStudent;
 use App\Models\Course\Categorie;
 use App\Models\Discount\Discount;
+use App\Models\Sale\SaleDetail;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -103,15 +104,48 @@ class HomeController extends Controller
         }
         $course = Course::where("slug",$slug)->first();
         $is_have_course = false;
+        
         if(!$course){
             return abort(404);
         }
+        
         if(Auth::guard("api")->check()){
-            $course_student = CoursesStudent::where("user_id",auth("api")->user()->id)->where("course_id",$course->id)->first();
+            $course_student = CoursesStudent::where("user_id",auth("api")->user()->id)
+                                           ->where("course_id",$course->id)
+                                           ->first();
+            
             if($course_student){
-                $is_have_course = true;
+                // El usuario tiene el curso registrado, ahora verificamos el método de pago
+                // Buscamos la venta a través de SaleDetail (solo por course_id, luego filtramos por user)
+                $sale_detail = SaleDetail::where("course_id", $course->id)
+                                        ->with('sale') // Cargar la relación sale
+                                        ->orderBy("created_at", "desc")
+                                        ->get()
+                                        ->first(function($detail) {
+                                            return $detail->sale && $detail->sale->user_id == auth("api")->user()->id;
+                                        });
+                
+                if($sale_detail && $sale_detail->sale){
+                    $sale = $sale_detail->sale;
+                    
+                    // Si el pago fue por Pago Móvil, verificamos que esté aprobado
+                    if($sale->method_payment == 'PAGO_MOVIL'){
+                        // Solo tiene acceso si el pago móvil fue aprobado (status_pgmovil == 1)
+                        if($sale->status_pgmovil == 1){
+                            $is_have_course = true;
+                        }
+                        // Si status_pgmovil == 0, is_have_course queda en false
+                    } else {
+                        // Si fue por PayPal u otro método, tiene acceso inmediato
+                        $is_have_course = true;
+                    }
+                } else {
+                    // Si no hay venta asociada (caso raro), damos acceso
+                    $is_have_course = true;
+                }
             }
         }
+        
         $courses_related_instructor = Course::where("id","<>",$course->id)->where("user_id",$course->user_id)->inRandomOrder()->take(2)->get();
 
         $courses_related_categories = Course::where("id","<>",$course->id)->where("categorie_id",$course->categorie_id)->inRandomOrder()->take(3)->get();

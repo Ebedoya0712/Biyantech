@@ -69,5 +69,12 @@ export class CartService {
     let URL = URL_SERVICIOS+"/ecommerce/checkout";
     return this.http.post(URL,data,{headers: headers});
   }
+
+  listPagosMovilPendientes(){
+    let headers = new HttpHeaders({"Authorization": "Bearer "+this.authService.token});
+    // Apunta a la nueva ruta que definimos en Laravel: /pagos/movil-pendientes
+    let URL = URL_SERVICIOS+"/pagos/movil-pendientes"; 
+    return this.http.get(URL,{headers: headers});
+  }
 }
 

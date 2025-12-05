@@ -49,6 +49,9 @@ Route::group([
     Route::post('/users/{id}',[UserController::class, "update"]);
     Route::get('/roles', [UserController::class, 'getRoles']);
     Route::get('/users/roles', [UserController::class, 'getRoles']);
+
+    Route::get('/pagos/movil-pendientes', [CheckoutController::class, 'listPagosMovilPendientes']);
+    Route::put('/pagos/movil-aprobar/{id}', [CheckoutController::class, 'approvePagoMovil']);
     // 
     Route::resource('/categorie',CategorieController::class);
     Route::post('/categorie/{id}',[CategorieController::class, "update"]);

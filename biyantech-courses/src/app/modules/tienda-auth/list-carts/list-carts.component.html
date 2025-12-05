@@ -166,11 +166,6 @@
 
                 <div class="cart-submit-btn-group">
                   <div class="single-button w-100">
-                    <!--<button class="rbt-btn btn-gradient rbt-switch-btn rbt-switch-y w-100">
-                                            <span data-text="Checkout">Checkout</span>
-                                        </button>-->
-
-                    <!-- list-carts.component.html -->
                     <!-- ... tu código existente ... -->
 
                     <div class="payment-options mt-4">
@@ -190,6 +185,8 @@
                             isProcessingPaypal
                           "
                           aria-label="Pago Móvil"
+                          data-bs-toggle="modal" 
+                          data-bs-target="#pagoMovilModal" 
                         >
                           <div class="payment-button-label-container">
                             <i
@@ -264,10 +261,10 @@
                     </div>
                   </div>
                   <!--<div class="single-button w-50">
-                                        <button class="rbt-btn rbt-switch-btn rbt-switch-y w-100 btn-border">
-                                            <span data-text="Update Cart">Update Cart</span>
-                                        </button>
-                                    </div>-->
+                                            <button class="rbt-btn rbt-switch-btn rbt-switch-y w-100 btn-border">
+                                                <span data-text="Update Cart">Update Cart</span>
+                                            </button>
+                                        </div>-->
                 </div>
               </div>
             </div>
@@ -284,7 +281,9 @@
   </div>
 </div>
 
-<!-- Modal de Pago Móvil - Diseño Ultra Moderno -->
+<!-- ========================================================================= -->
+<!-- Modal de Pago Móvil - Implementación de 3 Pasos -->
+<!-- ========================================================================= -->
 <div class="modal fade" id="pagoMovilModal" tabindex="-1" aria-labelledby="pagoMovilModalLabel" aria-hidden="true" #pagoMovilModal>
   <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content modern-modal">
@@ -292,12 +291,12 @@
       <!-- Header Elegante con Gradiente -->
       <div class="modal-header ">
         <div class="header-content w-100 text-center">
-      
+        
           <div class="">
             <div class="method-header">
               <i class="bi bi-phone-vibrate method-icon"></i>
               <div class="method-info">
-          <h4 class=" h2  align-items-center my-auto py-4">PAGO MOVIL</h4>
+            <h4 class=" h2  align-items-center my-auto py-4">PAGO MOVIL</h4>
               </div>
             </div>
           </div>
@@ -320,87 +319,88 @@
 
           <!-- Datos de Transferencia -->
           <div class="row gap-5">
-    <div class="col data-card modern-data-card">
-        <div class="data-icon" style="font-size: 3rem;">
-            <i class="fas fa-building"></i>
-        </div>
-        <div class="data-content">
-            <label class="data-label fs-5">Banco Destino</label>
-            <div class="data-value fs-3">0102 - Banco de Venezuela</div>
-        </div>
-        <i class="bi bi-check-circle-fill data-check" style="font-size: 1.8rem;"></i>
-    </div>
+            <div class="col data-card modern-data-card">
+              <div class="data-icon" style="font-size: 3rem;">
+                  <i class="fas fa-building"></i>
+              </div>
+              <div class="data-content">
+                  <label class="data-label fs-5">Banco Destino</label>
+                  <div class="data-value fs-3">0102 - Banco de Venezuela</div>
+              </div>
+              <i class="bi bi-check-circle-fill data-check" style="font-size: 1.8rem;"></i>
+            </div>
+
+            <div class="col data-card modern-data-card">
+              <div class="data-icon" style="font-size: 3rem;">
+                  <i class="fas fa-phone"></i>
+              </div>
+              <div class="data-content">
+                  <label class="data-label fs-5">Teléfono</label>
+                  <div class="data-value fs-3">0412-1234567</div>
+              </div>
+              <i class="bi bi-check-circle-fill data-check" style="font-size: 1.8rem;"></i>
+            </div>
 
             <div class="col data-card modern-data-card">
             <div class="data-icon" style="font-size: 3rem;">
-                <i class="fas fa-phone"></i>
+                <i class="fas fa-id-card"></i>
             </div>
             <div class="data-content">
-                <label class="data-label fs-5">Teléfono</label>
-                <div class="data-value fs-3">0412-1234567</div>
+                <label class="data-label fs-5">Cédula</label>
+                <div class="data-value fs-3">V-12345678</div>
             </div>
-            <i class="bi bi-check-circle-fill data-check" style="font-size: 1.8rem;"></i>
-        </div>
-
-          <div class="col data-card modern-data-card">
-          <div class="data-icon" style="font-size: 3rem;">
-              <i class="fas fa-id-card"></i>
+            <i class="" style="font-size: 1.8rem;"></i>
           </div>
-          <div class="data-content">
-              <label class="data-label fs-5">Cédula</label>
-              <div class="data-value fs-3">V-12345678</div>
-          </div>
-          <i class="" style="font-size: 1.8rem;"></i>
-      </div>
 
-            <div class="data-card modern-data-card highlight">
-    <div class="data-icon" style="font-size: 3rem;">
-        <i class="fas fa-exchange-alt"></i> 
-    </div>
-    <div class="data-content">
-        <label class="data-label fs-5">Monto a Transferir</label>
-        <div class="data-value amount">
-            <div class="amount-usd fs-2">${{ totalSum }} USD</div> 
-            <div class="amount-bs fs-5" *ngIf="totalSumBs > 0">
-                ≈ {{ formatNumber(totalSumBs) }} Bs
+          <div class="data-card modern-data-card highlight">
+            <div class="data-icon" style="font-size: 3rem;">
+                <i class="fas fa-exchange-alt"></i> 
             </div>
-        </div>
-    </div>
-    <i class="" style="font-size: 2rem;"></i>
-</div>
+            <div class="data-content">
+                <label class="data-label fs-5">Monto a Transferir</label>
+                <div class="data-value amount">
+                    <div class="amount-usd fs-2">${{ totalSum | number:'1.2-2' }} USD</div> 
+                    <div class="amount-bs fs-5" *ngIf="totalSumBs > 0">
+                        <!-- Usamos formatNumber pipe desde el TS -->
+                        ≈ {{ formatNumber(totalSumBs) }} Bs
+                    </div>
+                </div>
+                <i class="" style="font-size: 2rem;"></i>
+            </div>
+          </div>
 
-<div class="exchange-info official-rate" *ngIf="exchangeRate">
-    <div class="exchange-header">
-        <i class="fas fa-university" style="font-size: 1.25rem;"></i>
-        <strong class="fs-5">Tasa Oficial BCV</strong>
-    </div>
-    <div class="exchange-details">
-        <div class="rate-info">
-            <span class="rate-value fs-3">1 USD = {{ formatNumber(usdToBsRate) }} Bs</span>
-            <span class="rate-source fs-6">({{ getRateSource() }})</span>
-        </div>
-        <div class="rate-breakdown" *ngIf="exchangeRate.compra || exchangeRate.venta">
-            <small class="text-muted fs-6">
-                <span *ngIf="exchangeRate.compra">Compra: {{ formatNumber(exchangeRate.compra) }}</span>
-                <span *ngIf="exchangeRate.venta"> | Venta: {{ formatNumber(exchangeRate.venta) }}</span>
-                <span *ngIf="exchangeRate.promedio"> | Promedio: {{ formatNumber(exchangeRate.promedio) }}</span>
-            </small>
-        </div>
-        <div class="last-update">
-            <small class="text-muted fs-6">
-                <i class="fas fa-clock" style="font-size: 1.1rem;"></i>
-                Actualizado: {{ lastUpdate }}
-            </small>
-            <button class="btn btn-sm btn-outline-primary ms-2" 
-                    (click)="refreshRates()" 
-                    [disabled]="isLoadingRates"
-                    title="Actualizar tasa">
-                <i class="fas fa-sync-alt" [class.spin]="isLoadingRates" style="font-size: 1.1rem;"></i>
-            </button>
-        </div>
-    </div>
-</div>
-</div>  
+          <div class="exchange-info official-rate" *ngIf="exchangeRate">
+            <div class="exchange-header">
+                <i class="fas fa-university" style="font-size: 1.25rem;"></i>
+                <strong class="fs-5">Tasa Oficial BCV</strong>
+            </div>
+            <div class="exchange-details">
+                <div class="rate-info">
+                    <span class="rate-value fs-3">1 USD = {{ formatNumber(usdToBsRate) }} Bs</span>
+                    <span class="rate-source fs-6">({{ getRateSource() }})</span>
+                </div>
+                <div class="rate-breakdown" *ngIf="exchangeRate.compra || exchangeRate.venta">
+                    <small class="text-muted fs-6">
+                        <span *ngIf="exchangeRate.compra">Compra: {{ formatNumber(exchangeRate.compra) }}</span>
+                        <span *ngIf="exchangeRate.venta"> | Venta: {{ formatNumber(exchangeRate.venta) }}</span>
+                        <span *ngIf="exchangeRate.promedio"> | Promedio: {{ formatNumber(exchangeRate.promedio) }}</span>
+                    </small>
+                </div>
+                <div class="last-update">
+                    <small class="text-muted fs-6">
+                        <i class="fas fa-clock" style="font-size: 1.1rem;"></i>
+                        Actualizado: {{ lastUpdate }}
+                    </small>
+                    <button class="btn btn-sm btn-outline-primary ms-2" 
+                            (click)="refreshRates()" 
+                            [disabled]="isLoadingRates"
+                            title="Actualizar tasa">
+                        <i class="fas fa-sync-alt" [class.spin]="isLoadingRates" style="font-size: 1.1rem;"></i>
+                    </button>
+                </div>
+            </div>
+          </div>
+        </div>  
 
           <!-- Información Importante -->
           <div class="info-card col-12  my-4 modern-info-card">
@@ -425,11 +425,11 @@
 
             <!-- Área de Upload Moderna -->
             <div class="modern-upload-area"
-                 (click)="fileInput.click()"
-                 [class.upload-active]="isFileOver"
-                 (dragover)="onDragOver($event)"
-                 (dragleave)="onDragLeave($event)"
-                 (drop)="onFileDrop($event)">
+                  (click)="fileInput.click()"
+                  [class.upload-active]="isFileOver"
+                  (dragover)="onDragOver($event)"
+                  (dragleave)="onDragLeave($event)"
+                  (drop)="onFileDrop($event)">
               <input #fileInput type="file" (change)="onFileSelected($event)" accept="image/*" hidden>
               
               <div *ngIf="!selectedFile" class="upload-placeholder">
@@ -473,7 +473,7 @@
             </div>
             
             <h4 class="verification-title" [class.text-success]="isVerificationComplete">
-              {{ isVerificationComplete ? '¡Pago Confirmado!' : 'Verificando tu pago' }}
+              {{ isVerificationComplete ? '¡Pago Enviado!' : 'Verificando tu pago' }}
             </h4>
             
             <p class="verification-text" *ngIf="!isVerificationComplete">
@@ -481,7 +481,7 @@
             </p>
             
             <p class="verification-success" *ngIf="isVerificationComplete">
-              ¡Tu curso está disponible! Te amamos ❤️
+              ¡Tu curso muy pronto estará disponible! Te amamos ❤️
             </p>
 
             <!-- Barra de Progreso Animada -->
@@ -499,11 +499,11 @@
               <div class="summary-items">
                 <div class="summary-item">
                   <span>Productos</span>
-                  <span>${{ totalSum }}</span>
+                  <span>${{ totalSum | number:'1.2-2' }}</span>
                 </div>
                 <div class="summary-item">
                   <span>Total</span>
-                  <span class="summary-total">${{ totalSum }}</span>
+                  <span class="summary-total">${{ totalSum | number:'1.2-2' }}</span>
                 </div>
               </div>
             </div>
@@ -530,7 +530,7 @@
 
         <!-- Botones de Navegación -->
         <div class="modern-actions">
-        <button *ngIf="currentStep > 1" 
+        <button *ngIf="currentStep > 1 && currentStep < 3" 
                 type="button" 
                 class="btn btn-modern-secondary btn-lg"
                 (click)="previousStep()">
@@ -553,15 +553,15 @@
               (click)="submitPayment()">
           <i class="fas fa-paper-plane"></i> 
           Enviar Comprobante
-      </button>
+        </button>
           
           <button *ngIf="currentStep === 3 && isVerificationComplete" 
               type="button" 
               class="btn btn-modern-success btn-lg"
               (click)="onPaymentComplete()">
           <i class="fas fa-graduation-cap"></i> 
-          Ver mi curso
-      </button>
+          Finalizar
+        </button>
         </div>
       </div>
     </div>

@@ -7,6 +7,9 @@ import { CourseListComponent } from './course-list/course-list.component';
 import { SectionAddComponent } from './section/section-add/section-add.component';
 import { ClaseAddComponent } from './section/clases/clase-add/clase-add.component';
 
+// 🚨 Importamos el nuevo componente de pagos pendientes
+import { PagosMovilPendientesComponent } from './pagos-movil-pendientes/pagos-movil-pendientes.component';
+
 const routes: Routes = [{
   path: '',
   component: CourseComponent,
@@ -30,6 +33,11 @@ const routes: Routes = [{
     {
       path: 'list/secciones/clases/:id',
       component: ClaseAddComponent,
+    },
+    // 🚨 NUEVA RUTA: Listado de Pagos Móviles Pendientes
+    {
+        path: 'pagos-movil-pendientes', 
+        component: PagosMovilPendientesComponent,
     },
   ]
 }];

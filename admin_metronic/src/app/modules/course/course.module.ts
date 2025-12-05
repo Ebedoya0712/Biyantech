@@ -19,6 +19,7 @@ import { ClaseAddComponent } from './section/clases/clase-add/clase-add.componen
 import { ClaseEditComponent } from './section/clases/clase-edit/clase-edit.component';
 import { ClaseDeleteComponent } from './section/clases/clase-delete/clase-delete.component';
 import { ClaseFileDeleteComponent } from './section/clases/clase-file-delete/clase-file-delete.component';
+import { PagosMovilPendientesComponent } from './pagos-movil-pendientes/pagos-movil-pendientes.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { ClaseFileDeleteComponent } from './section/clases/clase-file-delete/cla
     ClaseAddComponent,
     ClaseEditComponent,
     ClaseDeleteComponent,
-    ClaseFileDeleteComponent
+    ClaseFileDeleteComponent,
+    PagosMovilPendientesComponent
   ],
   imports: [
     CommonModule,
