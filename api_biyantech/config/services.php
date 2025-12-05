@@ -30,4 +30,12 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'binance_pay' => [
+        'mode' => env('BINANCE_PAY_MODE', 'mock'), // 'mock' or 'production'
+        'api_key' => env('BINANCE_PAY_API_KEY'),
+        'secret_key' => env('BINANCE_PAY_SECRET_KEY'),
+        'merchant_id' => env('BINANCE_PAY_MERCHANT_ID'),
+        'base_url' => env('BINANCE_PAY_BASE_URL', 'https://bpay.binanceapi.com'),
+    ],
+
 ];

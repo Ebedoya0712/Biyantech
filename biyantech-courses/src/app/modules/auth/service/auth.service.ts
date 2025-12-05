@@ -9,25 +9,25 @@ import { URL_FROTEND, URL_SERVICIOS } from 'src/app/config/config';
 })
 export class AuthService {
 
-  user:any = null;
-  token:any = null;
+  user: any = null;
+  token: any = null;
   constructor(
     public http: HttpClient,
     public router: Router,
-  ) { 
+  ) {
     this.initAuth();
   }
 
-  initAuth(){
-    if(localStorage.getItem("token")){
-      this.user  = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") ?? '') : null;
+  initAuth() {
+    if (localStorage.getItem("token")) {
+      this.user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") ?? '') : null;
       this.token = localStorage.getItem("token");
     }
   }
 
-  login(email:string,password:string){
-    let URL = URL_SERVICIOS+"/auth/login_tienda";
-    return this.http.post(URL,{email: email, password: password}).pipe(
+  login(email: string, password: string) {
+    let URL = URL_SERVICIOS + "/auth/login_tienda";
+    return this.http.post(URL, { email: email, password: password }).pipe(
       map((auth: any) => {
         console.log(auth);
         const result = this.saveLocalStorage(auth);
@@ -40,26 +40,26 @@ export class AuthService {
     );
   }
 
-  saveLocalStorage(auth:any){
-      if(auth && auth.access_token){
-          localStorage.setItem("token",auth.access_token);
-          localStorage.setItem("user",JSON.stringify(auth.user));
-          return true;
-      }
-      return false;
+  saveLocalStorage(auth: any) {
+    if (auth && auth.access_token) {
+      localStorage.setItem("token", auth.access_token);
+      localStorage.setItem("user", JSON.stringify(auth.user));
+      return true;
+    }
+    return false;
   }
 
-  register(data:any){
+  register(data: any) {
     let URL = URL_SERVICIOS + "/auth/register";
-    return this.http.post(URL,data);
+    return this.http.post(URL, data);
   }
 
-  logout(){
+  logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    //this.router.navigateByUrl("auth/login");
+    // Usar ruta relativa para que funcione en cualquier puerto
     setTimeout(() => {
-      location.href = URL_FROTEND+"/auth/login";
+      window.location.href = "/auth/login";
     }, 50);
   }
 }

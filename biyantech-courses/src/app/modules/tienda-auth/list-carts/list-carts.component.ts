@@ -3,9 +3,9 @@ import { CartService } from '../../tienda-guest/service/cart.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
-declare function alertSuccess([]):any;
-declare function alertDanger([]):any;
-declare var paypal:any;
+declare function alertSuccess([]): any;
+declare function alertDanger([]): any;
+declare var paypal: any;
 declare var bootstrap: any;
 
 @Component({
@@ -13,24 +13,24 @@ declare var bootstrap: any;
   templateUrl: './list-carts.component.html',
   styleUrls: ['./list-carts.component.css']
 })
-export class ListCartsComponent implements OnInit{
+export class ListCartsComponent implements OnInit {
 
-  listCarts:any = [];
-  totalSum:number = 0;
+  listCarts: any = [];
+  totalSum: number = 0;
   totalSumBs: number = 0; // Nuevo: Total en Bolívares
-  code:any = null;
-  
+  code: any = null;
+
   // Tasas de cambio
   exchangeRate: any = null;
   usdToBsRate: number = 0;
   lastUpdate: string = '';
-  
+
   // Estados de carga
   isPagoMovilLoading = false;
   isBinanceLoading = false;
   isProcessingPaypal = false;
   isLoadingRates = false;
-  
+
   // Variables para el modal de Pago Móvil
   currentStep: number = 1;
   selectedFile: File | null = null;
@@ -39,10 +39,16 @@ export class ListCartsComponent implements OnInit{
   isVerificationComplete: boolean = false;
   verificationProgress: number = 0;
   verificationInterval: any;
-  
-  @ViewChild('paypal',{static: true}) paypalElement?: ElementRef;
+
+  @ViewChild('paypal', { static: true }) paypalElement?: ElementRef;
   @ViewChild('pagoMovilModal') pagoMovilModal!: ElementRef;
-  
+  @ViewChild('binancePayModal') binancePayModal!: ElementRef;
+
+  // Variables para Binance Pay
+  binancePaymentData: any = null;
+  binanceStatus: string = 'PENDING';
+  binancePollingInterval: any = null;
+
   // Logos como base64 (Se han mantenido por compatibilidad)
   pagoMovilLogo = `data:image/svg+xml;base64,${btoa(`
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -66,14 +72,14 @@ export class ListCartsComponent implements OnInit{
     public cartService: CartService,
     private router: Router,
     private http: HttpClient
-  ) {}
-  
+  ) { }
+
   ngOnInit(): void {
-    this.cartService.currentData$.subscribe((resp:any) => {
+    this.cartService.currentData$.subscribe((resp: any) => {
       console.log(resp);
       this.listCarts = resp;
-      this.totalSum = Array.isArray(this.listCarts) ? this.listCarts.reduce((sum:number, item:any) => sum + item.total,0) : 0;
-      
+      this.totalSum = Array.isArray(this.listCarts) ? this.listCarts.reduce((sum: number, item: any) => sum + item.total, 0) : 0;
+
       // Cuando se actualiza el carrito, calcular también en Bs
       if (this.totalSum > 0) {
         this.calculateBsAmount();
@@ -87,31 +93,31 @@ export class ListCartsComponent implements OnInit{
   // Cargar tasa de cambio oficial específica
   loadOfficialExchangeRate() {
     this.isLoadingRates = true;
-    
+
     // Usamos el endpoint de la API para obtener la tasa oficial del BCV
     this.http.get('https://ve.dolarapi.com/v1/dolares/oficial').subscribe({
       next: (rate: any) => {
         this.exchangeRate = rate;
-        
+
         // Determinar la mejor tasa disponible
         this.usdToBsRate = this.determineBestRate(rate);
         this.lastUpdate = this.formatUpdateDate(rate.fechaActualizacion);
-        
+
         console.log('Tasa oficial cargada:', this.exchangeRate);
         console.log('Tasa USD a Bs seleccionada:', this.usdToBsRate);
-        
+
         // Recalcular montos en Bs si hay total
         if (this.totalSum > 0) {
           this.calculateBsAmount();
         }
-        
+
         this.isLoadingRates = false;
       },
       error: (error) => {
         console.error('Error cargando tasa oficial:', error);
         alertDanger('Error al cargar la tasa de cambio oficial');
         this.isLoadingRates = false;
-        
+
         // Usar tasa por defecto en caso de error
         this.usdToBsRate = 35; // Tasa aproximada de respaldo
         this.lastUpdate = 'No disponible';
@@ -139,7 +145,7 @@ export class ListCartsComponent implements OnInit{
   // Formatear fecha de actualización
   formatUpdateDate(dateString: string): string {
     if (!dateString) return 'No disponible';
-    
+
     try {
       const date = new Date(dateString);
       return date.toLocaleDateString('es-VE', {
@@ -176,7 +182,7 @@ export class ListCartsComponent implements OnInit{
   // Obtener el nombre de la fuente de la tasa
   getRateSource(): string {
     if (!this.exchangeRate) return 'Tasa por defecto';
-    
+
     if (this.exchangeRate.nombre) {
       return this.exchangeRate.nombre;
     } else if (this.exchangeRate.fuente) {
@@ -194,16 +200,16 @@ export class ListCartsComponent implements OnInit{
         layout: "vertical"
       },
 
-      createOrder: (data:any, actions:any) => {
-        if(this.totalSum == 0){
+      createOrder: (data: any, actions: any) => {
+        if (this.totalSum == 0) {
           alertDanger("NO PUEDES PAGAR UN MONTO DE 0");
           return false;
         }
-        if(this.listCarts.length == 0){
+        if (this.listCarts.length == 0) {
           alertDanger("NO PUEDES PROCESAR EL PAGO CON NINGUN CURSO EN EL CARRITO");
           return false;
         }
-        
+
         const createOrderPayload = {
           purchase_units: [
             {
@@ -218,9 +224,9 @@ export class ListCartsComponent implements OnInit{
         return actions.order.create(createOrderPayload);
       },
 
-      onApprove: async (data:any, actions:any) => {
+      onApprove: async (data: any, actions: any) => {
         this.isProcessingPaypal = true;
-        
+
         try {
           let Order = await actions.order.capture();
           let dataT = {
@@ -230,7 +236,7 @@ export class ListCartsComponent implements OnInit{
             total: this.totalSum,
             n_transaccion: Order.purchase_units[0].payments.captures[0].id,
           }
-          
+
           this.processPayment(dataT);
         } catch (error) {
           console.error('Error en PayPal:', error);
@@ -239,13 +245,13 @@ export class ListCartsComponent implements OnInit{
         }
       },
 
-      onError: (err:any) => {
+      onError: (err: any) => {
         console.error('Error en PayPal:', err);
         this.isProcessingPaypal = false;
         alertDanger("Error al procesar el pago con PayPal");
       },
 
-      onCancel: (data:any) => {
+      onCancel: (data: any) => {
         this.isProcessingPaypal = false;
         console.log('Pago con PayPal cancelado');
       }
@@ -255,11 +261,11 @@ export class ListCartsComponent implements OnInit{
 
   // MÉTODO PARA PAGO MÓVIL - ABRE EL MODAL
   onPagoMovilClick() {
-    if(this.totalSum == 0){
+    if (this.totalSum == 0) {
       alertDanger("NO PUEDES PAGAR UN MONTO DE 0");
       return;
     }
-    if(this.listCarts.length == 0){
+    if (this.listCarts.length == 0) {
       alertDanger("NO PUEDES PROCESAR EL PAGO CON NINGUN CURSO EN EL CARRITO");
       return;
     }
@@ -272,7 +278,7 @@ export class ListCartsComponent implements OnInit{
     }
 
     this.isPagoMovilLoading = true;
-    
+
     // Simular carga inicial y luego abrir modal
     setTimeout(() => {
       this.isPagoMovilLoading = false;
@@ -280,64 +286,145 @@ export class ListCartsComponent implements OnInit{
     }, 1000);
   }
 
-  // Método para Binance (SIN CAMBIOS)
+  // 🚀 BINANCE PAY - Implementación Real
   onBinanceClick() {
-    if(this.totalSum == 0){
+    if (this.totalSum == 0) {
       alertDanger("NO PUEDES PAGAR UN MONTO DE 0");
       return;
     }
-    if(this.listCarts.length == 0){
+    if (this.listCarts.length == 0) {
       alertDanger("NO PUEDES PROCESAR EL PAGO CON NINGUN CURSO EN EL CARRITO");
       return;
     }
 
     this.isBinanceLoading = true;
-    
-    // Simular proceso de pago con Binance (aquí integrarías con Binance API)
-    setTimeout(() => {
-      let dataT = {
-        method_payment: "BINANCE",
-        currency_total: "USD",
-        currency_payment: "USD",
-        total: this.totalSum,
-        n_transaccion: "BIN_" + Date.now(), // Generar ID único
+
+    // Llamar al servicio real de Binance Pay
+    this.cartService.createBinancePayment().subscribe({
+      next: (resp: any) => {
+        console.log('Binance Pay Response:', resp);
+
+        if (resp.message === 200 && resp.binance_data) {
+          // Mostrar modal con QR code
+          this.showBinancePaymentModal(resp.binance_data, resp.sale_id);
+        } else {
+          alertDanger(resp.message_text || "Error al crear orden de Binance Pay");
+          this.isBinanceLoading = false;
+        }
+      },
+      error: (err: any) => {
+        console.error('Error en Binance Pay:', err);
+        alertDanger("Error al procesar el pago con Binance Pay");
+        this.isBinanceLoading = false;
       }
-      
-      this.processPayment(dataT);
-    }, 2000);
+    });
+  }
+
+  // Mostrar modal de Binance Pay con QR code
+  showBinancePaymentModal(binanceData: any, saleId: number) {
+    this.isBinanceLoading = false;
+    this.binancePaymentData = binanceData;
+    this.binanceStatus = 'PENDING';
+
+    // Abrir modal
+    const modal = new bootstrap.Modal(this.binancePayModal.nativeElement);
+    modal.show();
+
+    // Iniciar polling para verificar estado del pago
+    this.startBinancePaymentPolling(saleId, modal);
+
+    // Limpiar modal al cerrar
+    this.binancePayModal.nativeElement.addEventListener('hidden.bs.modal', () => {
+      this.stopBinancePaymentPolling();
+    });
+  }
+
+  startBinancePaymentPolling(saleId: number, modal: any) {
+    let attempts = 0;
+    const maxAttempts = 100; // 5 minutos (100 * 3 segundos)
+
+    this.stopBinancePaymentPolling(); // Limpiar anterior si existe
+
+    this.binancePollingInterval = setInterval(() => {
+      attempts++;
+
+      this.cartService.checkBinancePaymentStatus(saleId).subscribe({
+        next: (resp: any) => {
+          console.log('Binance Status:', resp);
+
+          if (resp.binance_status === 'PAID') {
+            // Pago exitoso
+            this.binanceStatus = 'PAID';
+            this.stopBinancePaymentPolling();
+
+            setTimeout(() => {
+              modal.hide();
+              alertSuccess("¡Pago exitoso! Redirigiendo...");
+              this.cartService.resetCart();
+
+              // Redirigir a mis cursos
+              this.router.navigate(['/']).then(() => {
+                window.location.href = "/";
+              });
+            }, 2000);
+
+          } else if (resp.binance_status === 'EXPIRED') {
+            // Pago expirado
+            this.binanceStatus = 'EXPIRED';
+            this.stopBinancePaymentPolling();
+          }
+
+          // Detener después de max intentos
+          if (attempts >= maxAttempts) {
+            this.stopBinancePaymentPolling();
+            this.binanceStatus = 'EXPIRED';
+          }
+        },
+        error: (err: any) => {
+          console.error('Error checking Binance status:', err);
+        }
+      });
+    }, 3000); // Verificar cada 3 segundos
+  }
+
+  stopBinancePaymentPolling() {
+    if (this.binancePollingInterval) {
+      clearInterval(this.binancePollingInterval);
+      this.binancePollingInterval = null;
+    }
   }
 
   processPayment(dataT: any) {
     this.cartService.checkout(dataT).subscribe({
-      next: (resp:any) => {
+      next: (resp: any) => {
         console.log(resp);
         if (resp.message == 200) {
-          
+
           // 🚨 SOLUCIÓN 1: PERSISTIR EL MENSAJE ANTES DE LA RECARGA
           // Guardamos el mensaje de éxito en sessionStorage para que app.component lo lea al inicio.
           sessionStorage.setItem('checkoutSuccessMessage', resp.message_text);
-          
+
           this.cartService.resetCart();
-          
+
           // 🚨 SOLUCIÓN 2: RECARGA NATIVA
           // Navegación a la ruta de inicio, forzando la recarga total del navegador.
           this.router.navigate(['/']).then(() => {
-             window.location.href = "/"; 
+            window.location.href = "/";
           });
-          
+
         } else {
           alertDanger(resp.message_text || "Ocurrió un error desconocido al finalizar la compra.");
         }
-        
+
         // Resetear estados de carga
         this.isPagoMovilLoading = false;
         this.isBinanceLoading = false;
         this.isProcessingPaypal = false;
       },
-      error: (err:any) => {
+      error: (err: any) => {
         console.error('Error durante el checkout:', err);
         alertDanger("Hubo un error en el servidor al registrar la compra.");
-        
+
         // Resetear estados de carga
         this.isPagoMovilLoading = false;
         this.isBinanceLoading = false;
@@ -389,7 +476,7 @@ export class ListCartsComponent implements OnInit{
   onFileDrop(event: DragEvent) {
     event.preventDefault();
     this.isFileOver = false;
-    
+
     const files = event.dataTransfer?.files;
     if (files && files.length > 0) {
       this.handleFile(files[0]);
@@ -415,7 +502,7 @@ export class ListCartsComponent implements OnInit{
     }
 
     this.selectedFile = file;
-    
+
     // Crear preview de la imagen en Base64
     const reader = new FileReader();
     reader.onload = (e: any) => {
@@ -437,10 +524,10 @@ export class ListCartsComponent implements OnInit{
   // Lógica de la simulación de verificación (Paso 3)
   startVerificationProcess() {
     this.verificationProgress = 0;
-    
+
     this.verificationInterval = setInterval(() => {
       this.verificationProgress += 10;
-      
+
       if (this.verificationProgress >= 100) {
         this.clearVerificationInterval();
         this.isVerificationComplete = true; // Simula la confirmación del pago
@@ -454,8 +541,8 @@ export class ListCartsComponent implements OnInit{
       this.verificationInterval = null;
     }
   }
-  
-  
+
+
 
   onPaymentComplete() {
     // Cerrar modal
@@ -470,16 +557,16 @@ export class ListCartsComponent implements OnInit{
       currency_total: "USD",
       currency_payment: "VES",
       total: this.totalSum,
-      
+
       // 🚨 CAMPOS NUEVOS PARA EL BACKEND (MIGRACIÓN Y CONTROLADOR)
-      total_bs: this.totalSumBs, 
-      exchange_rate: this.usdToBsRate, 
-      exchange_source: this.getRateSource(), 
+      total_bs: this.totalSumBs,
+      exchange_rate: this.usdToBsRate,
+      exchange_source: this.getRateSource(),
       comprobante: this.filePreview, // Campo que Laravel usa para crear 'capture_pgmovil'
-      
+
       n_transaccion: "PM_" + Date.now(), // ID de transacción temporal
     }
-    
+
     this.processPayment(dataT);
   }
 
@@ -490,7 +577,7 @@ export class ListCartsComponent implements OnInit{
   }
 
   // TUS FUNCIONES ORIGINALES
-  getNameCampaing(type:number){
+  getNameCampaing(type: number) {
     let Name = "";
     switch (type) {
       case 1:
@@ -502,14 +589,17 @@ export class ListCartsComponent implements OnInit{
       case 3:
         Name = "CAMPAÑA BANNER"
         break;
+      case 5:
+        Name = "CAMPAÑA FLASH"
+        break;
       default:
         break;
     }
     return Name;
   }
 
-  removeItem(cart:any){
-    this.cartService.deleteCart(cart.id).subscribe((resp:any) => {
+  removeItem(cart: any) {
+    this.cartService.deleteCart(cart.id).subscribe((resp: any) => {
       console.log(resp);
       alertSuccess("EL ITEM SE A ELIMINADO CORRECTAMENTE ");
       this.cartService.removeItemCart(cart);
@@ -522,22 +612,22 @@ export class ListCartsComponent implements OnInit{
     this.filePreview = null;
   }
 
-  applyCupon(){
-    if(!this.code){
+  applyCupon() {
+    if (!this.code) {
       alertDanger("NECESITAS INGRESAR UN CUPON");
       return;
     }
     let data = {
       code: this.code,
     }
-    this.cartService.applyCupon(data).subscribe((resp:any) => {
+    this.cartService.applyCupon(data).subscribe((resp: any) => {
       console.log(resp);
-      if(resp.message == 403){
+      if (resp.message == 403) {
         alertDanger(resp.message_text);
-      }else{
+      } else {
         this.cartService.resetCart();
         setTimeout(() => {
-          resp.carts.data.forEach((cart:any) => {
+          resp.carts.data.forEach((cart: any) => {
             this.cartService.addCart(cart);
           });
         }, 50);

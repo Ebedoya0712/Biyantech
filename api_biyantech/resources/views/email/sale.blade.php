@@ -19,7 +19,7 @@
 	<!--[if !mso]><!-->
 	<link href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i&display=swap" rel="stylesheet" />
 	<!--<![endif]-->
-	<title>Email Template</title>
+	<title>Plantilla de Correo</title>
 	<!--[if gte mso 9]>
 	<style type="text/css" media="all">
 		sup { font-size: 100% !important; }
@@ -141,14 +141,14 @@
 																								<tr>
 																									<td class="title-36 a-center pb-15" style="font-size:36px; line-height:40px; color:#282828; font-family:'PT Sans', Arial, sans-serif; min-width:auto !important; text-align:center; padding-bottom: 15px;">
 																										<multiline>
-																											<strong>Thanks for your order!</strong>
+																											<strong>¡Gracias por tu compra!</strong>
 																										</multiline>
 																									</td>
 																								</tr>
 																								<tr>
 																									<td class="text-16 lh-26 a-center" style="font-size:16px; color:#6e6e6e; font-family:'PT Sans', Arial, sans-serif; min-width:auto !important; line-height: 26px; text-align:center;">
 																										<multiline>
-																											We&rsquo;ll send tracking information as soon as your order ships.
+																											Aquí tienes los detalles de tu pedido. ¡Esperamos que disfrutes de tu aprendizaje!
 																										</multiline>
 																									</td>
 																								</tr>
@@ -171,7 +171,7 @@
 																												<td class="btn-20 btn-secondary c-white l-white" bgcolor="#f3189e" style="font-size:20px; line-height:24px; mso-padding-alt:15px 35px; font-family:'PT Sans', Arial, sans-serif; text-align:center; font-weight:bold; text-transform:uppercase; min-width:auto !important; border-radius:10px; background:linear-gradient(to right, #9028df 0%,#f3189e 100%); color:#ffffff;">
 																													<multiline>
 																														<a href="#" target="_blank" class="link c-white" style="display: block; padding: 15px 35px; text-decoration:none; color:#ffffff;">
-																															<span class="link c-white" style="text-decoration:none; color:#ffffff;">ORDER: #{{ $sale->n_transaccion }}</span>
+																															<span class="link c-white" style="text-decoration:none; color:#ffffff;">ORDEN: #{{ $sale->n_transaccion }}</span>
 																														</a>
 																													</multiline>
 																												</td>
@@ -189,7 +189,7 @@
 																														<tr>
 																															<td class="title-20 pb-10" style="font-size:20px; line-height:24px; color:#282828; font-family:'PT Sans', Arial, sans-serif; text-align:left; min-width:auto !important; padding-bottom: 10px;">
 																																<multiline>
-																																	<strong>Shipping details</strong>
+																																	<strong>Detalles del cliente</strong>
 																																</multiline>
 																															</td>
 																														</tr>
@@ -198,9 +198,7 @@
 																																<multiline>
 																																	{{ $sale->user->name.' '.$sale->user->surname }}
 																																	<br />
-																																	3409 S. Canondale Road 
-																																	<br />
-																																	Chicago, IL 60301
+																																	{{ $sale->user->email }}
 																																</multiline>
 																															</td>
 																														</tr>
@@ -212,14 +210,14 @@
 																														<tr>
 																															<td class="title-20 pb-10" style="font-size:20px; line-height:24px; color:#282828; font-family:'PT Sans', Arial, sans-serif; text-align:left; min-width:auto !important; padding-bottom: 10px;">
 																																<multiline>
-																																	<strong>Estimated arrival</strong>
+																																	<strong>Fecha de compra</strong>
 																																</multiline>
 																															</td>
 																														</tr>
 																														<tr>
 																															<td class="text-16" style="font-size:16px; line-height:20px; color:#6e6e6e; font-family:'PT Sans', Arial, sans-serif; text-align:left; min-width:auto !important;">
 																																<multiline>
-																																	{{ $sale->created_at->format("Y-m-d h:i:s") }}
+																																	{{ $sale->created_at->format("d-m-Y h:i:s") }}
 																																</multiline>
 																															</td>
 																														</tr>
@@ -302,14 +300,14 @@
 																														<tr>
 																															<td class="title-20 pb-10" style="font-size:20px; line-height:24px; color:#282828; font-family:'PT Sans', Arial, sans-serif; text-align:left; min-width:auto !important; padding-bottom: 10px;">
 																																<multiline>
-																																	<strong>Payment method</strong>
+																																	<strong>Método de pago</strong>
 																																</multiline>
 																															</td>
 																														</tr>
 																														<tr>
 																															<td class="text-16" style="font-size:16px; line-height:20px; color:#6e6e6e; font-family:'PT Sans', Arial, sans-serif; text-align:left; min-width:auto !important;">
 																																<multiline>
-																																	PAYPAL
+																																	{{ $sale->method_payment }}
 																																</multiline>
 																															</td>
 																														</tr>
@@ -330,14 +328,14 @@
 																																		<td class="img mw-15" width="20" style="font-size:0pt; line-height:0pt; text-align:left;"></td>
 																																		<td class="title-20 lh-30 mt-right" style="font-size:20px; color:#282828; font-family:'PT Sans', Arial, sans-serif; text-align:left; min-width:auto !important; line-height: 30px;">
 																																			<multiline>
-																																				$0.00
+																																				${{ $sale->total }}
 																																			</multiline>
 																																		</td>
 																																	</tr>
 																																	<tr>
 																																		<td class="title-20 lh-30 a-right mt-left" style="font-size:20px; color:#282828; font-family:'PT Sans', Arial, sans-serif; min-width:auto !important; line-height: 30px; text-align:right;">
 																																			<multiline>
-																																				<strong>Shipping:</strong>
+																																				<strong>Envío:</strong>
 																																			</multiline>
 																																		</td>
 																																		<td class="img mw-15" style="font-size:0pt; line-height:0pt; text-align:left;"></td>
@@ -350,7 +348,7 @@
 																																	<tr>
 																																		<td class="title-20 lh-30 a-right mt-left" style="font-size:20px; color:#282828; font-family:'PT Sans', Arial, sans-serif; min-width:auto !important; line-height: 30px; text-align:right;">
 																																			<multiline>
-																																				<strong>Tax:</strong>
+																																				<strong>Impuestos:</strong>
 																																			</multiline>
 																																		</td>
 																																		<td class="img mw-15" style="font-size:0pt; line-height:0pt; text-align:left;"></td>
@@ -398,7 +396,7 @@
 																								<tr>
 																									<td class="text-16 lh-26 a-center pb-25" style="font-size:16px; color:#6e6e6e; font-family:'PT Sans', Arial, sans-serif; min-width:auto !important; line-height: 26px; text-align:center; padding-bottom: 25px;">
 																										<multiline>
-																											<em>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </em>
+																											<em>Gracias por confiar en nosotros. Si tienes alguna pregunta, no dudes en contactarnos.</em>
 																										</multiline>
 																									</td>
 																								</tr>
@@ -410,7 +408,7 @@
 																												<td class="btn-16 c-white l-white" bgcolor="#f3189e" style="font-size:16px; line-height:20px; mso-padding-alt:15px 35px; font-family:'PT Sans', Arial, sans-serif; text-align:center; font-weight:bold; text-transform:uppercase; border-radius:25px; min-width:auto !important; color:#ffffff;">
 																													<multiline>
 																														<a href="#" target="_blank" class="link c-white" style="display: block; padding: 15px 35px; text-decoration:none; color:#ffffff;">
-																															<span class="link c-white" style="text-decoration:none; color:#ffffff;">VIEW MY ORDER</span>
+																															<span class="link c-white" style="text-decoration:none; color:#ffffff;">VER MI PEDIDO</span>
 																														</a>
 																													</multiline>
 																												</td>
