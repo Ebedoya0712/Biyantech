@@ -86,7 +86,13 @@ Route::group(["prefix" => "ecommerce"],function($router){
         Route::get('/download-certificate/{id}', [ProfileClientController::class, 'downloadCertificate']);
         Route::resource('/review',ReviewController::class);
         Route::get('/download-certificate/{course_student}', [ProfileClientController::class, 'downloadCertificate']);
+        
+        // Binance Pay Routes
+        Route::post('/binance-pay/create', [CheckoutController::class, 'createBinancePayment']);
+        Route::get('/binance-pay/status/{saleId}', [CheckoutController::class, 'checkBinanceStatus']);
     });
 
+    // Webhook de Binance Pay (sin autenticación)
+    Route::post('/binance-pay/webhook', [CheckoutController::class, 'binanceWebhook']);
 
 });
