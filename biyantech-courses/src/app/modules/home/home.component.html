@@ -1,1023 +1,1100 @@
 <app-header></app-header>
 
 <main class="rbt-main-wrapper">
-  <!-- Start Banner Area -->
-  <div class="rbt-banner-area rbt-banner-1">
-      <div class="container-fluid">
-          <div class="row">
-              <div class="col-md-12 pb--120 pt--70">
-                  <div class="content">
-                      <div class="inner">
-                          <div class="rbt-new-badge rbt-new-badge-one">
-                              <span class="rbt-new-badge-icon">🚀</span> En Biyantech Impulsamos tu futuro.
-                          </div>
+    <!-- Start Banner Area -->
+    <div class="rbt-banner-area rbt-banner-1">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 pb--120 pt--70">
+                    <div class="content">
+                        <div class="inner">
+                            <div class="rbt-new-badge rbt-new-badge-one">
+                                <span class="rbt-new-badge-icon">🚀</span> En Biyantech Impulsamos tu futuro.
+                            </div>
 
-                          <h1 class="title">
-                              Tu educación integral para el futuro. <br>
-                          </h1>
-                          <p class="description">
-                              Fusionamos campos clave: Tecnología, Salud, Emprendimiento y Liderazgo. Fórmate para ser el profesional que las grandes empresas buscan.
-                          </p>
-                      </div>
-                      <div class="shape-wrapper" id="scene">
-                          <img src="assets/images/banner/banner-02.png" alt="Hero Image" class="float-animation">
-                          <div class="hero-bg-shape-1 layer" data-depth="0.4">
-                              <img src="assets/images/shape/shape-01.png" alt="Hero Image Background Shape">
-                          </div>
-                          <div class="hero-bg-shape-2 layer" data-depth="0.4">
-                              <img src="assets/images/shape/shape-02.png" alt="Hero Image Background Shape">
-                          </div>
-                      </div>
+                            <h1 class="title" data-sal="slide-up" data-sal-duration="800">
+                                Tu educación integral para el futuro. <br>
+                            </h1>
+                            <p class="description" data-sal="slide-up" data-sal-duration="800">
+                                Fusionamos campos clave: Tecnología, Salud, Emprendimiento y Liderazgo. Fórmate para ser
+                                el profesional que las grandes empresas buscan.
+                            </p>
+                        </div>
+                        <div class="shape-wrapper" id="scene">
+                            <img src="assets/images/banner/banner-02.png" alt="Hero Image" class="float-animation">
+                            <div class="hero-bg-shape-1 layer" data-depth="0.4">
+                                <img src="assets/images/shape/shape-01.png" alt="Hero Image Background Shape">
+                            </div>
+                            <div class="hero-bg-shape-2 layer" data-depth="0.4">
+                                <img src="assets/images/shape/shape-02.png" alt="Hero Image Background Shape">
+                            </div>
+                        </div>
 
-                      <div class="banner-card pb--60 mb--50 swiper rbt-dot-bottom-center banner-swiper-active" *ngIf="DESCOUNT_BANNER">
-                          <div class="swiper-wrapper">
-                            
-                            <ng-container *ngFor="let COURSE of DESCOUNT_BANNER_COURSES">
-                                <!-- Start Single Card  -->
-                                <div class="swiper-slide">
+                        <div class="banner-card pb--60 mb--50 swiper rbt-dot-bottom-center banner-swiper-active"
+                            *ngIf="DESCOUNT_BANNER">
+                            <div class="swiper-wrapper">
+
+                                <ng-container *ngFor="let COURSE of DESCOUNT_BANNER_COURSES">
+                                    <!-- Start Single Card  -->
+                                    <div class="swiper-slide">
+                                        <div class="rbt-card variation-01 rbt-hover">
+                                            <div class="rbt-card-img">
+                                                <a [routerLink]="['landing-curso/',COURSE.slug]"
+                                                    [queryParams]="{'campaing_discount': DESCOUNT_BANNER.id}">
+                                                    <img [src]="COURSE.imagen" alt="Card image">
+                                                    <div class="rbt-badge-3 bg-white">
+                                                        <span *ngIf="DESCOUNT_BANNER.type_discount == 1">-{{
+                                                            DESCOUNT_BANNER.discount }}%</span>
+                                                        <span *ngIf="DESCOUNT_BANNER.type_discount == 2">-{{
+                                                            DESCOUNT_BANNER.discount }} USD</span>
+                                                        <span>Off</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="rbt-card-body">
+                                                <ul class="rbt-meta">
+                                                    <li><i class="feather-book"></i>{{COURSE.count_class }} Lecciones
+                                                    </li>
+                                                    <li><i class="feather-users"></i>{{ COURSE.count_students }}
+                                                        Estudiantes</li>
+                                                    <li><i class="feather-play"></i>{{ COURSE.time_course }}</li>
+                                                </ul>
+                                                <h4 class="rbt-card-title"><a
+                                                        [routerLink]="['landing-curso/',COURSE.slug]"
+                                                        [queryParams]="{'campaing_discount': DESCOUNT_BANNER.id}">{{
+                                                        COURSE.title }}</a>
+                                                </h4>
+                                                <p class="rbt-card-text">{{ COURSE.subtitle }}</p>
+                                                <div class="rbt-review">
+                                                    <div class="rating">
+                                                        <i class="fas fa-star"
+                                                            [ngClass]="{'rating': COURSE.avg_reviews < 1}"></i>
+                                                        <i class="fas fa-star"
+                                                            [ngClass]="{'rating': COURSE.avg_reviews < 2}"></i>
+                                                        <i class="fas fa-star"
+                                                            [ngClass]="{'rating': COURSE.avg_reviews < 3}"></i>
+                                                        <i class="fas fa-star"
+                                                            [ngClass]="{'rating': COURSE.avg_reviews < 4}"></i>
+                                                        <i class="fas fa-star"
+                                                            [ngClass]="{'rating': COURSE.avg_reviews < 5}"></i>
+                                                    </div>
+                                                    <span class="rating-count"> ({{ COURSE.count_reviews }}
+                                                        Reseñas)</span>
+                                                </div>
+                                                <div class="rbt-card-bottom">
+                                                    <div class="rbt-price">
+                                                        <span class="current-price">{{
+                                                            getNewTotal(COURSE,DESCOUNT_BANNER) }} USD</span>
+                                                        <span class="off-price">{{ COURSE.precio_usd }} USD</span>
+                                                    </div>
+
+                                                    <a class="rbt-btn-link" href="#" onclick="return false;"
+                                                        (click)="addCart(COURSE,DESCOUNT_BANNER)">
+                                                        <i class="feather-shopping-cart"></i> Agregar al Carrito
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Single Card  -->
+                                </ng-container>
+
+
+                            </div>
+                            <div class="rbt-swiper-pagination"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Banner Area -->
+
+    <div class="rbt-categories-area bg-color-white rbt-section-gapBottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title text-center">
+                        <span class="subtitle bg-primary-opacity">Categorías</span>
+                        <h2 class="title" data-sal="slide-up" data-sal-duration="800">Descubre Nuestras Categorías de
+                            Cursos <br /> de Alto Impacto.</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-5 mt--20">
+                <!-- Start Category Box Layout  -->
+                <ng-container *ngFor="let CATEGORIE of CATEGORIES">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12" data-sal="slide-up" data-sal-duration="800"
+                        [attr.data-sal-delay]="150">
+                        <!-- Toda la caja (el enlace <a>) sigue siendo clickeable para ir a la lista de cursos -->
+                        <a class="rbt-cat-box rbt-cat-box-1 text-center" href="course-filter-one-toggle.html">
+                            <div class="inner">
+                                <div class="icons">
+                                    <img [src]="CATEGORIE.imagen" alt="Icons Images">
+                                </div>
+                                <div class="content">
+                                    <h5 class="title">{{ CATEGORIE.name }}</h5>
+                                    <div class="read-more-btn">
+                                        <span class="text-muted">{{ CATEGORIE.course_count }} Cursos</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </ng-container>
+
+
+                <!-- End Category Box Layout  -->
+            </div>
+        </div>
+    </div>
+
+    <div class="rbt-counterup-area bg-color-white" *ngIf="DESCOUNT_FLASH">
+        <div class="conter-style-2">
+            <div class="container">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-6 order-2 order-lg-1">
+                        <div class="section-title text-start" data-sal="slide-up" data-sal-duration="800">
+                            <span class="subtitle bg-pink-opacity">Descuento</span>
+                            <h2 class="title">Aprovecha el {{ DESCOUNT_FLASH.discount }}% menos en estos cursos !</h2>
+                            <p class="description has-medium-font-size mt--20 mb--0">Tiempo limitado del {{
+                                DESCOUNT_FLASH.start_date_d }} a {{ DESCOUNT_FLASH.end_date_d }}.</p>
+                        </div>
+                        <div class="countdown-style-1 mt--50 d-flex justify-content-center">
+                            <div class="countdown" [attr.data-date]="DESCOUNT_FLASH.end_date" style="">
+                                <div class="countdown-container days">
+                                    <span class="countdown-value">87</span>
+                                    <span class="countdown-heading">Days</span>
+                                </div>
+                                <div class="countdown-container hours">
+                                    <span class="countdown-value">23</span>
+                                    <span class="countdown-heading">Hours</span>
+                                </div>
+                                <div class="countdown-container minutes">
+                                    <span class="countdown-value">38</span>
+                                    <span class="countdown-heading">Minutes</span>
+                                </div>
+                                <div class="countdown-container seconds">
+                                    <span class="countdown-value">27</span>
+                                    <span class="countdown-heading">Seconds</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 order-1 order-lg-2">
+                        <div class="row">
+                            <ng-container *ngFor="let COURSE of DESCOUNT_FLASH_COURSES">
+                                <div class="col-md-6 col-sm-12 col-12 py-3">
                                     <div class="rbt-card variation-01 rbt-hover">
                                         <div class="rbt-card-img">
-                                            <a [routerLink]="['landing-curso/',COURSE.slug]" [queryParams]="{'campaing_discount': DESCOUNT_BANNER.id}">
+                                            <a [routerLink]="['landing-curso/',COURSE.slug]"
+                                                [queryParams]="{'campaing_discount': DESCOUNT_FLASH.id}">
                                                 <img [src]="COURSE.imagen" alt="Card image">
                                                 <div class="rbt-badge-3 bg-white">
-                                                    <span *ngIf="DESCOUNT_BANNER.type_discount == 1">-{{ DESCOUNT_BANNER.discount }}%</span>
-                                                    <span *ngIf="DESCOUNT_BANNER.type_discount == 2">-{{ DESCOUNT_BANNER.discount }} USD</span>
+                                                    <span *ngIf="DESCOUNT_FLASH.type_discount == 1">-{{
+                                                        DESCOUNT_FLASH.discount }}%</span>
+                                                    <span *ngIf="DESCOUNT_FLASH.type_discount == 2">-{{
+                                                        DESCOUNT_FLASH.discount }} USD</span>
                                                     <span>Off</span>
                                                 </div>
                                             </a>
                                         </div>
                                         <div class="rbt-card-body">
-                                            <ul class="rbt-meta">
-                                                <li><i class="feather-book"></i>{{COURSE.count_class }} Lecciones</li>
-                                                <li><i class="feather-users"></i>{{ COURSE.count_students }} Estudiantes</li>
-                                                <li><i class="feather-play"></i>{{ COURSE.time_course }}</li>
-                                            </ul>
-                                            <h4 class="rbt-card-title"><a [routerLink]="['landing-curso/',COURSE.slug]" [queryParams]="{'campaing_discount': DESCOUNT_BANNER.id}">{{ COURSE.title }}</a>
-                                            </h4>
-                                            <p class="rbt-card-text">{{ COURSE.subtitle }}</p>
-                                            <div class="rbt-review">
-                                                <div class="rating">
-                                                    <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 1}"></i>
-                                                    <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 2}"></i>
-                                                    <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 3}"></i>
-                                                    <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 4}"></i>
-                                                    <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 5}"></i>
-                                                </div>
-                                                <span class="rating-count"> ({{ COURSE.count_reviews }}  Reseñas)</span>
-                                            </div>
-                                            <div class="rbt-card-bottom">
-                                                <div class="rbt-price">
-                                                    <span class="current-price">{{ getNewTotal(COURSE,DESCOUNT_BANNER) }} USD</span>
-                                                    <span class="off-price">{{ COURSE.precio_usd }} USD</span>
-                                                </div>
-                                                
-                                                <a class="rbt-btn-link" href="#" onclick="return false;" (click)="addCart(COURSE,DESCOUNT_BANNER)">
-                                                    <i class="feather-shopping-cart"></i> Agregar al Carrito
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Card  -->
-                            </ng-container>
-                            
-
-                          </div>
-                          <div class="rbt-swiper-pagination"></div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-  <!-- End Banner Area -->
-
-  <div class="rbt-categories-area bg-color-white rbt-section-gapBottom">
-      <div class="container">
-          <div class="row">
-              <div class="col-lg-12">
-                  <div class="section-title text-center">
-                      <span class="subtitle bg-primary-opacity">Categorías</span>
-                      <h2 class="title">Descubre Nuestras Categorías de Cursos <br /> de Alto Impacto.</h2>
-                  </div>
-              </div>
-          </div>
-          <div class="row g-5 mt--20">
-              <!-- Start Category Box Layout  -->
-                    <ng-container *ngFor="let CATEGORIE of CATEGORIES">
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                <!-- Toda la caja (el enlace <a>) sigue siendo clickeable para ir a la lista de cursos -->
-                <a class="rbt-cat-box rbt-cat-box-1 text-center" href="course-filter-one-toggle.html">
-                    <div class="inner">
-                        <div class="icons">
-                            <img [src]="CATEGORIE.imagen" alt="Icons Images">
-                        </div>
-                        <div class="content">
-                            <h5 class="title">{{ CATEGORIE.name }}</h5>
-                            <div class="read-more-btn">
-                                <!-- 🚀 CAMBIO CLAVE: Cambiado de span con clase de enlace a span de texto simple -->
-                                <!-- 
-                                - Se quitó la clase 'rbt-btn-link' 
-                                - Se quitó la etiqueta '<i>' vacía.
-                                -->
-                                <span class="text-muted">{{ CATEGORIE.course_count }} Cursos</span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </ng-container>
-                
-
-              <!-- End Category Box Layout  -->
-          </div>
-      </div>
-  </div>
-
-  <div class="rbt-counterup-area bg-color-white" *ngIf="DESCOUNT_FLASH">
-    <div class="conter-style-2">
-        <div class="container">
-            <div class="row g-5 align-items-center">
-                <div class="col-lg-6 order-2 order-lg-1">
-                    <div class="section-title text-start">
-                        <span class="subtitle bg-pink-opacity">Descuento</span>
-                        <h2 class="title">Aprovecha el {{ DESCOUNT_FLASH.discount }}% menos en estos cursos !</h2>
-                        <p class="description has-medium-font-size mt--20 mb--0">Tiempo limitado del {{ DESCOUNT_FLASH.start_date_d }} a {{ DESCOUNT_FLASH.end_date_d }}.</p>
-                    </div>
-                    <div class="countdown-style-1 mt--50 d-flex justify-content-center">
-                        <div class="countdown" [attr.data-date]="DESCOUNT_FLASH.end_date" style="">
-                            <div class="countdown-container days">
-                                <span class="countdown-value">87</span>
-                                <span class="countdown-heading">Days</span>
-                            </div>
-                            <div class="countdown-container hours">
-                                <span class="countdown-value">23</span>
-                                <span class="countdown-heading">Hours</span>
-                            </div>
-                            <div class="countdown-container minutes">
-                                <span class="countdown-value">38</span>
-                                <span class="countdown-heading">Minutes</span>
-                            </div>
-                            <div class="countdown-container seconds">
-                                <span class="countdown-value">27</span>
-                                <span class="countdown-heading">Seconds</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 order-1 order-lg-2">
-                    <div class="row">
-                        <ng-container *ngFor="let COURSE of DESCOUNT_FLASH_COURSES">
-                            <div class="col-md-6 col-sm-12 col-12 py-3">
-                                <div class="rbt-card variation-01 rbt-hover">
-                                    <div class="rbt-card-img">
-                                        <a [routerLink]="['landing-curso/',COURSE.slug]" [queryParams]="{'campaing_discount': DESCOUNT_FLASH.id}">
-                                            <img [src]="COURSE.imagen" alt="Card image">
-                                            <div class="rbt-badge-3 bg-white">
-                                                <span *ngIf="DESCOUNT_FLASH.type_discount == 1">-{{ DESCOUNT_FLASH.discount }}%</span>
-                                                <span *ngIf="DESCOUNT_FLASH.type_discount == 2">-{{ DESCOUNT_FLASH.discount }} USD</span>
-                                                <span>Off</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="rbt-card-body">
-                                        <div class="rbt-card-top">
-                                            <div class="rbt-review">
-                                                <div class="rating">
-                                                    <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 1}"></i>
-                                                    <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 2}"></i>
-                                                    <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 3}"></i>
-                                                    <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 4}"></i>
-                                                    <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 5}"></i>
-                                                </div>
-                                                <span class="rating-count"> ({{ COURSE.count_reviews }}  Reseñas)</span>
-                                            </div>
-                                            <div class="rbt-bookmark-btn">
-                                                <a class="rbt-round-btn" title="Bookmark" href="#"></a>
-                                            </div>
-                                        </div>
-                                        <h4 class="rbt-card-title"><a [routerLink]="['landing-curso/',COURSE.slug]" [queryParams]="{'campaing_discount': DESCOUNT_FLASH.id}">{{ COURSE.title }}</a>
-                                        </h4>
-                                        <ul class="rbt-meta">
-                                            <li><i class="feather-book"></i>{{ COURSE.count_class }} Lecciones</li>
-                                            <li><i class="feather-users"></i>{{ COURSE.count_students }} Estudiantes</li>
-                                            <li><i class="feather-users"></i>{{ COURSE.time_course }}</li>
-                                        </ul>
-    
-                                        <div class="rbt-card-bottom">
-                                            <div class="rbt-price">
-                                                <span class="current-price">{{ getNewTotal(COURSE,DESCOUNT_FLASH) }} USD</span>
-                                                    <span class="off-price">{{ COURSE.precio_usd }} USD</span>
-                                            </div>
-                                            <a class="rbt-btn-link left-icon" href="#" onclick="return false;" (click)="addCart(COURSE,DESCOUNT_FLASH)"><i class="feather-shopping-cart"></i> Agregar al Carrito</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </ng-container>
-                        
-                       
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-  </div>
-
-  <!-- Start Course Area -->
-  <div class="rbt-course-area bg-color-extra2 rbt-section-gap">
-      <div class="container">
-          <div class="row mb--60">
-              <div class="col-lg-12">
-                  <div class="section-title text-center">
-                      <span class="subtitle bg-secondary-opacity">Cursos Más Populares</span>
-                      <h2 class="title">Miles de estudiantes ya están transformando su futuro con nosotros. <br /> ¡Únete a la comunidad Biyantech!"</h2>
-                  </div>
-              </div>
-          </div>
-          <!-- Start Card Area -->
-          <div class="row g-5">
-
-            <ng-container *ngFor="let COURSE of COURSES_HOME">
-                <!-- Start Single Course  -->
-                <div class="col-lg-4 col-md-6 col-12">
-                    <div class="rbt-card variation-01 rbt-hover">
-                        <div class="rbt-card-img">
-                            <a [routerLink]="['landing-curso/',COURSE.slug]">
-                                <img [src]="COURSE.imagen" style="height: 244px;" alt="Card image">
-                                <div class="rbt-badge-3 bg-white" *ngIf="COURSE.discount_g">
-                                    <span *ngIf="COURSE.discount_g.type_discount == 1">-{{ COURSE.discount_g.discount }}%</span>
-                                    <span *ngIf="COURSE.discount_g.type_discount == 2">-{{ COURSE.discount_g.discount }} USD</span>
-                                    <span>Off</span>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="rbt-card-body">
-                            <div class="rbt-card-top">
-                                <div class="rbt-review">
-                                    <div class="rating">
-                                        <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 1}"></i>
-                                        <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 2}"></i>
-                                        <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 3}"></i>
-                                        <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 4}"></i>
-                                        <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 5}"></i>
-                                    </div>
-                                    <span class="rating-count"> ({{ COURSE.count_reviews }}  Reseñas)</span>
-                                </div>
-                                <div class="rbt-bookmark-btn">
-                                    <a class="rbt-round-btn" title="Bookmark" href="#"></a>
-                                </div>
-                            </div>
-                            <h4 class="rbt-card-title"><a [routerLink]="['landing-curso/',COURSE.slug]">{{ COURSE.title }}</a>
-                            </h4>
-                            <ul class="rbt-meta">
-                                <li><i class="feather-book"></i>{{ COURSE.count_class }} Lecciones</li>
-                                <li><i class="feather-users"></i>{{ COURSE.count_students }} Estudiantes</li>
-                                <li><i class="feather-play"></i>{{ COURSE.time_course }}</li>
-                            </ul>
-                            <p class="rbt-card-text">{{ COURSE.subtitle }}.</p>
-                            <div class="rbt-author-meta mb--20">
-                                <div class="rbt-avater">
-                                    <a href="#">
-                                        <img [src]="COURSE.instructor.avatar" alt="Sophia Jaymes">
-                                    </a>
-                                </div>
-                                <div class="rbt-author-info">
-                                    By <a href="profile.html">{{ COURSE.instructor.full_name }}</a> In <a href="#">{{ COURSE.instructor.profesion }}</a>
-                                </div>
-                            </div>
-                            <div class="rbt-card-bottom">
-                                <div class="rbt-price">
-                                    <span class="current-price">{{ getTotalPriceCourse(COURSE) }} USD</span>
-                                    <span class="off-price" *ngIf="COURSE.discount_g">{{ COURSE.precio_usd }}</span>
-                                </div>
-                                <a class="rbt-btn-link left-icon" href="#" onclick="return false;" (click)="addCart(COURSE)"><i class="feather-shopping-cart"></i> Agregar al Carrito</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Single Course  -->
-            </ng-container>
-            
-          </div>
-          <!-- End Card Area -->
-
-            <div class="row">
-        <div class="col-lg-12">
-            <div class="load-more-btn mt--60 text-center">
-                <!-- CAMBIO CLAVE: Usamos routerLink en lugar de href -->
-                <a class="rbt-btn btn-gradient btn-lg hover-icon-reverse" routerLink="/listado-de-cursos">
-                    <span class="icon-reverse-wrapper">
-                        <!-- Traducción del texto al español -->
-                        <span class="btn-text">Ver Más Cursos</span>
-                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                    </span>
-                </a>
-            </div>
-        </div>
-    </div>
-    </div>
-  </div>
-  <!-- End Course Area -->
-
-  <!-- Start About Area  -->
-  <div class="rbt-about-area bg-color-white rbt-section-gapTop pb_md--80 pb_sm--80 about-style-1">
-      <div class="container">
-          <div class="row g-5 align-items-center">
-              <div class="col-lg-6">
-                  <div class="thumbnail-wrapper">
-                      <div class="thumbnail image-1">
-                          <img data-parallax='{"x": 0, "y": -20}' src="assets/images/about/about-01.png" alt="Education Images">
-                      </div>
-                      <div class="thumbnail image-2 d-none d-xl-block">
-                          <img data-parallax='{"x": 0, "y": 60}' src="assets/images/about/about-02.png" alt="Education Images">
-                      </div>
-                      <div class="thumbnail image-3 d-none d-md-block">
-                          <img data-parallax='{"x": 0, "y": 80}' src="assets/images/about/about-03.png" alt="Education Images">
-                      </div>
-                  </div>
-              </div>
-              <div class="col-lg-6">
-                  <div class="inner pl--50 pl_sm--0 pl_md--0">
-                      <div class="section-title text-start">
-                          <span class="subtitle bg-coral-opacity">Conoce Biyantech</span>
-                          <h2 class="title">Tu Plataforma de <br /> Transformación Digital</h2>
-                      </div>
-
-                      <p class="description mt--30">Biyantech es más que una plataforma de e-learning. Somos el puente hacia tu futuro profesional, ofreciendo el conocimiento tecnológico más avanzado para que domines las habilidades que realmente demanda el mercado global.</p>
-
-                      <!-- Start Feature List  -->
-
-                      <div class="rbt-feature-wrapper mt--20 ml_dec_20">
-                          <div class="rbt-feature feature-style-2 rbt-radius">
-                              <div class="icon bg-pink-opacity">
-                                  <i class="feather-heart"></i>
-                              </div>
-                              <div class="feature-content">
-                                  <h6 class="feature-title">Clases 100% Flexibles</h6>
-                                  <p class="feature-description">Diseñamos nuestros cursos para que se adapten a tu ritmo de vida. Aprende a tu propio tiempo, sin presiones y vuelve a ver las lecciones cuantas veces necesites.</p>
-                              </div>
-                          </div>
-
-                          <div class="rbt-feature feature-style-2 rbt-radius">
-                              <div class="icon bg-primary-opacity">
-                                  <i class="feather-book"></i>
-                              </div>
-                              <div class="feature-content">
-                                  <h6 class="feature-title">Accede Desde Cualquier Dispositivo</h6>
-                                  <p class="feature-description">Nuestra plataforma es totalmente multidispositivo. Estudia desde casa, la oficina o mientras viajas, solo necesitas una conexión a Internet.</p>
-                              </div>
-                          </div>
-                      </div>
-
-                      <!-- End Feature List  -->
-                      
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-  <!-- End About Area  -->
-
-  <!-- Start Call To Action -->
-<div class="rbt-callto-action-area mt_dec--half">
-    <div class="container">
-        <!-- Nueva fila para centrar el contenido, usando col-lg-10 para no hacerlo excesivamente grande -->
-        <div class="row g-5 justify-content-center">
-            <div class="col-lg-10">
-                <div class="rbt-callto-action callto-action-default bg-color-white rbt-radius shadow-1">
-                    <div class="row align-items-center">
-                        <!-- El texto (izquierda) y el video (derecha) -->
-                        <div class="col-lg-12 col-xl-5">
-                            <div class="inner">
-                                <div class="rbt-category mb--20">
-                                    <!-- Texto modificado 1: Etiqueta de Próximamente -->
-                                    <a href="#">¡PRÓXIMAMENTE!</a>
-                                </div>
-                                <!-- Texto modificado 2: Título principal (Enfoque en el lanzamiento) -->
-                                <h4 class="title mb--15">Prepárate para Nuestro Próximo Curso Top</h4>
-                                <!-- Texto modificado 3: Invitación a ver el trailer (Énfasis en la novedad) -->
-                                <p class="mb--15">Sé el primero en ver el tráiler y descubre la habilidad que transformará tu perfil en 2025. ¡Algo grande está llegando!</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-xl-7">
-                            <div class="video-popup-wrapper mt_lg--10 mt_md--20 mt_sm--20">
-                                <!-- Nota: La imagen de fondo y el enlace al video de YouTube siguen siendo los mismos -->
-                                <img class="w-100 rbt-radius" src="assets/images/others/video-01.jpg" alt="Video Images">
-                                <a class="rbt-btn rounded-player-2 sm-size popup-video position-to-top with-animation" href="https://www.youtube.com/watch?v=nA1Aqp0sPQo">
-                                    <span class="play-icon"></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End Call To Action -->
-
-
-<!-- Start Counterup Area  -->
-<div class="rbt-counterup-area bg-color-extra2 rbt-section-gapBottom default-callto-action-overlap">
-    <div class="container">
-        <div class="row mb--60">
-            <div class="col-lg-12">
-                <div class="section-title text-center">
-                    <!-- Título de la sección -->
-                    <span class="subtitle bg-primary-opacity">POR QUÉ ELEGIR BIYANTECH</span>
-                    <!-- Título principal, enfocado en el valor -->
-                    <h2 class="title">Una Comunidad Comprometida con la <br /> **Excelencia Tecnológica**.</h2>
-                </div>
-            </div>
-        </div>
-        <div class="row g-5 hanger-line">
-            <!-- Start Single Counter  -->
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="rbt-counterup rbt-hover-03 border-bottom-gradient">
-                    <div class="top-circle-shape"></div>
-                    <div class="inner">
-                        <div class="rbt-round-icon">
-                            <img src="assets/images/icons/counter-01.png" alt="Icons Images">
-                        </div>
-                        <div class="content">
-                            <!-- Los números deben reflejar la realidad de Biyantech al inicio -->
-                            <h3 class="counter"><span class="odometer" data-count="150">00</span>
-                            </h3>
-                            <span class="subtitle">**Estudiantes Pioneros**</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End Single Counter  -->
-
-            <!-- Start Single Counter  -->
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12 mt--60 mt_md--30 mt_sm--30 mt_mobile--60">
-                <div class="rbt-counterup rbt-hover-03 border-bottom-gradient">
-                    <div class="top-circle-shape"></div>
-                    <div class="inner">
-                        <div class="rbt-round-icon">
-                            <img src="assets/images/icons/counter-02.png" alt="Icons Images">
-                        </div>
-                        <div class="content">
-                            <!-- Enfoque en la calidad de la oferta -->
-                            <h3 class="counter"><span class="odometer" data-count="25">00</span>
-                            </h3>
-                            <span class="subtitle">**Cursos de Alto Nivel**</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End Single Counter  -->
-
-            <!-- Start Single Counter  -->
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12 mt_md--60 mt_sm--60">
-                <div class="rbt-counterup rbt-hover-03 border-bottom-gradient">
-                    <div class="top-circle-shape"></div>
-                    <div class="inner">
-                        <div class="rbt-round-icon">
-                            <img src="assets/images/icons/counter-03.png" alt="Icons Images">
-                        </div>
-                        <div class="content">
-                            <!-- Enfoque en la calidad de los instructores -->
-                            <h3 class="counter"><span class="odometer" data-count="20">00</span>
-                            </h3>
-                            <span class="subtitle">**Expertos Certificados**</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End Single Counter  -->
-
-            <!-- Start Single Counter  -->
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12 mt--60 mt_md--60 mt_sm--60">
-                <div class="rbt-counterup rbt-hover-03 border-bottom-gradient">
-                    <div class="top-circle-shape"></div>
-                    <div class="inner">
-                        <div class="rbt-round-icon">
-                            <img src="assets/images/icons/counter-04.png" alt="Icons Images">
-                        </div>
-                        <div class="content">
-                            <!-- Enfoque en el feedback o las sesiones en vivo -->
-                            <h3 class="counter"><span class="odometer" data-count="90">00</span>
-                            </h3>
-                            <span class="subtitle">**Satisfacción en +90%**</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End Single Counter  -->
-        </div>
-    </div>
-</div>
-<!-- End Counterup Area  -->
-  <!-- Start Course Area  <div class="rbt-event-area rbt-section-gap bg-gradient-3">-->
-<div class="rbt-course-area bg-gradient-3 rbt-section-gap">
-  <div class="container">
-      <div class="row mb--60">
-          <div class="col-lg-12">
-              <div class="section-title text-center">
-                  <span class="subtitle bg-primary-opacity">Nuestros Cursos</span>
-                  <h2 class="title text-white text-decoration-underline">EXPLORA NUESTRO CATÁLOGO:</h2>
-              </div>
-          </div>
-      </div>
-
-      <div class="row">
-          <div class="col-lg-12">
-              <ul class="rbt-portfolio-filter filter-tab-button text-center nav nav-tabs" id="rbt-myTab" role="tablist">
-                  <ng-container *ngFor="let group_courses_categ of group_courses_categories;let i=index">
-                      <li class="nav-item" role="presentation">
-                          <button [ngClass]="{'active': i == 0}" id="all-tab" data-bs-toggle="tab" [attr.data-bs-target]="'#'+group_courses_categ.name_empty" type="button" role="tab" aria-controls="all" aria-selected="true"><span class="filter-text">
-                            {{ group_courses_categ.name }}
-                            </span> <span class="course-number btn-group">{{ group_courses_categ.courses_count }}</span></button>
-                      </li>
-                  </ng-container>
-                  
-                  <!-- <li class="nav-item" role="presentation">
-                      <button id="featured-tab" data-bs-toggle="tab" data-bs-target="#featured" type="button" role="tab" aria-controls="featured" aria-selected="false"><span
-                  class="filter-text">Featured</span> <span class="course-number">02</span></button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                      <button id="popular-tab" data-bs-toggle="tab" data-bs-target="#popular" type="button" role="tab" aria-controls="popular" aria-selected="false"><span
-                  class="filter-text">Popular</span> <span class="course-number">03</span></button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                      <button id="trending-tab" data-bs-toggle="tab" data-bs-target="#trending" type="button" role="tab" aria-controls="trending" aria-selected="false"><span
-                  class="filter-text">Trending</span> <span class="course-number">03</span></button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                      <button id="latest-tab" data-bs-toggle="tab" data-bs-target="#latest" type="button" role="tab" aria-controls="latest" aria-selected="false"><span
-                  class="filter-text">Latest</span> <span class="course-number">04</span></button>
-                  </li> -->
-              </ul>
-          </div>
-      </div>
-      <!-- Start Card Area -->
-      <div class="row">
-          <div class="col-lg-12">
-              <div class="tab-content mt--60" id="rbt-myTabContent">
-
-                <ng-container *ngFor="let group_courses_categ of group_courses_categories;let i=index">
-                    <div class="tab-pane fade" [ngClass]="{'show active': i == 0}" [attr.id]="group_courses_categ.name_empty" role="tabpanel" aria-labelledby="all">
-                        <div class="row g-5">
-                            
-                            <ng-container *ngFor="let courses of group_courses_categ.courses.data">
-                                <!-- Start Single Course  -->
-                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-12">
-                                    <div class="rbt-card variation-01 rbt-hover">
-                                        <div class="rbt-card-img">
-                                            <a [routerLink]="['landing-curso/',courses.slug]">
-                                                <img [src]="courses.imagen" style="height: 171px;" alt="Card image">
-                                            </a>
-                                            <div class="rbt-badge-3 bg-white" *ngIf="courses.discount_g">
-                                                <span *ngIf="courses.discount_g.type_discount == 1">-{{ courses.discount_g.discount }}%</span>
-                                                <span *ngIf="courses.discount_g.type_discount == 2">-{{ courses.discount_g.discount }} USD</span>
-                                                <span>Off</span>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="rbt-card-body">
                                             <div class="rbt-card-top">
                                                 <div class="rbt-review">
                                                     <div class="rating">
-                                                        <i class="fas fa-star" [ngClass]="{'rating': courses.avg_reviews < 1}"></i>
-                                                        <i class="fas fa-star" [ngClass]="{'rating': courses.avg_reviews < 2}"></i>
-                                                        <i class="fas fa-star" [ngClass]="{'rating': courses.avg_reviews < 3}"></i>
-                                                        <i class="fas fa-star" [ngClass]="{'rating': courses.avg_reviews < 4}"></i>
-                                                        <i class="fas fa-star" [ngClass]="{'rating': courses.avg_reviews < 5}"></i>
+                                                        <i class="fas fa-star"
+                                                            [ngClass]="{'rating': COURSE.avg_reviews < 1}"></i>
+                                                        <i class="fas fa-star"
+                                                            [ngClass]="{'rating': COURSE.avg_reviews < 2}"></i>
+                                                        <i class="fas fa-star"
+                                                            [ngClass]="{'rating': COURSE.avg_reviews < 3}"></i>
+                                                        <i class="fas fa-star"
+                                                            [ngClass]="{'rating': COURSE.avg_reviews < 4}"></i>
+                                                        <i class="fas fa-star"
+                                                            [ngClass]="{'rating': COURSE.avg_reviews < 5}"></i>
                                                     </div>
-                                                    <span class="rating-count"> ({{ courses.count_reviews }}  Reseñas)</span>
+                                                    <span class="rating-count"> ({{ COURSE.count_reviews }}
+                                                        Reseñas)</span>
                                                 </div>
                                                 <div class="rbt-bookmark-btn">
                                                     <a class="rbt-round-btn" title="Bookmark" href="#"></a>
                                                 </div>
                                             </div>
-                                            <h4 class="rbt-card-title"><a [routerLink]="['landing-curso/',courses.slug]">{{ courses.title }}</a>
+                                            <h4 class="rbt-card-title"><a [routerLink]="['landing-curso/',COURSE.slug]"
+                                                    [queryParams]="{'campaing_discount': DESCOUNT_FLASH.id}">{{
+                                                    COURSE.title }}</a>
                                             </h4>
                                             <ul class="rbt-meta">
-                                                <li><i class="feather-book"></i>{{ courses.count_class }} Lecciones</li>
-                                                <li><i class="feather-users"></i>{{ courses.count_students }} Estudiantes</li>
-                                                <li><i class="feather-users"></i>{{ courses.time_course }}</li>
+                                                <li><i class="feather-book"></i>{{ COURSE.count_class }} Lecciones</li>
+                                                <li><i class="feather-users"></i>{{ COURSE.count_students }} Estudiantes
+                                                </li>
+                                                <li><i class="feather-users"></i>{{ COURSE.time_course }}</li>
                                             </ul>
-        
+
                                             <div class="rbt-card-bottom">
-                                                <!-- <div class="rbt-price">
-                                                    <span class="current-price">{{ courses.precio_usd }} USD</span>
-                                                    <span class="off-price">$120</span>
-                                                </div> -->
                                                 <div class="rbt-price">
-                                                    <span class="current-price">{{ getTotalPriceCourse(courses) }} USD</span>
-                                                    <span class="off-price" *ngIf="courses.discount_g">{{ courses.precio_usd }}</span>
+                                                    <span class="current-price">{{ getNewTotal(COURSE,DESCOUNT_FLASH) }}
+                                                        USD</span>
+                                                    <span class="off-price">{{ COURSE.precio_usd }} USD</span>
                                                 </div>
-                                                <a class="rbt-btn-link left-icon" href="#" onclick="return false;" (click)="addCart(courses)"><i class="feather-shopping-cart"></i> Agregar al Carrito</a>
+                                                <a class="rbt-btn-link left-icon" href="#" onclick="return false;"
+                                                    (click)="addCart(COURSE,DESCOUNT_FLASH)"><i
+                                                        class="feather-shopping-cart"></i> Agregar al Carrito</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- End Single Course  -->
                             </ng-container>
-                            
-    
+
+
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Start Course Area -->
+    <div class="rbt-course-area bg-color-extra2 rbt-section-gap">
+        <div class="container">
+            <div class="row mb--60">
+                <div class="col-lg-12">
+                    <div class="section-title text-center" data-sal="slide-up" data-sal-duration="800">
+                        <span class="subtitle bg-secondary-opacity">Cursos Más Populares</span>
+                        <h2 class="title">Miles de estudiantes ya están transformando su futuro con nosotros. <br />
+                            ¡Únete a la comunidad Biyantech!"</h2>
+                    </div>
+                </div>
+            </div>
+            <!-- Start Card Area -->
+            <div class="row g-5">
+
+                <ng-container *ngFor="let COURSE of COURSES_HOME">
+                    <!-- Start Single Course  -->
+                    <div class="col-lg-4 col-md-6 col-12" data-sal="slide-up" data-sal-duration="800"
+                        [attr.data-sal-delay]="150">
+                        <div class="rbt-card variation-01 rbt-hover">
+                            <div class="rbt-card-img">
+                                <a [routerLink]="['landing-curso/',COURSE.slug]">
+                                    <img [src]="COURSE.imagen" style="height: 244px;" alt="Card image">
+                                    <div class="rbt-badge-3 bg-white" *ngIf="COURSE.discount_g">
+                                        <span *ngIf="COURSE.discount_g.type_discount == 1">-{{
+                                            COURSE.discount_g.discount }}%</span>
+                                        <span *ngIf="COURSE.discount_g.type_discount == 2">-{{
+                                            COURSE.discount_g.discount }} USD</span>
+                                        <span>Off</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="rbt-card-body">
+                                <div class="rbt-card-top">
+                                    <div class="rbt-review">
+                                        <div class="rating">
+                                            <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 1}"></i>
+                                            <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 2}"></i>
+                                            <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 3}"></i>
+                                            <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 4}"></i>
+                                            <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 5}"></i>
+                                        </div>
+                                        <span class="rating-count"> ({{ COURSE.count_reviews }} Reseñas)</span>
+                                    </div>
+                                    <div class="rbt-bookmark-btn">
+                                        <a class="rbt-round-btn" title="Bookmark" href="#"></a>
+                                    </div>
+                                </div>
+                                <h4 class="rbt-card-title"><a [routerLink]="['landing-curso/',COURSE.slug]">{{
+                                        COURSE.title }}</a>
+                                </h4>
+                                <ul class="rbt-meta">
+                                    <li><i class="feather-book"></i>{{ COURSE.count_class }} Lecciones</li>
+                                    <li><i class="feather-users"></i>{{ COURSE.count_students }} Estudiantes</li>
+                                    <li><i class="feather-play"></i>{{ COURSE.time_course }}</li>
+                                </ul>
+                                <p class="rbt-card-text">{{ COURSE.subtitle }}.</p>
+                                <div class="rbt-author-meta mb--20">
+                                    <div class="rbt-avater">
+                                        <a href="#">
+                                            <img [src]="COURSE.instructor.avatar" alt="Sophia Jaymes">
+                                        </a>
+                                    </div>
+                                    <div class="rbt-author-info">
+                                        By <a href="profile.html">{{ COURSE.instructor.full_name }}</a> In <a
+                                            href="#">{{ COURSE.instructor.profesion }}</a>
+                                    </div>
+                                </div>
+                                <div class="rbt-card-bottom">
+                                    <div class="rbt-price">
+                                        <span class="current-price">{{ getTotalPriceCourse(COURSE) }} USD</span>
+                                        <span class="off-price" *ngIf="COURSE.discount_g">{{ COURSE.precio_usd }}</span>
+                                    </div>
+                                    <a class="rbt-btn-link left-icon" href="#" onclick="return false;"
+                                        (click)="addCart(COURSE)"><i class="feather-shopping-cart"></i> Agregar al
+                                        Carrito</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Single Course  -->
                 </ng-container>
-                
 
-                
-              </div>
-          </div>
-      </div>
-  </div>
-</div>
-<!-- End Course Area  -->
-
-
-  <!-- End Event Area  -->
-  <div class="rbt-team-area bg-color-white rbt-section-gap">
-      <div class="container">
-          <div class="row mb--60">
-              <div class="col-lg-12">
-                  <div class="section-title text-center">
-                      <span class="subtitle bg-primary-opacity">Descubre tu Próximo Nivel</span>
-                      <h2 class="title">Explora Nuestras Categorías de Cursos Destacadas</h2>
-                  </div>
-              </div>
-          </div>
-          <div class="row g-5">
-
-              <div class="col-lg-7">
-                  <!-- Start Tab Content  -->
-                  <div class="rbt-team-tab-content tab-content" id="myTabContent">
-                      <div class="tab-pane fade active show" id="team-tab1" role="tabpanel" aria-labelledby="team-tab1-tab">
-                          <div class="inner">
-                              <div class="rbt-team-thumbnail">
-                                  <div class="thumb">
-                                      <img src="assets/images/team/idiomas-y-cultura.png" alt="Testimonial Images">
-                                  </div>
-                              </div>
-                              <div class="rbt-team-details">
-    <div class="card-body p-0">
-        <!-- Título Destacado (Ahora más grande) -->
-        <h3 class="fs-3 fw-bold text-primary mb-2">
-            Idioma y Cultura
-        </h3>
-        <!-- Subtítulo (Ahora más grande) -->
-        <h4 class="fs-5 text-dark mb-4">
-            Inmersión Global y Excelencia Lingüística
-        </h4>
-        
-        <!-- Puntos de Valor -->
-        <p class="text-secondary mb-4">
-            Sumérgete en un aprendizaje que va más allá de las palabras, preparándote para la comunicación fluida y la negociación culturalmente inteligente.
-        </p>
-        
-        <!-- Título de Lo que vas a aprender (Ahora más grande) -->
-        <h5 class="fs-5 fw-bold text-dark pt-3 border-top border-2 border-light mb-3">
-            Lo que Vas a Aprender:
-        </h5>
-        
-        <!-- Lista de aprendizaje -->
-        <ul class="list-unstyled mb-4 text-secondary">
-            <li class="d-flex align-items-start mb-3">
-                <span class="text-success me-2"><i class="bi bi-check-circle-fill"></i></span> <span class="fw-bold">Dominio Conversacional Fluido.</span>
-            </li>
-            <li class="d-flex align-items-start mb-3">
-                <span class="text-success me-2"><i class="bi bi-check-circle-fill"></i></span> <span class="fw-bold">Estrategias de Adaptación Cultural.</span>
-            </li>
-        </ul>
-    </div>
-</div>
-</div>
-</div>
-
-                      <div class="tab-pane fade" id="team-tab2" role="tabpanel" aria-labelledby="team-tab2-tab">
-    <div class="inner">
-        <div class="rbt-team-thumbnail">
-            <div class="thumb">
-                <!-- Imagen de Capibara de Negocios y Emprendimiento -->
-                <img src="assets/images/team/negocios-y-emprendimiento.png" alt="Capibara de Negocios">
             </div>
-        </div>
-        <div class="rbt-team-details">
-            <div class="card-body p-0">
-                <!-- Título Destacado -->
-                <h3 class="fs-3 fw-bold text-success mb-2">
-                    Negocios y Emprendimiento
-                </h3>
-                <!-- Subtítulo -->
-                <h4 class="fs-5 text-dark mb-4">
-                    Estrategia Empresarial y Análisis de Mercado
-                </h4>
-                
-                <!-- Puntos de Valor -->
-                <p class="text-secondary mb-4">
-                    Adquiere las habilidades fundamentales para la toma de decisiones financieras, la gestión estratégica y la comprensión del entorno económico global.
-                </p>
-                
-                <!-- Título de Lo que vas a aprender -->
-                <h5 class="fs-5 fw-bold text-dark pt-3 border-top border-2 border-light mb-3">
-                    Lo que Vas a Aprender:
-                </h5>
-                
-                <!-- Lista de aprendizaje -->
-                <ul class="list-unstyled mb-4 text-secondary">
-                    <li class="d-flex align-items-start mb-3">
-                        <span class="text-success me-2"><i class="bi bi-check-circle-fill"></i></span> <span class="fw-bold">Planificación Estratégica y Liderazgo.</span>
-                    </li>
-                    <li class="d-flex align-items-start mb-3">
-                        <span class="text-success me-2"><i class="bi bi-check-circle-fill"></i></span> <span class="fw-bold">Modelado y Análisis Financiero.</span>
-                    </li>
-                </ul>
+            <!-- End Card Area -->
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="load-more-btn mt--60 text-center">
+                        <!-- CAMBIO CLAVE: Usamos routerLink en lugar de href -->
+                        <a class="rbt-btn btn-gradient btn-lg hover-icon-reverse" routerLink="/listado-de-cursos">
+                            <span class="icon-reverse-wrapper">
+                                <!-- Traducción del texto al español -->
+                                <span class="btn-text">Ver Más Cursos</span>
+                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    <!-- End Course Area -->
 
-                      <div class="tab-pane fade" id="team-tab3" role="tabpanel" aria-labelledby="team-tab3-tab">
-    <div class="inner">
-        <div class="rbt-team-thumbnail">
-            <div class="thumb">
-                <!-- Imagen de Capibara de Tecnología e Innovación -->
-                <img src="assets/images/team/tecnologiass.png" alt="Capibara de Tecnología e Innovación">
-            </div>
-        </div>
-        <div class="rbt-team-details">
-            <div class="card-body p-0">
-                <!-- Título Destacado (CORREGIDO) -->
-                <h3 class="fs-3 fw-bold text-primary mb-2">
-                    Tecnología e Innovación
-                </h3>
-                <!-- Subtítulo -->
-                <h4 class="fs-5 text-dark mb-4">
-                    Desarrollo Web, IA y Pensamiento Disruptivo
-                </h4>
-                
-                <!-- Puntos de Valor -->
-                <p class="text-secondary mb-4">
-                    Domina las herramientas esenciales del siglo XXI, desde la **programación** hasta la aplicación de la **inteligencia artificial**, para impulsar la innovación y transformar negocios.
-                </p>
-                
-                <!-- Título de Lo que vas a aprender -->
-                <h5 class="fs-5 fw-bold text-dark pt-3 border-top border-2 border-light mb-3">
-                    Lo que Vas a Aprender:
-                </h5>
-                
-                <!-- Lista de aprendizaje -->
-                <ul class="list-unstyled mb-4 text-secondary">
-                    <li class="d-flex align-items-start mb-3">
-                        <span class="text-primary me-2"><i class="bi bi-check-circle-fill"></i></span> <span class="fw-bold">Fundamentos de Programación (Python/JS).</span>
-                    </li>
-                    <li class="d-flex align-items-start mb-3">
-                        <span class="text-primary me-2"><i class="bi bi-check-circle-fill"></i></span> <span class="fw-bold">Aplicación de Inteligencia Artificial y Machine Learning.</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
+    <!-- Start About Area  -->
+    <div class="rbt-about-area bg-color-white rbt-section-gapTop pb_md--80 pb_sm--80 about-style-1">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6">
+                    <div class="thumbnail-wrapper">
+                        <div class="thumbnail image-1">
+                            <img data-parallax='{"x": 0, "y": -20}' src="assets/images/about/about-01.png"
+                                alt="Education Images">
+                        </div>
+                        <div class="thumbnail image-2 d-none d-xl-block">
+                            <img data-parallax='{"x": 0, "y": 60}' src="assets/images/about/about-02.png"
+                                alt="Education Images">
+                        </div>
+                        <div class="thumbnail image-3 d-none d-md-block">
+                            <img data-parallax='{"x": 0, "y": 80}' src="assets/images/about/about-03.png"
+                                alt="Education Images">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="inner pl--50 pl_sm--0 pl_md--0">
+                        <div class="section-title text-start" data-sal="slide-up" data-sal-duration="800">
+                            <span class="subtitle bg-coral-opacity">Conoce Biyantech</span>
+                            <h2 class="title">Tu Plataforma de <br /> Transformación Digital</h2>
+                        </div>
 
+                        <p class="description mt--30" data-sal="slide-up" data-sal-duration="800">Biyantech es más que
+                            una plataforma de e-learning. Somos el puente
+                            hacia tu futuro profesional, ofreciendo el conocimiento tecnológico más avanzado para que
+                            domines las habilidades que realmente demanda el mercado global.</p>
 
-                      <div class="tab-pane fade" id="team-tab4" role="tabpanel" aria-labelledby="team-tab4-tab">
-    <div class="inner">
-        <div class="rbt-team-thumbnail">
-            <div class="thumb">
-                <!-- Imagen de Capibara de Crecimiento Personal y Negocios -->
-                <img src="assets/images/team/crecimiento-personal.png" alt="Capibara de Crecimiento Personal y Habilidades para los Negocios">
-            </div>
-        </div>
-        <div class="rbt-team-details">
-            <div class="card-body p-0">
-                <!-- Título Destacado -->
-                <h3 class="fs-3 fw-bold text-warning mb-2">
-                    Crecimiento Personal y Habilidades para los Negocios
-                </h3>
-                <!-- Subtítulo -->
-                <h4 class="fs-5 text-dark mb-4">
-                    Productividad, Liderazgo e Inteligencia Emocional
-                </h4>
-                
-                <!-- Puntos de Valor -->
-                <p class="text-secondary mb-4">
-                    Desarrolla las **habilidades blandas** esenciales para el éxito profesional, mejorando tu influencia, gestión del tiempo y la toma de decisiones en el entorno empresarial.
-                </p>
-                
-                <!-- Título de Lo que vas a aprender -->
-                <h5 class="fs-5 fw-bold text-dark pt-3 border-top border-2 border-light mb-3">
-                    Lo que Vas a Aprender:
-                </h5>
-                
-                <!-- Lista de aprendizaje -->
-                <ul class="list-unstyled mb-4 text-secondary">
-                    <li class="d-flex align-items-start mb-3">
-                        <span class="text-warning me-2"><i class="bi bi-check-circle-fill"></i></span> <span class="fw-bold">Gestión Efectiva del Tiempo y Productividad.</span>
-                    </li>
-                    <li class="d-flex align-items-start mb-3">
-                        <span class="text-warning me-2"><i class="bi bi-check-circle-fill"></i></span> <span class="fw-bold">Inteligencia Emocional y Resolución de Conflictos.</span>
-                    </li>
-                </ul>
+                        <!-- Start Feature List  -->
+
+                        <div class="rbt-feature-wrapper mt--20 ml_dec_20">
+                            <div class="rbt-feature feature-style-2 rbt-radius">
+                                <div class="icon bg-pink-opacity">
+                                    <i class="feather-heart"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h6 class="feature-title">Clases 100% Flexibles</h6>
+                                    <p class="feature-description">Diseñamos nuestros cursos para que se adapten a tu
+                                        ritmo de vida. Aprende a tu propio tiempo, sin presiones y vuelve a ver las
+                                        lecciones cuantas veces necesites.</p>
+                                </div>
+                            </div>
+
+                            <div class="rbt-feature feature-style-2 rbt-radius">
+                                <div class="icon bg-primary-opacity">
+                                    <i class="feather-book"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h6 class="feature-title">Accede Desde Cualquier Dispositivo</h6>
+                                    <p class="feature-description">Nuestra plataforma es totalmente multidispositivo.
+                                        Estudia desde casa, la oficina o mientras viajas, solo necesitas una conexión a
+                                        Internet.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- End Feature List  -->
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    <!-- End About Area  -->
 
-
-                      <div class="tab-pane fade" id="team-tab5" role="tabpanel" aria-labelledby="team-tab5-tab">
-                          <div class="tab-pane fade show active" id="team-tab5" role="tabpanel" aria-labelledby="team-tab5-tab">
-    <div class="inner">
-        <div class="rbt-team-thumbnail">
-            <div class="thumb">
-                <!-- Imagen para Arte, Diseño y Creatividad -->
-                <img src="assets/images/team/arte_y_creatividad.png" alt="Imagen del curso de Arte, Diseño y Creatividad">
-            </div>
-        </div>
-        <div class="rbt-team-details">
-            <!-- La nueva estructura comienza aquí, reemplazando la información del profesor -->
-            <div class="card-body p-0">
-                
-                <!-- Título Destacado de la Categoría -->
-                <h3 class="fs-3 fw-bold text-warning mb-2">
-                    Arte, Diseño y Creatividad Digital
-                </h3>
-                
-                <!-- Subtítulo / Temas clave -->
-                <h4 class="fs-5 text-dark mb-4">
-                    Composición, Herramientas de Software y Prototipado
-                </h4>
-                
-                <!-- Párrafo Resumen de Valor -->
-                <p class="text-secondary mb-4">
-                    Desarrolla las **bases de la composición, la teoría del color y las herramientas esenciales de software (como Adobe Suite o Figma)** para transformar ideas abstractas en proyectos visuales coherentes y profesionales, listos para impresión o web.
-                </p>
-                
-                <!-- Título de Lo que vas a aprender -->
-                <h5 class="fs-5 fw-bold text-dark pt-3 border-top border-2 border-light mb-3">
-                    Lo que Vas a Aprender:
-                </h5>
-                
-                <!-- Lista de aprendizaje específica con iconos -->
-                <ul class="list-unstyled mb-4 text-secondary">
-                    <li class="d-flex align-items-start mb-3">
-                        <!-- Nota: Se usa bi-check-circle-fill según tu plantilla, asumiendo que los íconos de Bootstrap están cargados. -->
-                        <span class="text-warning me-2"><i class="bi bi-check-circle-fill"></i></span> <span class="fw-bold">Dominio en software de diseño (Adobe Suite, Figma, etc.).</span>
-                    </li>
-                    <li class="d-flex align-items-start mb-3">
-                        <span class="text-warning me-2"><i class="bi bi-check-circle-fill"></i></span> <span class="fw-bold">Aplicación práctica de la teoría del color y la tipografía.</span>
-                    </li>
-                </ul>
+    <!-- Start Call To Action -->
+    <div class="rbt-callto-action-area mt_dec--half">
+        <div class="container">
+            <!-- Nueva fila para centrar el contenido, usando col-lg-10 para no hacerlo excesivamente grande -->
+            <div class="row g-5 justify-content-center">
+                <div class="col-lg-10">
+                    <div class="rbt-callto-action callto-action-default bg-color-white rbt-radius shadow-1"
+                        data-sal="zoom-in" data-sal-duration="800">
+                        <div class="row align-items-center">
+                            <!-- El texto (izquierda) y el video (derecha) -->
+                            <div class="col-lg-12 col-xl-5">
+                                <div class="inner">
+                                    <div class="rbt-category mb--20">
+                                        <!-- Texto modificado 1: Etiqueta de Próximamente -->
+                                        <a href="#">¡PRÓXIMAMENTE!</a>
+                                    </div>
+                                    <!-- Texto modificado 2: Título principal (Enfoque en el lanzamiento) -->
+                                    <h4 class="title mb--15">Prepárate para Nuestro Próximo Curso Top</h4>
+                                    <!-- Texto modificado 3: Invitación a ver el trailer (Énfasis en la novedad) -->
+                                    <p class="mb--15">Sé el primero en ver el tráiler y descubre la habilidad que
+                                        transformará tu perfil en 2025. ¡Algo grande está llegando!</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-xl-7">
+                                <div class="video-popup-wrapper mt_lg--10 mt_md--20 mt_sm--20">
+                                    <!-- Nota: La imagen de fondo y el enlace al video de YouTube siguen siendo los mismos -->
+                                    <img class="w-100 rbt-radius" src="assets/images/others/video-01.jpg"
+                                        alt="Video Images">
+                                    <a class="rbt-btn rounded-player-2 sm-size popup-video position-to-top with-animation"
+                                        href="https://www.youtube.com/watch?v=nA1Aqp0sPQo">
+                                        <span class="play-icon"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-</div>
+    <!-- End Call To Action -->
 
-                      <div class="tab-pane fade" id="team-tab6" role="tabpanel" aria-labelledby="team-tab6-tab">
-                          <div class="inner">
-        <div class="rbt-team-thumbnail">
-            <div class="thumb">
-                <!-- Imagen para Medicina y Ciencias de la Salud -->
-                <img src="assets/images/team/medicina-y-ciencias.png" alt="Imagen del curso de Medicina y Ciencias de la Salud">
+
+    <!-- Start Counterup Area  -->
+    <div class="rbt-counterup-area bg-color-extra2 rbt-section-gapBottom default-callto-action-overlap">
+        <div class="container">
+            <div class="row mb--60">
+                <div class="col-lg-12">
+                    <div class="section-title text-center">
+                        <!-- Título de la sección -->
+                        <span class="subtitle bg-primary-opacity">POR QUÉ ELEGIR BIYANTECH</span>
+                        <!-- Título principal, enfocado en el valor -->
+                        <h2 class="title" data-sal="slide-up">Una Comunidad Comprometida con la <br /> **Excelencia
+                            Tecnológica**.</h2>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="rbt-team-details">
-            <div class="card-body p-0">
-                
-                <!-- Título Destacado de la Categoría -->
-                <h3 class="fs-3 fw-bold text-success mb-2">
-                    Medicina y Ciencias de la Salud
-                </h3>
-                
-                <!-- Subtítulo / Temas clave -->
-                <h4 class="fs-5 text-dark mb-4">
-                    Biomedicina, Nutrición Avanzada y Cuidado Clínico
-                </h4>
-                
-                <!-- Párrafo Resumen de Valor -->
-                <p class="text-secondary mb-4">
-                    Profundiza en el conocimiento del **cuerpo humano, diagnóstico, nutrición y las últimas innovaciones en tratamientos y tecnologías médicas**. Cursos diseñados para profesionales de la salud que buscan especialización y actualización.
-                </p>
-                
-                <!-- Título de Lo que vas a aprender -->
-                <h5 class="fs-5 fw-bold text-dark pt-3 border-top border-2 border-light mb-3">
-                    Lo que Vas a Aprender:
-                </h5>
-                
-                <!-- Lista de aprendizaje específica con iconos -->
-                <ul class="list-unstyled mb-4 text-secondary">
-                    <li class="d-flex align-items-start mb-3">
-                        <span class="text-success me-2"><i class="bi bi-check-circle-fill"></i></span> <span class="fw-bold">Bases de la fisiología humana y patologías comunes.</span>
-                    </li>
-                    <li class="d-flex align-items-start mb-3">
-                        <span class="text-success me-2"><i class="bi bi-check-circle-fill"></i></span> <span class="fw-bold">Protocolos actualizados de cuidado clínico y atención al paciente.</span>
-                    </li>
-                </ul>
+            <div class="row g-5 hanger-line">
+                <!-- Start Single Counter  -->
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="rbt-counterup rbt-hover-03 border-bottom-gradient">
+                        <div class="top-circle-shape"></div>
+                        <div class="inner" data-sal="slide-up" data-sal-delay="150">
+                            <div class="rbt-round-icon">
+                                <img src="assets/images/icons/counter-01.png" alt="Icons Images">
+                            </div>
+                            <div class="content">
+                                <!-- Los números deben reflejar la realidad de Biyantech al inicio -->
+                                <h3 class="counter"><span class="odometer" data-count="150">00</span>
+                                </h3>
+                                <span class="subtitle">**Estudiantes Pioneros**</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Single Counter  -->
+
+                <!-- Start Single Counter  -->
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12 mt--60 mt_md--30 mt_sm--30 mt_mobile--60">
+                    <div class="rbt-counterup rbt-hover-03 border-bottom-gradient">
+                        <div class="top-circle-shape"></div>
+                        <div class="inner" data-sal="slide-up" data-sal-delay="200">
+                            <div class="rbt-round-icon">
+                                <img src="assets/images/icons/counter-02.png" alt="Icons Images">
+                            </div>
+                            <div class="content">
+                                <!-- Enfoque en la calidad de la oferta -->
+                                <h3 class="counter"><span class="odometer" data-count="25">00</span>
+                                </h3>
+                                <span class="subtitle">**Cursos de Alto Nivel**</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Single Counter  -->
+
+                <!-- Start Single Counter  -->
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12 mt_md--60 mt_sm--60">
+                    <div class="rbt-counterup rbt-hover-03 border-bottom-gradient">
+                        <div class="top-circle-shape"></div>
+                        <div class="inner" data-sal="slide-up" data-sal-delay="250">
+                            <div class="rbt-round-icon">
+                                <img src="assets/images/icons/counter-03.png" alt="Icons Images">
+                            </div>
+                            <div class="content">
+                                <!-- Enfoque en la calidad de los instructores -->
+                                <h3 class="counter"><span class="odometer" data-count="20">00</span>
+                                </h3>
+                                <span class="subtitle">**Expertos Certificados**</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Single Counter  -->
+
+                <!-- Start Single Counter  -->
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12 mt--60 mt_md--60 mt_sm--60">
+                    <div class="rbt-counterup rbt-hover-03 border-bottom-gradient">
+                        <div class="top-circle-shape"></div>
+                        <div class="inner" data-sal="slide-up" data-sal-delay="300">
+                            <div class="rbt-round-icon">
+                                <img src="assets/images/icons/counter-04.png" alt="Icons Images">
+                            </div>
+                            <div class="content">
+                                <!-- Enfoque en el feedback o las sesiones en vivo -->
+                                <h3 class="counter"><span class="odometer" data-count="90">00</span>
+                                </h3>
+                                <span class="subtitle">**Satisfacción en +90%**</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Single Counter  -->
             </div>
         </div>
     </div>
-</div>
+    <!-- End Counterup Area  -->
+    <!-- Start Course Area  <div class="rbt-event-area rbt-section-gap bg-gradient-3">-->
+    <div class="rbt-course-area bg-gradient-3 rbt-section-gap">
+        <div class="container">
+            <div class="row mb--60">
+                <div class="col-lg-12">
+                    <div class="section-title text-center">
+                        <span class="subtitle bg-primary-opacity">Nuestros Cursos</span>
+                        <h2 class="title text-white text-decoration-underline" data-sal="slide-up">EXPLORA NUESTRO
+                            CATÁLOGO:</h2>
+                    </div>
+                </div>
+            </div>
 
-                      <div class="top-circle-shape"></div>
-                  </div>
-                  <!-- End Tab Content  -->
-              </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="rbt-portfolio-filter filter-tab-button text-center nav nav-tabs" id="rbt-myTab"
+                        role="tablist">
+                        <ng-container *ngFor="let group_courses_categ of group_courses_categories;let i=index">
+                            <li class="nav-item" role="presentation">
+                                <button [ngClass]="{'active': i == 0}" id="all-tab" data-bs-toggle="tab"
+                                    [attr.data-bs-target]="'#'+group_courses_categ.name_empty" type="button" role="tab"
+                                    aria-controls="all" aria-selected="true"><span class="filter-text">
+                                        {{ group_courses_categ.name }}
+                                    </span> <span class="course-number btn-group">{{ group_courses_categ.courses_count
+                                        }}</span></button>
+                            </li>
+                        </ng-container>
 
-              <div class="col-lg-5">
-                  <!-- Start Tab Nav  -->
-                  <ul class="rbt-team-tab-thumb nav nav-tabs" id="myTab" role="tablist">
-                      <li>
-                          <a class="active" id="team-tab1-tab" data-bs-toggle="tab" data-bs-target="#team-tab1" role="tab" aria-controls="team-tab1" aria-selected="true">
-                              <div class="rbt-team-thumbnail">
-                                  <div class="thumb">
-                                      <img src="assets/images/team/idiomas-y-cultura.png" alt="Testimonial Images">
-                                  </div>
-                              </div>
-                          </a>
-                      </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Start Card Area -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="tab-content mt--60" id="rbt-myTabContent">
 
-                      <li>
-                          <a id="team-tab2-tab" data-bs-toggle="tab" data-bs-target="#team-tab2" role="tab" aria-controls="team-tab2" aria-selected="false">
-                              <div class="rbt-team-thumbnail">
-                                  <div class="thumb">
-                                      <img src="assets/images/team/negocios-y-emprendimiento.png" alt="Testimonial Images">
-                                  </div>
-                              </div>
-                          </a>
-                      </li>
+                        <ng-container *ngFor="let group_courses_categ of group_courses_categories;let i=index">
+                            <div class="tab-pane fade" [ngClass]="{'show active': i == 0}"
+                                [attr.id]="group_courses_categ.name_empty" role="tabpanel" aria-labelledby="all">
+                                <div class="row g-5">
 
-                      <li>
-                          <a id="team-tab3-tab" data-bs-toggle="tab" data-bs-target="#team-tab3" role="tab" aria-controls="team-tab3" aria-selected="false">
-                              <div class="rbt-team-thumbnail">
-                                  <div class="thumb">
-                                      <img src="assets/images/team/tecnologiass.png" alt="Testimonial Images">
-                                  </div>
-                              </div>
-                          </a>
-                      </li>
-                      <li>
-                          <a id="team-tab4-tab" data-bs-toggle="tab" data-bs-target="#team-tab4" role="tab" aria-controls="team-tab4" aria-selected="false">
-                              <div class="rbt-team-thumbnail">
-                                  <div class="thumb">
-                                      <img src="assets/images/team/crecimiento-personal.png" alt="Testimonial Images">
-                                  </div>
-                              </div>
-                          </a>
-                      </li>
+                                    <ng-container *ngFor="let courses of group_courses_categ.courses.data">
+                                        <!-- Start Single Course  -->
+                                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-12" data-sal="slide-up"
+                                            data-sal-duration="800">
+                                            <div class="rbt-card variation-01 rbt-hover">
+                                                <div class="rbt-card-img">
+                                                    <a [routerLink]="['landing-curso/',courses.slug]">
+                                                        <img [src]="courses.imagen" style="height: 171px;"
+                                                            alt="Card image">
+                                                    </a>
+                                                    <div class="rbt-badge-3 bg-white" *ngIf="courses.discount_g">
+                                                        <span *ngIf="courses.discount_g.type_discount == 1">-{{
+                                                            courses.discount_g.discount }}%</span>
+                                                        <span *ngIf="courses.discount_g.type_discount == 2">-{{
+                                                            courses.discount_g.discount }} USD</span>
+                                                        <span>Off</span>
+                                                    </div>
 
-                      <li>
-                          <a id="team-tab5-tab" data-bs-toggle="tab" data-bs-target="#team-tab5" role="tab" aria-controls="team-tab5" aria-selected="false">
-                              <div class="rbt-team-thumbnail">
-                                  <div class="thumb">
-                                      <img src="assets/images/team/arte_y_creatividad.png" alt="Testimonial Images">
-                                  </div>
-                              </div>
-                          </a>
-                      </li>
+                                                </div>
+                                                <div class="rbt-card-body">
+                                                    <div class="rbt-card-top">
+                                                        <div class="rbt-review">
+                                                            <div class="rating">
+                                                                <i class="fas fa-star"
+                                                                    [ngClass]="{'rating': courses.avg_reviews < 1}"></i>
+                                                                <i class="fas fa-star"
+                                                                    [ngClass]="{'rating': courses.avg_reviews < 2}"></i>
+                                                                <i class="fas fa-star"
+                                                                    [ngClass]="{'rating': courses.avg_reviews < 3}"></i>
+                                                                <i class="fas fa-star"
+                                                                    [ngClass]="{'rating': courses.avg_reviews < 4}"></i>
+                                                                <i class="fas fa-star"
+                                                                    [ngClass]="{'rating': courses.avg_reviews < 5}"></i>
+                                                            </div>
+                                                            <span class="rating-count"> ({{ courses.count_reviews }}
+                                                                Reseñas)</span>
+                                                        </div>
+                                                        <div class="rbt-bookmark-btn">
+                                                            <a class="rbt-round-btn" title="Bookmark" href="#"></a>
+                                                        </div>
+                                                    </div>
+                                                    <h4 class="rbt-card-title"><a
+                                                            [routerLink]="['landing-curso/',courses.slug]">{{
+                                                            courses.title }}</a>
+                                                    </h4>
+                                                    <ul class="rbt-meta">
+                                                        <li><i class="feather-book"></i>{{ courses.count_class }}
+                                                            Lecciones</li>
+                                                        <li><i class="feather-users"></i>{{ courses.count_students }}
+                                                            Estudiantes</li>
+                                                        <li><i class="feather-users"></i>{{ courses.time_course }}</li>
+                                                    </ul>
 
-                      <li>
-                          <a id="team-tab6-tab" data-bs-toggle="tab" data-bs-target="#team-tab6" role="tab" aria-controls="team-tab6" aria-selected="false">
-                              <div class="rbt-team-thumbnail">
-                                  <div class="thumb">
-                                      <img src="assets/images/team/medicina-y-ciencias.png" alt="Testimonial Images">
-                                  </div>
-                              </div>
-                          </a>
-                      </li>
+                                                    <div class="rbt-card-bottom">
+                                                        <div class="rbt-price">
+                                                            <span class="current-price">{{ getTotalPriceCourse(courses)
+                                                                }} USD</span>
+                                                            <span class="off-price" *ngIf="courses.discount_g">{{
+                                                                courses.precio_usd }}</span>
+                                                        </div>
+                                                        <a class="rbt-btn-link left-icon" href="#"
+                                                            onclick="return false;" (click)="addCart(courses)"><i
+                                                                class="feather-shopping-cart"></i> Agregar al
+                                                            Carrito</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End Single Course  -->
+                                    </ng-container>
 
-                  </ul>
-                  <!-- End Tab Content  -->
-              </div>
-          </div>
-      </div>
-  </div>
 
-  <!-- NOTA: Se ha ELIMINADO la clase "icon-reverse-wrapper" y "rbt-btn"
+                                </div>
+                            </div>
+                        </ng-container>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Course Area  -->
+
+
+    <!-- End Event Area  -->
+    <div class="rbt-team-area bg-color-white rbt-section-gap">
+        <div class="container">
+            <div class="row mb--60">
+                <div class="col-lg-12">
+                    <div class="section-title text-center">
+                        <span class="subtitle bg-primary-opacity">Descubre tu Próximo Nivel</span>
+                        <h2 class="title" data-sal="slide-up">Explora Nuestras Categorías de Cursos Destacadas</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-5">
+
+                <div class="col-lg-7">
+                    <!-- Start Tab Content  -->
+                    <div class="rbt-team-tab-content tab-content" id="myTabContent">
+                        <div class="tab-pane fade active show" id="team-tab1" role="tabpanel"
+                            aria-labelledby="team-tab1-tab">
+                            <div class="inner">
+                                <div class="rbt-team-thumbnail">
+                                    <div class="thumb">
+                                        <img src="assets/images/team/idiomas-y-cultura.png" alt="Testimonial Images">
+                                    </div>
+                                </div>
+                                <div class="rbt-team-details">
+                                    <div class="card-body p-0">
+                                        <!-- Título Destacado (Ahora más grande) -->
+                                        <h3 class="fs-3 fw-bold text-primary mb-2">
+                                            Idioma y Cultura
+                                        </h3>
+                                        <!-- Subtítulo (Ahora más grande) -->
+                                        <h4 class="fs-5 text-dark mb-4">
+                                            Inmersión Global y Excelencia Lingüística
+                                        </h4>
+
+                                        <!-- Puntos de Valor -->
+                                        <p class="text-secondary mb-4">
+                                            Sumérgete en un aprendizaje que va más allá de las palabras, preparándote
+                                            para la comunicación fluida y la negociación culturalmente inteligente.
+                                        </p>
+
+                                        <!-- Título de Lo que vas a aprender (Ahora más grande) -->
+                                        <h5 class="fs-5 fw-bold text-dark pt-3 border-top border-2 border-light mb-3">
+                                            Lo que Vas a Aprender:
+                                        </h5>
+
+                                        <!-- Lista de aprendizaje -->
+                                        <ul class="list-unstyled mb-4 text-secondary">
+                                            <li class="d-flex align-items-start mb-3">
+                                                <span class="text-success me-2"><i
+                                                        class="bi bi-check-circle-fill"></i></span> <span
+                                                    class="fw-bold">Dominio Conversacional Fluido.</span>
+                                            </li>
+                                            <li class="d-flex align-items-start mb-3">
+                                                <span class="text-success me-2"><i
+                                                        class="bi bi-check-circle-fill"></i></span> <span
+                                                    class="fw-bold">Estrategias de Adaptación Cultural.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="team-tab2" role="tabpanel" aria-labelledby="team-tab2-tab">
+                            <div class="inner">
+                                <div class="rbt-team-thumbnail">
+                                    <div class="thumb">
+                                        <!-- Imagen de Capibara de Negocios y Emprendimiento -->
+                                        <img src="assets/images/team/negocios-y-emprendimiento.png"
+                                            alt="Capibara de Negocios">
+                                    </div>
+                                </div>
+                                <div class="rbt-team-details">
+                                    <div class="card-body p-0">
+                                        <!-- Título Destacado -->
+                                        <h3 class="fs-3 fw-bold text-success mb-2">
+                                            Negocios y Emprendimiento
+                                        </h3>
+                                        <!-- Subtítulo -->
+                                        <h4 class="fs-5 text-dark mb-4">
+                                            Estrategia Empresarial y Análisis de Mercado
+                                        </h4>
+
+                                        <!-- Puntos de Valor -->
+                                        <p class="text-secondary mb-4">
+                                            Adquiere las habilidades fundamentales para la toma de decisiones
+                                            financieras, la gestión estratégica y la comprensión del entorno económico
+                                            global.
+                                        </p>
+
+                                        <!-- Título de Lo que vas a aprender -->
+                                        <h5 class="fs-5 fw-bold text-dark pt-3 border-top border-2 border-light mb-3">
+                                            Lo que Vas a Aprender:
+                                        </h5>
+
+                                        <!-- Lista de aprendizaje -->
+                                        <ul class="list-unstyled mb-4 text-secondary">
+                                            <li class="d-flex align-items-start mb-3">
+                                                <span class="text-success me-2"><i
+                                                        class="bi bi-check-circle-fill"></i></span> <span
+                                                    class="fw-bold">Planificación Estratégica y Liderazgo.</span>
+                                            </li>
+                                            <li class="d-flex align-items-start mb-3">
+                                                <span class="text-success me-2"><i
+                                                        class="bi bi-check-circle-fill"></i></span> <span
+                                                    class="fw-bold">Modelado y Análisis Financiero.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="team-tab3" role="tabpanel" aria-labelledby="team-tab3-tab">
+                            <div class="inner">
+                                <div class="rbt-team-thumbnail">
+                                    <div class="thumb">
+                                        <!-- Imagen de Capibara de Tecnología e Innovación -->
+                                        <img src="assets/images/team/tecnologiass.png"
+                                            alt="Capibara de Tecnología e Innovación">
+                                    </div>
+                                </div>
+                                <div class="rbt-team-details">
+                                    <div class="card-body p-0">
+                                        <!-- Título Destacado (CORREGIDO) -->
+                                        <h3 class="fs-3 fw-bold text-primary mb-2">
+                                            Tecnología e Innovación
+                                        </h3>
+                                        <!-- Subtítulo -->
+                                        <h4 class="fs-5 text-dark mb-4">
+                                            Desarrollo Web, IA y Pensamiento Disruptivo
+                                        </h4>
+
+                                        <!-- Puntos de Valor -->
+                                        <p class="text-secondary mb-4">
+                                            Domina las herramientas esenciales del siglo XXI, desde la **programación**
+                                            hasta la aplicación de la **inteligencia artificial**, para impulsar la
+                                            innovación y transformar negocios.
+                                        </p>
+
+                                        <!-- Título de Lo que vas a aprender -->
+                                        <h5 class="fs-5 fw-bold text-dark pt-3 border-top border-2 border-light mb-3">
+                                            Lo que Vas a Aprender:
+                                        </h5>
+
+                                        <!-- Lista de aprendizaje -->
+                                        <ul class="list-unstyled mb-4 text-secondary">
+                                            <li class="d-flex align-items-start mb-3">
+                                                <span class="text-primary me-2"><i
+                                                        class="bi bi-check-circle-fill"></i></span> <span
+                                                    class="fw-bold">Fundamentos de Programación (Python/JS).</span>
+                                            </li>
+                                            <li class="d-flex align-items-start mb-3">
+                                                <span class="text-primary me-2"><i
+                                                        class="bi bi-check-circle-fill"></i></span> <span
+                                                    class="fw-bold">Aplicación de Inteligencia Artificial y Machine
+                                                    Learning.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="tab-pane fade" id="team-tab4" role="tabpanel" aria-labelledby="team-tab4-tab">
+                            <div class="inner">
+                                <div class="rbt-team-thumbnail">
+                                    <div class="thumb">
+                                        <!-- Imagen de Capibara de Crecimiento Personal y Negocios -->
+                                        <img src="assets/images/team/crecimiento-personal.png"
+                                            alt="Capibara de Crecimiento Personal y Habilidades para los Negocios">
+                                    </div>
+                                </div>
+                                <div class="rbt-team-details">
+                                    <div class="card-body p-0">
+                                        <!-- Título Destacado -->
+                                        <h3 class="fs-3 fw-bold text-warning mb-2">
+                                            Crecimiento Personal y Habilidades para los Negocios
+                                        </h3>
+                                        <!-- Subtítulo -->
+                                        <h4 class="fs-5 text-dark mb-4">
+                                            Productividad, Liderazgo e Inteligencia Emocional
+                                        </h4>
+
+                                        <!-- Puntos de Valor -->
+                                        <p class="text-secondary mb-4">
+                                            Impulsa tu carrera trabajando en ti mismo. Aprende a gestionar tu tiempo,
+                                            liderar equipos y mantener el equilibrio emocional.
+                                        </p>
+
+                                        <!-- Título de Lo que vas a aprender -->
+                                        <h5 class="fs-5 fw-bold text-dark pt-3 border-top border-2 border-light mb-3">
+                                            Lo que Vas a Aprender:
+                                        </h5>
+
+                                        <!-- Lista de aprendizaje -->
+                                        <ul class="list-unstyled mb-4 text-secondary">
+                                            <li class="d-flex align-items-start mb-3">
+                                                <span class="text-warning me-2"><i
+                                                        class="bi bi-check-circle-fill"></i></span> <span
+                                                    class="fw-bold">Gestión del Tiempo y Productividad.</span>
+                                            </li>
+                                            <li class="d-flex align-items-start mb-3">
+                                                <span class="text-warning me-2"><i
+                                                        class="bi bi-check-circle-fill"></i></span> <span
+                                                    class="fw-bold">Liderazgo y Trabajo en Equipo.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="team-tab5" role="tabpanel" aria-labelledby="team-tab5-tab">
+                            <div class="inner">
+                                <div class="rbt-team-thumbnail">
+                                    <div class="thumb">
+                                        <img src="assets/images/team/arte_y_creatividad.png" alt="Arte y Creatividad">
+                                    </div>
+                                </div>
+                                <div class="rbt-team-details">
+                                    <div class="card-body p-0">
+                                        <h3 class="fs-3 fw-bold text-danger mb-2">
+                                            Arte y Creatividad
+                                        </h3>
+                                        <h4 class="fs-5 text-dark mb-4">
+                                            Expresión Visual y Diseño Digital
+                                        </h4>
+                                        <p class="text-secondary mb-4">
+                                            Desatando tu potencial creativo con herramientas modernas y técnicas de
+                                            diseño visual.
+                                        </p>
+                                        <h5 class="fs-5 fw-bold text-dark pt-3 border-top border-2 border-light mb-3">
+                                            Lo que Vas a Aprender:
+                                        </h5>
+                                        <ul class="list-unstyled mb-4 text-secondary">
+                                            <li class="d-flex align-items-start mb-3">
+                                                <span class="text-danger me-2"><i
+                                                        class="bi bi-check-circle-fill"></i></span> <span
+                                                    class="fw-bold">Principios de Diseño Gráfico.</span>
+                                            </li>
+                                            <li class="d-flex align-items-start mb-3">
+                                                <span class="text-danger me-2"><i
+                                                        class="bi bi-check-circle-fill"></i></span> <span
+                                                    class="fw-bold">Herramientas de Edición Digital.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="team-tab6" role="tabpanel" aria-labelledby="team-tab6-tab">
+                            <div class="inner">
+                                <div class="rbt-team-thumbnail">
+                                    <div class="thumb">
+                                        <img src="assets/images/team/medicina-y-ciencias.png" alt="Medicina y Ciencias">
+                                    </div>
+                                </div>
+                                <div class="rbt-team-details">
+                                    <div class="card-body p-0">
+                                        <h3 class="fs-3 fw-bold text-info mb-2">
+                                            Medicina y Ciencias
+                                        </h3>
+                                        <h4 class="fs-5 text-dark mb-4">
+                                            Salud, Bienestar y Conocimiento Científico
+                                        </h4>
+                                        <p class="text-secondary mb-4">
+                                            Comprendiendo el cuerpo humano y los fundamentos científicos para una vida
+                                            saludable.
+                                        </p>
+                                        <h5 class="fs-5 fw-bold text-dark pt-3 border-top border-2 border-light mb-3">
+                                            Lo que Vas a Aprender:
+                                        </h5>
+                                        <ul class="list-unstyled mb-4 text-secondary">
+                                            <li class="d-flex align-items-start mb-3">
+                                                <span class="text-info me-2"><i
+                                                        class="bi bi-check-circle-fill"></i></span> <span
+                                                    class="fw-bold">Fundamentos de Anatomía.</span>
+                                            </li>
+                                            <li class="d-flex align-items-start mb-3">
+                                                <span class="text-info me-2"><i
+                                                        class="bi bi-check-circle-fill"></i></span> <span
+                                                    class="fw-bold">Nutrición y Primeros Auxilios.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <!-- Start Tab Nav  -->
+                    <ul class="rbt-team-tab-thumb nav nav-tabs" id="myTab" role="tablist">
+                        <li>
+                            <a class="active" id="team-tab1-tab" data-bs-toggle="tab" data-bs-target="#team-tab1"
+                                role="tab" aria-controls="team-tab1" aria-selected="true">
+                                <div class="rbt-team-thumbnail">
+                                    <div class="thumb">
+                                        <img src="assets/images/team/idiomas-y-cultura.png" alt="Testimonial Images">
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a id="team-tab2-tab" data-bs-toggle="tab" data-bs-target="#team-tab2" role="tab"
+                                aria-controls="team-tab2" aria-selected="false">
+                                <div class="rbt-team-thumbnail">
+                                    <div class="thumb">
+                                        <img src="assets/images/team/negocios-y-emprendimiento.png"
+                                            alt="Testimonial Images">
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a id="team-tab3-tab" data-bs-toggle="tab" data-bs-target="#team-tab3" role="tab"
+                                aria-controls="team-tab3" aria-selected="false">
+                                <div class="rbt-team-thumbnail">
+                                    <div class="thumb">
+                                        <img src="assets/images/team/tecnologiass.png" alt="Testimonial Images">
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a id="team-tab4-tab" data-bs-toggle="tab" data-bs-target="#team-tab4" role="tab"
+                                aria-controls="team-tab4" aria-selected="false">
+                                <div class="rbt-team-thumbnail">
+                                    <div class="thumb">
+                                        <img src="assets/images/team/crecimiento-personal.png" alt="Testimonial Images">
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a id="team-tab5-tab" data-bs-toggle="tab" data-bs-target="#team-tab5" role="tab"
+                                aria-controls="team-tab5" aria-selected="false">
+                                <div class="rbt-team-thumbnail">
+                                    <div class="thumb">
+                                        <img src="assets/images/team/arte_y_creatividad.png" alt="Testimonial Images">
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a id="team-tab6-tab" data-bs-toggle="tab" data-bs-target="#team-tab6" role="tab"
+                                aria-controls="team-tab6" aria-selected="false">
+                                <div class="rbt-team-thumbnail">
+                                    <div class="thumb">
+                                        <img src="assets/images/team/medicina-y-ciencias.png" alt="Testimonial Images">
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+
+                    </ul>
+                    <!-- End Tab Content  -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTA: Se ha ELIMINADO la clase "icon-reverse-wrapper" y "rbt-btn"
      para corregir el error donde el texto desaparece al hacer hover.
      El botón ahora es un elemento simple y robusto de Tailwind CSS. -->
 
-<div class="rbt-newsletter-area newsletter-style-2 bg-color-primary rbt-section-gap">
-    <div class="container">
-        <div class="row row--15 align-items-center">
-            <div class="col-lg-12">
-                <div class="inner text-center">
-                    <div class="section-title text-center">
-                        <!-- Subtítulo adaptado a Biyantech -->
-                        <span class="subtitle bg-white-opacity">Únete a la Comunidad Biyantech</span>
-                        <h2 class="title color-white"><strong>Únete al Canal</strong> de WhatsApp</h2>
-                        <!-- Descripción clara de lo que obtendrán -->
-                        <p class="description color-white mt--20">Sé el primero en enterarte sobre **nuevos cursos, lanzamientos exclusivos y promociones** en nuestras categorías de Tecnología, Diseño y Salud.</p>
-                    </div>
+    <div class="rbt-newsletter-area newsletter-style-2 bg-color-primary rbt-section-gap">
+        <div class="container">
+            <div class="row row--15 align-items-center">
+                <div class="col-lg-12">
+                    <div class="inner text-center">
+                        <div class="section-title text-center">
+                            <!-- Subtítulo adaptado a Biyantech -->
+                            <span class="subtitle bg-white-opacity">Únete a la Comunidad Biyantech</span>
+                            <h2 class="title color-white"><strong>Únete al Canal</strong> de WhatsApp</h2>
+                            <!-- Descripción clara de lo que obtendrán -->
+                            <p class="description color-white mt--20">Sé el primero en enterarte sobre **nuevos cursos,
+                                lanzamientos exclusivos y promociones** en nuestras categorías de Tecnología, Diseño y
+                                Salud.</p>
+                        </div>
 
-                    <!-- ESTRUCTURA CENTRAL: Texto de nota y Botón -->
-                    <div class="d-flex flex-column flex-md-row align-items-center justify-content-center mt-5">
+                        <!-- ESTRUCTURA CENTRAL: Texto de nota y Botón -->
+                        <div class="d-flex flex-column flex-md-row align-items-center justify-content-center mt-5">
 
-                        <!-- Texto de la nota: Aseguramos que ocupe espacio y no se corte -->
-                        <span class="note-text color-white text-center text-md-end me-md-4 mb-3 mb-md-0">Comunicación directa. Sin spam. Solo anuncios importantes:</span>
+                            <!-- Texto de la nota: Aseguramos que ocupe espacio y no se corte -->
+                            <span
+                                class="note-text color-white text-center text-md-end me-md-4 mb-3 mb-md-0">Comunicación
+                                directa. Sin spam. Solo anuncios importantes:</span>
 
-                        <!-- Contenedor del Call-to-Action de WhatsApp (el botón) -->
-                        <!-- CLASES CORREGIDAS: Estilo de botón simple con efecto hover de elevación -->
-                        <a href="https://whatsapp.com/channel/0029VbBjXzdB4hdMK47Iwu14" target="_blank"
-                           class="
+                            <!-- Contenedor del Call-to-Action de WhatsApp (el botón) -->
+                            <!-- CLASES CORREGIDAS: Estilo de botón simple con efecto hover de elevación -->
+                            <a href="https://whatsapp.com/channel/0029VbBjXzdB4hdMK47Iwu14" target="_blank" class="
                                 text-white              /* Asegura texto blanco */
                                 bg-pink-500             /* Color de fondo Biyantech */
                                 py-3 px-6               /* Espaciado del botón */
@@ -1030,37 +1107,40 @@
                                 hover:shadow-2xl        /* Sombra más profunda */
                                 flex items-center gap-2 /* Para alinear el texto y el icono */
                            ">
-                            <!-- Texto del botón -->
-                            <span>¡Quiero Unirme Ahora!</span>
-                            <!-- Icono de WhatsApp de Font Awesome (fa-whatsapp) -->
-                            <i class="fa fa-whatsapp"></i>
-                        </a>
-                    </div>
-                    <!-- FIN DE LA ESTRUCTURA CENTRAL -->
+                                <!-- Texto del botón -->
+                                <span>¡Quiero Unirme Ahora!</span>
+                                <!-- Icono de WhatsApp de Font Awesome (fa-whatsapp) -->
+                                <i class="fa fa-whatsapp"></i>
+                            </a>
+                        </div>
+                        <!-- FIN DE LA ESTRUCTURA CENTRAL -->
 
-                    <div class="row row--15 mt--50">
-                        <!-- Contador 1: Alumnos Formados -->
-                        <div class="col-lg-3 offset-lg-3 col-md-6 col-sm-6 single-counter">
-                            <div class="rbt-counterup rbt-hover-03 style-2 text-color-white">
-                                <div class="inner">
-                                    <div class="content">
-                                        <h3 class="counter color-white"><span class="odometer" data-count="500">00</span>
-                                        </h3>
-                                        <h5 class="title color-white">Alumnos Formados</h5>
-                                        <span class="subtitle color-white">¡Y seguimos creciendo!</span>
+                        <div class="row row--15 mt--50">
+                            <!-- Contador 1: Alumnos Formados -->
+                            <div class="col-lg-3 offset-lg-3 col-md-6 col-sm-6 single-counter">
+                                <div class="rbt-counterup rbt-hover-03 style-2 text-color-white">
+                                    <div class="inner">
+                                        <div class="content">
+                                            <h3 class="counter color-white"><span class="odometer"
+                                                    data-count="500">00</span>
+                                            </h3>
+                                            <h5 class="title color-white">Alumnos Formados</h5>
+                                            <span class="subtitle color-white">¡Y seguimos creciendo!</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Contador 2: Cursos Disponibles -->
-                        <div class="col-lg-3 col-md-6 col-sm-6 single-counter mt_mobile--30">
-                            <div class="rbt-counterup rbt-hover-03 style-2 text-color-white">
-                                <div class="inner">
-                                    <div class="content">
-                                        <h3 class="counter color-white"><span class="odometer" data-count="100">00</span>
-                                        </h3>
-                                        <h5 class="title color-white">Cursos Exclusivos</h5>
-                                        <span class="subtitle color-white">Online e Inmediatos</span>
+                            <!-- Contador 2: Cursos Disponibles -->
+                            <div class="col-lg-3 col-md-6 col-sm-6 single-counter mt_mobile--30">
+                                <div class="rbt-counterup rbt-hover-03 style-2 text-color-white">
+                                    <div class="inner">
+                                        <div class="content">
+                                            <h3 class="counter color-white"><span class="odometer"
+                                                    data-count="100">00</span>
+                                            </h3>
+                                            <h5 class="title color-white">Cursos Exclusivos</h5>
+                                            <span class="subtitle color-white">Online e Inmediatos</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1070,16 +1150,15 @@
             </div>
         </div>
     </div>
-</div>
 
 
-  <app-footer></app-footer>
+    <app-footer></app-footer>
 
 </main>
 
 <!-- End Page Wrapper Area -->
 <div class="rbt-progress-parent" (click)="scrollToTop()">
-  <svg class="rbt-back-circle svg-inner" width="100%" height="100%" viewBox="-1 -1 102 102">
-      <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
-  </svg>
+    <svg class="rbt-back-circle svg-inner" width="100%" height="100%" viewBox="-1 -1 102 102">
+        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+    </svg>
 </div>
