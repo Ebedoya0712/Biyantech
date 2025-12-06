@@ -65,6 +65,8 @@ Route::group([
     Route::delete('/pagos/movil-rechazar/{id}', [CheckoutController::class, 'rejectPagoMovil']);
 
     Route::resource('/discount',DiscountController::class);
+
+    Route::get('/dashboard/admin', [\App\Http\Controllers\Admin\Dashboard\DashboardController::class, 'index']);
 });
 
 Route::group(["prefix" => "ecommerce"],function($router){

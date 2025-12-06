@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { WidgetsModule } from '../../_metronic/partials';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -15,6 +16,7 @@ import { WidgetsModule } from '../../_metronic/partials';
       },
     ]),
     WidgetsModule,
+    NgApexchartsModule,
   ],
 })
-export class DashboardModule {}
+export class DashboardModule { }

@@ -15,6 +15,14 @@ class Course extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    
+    public function getImagenAttribute($value)
+    {
+        if($value){
+            return url("storage/".$value);
+        }
+        return NULL;
+    }
     protected $fillable = [
         "title",
         "subtitle",

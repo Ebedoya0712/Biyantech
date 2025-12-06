@@ -1,73 +1,367 @@
-<!-- begin::Row -->
-<div class="row gy-5 g-xl-8">
-  <div class="col-xxl-4">
-    <app-mixed-widget2
-      class="card card-xl-stretch mb-xl-8"
-      chartColor="danger"
-      chartHeight="200px"
-      strokeColor="#cb1e46"
-    ></app-mixed-widget2>
+<!-- Stats Row -->
+<div class="row g-5 g-xl-8">
+  <div class="col-xl-3">
+    <div class="card bg-info hoverable card-xl-stretch mb-xl-8">
+      <div class="card-body">
+        <i class="fas fa-users text-white fs-2x ms-n1"></i>
+        <div class="text-white fw-bolder fs-2 mb-2 mt-5">{{ stats.students || 0 }}</div>
+        <div class="fw-bold text-white">Estudiantes</div>
+      </div>
+    </div>
   </div>
-  <div class="col-xxl-4">
-    <app-lists-widget5 class="card card-xxl-stretch"></app-lists-widget5>
+  <div class="col-xl-3">
+    <div class="card bg-success hoverable card-xl-stretch mb-xl-8">
+      <div class="card-body">
+        <i class="fas fa-chalkboard-teacher text-white fs-2x ms-n1"></i>
+        <div class="text-white fw-bolder fs-2 mb-2 mt-5">{{ stats.instructors || 0 }}</div>
+        <div class="fw-bold text-white">Instructores</div>
+      </div>
+    </div>
   </div>
-  <div class="col-xxl-4">
-    <app-mixed-widget10
-      class="card card-xxl-stretch-50 mb-5 mb-xl-8"
-      chartColor="primary"
-      chartHeight="150px"
-    ></app-mixed-widget10>
-    <app-mixed-widget11
-      class="card card-xxl-stretch-50 mb-5 mb-xl-8"
-      chartColor="primary"
-      chartHeight="175px"
-    ></app-mixed-widget11>
+  <div class="col-xl-3">
+    <div class="card bg-warning hoverable card-xl-stretch mb-xl-8">
+      <div class="card-body">
+        <i class="fas fa-book-open text-white fs-2x ms-n1"></i>
+        <div class="text-white fw-bolder fs-2 mb-2 mt-5">{{ stats.courses || 0 }}</div>
+        <div class="fw-bold text-white">Cursos Activos</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3">
+    <div class="card bg-primary hoverable card-xl-stretch mb-xl-8">
+      <div class="card-body">
+        <i class="fas fa-dollar-sign text-white fs-2x ms-n1"></i>
+        <div class="text-white fw-bolder fs-2 mb-2 mt-5">{{ stats.total_revenue || 0 | currency:'USD' }}</div>
+        <div class="fw-bold text-white">Ingresos Totales</div>
+      </div>
+    </div>
   </div>
 </div>
-<!-- end::Row -->
 
-<!-- begin::Row -->
-<div class="row gy-5 gx-xl-8">
-  <div class="col-xxl-4">
-    <app-lists-widget3
-      class="card card-xxl-stretch mb-xl-3"
-    ></app-lists-widget3>
-  </div>
+<!-- Charts Row -->
+<div class="row g-5 g-xl-8">
   <div class="col-xl-8">
-    <app-tables-widget10
-      class="card card-xxl-stretch mb-5 mb-xl-8"
-    ></app-tables-widget10>
+    <div class="card card-xl-stretch mb-5 mb-xl-8">
+      <div class="card-header border-0 pt-5">
+        <h3 class="card-title align-items-start flex-column">
+          <span class="card-label fw-bolder fs-3 mb-1">Ingresos Mensuales</span>
+          <span class="text-muted fw-bold fs-7">Evolución de ventas por mes</span>
+        </h3>
+      </div>
+      <div class="card-body">
+        <div *ngIf="chartOptionsRevenue && chartOptionsRevenue.series">
+          <apx-chart [series]="chartOptionsRevenue.series" [chart]="chartOptionsRevenue.chart"
+            [xaxis]="chartOptionsRevenue.xaxis" [dataLabels]="chartOptionsRevenue.dataLabels"
+            [grid]="chartOptionsRevenue.grid" [stroke]="chartOptionsRevenue.stroke" [title]="chartOptionsRevenue.title"
+            [fill]="chartOptionsRevenue.fill"></apx-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4">
+    <div class="card card-xl-stretch mb-5 mb-xl-8">
+      <div class="card-header border-0 pt-5">
+        <h3 class="card-title align-items-start flex-column">
+          <span class="card-label fw-bolder fs-3 mb-1">Cursos por Categoría</span>
+          <span class="text-muted fw-bold fs-7">Distribución del catálogo</span>
+        </h3>
+      </div>
+      <div class="card-body d-flex justify-content-center align-items-center">
+        <div *ngIf="chartOptionsCategories && chartOptionsCategories.series">
+          <apx-chart [series]="chartOptionsCategories.series" [chart]="chartOptionsCategories.chart"
+            [labels]="chartOptionsCategories.labels" [responsive]="chartOptionsCategories.responsive"
+            [legend]="chartOptionsCategories.legend"></apx-chart>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-<!-- end::Row -->
 
-<!-- begin::Row -->
-<div class="row gy-5 g-xl-8">
-  <div class="col-xl-4">
-    <app-lists-widget2 class="card card-xl-stretch mb-xl-8"></app-lists-widget2>
+<!-- Usuarios e Instructores -->
+<div class="row g-5 g-xl-8">
+  <!-- Nuevos Estudiantes -->
+  <div class="col-xl-6">
+    <div class="card card-xl-stretch mb-5 mb-xl-8">
+      <div class="card-header border-0 pt-5">
+        <h3 class="card-title align-items-start flex-column">
+          <span class="card-label fw-bolder fs-3 mb-1">Últimos Estudiantes</span>
+          <span class="text-muted fw-bold fs-7">Recién registrados</span>
+        </h3>
+      </div>
+      <div class="card-body py-3">
+        <div class="table-responsive">
+          <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+            <tbody>
+              <tr *ngFor="let user of latest_students">
+                <td>
+                  <div class="d-flex align-items-center">
+                    <div class="symbol symbol-45px me-5">
+                      <img [src]="user.avatar || './assets/media/avatars/blank.png'" alt="" />
+                    </div>
+                    <div class="d-flex justify-content-start flex-column">
+                      <a class="text-dark fw-bolder text-hover-primary fs-6">{{ user.name }} {{ user.surname }}</a>
+                      <span class="text-muted fw-bold text-muted d-block fs-7">{{ user.email }}</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="text-end">
+                  <span class="text-muted fw-bold">{{ user.created_at | date:'dd MMM yyyy' }}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="col-xl-4">
-    <app-lists-widget6 class="card card-xl-stretch mb-xl-8"></app-lists-widget6>
-  </div>
-  <div class="col-xl-4">
-    <app-lists-widget4
-      class="card card-xl-stretch mb-5 mb-xl-8"
-    ></app-lists-widget4>
+
+  <!-- Instructores -->
+  <div class="col-xl-6">
+    <div class="card card-xl-stretch mb-5 mb-xl-8">
+      <div class="card-header border-0 pt-5">
+        <h3 class="card-title align-items-start flex-column">
+          <span class="card-label fw-bolder fs-3 mb-1">Últimos Instructores</span>
+          <span class="text-muted fw-bold fs-7">Recién incorporados</span>
+        </h3>
+      </div>
+      <div class="card-body py-3">
+        <div class="table-responsive">
+          <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+            <tbody>
+              <tr *ngFor="let user of latest_instructors">
+                <td>
+                  <div class="d-flex align-items-center">
+                    <div class="symbol symbol-45px me-5">
+                      <img [src]="user.avatar || './assets/media/avatars/blank.png'" alt="" />
+                    </div>
+                    <div class="d-flex justify-content-start flex-column">
+                      <a class="text-dark fw-bolder text-hover-primary fs-6">{{ user.name }} {{ user.surname }}</a>
+                      <span class="text-muted fw-bold text-muted d-block fs-7">{{ user.profesion || 'Instructor'
+                        }}</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="text-end">
+                  <span class="text-muted fw-bold">{{ user.email }}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-<!-- end::Row -->
 
-<div class="row g-5 gx-xxl-8">
-  <div class="col-xxl-4">
-    <app-mixed-widget8
-      class="card card-xxl-stretch mb-xl-3"
-      chartColor="success"
-      chartHeight="150px"
-    ></app-mixed-widget8>
+<!-- Cursos y Categorias -->
+<div class="row g-5 g-xl-8">
+  <!-- Cursos Populares -->
+  <div class="col-xl-6">
+    <div class="card card-xl-stretch mb-5 mb-xl-8">
+      <div class="card-header border-0 pt-5">
+        <h3 class="card-title align-items-start flex-column">
+          <span class="card-label fw-bolder fs-3 mb-1">Cursos Destacados</span>
+          <span class="text-muted fw-bold fs-7">Con más estudiantes inscritos</span>
+        </h3>
+      </div>
+      <div class="card-body py-3">
+        <div class="table-responsive">
+          <table class="table align-middle gs-0 gy-4">
+            <thead>
+              <tr class="fw-bolder text-muted bg-light">
+                <th class="ps-4 min-w-200px rounded-start">Curso</th>
+                <th class="min-w-100px text-end">Estudiantes</th>
+                <th class="min-w-100px text-end rounded-end">Precio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let course of best_courses">
+                <td>
+                  <div class="d-flex align-items-center">
+                    <div class="symbol symbol-50px me-5">
+                      <span class="symbol-label bg-light">
+                        <img [src]="course.imagen" class="h-75 align-self-end" alt=""
+                          style="object-fit:cover; width:100%; height:100%; border-radius:5px;" />
+                      </span>
+                    </div>
+                    <div class="d-flex justify-content-start flex-column">
+                      <a class="text-dark fw-bolder text-hover-primary mb-1 fs-6">{{ course.title }}</a>
+                      <span class="text-muted fw-bold text-muted d-block fs-7">{{ course.categorie?.name }}</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="text-end">
+                  <span class="text-dark fw-bolder d-block fs-6">{{ course.courses_students_count }}</span>
+                </td>
+                <td class="text-end">
+                  <span class="text-dark fw-bolder d-block fs-6">{{ course.precio_usd | currency:'USD' }}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="col-xxl-8">
-    <app-tables-widget5
-      class="card card-xxl-stretch mb-5 mb-xxl-8"
-    ></app-tables-widget5>
+
+  <!-- Lista Categorias -->
+  <div class="col-xl-6">
+    <div class="card card-xl-stretch mb-5 mb-xl-8">
+      <div class="card-header border-0 pt-5">
+        <h3 class="card-title align-items-start flex-column">
+          <span class="card-label fw-bolder fs-3 mb-1">Categorías</span>
+          <span class="text-muted fw-bold fs-7">Volumen de cursos por área</span>
+        </h3>
+      </div>
+      <div class="card-body py-3">
+        <div class="table-responsive">
+          <table class="table align-middle gs-0 gy-4">
+            <tbody>
+              <tr *ngFor="let cat of categories_list">
+                <td>
+                  <div class="d-flex align-items-center">
+                    <div class="symbol symbol-45px me-5">
+                      <img [src]="cat.imagen || './assets/media/icons/duotune/general/gen002.svg'" alt="" />
+                    </div>
+                    <div class="d-flex justify-content-start flex-column">
+                      <a class="text-dark fw-bolder text-hover-primary fs-6">{{ cat.name }}</a>
+                    </div>
+                  </div>
+                </td>
+                <td class="text-end">
+                  <span class="badge badge-light-primary fs-7 fw-bold">{{ cat.courses_count }} Cursos</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- All Active Courses Table-->
+<div class="row g-5 g-xl-8">
+  <div class="col-xl-12">
+    <div class="card card-xl-stretch mb-5 mb-xl-8">
+      <div class="card-header border-0 pt-5">
+        <h3 class="card-title align-items-start flex-column">
+          <span class="card-label fw-bolder fs-3 mb-1">Todos los Cursos Activos</span>
+          <span class="text-muted fw-bold fs-7">Lista completa de cursos en venta</span>
+        </h3>
+      </div>
+      <div class="card-body py-3">
+        <div class="table-responsive">
+          <table class="table align-middle gs-0 gy-4">
+            <thead>
+              <tr class="fw-bolder text-muted bg-light">
+                <th class="ps-4 min-w-200px rounded-start">Título</th>
+                <th class="min-w-125px">Categoría</th>
+                <th class="min-w-125px">Precio</th>
+                <th class="min-w-125px rounded-end">Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let course of active_courses">
+                <td>
+                  <div class="d-flex align-items-center">
+                    <div class="symbol symbol-50px me-5">
+                      <span class="symbol-label bg-light">
+                        <img [src]="course.imagen" class="h-75 align-self-end" alt=""
+                          style="object-fit:cover; width:100%; height:100%; border-radius:5px;" />
+                      </span>
+                    </div>
+                    <div class="d-flex justify-content-start flex-column">
+                      <a class="text-dark fw-bolder text-hover-primary mb-1 fs-6">{{ course.title }}</a>
+                      <span class="text-muted fw-bold text-muted d-block fs-7">{{ course.subtitle }}</span>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <span class="text-dark fw-bolder d-block fs-6">{{ course.categorie?.name }}</span>
+                </td>
+                <td>
+                  <span class="text-dark fw-bolder d-block fs-6">{{ course.precio_usd | currency:'USD' }}</span>
+                </td>
+                <td>
+                  <span class="badge badge-light-success fw-bolder" *ngIf="course.state === 2">Público</span>
+                  <span class="badge badge-light-warning fw-bolder" *ngIf="course.state === 1">Prueba</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Recent Sales Table -->
+<div class="row g-5 g-xl-8">
+  <div class="col-xl-12">
+    <div class="card card-xl-stretch mb-5 mb-xl-8">
+      <div class="card-header border-0 pt-5">
+        <h3 class="card-title align-items-start flex-column">
+          <span class="card-label fw-bolder fs-3 mb-1">Ventas Recientes</span>
+          <span class="text-muted fw-bold fs-7">Últimas 5 transacciones</span>
+        </h3>
+      </div>
+      <div class="card-body py-3">
+        <div class="table-responsive">
+          <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+            <thead>
+              <tr class="fw-bolder text-muted">
+                <th class="min-w-150px">Estudiante</th>
+                <th class="min-w-140px">Curso(s)</th>
+                <th class="min-w-120px">Fecha</th>
+                <th class="min-w-120px">Total</th>
+                <th class="min-w-100px text-end">Método</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let sale of recent_sales">
+                <td>
+                  <div class="d-flex align-items-center">
+                    <div class="d-flex justify-content-start flex-column">
+                      <a href="#" onclick="return false;" class="text-dark fw-bolder text-hover-primary fs-6">
+                        {{ sale.user?.name }} {{ sale.user?.surname }}
+                      </a>
+                      <span class="text-muted fw-bold text-muted d-block fs-7">
+                        {{ sale.user?.email }}
+                      </span>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <ng-container *ngFor="let detail of sale.sale_details">
+                    <span class="text-dark fw-bolder text-hover-primary d-block fs-6">
+                      {{ detail.course?.title }}
+                    </span>
+                  </ng-container>
+                </td>
+                <td>
+                  <span class="text-muted fw-bold text-muted d-block fs-7">
+                    {{ sale.created_at | date: 'dd/MM/yyyy HH:mm' }}
+                  </span>
+                </td>
+                <td>
+                  <span class="text-dark fw-bolder text-hover-primary d-block fs-6">
+                    {{ sale.total | currency:'USD' }}
+                  </span>
+                </td>
+                <td class="text-end">
+                  <span class="badge badge-light-success">{{ sale.method_payment }}</span>
+                </td>
+              </tr>
+              <tr *ngIf="recent_sales.length === 0">
+                <td colspan="5" class="text-center text-muted">
+                  No hay ventas recientes.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
