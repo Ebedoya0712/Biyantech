@@ -13,6 +13,14 @@ class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
 
+    public function getAvatarAttribute($value)
+    {
+        if($value){
+            return url("storage/".$value);
+        }
+        return NULL;
+    }
+
     /**
      * The attributes that are mass assignable.
      *
