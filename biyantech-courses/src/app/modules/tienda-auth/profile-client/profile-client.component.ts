@@ -40,6 +40,7 @@ export class ProfileClientComponent implements OnInit{
   password:any = null;
   new_password:any = null;
   file_imagen:any = null;
+  file_banner:any = null;
   constructor(
     public authService: AuthService,
     public tiendaAuth: TiendaAuthService,
@@ -52,7 +53,7 @@ export class ProfileClientComponent implements OnInit{
     //Add 'implements OnInit' to the class.
 
     this.tiendaAuth.profileClient().subscribe((resp:any) => {
-      console.log(resp);
+      console.log('Profile Response:', resp);
       this.enrolled_course_count = resp.enrolled_course_count;
       this.active_course_count = resp.active_course_count;
       this.termined_course_count = resp.termined_course_count;
@@ -67,6 +68,11 @@ export class ProfileClientComponent implements OnInit{
       this.enrolled_courses = resp.enrolled_courses;
       this.active_courses = resp.active_courses;
       this.termined_courses = resp.termined_courses;
+      
+      console.log('Enrolled Courses:', this.enrolled_courses);
+      console.log('Active Courses:', this.active_courses);
+      console.log('Completed Courses:', this.termined_courses);
+      
       this.sale_details = resp.sale_details;
       this.sales = resp.sales.data;
     })
@@ -181,14 +187,27 @@ export class ProfileClientComponent implements OnInit{
     if(this.new_password){
       formData.append("new_password",this.new_password);
     }
+    if(this.file_banner){
+      formData.append("imagen_banner",this.file_banner);
+    }
     this.tiendaAuth.updateUser(formData).subscribe((resp:any) => {
       console.log(resp);
+      
+      // Update user object with new data from response
+      if(resp.user) {
+        this.user = resp.user;
+      }
+      
       alertSuccess("LOS REGISTRO SE ACTUALIZARON CORRECTAMENTE");
     })
   }
 
   processFile($event:any){
     this.file_imagen = $event.target.files[0];
+  }
+
+  processBanner($event:any){
+    this.file_banner = $event.target.files[0];
   }
 
   downloadCertificate(enrolled_course: any) {

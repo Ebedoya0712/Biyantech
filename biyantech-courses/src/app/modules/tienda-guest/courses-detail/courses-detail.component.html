@@ -268,11 +268,9 @@
                                                         <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 4}"></i>
                                                         <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 5}"></i>
                                                 </div>
-                                                <span class="rating-count"> ({{ COURSE.count_reviews }} Reviews)</span>
+                                                <span class="rating-count"> ({{ COURSE.count_reviews }} Reseñas)</span>
                                             </div>
-                                            <div class="rbt-bookmark-btn">
-                                                <a class="rbt-round-btn" title="Bookmark" href="#"><i class="feather-bookmark"></i></a>
-                                            </div>
+                                            <!-- Bookmark Removed -->
                                         </div>
                                         <h4 class="rbt-card-title"><a [attr.href]="'landing-curso/'+COURSE.slug">{{ COURSE.title }}</a>
                                         </h4>
@@ -289,7 +287,7 @@
                                                 </a>
                                             </div>
                                             <div class="rbt-author-info">
-                                                By <a href="profile.html">{{ COURSE.instructor.full_name }}</a> In <a href="#">{{ COURSE.instructor.profesion }}</a>
+                                                Por <a href="profile.html">{{ COURSE.instructor.full_name }}</a> En <a href="#">{{ COURSE.instructor.profesion }}</a>
                                             </div>
                                         </div>
                                         <div class="rbt-card-bottom">
@@ -297,7 +295,7 @@
                                                 <span class="current-price">{{ getTotalPriceCourse(COURSE) }} USD</span>
                                                 <span class="off-price" *ngIf="COURSE.discount_g">{{ COURSE.precio_usd }}</span>
                                             </div>
-                                            <a class="rbt-btn-link left-icon" href="#" onclick="return false;" (click)="addCart()"><i class="feather-shopping-cart"></i> Add To Cart</a>
+                                            <a class="rbt-btn-link left-icon" href="#" onclick="return false;" (click)="addCart()"><i class="feather-shopping-cart"></i> Añadir al Carrito</a>
                                         </div>
                                     </div>
                                 </div>
@@ -426,11 +424,9 @@
                                         <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 4}"></i>
                                         <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 5}"></i>
                                     </div>
-                                    <span class="rating-count"> ({{ COURSE.count_reviews }} Reviews)</span>
+                                    <span class="rating-count"> ({{ COURSE.count_reviews }} Reseñas)</span>
                                 </div>
-                                <div class="rbt-bookmark-btn">
-                                    <a class="rbt-round-btn" title="Bookmark" href="#"><i class="feather-bookmark"></i></a>
-                                </div>
+                                <!-- Bookmark Removed -->
                             </div>
                             <h4 class="rbt-card-title"><a [attr.href]="'landing-curso/'+COURSE.slug">{{ COURSE.title }}</a>
                             </h4>
@@ -447,7 +443,7 @@
                                     </a>
                                 </div>
                                 <div class="rbt-author-info">
-                                    By <a href="profile.html">{{ COURSE.instructor.full_name }}</a> In <a href="#">{{ COURSE.instructor.profesion }}</a>
+                                    Por <a href="profile.html">{{ COURSE.instructor.full_name }}</a> En <a href="#">{{ COURSE.instructor.profesion }}</a>
                                 </div>
                             </div>
                             <div class="rbt-card-bottom">
@@ -455,7 +451,7 @@
                                     <span class="current-price">{{ getTotalPriceCourse(COURSE) }} USD</span>
                                     <span class="off-price" *ngIf="COURSE.discount_g">{{ COURSE.precio_usd }}</span>
                                 </div>
-                                <a class="rbt-btn-link left-icon" [attr.href]="'landing-curso/'+COURSE.slug"><i class="feather-shopping-cart"></i> Add To Cart</a>
+                                <a class="rbt-btn-link left-icon" [attr.href]="'landing-curso/'+COURSE.slug"><i class="feather-shopping-cart"></i> Añadir al Carrito</a>
                             </div>
                         </div>
                     </div>

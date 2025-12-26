@@ -39,6 +39,7 @@ export class ListCartsComponent implements OnInit {
   isVerificationComplete: boolean = false;
   verificationProgress: number = 0;
   verificationInterval: any;
+  referenceNumber: string = ''; // Número de referencia del Pago Móvil
 
   @ViewChild('paypal', { static: true }) paypalElement?: ElementRef;
   @ViewChild('pagoMovilModal') pagoMovilModal!: ElementRef;
@@ -439,6 +440,18 @@ export class ListCartsComponent implements OnInit {
     // Usamos el hook de Bootstrap para mostrar el modal
     const modal = new bootstrap.Modal(this.pagoMovilModal.nativeElement);
     modal.show();
+    
+    // Agregar listener para limpiar el backdrop cuando se cierre el modal
+    this.pagoMovilModal.nativeElement.addEventListener('hidden.bs.modal', () => {
+      // Remover todos los backdrops que puedan quedar
+      const backdrops = document.querySelectorAll('.modal-backdrop');
+      backdrops.forEach(backdrop => backdrop.remove());
+      
+      // Restaurar el scroll del body
+      document.body.classList.remove('modal-open');
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+    }, { once: true }); // El listener se ejecuta solo una vez
   }
 
   resetModal() {
@@ -447,6 +460,7 @@ export class ListCartsComponent implements OnInit {
     this.filePreview = null;
     this.isVerificationComplete = false;
     this.verificationProgress = 0;
+    this.referenceNumber = ''; // Limpiar número de referencia
     this.clearVerificationInterval();
   }
 
@@ -517,6 +531,18 @@ export class ListCartsComponent implements OnInit {
       return;
     }
 
+    // Validar número de referencia
+    if (!this.referenceNumber || this.referenceNumber.trim().length < 4) {
+      alertDanger('Por favor, ingresa un número de referencia válido (mínimo 4 dígitos)');
+      return;
+    }
+
+    // Validar que solo contenga números
+    if (!/^\d+$/.test(this.referenceNumber)) {
+      alertDanger('El número de referencia solo debe contener dígitos');
+      return;
+    }
+
     this.currentStep = 3; // Mover al paso de verificación
     this.startVerificationProcess();
   }
@@ -562,6 +588,7 @@ export class ListCartsComponent implements OnInit {
       total_bs: this.totalSumBs,
       exchange_rate: this.usdToBsRate,
       exchange_source: this.getRateSource(),
+      reference_number: this.referenceNumber, // Número de referencia del Pago Móvil
       comprobante: this.filePreview, // Campo que Laravel usa para crear 'capture_pgmovil'
 
       n_transaccion: "PM_" + Date.now(), // ID de transacción temporal

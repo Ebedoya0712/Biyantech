@@ -1,50 +1,361 @@
-/* You can add global styles to this file, and also import other style files */
-.notification-ecommerce {
-  position: fixed;
-  left: 70%;
-  top: 10%;
-  background-color: #faebff;
-  /* #ffebeb; */
-  border-radius: 0.2rem;
-  overflow: hidden;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  z-index: 1000;
-}
-.notification__warning {
-  width: 1.5rem;
-  margin-left: 1rem;
-  fill: #e00000;
-}
-.notification__close {
-  background-color: #faebff;
-  /* #ffc2c2; */
-  border: aliceblue;
-  padding: 1rem;
-  display: flex;
-  cursor: pointer;
-}
-.notification__close svg {
-  width: .9rem;
-  fill: #a687ff;
-}
-.notification-show {
-  animation: warning 600ms ease-in-out forwards;
-  display: flex;
+
+/* Theme Switch Button */
+.theme-switch-item {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
 }
 
-@keyframes warning {
-  0% {
-    opacity: 0;
-    top: 2rem;
-  }
-  5% {
-    opacity: 0;
-  }
-  100% {
+.theme-switch-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.theme-switch-btn:hover {
+    background-color: #fff;
+    color: var(--color-primary);
+}
+
+.dark-mode .theme-switch-btn {
+    border-color: rgba(255, 255, 255, 0.5);
+    color: #fff;
+}
+
+.dark-mode .theme-switch-btn:hover {
+    background-color: #fff;
+    color: #8A2BE2; /* Brand Purple */
+}
+
+
+/* Dark Mode Overrides - Biyantech Brand */
+body.dark-mode {
+    background-color: #02021E !important; /* Deep Navy Blue */
+    color: #e0e0e0 !important;
+}
+
+/* Header & Topbar */
+.dark-mode .rbt-header-top-1 {
+    background-color: #000000 !important;
+    border-bottom: 1px solid #1a1a3d;
+}
+
+.dark-mode .rbt-header-wrapper {
+    background-color: #050524 !important; /* Slightly lighter than body */
+    border-bottom: 1px solid #1a1a3d;
+}
+
+/* Cards & Content Areas */
+.dark-mode .rbt-card, 
+.dark-mode .card,
+.dark-mode .rbt-main-navigation .submenu,
+.dark-mode .rbt-search-dropdown,
+.dark-mode .rbt-user-menu-list-wrapper,
+.dark-mode .rbt-offcanvas-side-menu .inner-wrapper,
+.dark-mode .rbt-user-menu-list-wrapper .inner      {
+    background-color: #0B0B2E !important; /* Unified Card Background */
+    border-color: #2D2D52 !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+.dark-mode .rbt-card .rbt-card-body,
+.dark-mode .card-body {
+    color: #ccc !important;
+}
+
+/* Typography */
+.dark-mode h1, .dark-mode h2, .dark-mode h3, 
+.dark-mode h4, .dark-mode h5, .dark-mode h6,
+.dark-mode .title,
+.dark-mode .rbt-card-title a {
+    color: #fff !important;
+}
+
+.dark-mode p, .dark-mode span, .dark-mode li {
+    color: #b0b0d0 ; /* Blue-ish grey for text */
+}
+
+/* Links */
+.dark-mode a {
+    color: #b0b0d0;
+    transition: color 0.3s;
+}
+
+.dark-mode a:hover {
+    color: #8A2BE2 !important; /* Electric Purple on hover */
+}
+
+/* Inputs & Forms */
+.dark-mode input, 
+.dark-mode textarea, 
+.dark-mode select {
+    background-color: #0F0F36 !important;
+    border-color: #2D2D52 !important;
+    color: #fff !important;
+}
+
+.dark-mode input:focus {
+    border-color: #8A2BE2 !important; /* Purple Border on Focus */
+}
+
+.dark-mode input::placeholder,
+.dark-mode textarea::placeholder {
+    color: #a0a0c0 !important; /* Visible placeholder text */
+}
+
+/* Search Bar Specifics */
+.dark-mode .rbt-search-dropdown input {
+    color: #ffffff !important;
+    background-color: rgba(255,255,255,0.05) !important;
+}
+
+/* Navigation Icons (Search, Cart, User) */
+.dark-mode .access-icon .rbt-round-btn,
+.dark-mode .search-trigger-active {
+    color: #fff !important;
+    background-color: rgba(255,255,255,0.1) !important;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.dark-mode .access-icon .rbt-round-btn:hover,
+.dark-mode .search-trigger-active:hover {
+    background-color: #fff !important;
+    color: #8A2BE2 !important; /* Purple Icon on White Hover */
+    box-shadow: 0 0 10px #8A2BE2; /* Subtle purple glow */
+}
+
+/* Cart Side Menu Dark Mode */
+.dark-mode .rbt-cart-side-menu .inner-wrapper {
+    background-color: #0B0B2E !important;
+    box-shadow: -5px 0 20px rgba(0,0,0,0.5);
+}
+
+.dark-mode .minicart-item .title a {
+    color: #fff !important;
+}
+
+.dark-mode .minicart-item .price {
+    color: #8A2BE2 !important; /* Purple Price */
+}
+
+.dark-mode .rbt-cart-subttotal .subtotal,
+.dark-mode .rbt-cart-subttotal .price {
+    color: #fff !important;
+}
+
+.dark-mode .minicart-close-button {
+    background-color: rgba(255,255,255,0.1) !important;
+    color: #fff !important;
+}
+
+.dark-mode .minicart-close-button:hover {
+    background-color: #8A2BE2 !important;
+    color: #fff !important;
+}
+
+.dark-mode .rbt-btn.btn-border {
+    border-color: rgba(255,255,255,0.3) !important;
+    color: #fff !important;
+}
+
+.dark-mode .rbt-btn.btn-border:hover {
+    background-color: #8A2BE2 !important;
+    border-color: #8A2BE2 !important;
+    color: #fff !important;
+}
+
+/* Hero Section / Banner Area Dark Mode */
+.dark-mode .rbt-banner-area {
+    background-color: #02021E !important; /* Force dark background */
+    background: #02021E !important; 
+}
+
+/* Fix for specific shape layers if they are too bright/white */
+.dark-mode .rbt-banner-area .layer img {
+    opacity: 0.1; /* Dim background shapes */
+}
+
+.dark-mode .rbt-banner-area .title {
+    color: #ffffff !important;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5); /* Improve readability */
+}
+
+.dark-mode .rbt-banner-area .description {
+    color: #d0d0e0 !important;
+}
+
+.dark-mode .rbt-new-badge {
+    background-color: rgba(255,255,255,0.1) !important;
+    color: #fff !important;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* --- CART PAGE DARK MODE overrides --- */
+
+/* 1. BreadCrumb: "Inicio" & "Carrito" in Black */
+.dark-mode .rbt-breadcrumb-default .page-list li a,
+.dark-mode .rbt-breadcrumb-default .page-list li.active,
+.dark-mode .rbt-breadcrumb-default .title,
+.dark-mode .rbt-breadcrumb-default .page-list li .icon-right,
+.dark-mode .rbt-breadcrumb-default .page-list li,
+.dark-mode .rbt-breadcrumb-default {
+    color: #000000 !important;
+}
+/* Ensure breadcrumb background is light so black text is visible */
+.dark-mode .rbt-breadcrumb-default {
+    background: #f8f9fa !important; 
+}
+
+
+/* 2. Cart Table Course Title in White */
+.dark-mode .cart-table .pro-title a {
+    color: #ffffff !important;
+}
+/* Ensure Table Rows have dark background to match standard dark mode */
+.dark-mode .cart-table table tbody tr td,
+.dark-mode .cart-table table thead tr th {
+    background-color: #0B0B2E !important;
+    border-color: #2D2D52;
+    color: #b0b0d0; /* Other text default */
+}
+
+
+/* 3. Coupon Code Input Text in Black */
+.dark-mode .discount-coupon input {
+    color: #000000 !important;
+    background-color: #ffffff !important; /* Ensure input bg is white so black text is visible */
+    border: 1px solid #ccc !important;
+}
+.dark-mode .discount-coupon input::placeholder {
+    color: #555555 !important;
+}
+
+/* Coupon Title specifically black */
+.dark-mode .discount-coupon .title {
+    color: #000000 !important;
+}
+
+/* 4. Apply Code Button Visibility */
+.dark-mode .discount-coupon .rbt-btn {
+    background: #8A2BE2 !important; /* High Visibility Purple */
+    color: #fff !important;
+    border: none;
+    box-shadow: 0 4px 10px rgba(138, 43, 226, 0.4);
+}
+.dark-mode .discount-coupon .rbt-btn:hover {
+    background: #fff !important;
+    color: #8A2BE2 !important;
+}
+
+
+/* 5. Cart Summary Text in Black */
+.dark-mode .cart-summary {
+    background-color: #ffffff !important; /* Keep summary box white/light */
+    border: 1px solid #e0e0e0;
+}
+.dark-mode .cart-summary .title,
+.dark-mode .cart-summary p,
+.dark-mode .cart-summary h2,
+.dark-mode .cart-summary span {
+    color: #000000 !important;
+}
+
+/* --- STAR RATINGS DARK MODE --- */
+/* Base: Filled Stars (Active) -> White (Bright) */
+.dark-mode .rating i {
+    color: #ffffff !important;
     opacity: 1;
-    top: 4rem;
-  }
+}
+
+/* Empty Stars (Inactive/Placeholder) -> White (Dimmed/Translucent) */
+.dark-mode .rating i.rating {
+    color: #ffffff !important;
+    opacity: 0.3; /* Visible but clearly "empty" */
+}
+
+/* --- HEADER USER NAME VISIBILITY --- */
+/* Make user name in header user menu (dropdown) visible and purple/primary */
+.rbt-admin-profile .admin-info .name,
+.rbt-user-menu-list-wrapper .admin-info .name {
+    color: #8A2BE2 !important; /* Biyantech Purple */
+    font-weight: 700 !important; /* Bold for visibility */
+    font-size: 16px;
+}
+
+/* "Ver Perfil" Link Styling */
+.rbt-admin-profile .admin-info a.rbt-btn-link,
+.rbt-user-menu-list-wrapper .admin-info a.rbt-btn-link {
+    color: #333 !important; /* Dark Grey/Black in Light Mode for contrast */
+    font-weight: 500;
+}
+.dark-mode .rbt-admin-profile .admin-info a.rbt-btn-link,
+.dark-mode .rbt-user-menu-list-wrapper .admin-info a.rbt-btn-link {
+    color: #ffffff !important; /* White in Dark Mode */
+}
+
+
+/* Force User Link (Icon + Name) in Header to be ALWAYS visible */
+/* This targets the top-level header link before the dropdown */
+.rbt-header-wrapper .account-access .user-link-custom,
+.rbt-header-wrapper .account-access .user-link-custom i,
+.rbt-header-wrapper .account-access a {
+    color: #8A2BE2 !important; /* Always Purple */
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: flex !important; /* Ensure flex for alignment if lost */
+    align-items: center;
+    gap: 5px; /* Space between icon and name */
+    font-weight: 600;
+}
+
+/* Ensure no hover state hides it */
+.rbt-header-wrapper .account-access:hover .user-link-custom,
+.rbt-header-wrapper .account-access:hover a {
+    color: #8A2BE2 !important;
+}
+
+/* Also ensure "Ver Perfil" is distinctly styled if needed, but user name was the request */
+
+/* Primary Color Accents replacement for Dark Mode */
+.dark-mode .color-primary {
+    color: #8A2BE2 !important;
+}
+
+.dark-mode .bg-color-white {
+    background-color: #0B0B2E !important;
+}
+
+/* Footer */
+.dark-mode .rbt-footer {
+    background-color: #000000 !important;
+}
+
+.dark-mode .copyright-area {
+    background-color: #02021E !important;
+    border-top: 1px solid #1a1a3d;
+}
+
+/* Mobile Menu */
+.dark-mode .popup-mobile-menu .inner-wrapper {
+   background-color: #0B0B2E !important;
+}
+
+/* Scrollbar styling for a polished feel */
+.dark-mode ::-webkit-scrollbar-track {
+    background: #02021E; 
+}
+.dark-mode ::-webkit-scrollbar-thumb {
+    background: #2D2D52; 
+    border-radius: 5px;
+}
+.dark-mode ::-webkit-scrollbar-thumb:hover {
+    background: #8A2BE2; 
 }

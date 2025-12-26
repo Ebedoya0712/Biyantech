@@ -20,6 +20,9 @@ class Sale extends Model
         "total",
         "price_dolar",
         "n_transaccion",
+        "reference_number",     // Número de referencia del Pago Móvil
+        "screenshot_verified",  // Resultado de la verificación automática
+        "verification_details", // Detalles del análisis de la imagen
         "total_bs",            // Monto total en Bolívares
         "exchange_rate",       // Tasa de cambio usada
         "exchange_source",     // Fuente de la tasa (ej: BCV Oficial)

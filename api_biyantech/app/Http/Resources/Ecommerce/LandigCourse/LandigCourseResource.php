@@ -45,7 +45,7 @@ class LandigCourseResource extends JsonResource
             "idioma" => $this->resource->idioma,
             "vimeo_id" => $this->resource->vimeo_id ? "https://player.vimeo.com/video/".$this->resource->vimeo_id : NULL,
             "time" => $this->resource->time,
-            "imagen" => env("APP_URL")."storage/".$this->resource->imagen,
+            "imagen" => $this->resource->imagen,
             "precio_usd" => $this->resource->precio_usd,
             "precio_pen" => $this->resource->precio_pen,
             "count_class" => $this->resource->count_class,
@@ -62,7 +62,7 @@ class LandigCourseResource extends JsonResource
             "instructor" => $this->resource->instructor ? [
                 "id" => $this->resource->instructor->id,
                 "full_name" => $this->resource->instructor->name. ' '. $this->resource->instructor->surname,
-                "avatar" => env("APP_URL")."storage/".$this->resource->instructor->avatar,
+                "avatar" => $this->resource->instructor->avatar,
                 "profesion" => $this->resource->instructor->profesion,
                 "courses_count"  => $this->resource->instructor->courses_count,
                 "description" => $this->resource->instructor->description,
@@ -85,7 +85,7 @@ class LandigCourseResource extends JsonResource
                             "files" => $clase->files->map(function($file) {
                                 return [
                                     "name" => $file->name_file,
-                                    "url" => env("APP_URL")."storage/".$file->file,
+                                    "url" => env("APP_URL")."/storage/".$file->file,
                                     "size" => $file->size,
                                 ];
                             })
@@ -100,7 +100,7 @@ class LandigCourseResource extends JsonResource
                     "rating" => $review->rating,
                     "user" => [
                         "full_name" =>  $review->user->name.' '.$review->user->surname,
-                        "avatar" => env("APP_URL")."storage/".$review->user->avatar,
+                        "avatar" => $review->user->avatar,
                     ],
                 ];
             })

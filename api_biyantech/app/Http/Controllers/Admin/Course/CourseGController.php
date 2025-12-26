@@ -162,20 +162,33 @@ class CourseGController extends Controller
             return response()->json(["message" => 403,"message_text" => "YA EXISTE UN CURSO CON ESTE TITULO"]);
         }
         $course = Course::findOrFail($id);
+        
+        $data = $request->all();
+
         if($request->hasFile("portada")){
-            if($course->imagen){
-                Storage::delete($course->imagen);
+            if($course->getRawOriginal('imagen')){
+                Storage::delete($course->getRawOriginal('imagen'));
             }
             $path = Storage::putFile("courses",$request->file("portada"));
-            $request->request->add(["imagen" => $path]);
+            $data["imagen"] = $path;
         }
 
-        $request->request->add(["slug" => Str::slug($request->title)]);
-        $request->request->add(["requirements" => json_encode(explode(",",$request->requirements))]);
-        $request->request->add(["who_is_it_for" => json_encode(explode(",",$request->who_is_it_for))]);
-        $course->update($request->all());
+        $data["slug"] = Str::slug($request->title);
+        
+        // Handle variations of requirements/who_is_it_for (could be string or array)
+        if (isset($data['requirements']) && is_string($data['requirements'])) {
+            $data["requirements"] = json_encode(explode(",",$data['requirements']));
+        }
+        if (isset($data['who_is_it_for']) && is_string($data['who_is_it_for'])) {
+            $data["who_is_it_for"] = json_encode(explode(",",$data['who_is_it_for']));
+        }
 
-        return response()->json(["courses" => CourseGResource::make($course)]);
+        $course->update($data);
+
+        return response()->json([
+            "message" => 200,
+            "course" => CourseGResource::make($course)
+        ]);
     }
 
     /**

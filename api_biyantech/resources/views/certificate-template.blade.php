@@ -92,7 +92,7 @@
         <div class="course-name">{{ $course->title }}</div>
         <div class="date-value">{{ now()->format('d/m/Y') }}</div>
         
-        <div class="instructor-name">{{ $instructor_name }}</div>
+        <div class="instructor-name">{{ $course->user ? $course->user->name : 'BIYANTECH' }}</div>
     </div>
 </body>
 </html>

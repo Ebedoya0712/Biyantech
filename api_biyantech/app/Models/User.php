@@ -42,6 +42,7 @@ class User extends Authenticatable implements JWTSubject
         "profesion",
         "description",
         "phone",
+        "banner",
     ];
 
     /**
@@ -124,5 +125,13 @@ class User extends Authenticatable implements JWTSubject
         }
         
         return $query;
+    }
+
+    public function getBannerAttribute($value)
+    {
+        if($value){
+            return url("storage/".$value);
+        }
+        return NULL;
     }
 }

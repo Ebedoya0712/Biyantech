@@ -72,7 +72,7 @@ class HomeController extends Controller
                 return [
                     "id" => $categorie->id,
                     "name" => $categorie->name,
-                    "imagen" => env("APP_URL")."storage/".$categorie->imagen,
+                    "imagen" =>  $categorie->imagen,
                     "course_count" => $categorie->courses_count,
                 ];
             }),

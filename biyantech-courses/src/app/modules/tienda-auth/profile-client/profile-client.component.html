@@ -12,7 +12,7 @@
             <div class="col-lg-12">
                 <!-- Start Dashboard Top  -->
                 <div class="rbt-dashboard-content-wrapper">
-                    <div class="tutor-bg-photo bg_image bg_image--23 height-350"></div>
+                    <div class="tutor-bg-photo bg_image height-350" [ngStyle]="{'background-image': 'url(' + (user?.banner ? user.banner : 'assets/images/bg/bg-image-10.jpg') + ')'}" style="background-size: cover; background-position: center;"></div>
                     <!-- Start Tutor Information  -->
                     <div class="rbt-tutor-information">
                         <div class="rbt-tutor-information-left">
@@ -21,10 +21,6 @@
                             </div>
                             <div class="tutor-content">
                                 <h5 class="title" *ngIf="user">{{ user.name + ' '+user.surname }}</h5>
-                                <ul class="rbt-meta rbt-meta-white mt--5">
-                                    <li><i class="feather-book"></i>{{ enrolled_course_count }} Cursos Inscritos</li>
-                                    <li><i class="feather-award"></i>{{ termined_course_count }} Certificados</li>
-                                </ul>
                             </div>
                         </div>
                         <div class="rbt-tutor-information-right">
@@ -90,7 +86,7 @@
                                                     <i class="feather-book-open"></i>
                                                 </div>
                                                 <div class="content">
-                                                    <h3 class="counter without-icon color-primary"><span class="odometer" data-count="30">{{ enrolled_course_count }}</span>
+                                                    <h3 class="counter without-icon color-primary"><span class="odometer" [attr.data-count]="enrolled_course_count">{{ enrolled_course_count }}</span>
                                                     </h3>
                                                     <span class="rbt-title-style-2 d-block">Cursos Inscritos</span>
                                                 </div>
@@ -107,9 +103,9 @@
                                                     <i class="feather-monitor"></i>
                                                 </div>
                                                 <div class="content">
-                                                    <h3 class="counter without-icon color-secondary"><span class="odometer" data-count="10">{{ active_course_count }}</span>
+                                                    <h3 class="counter without-icon color-secondary"><span class="odometer" [attr.data-count]="active_course_count">{{ active_course_count }}</span>
                                                     </h3>
-                                                    <span class="rbt-title-style-2 d-block">Cursos Activos</span>
+                                                    <span class="rbt-title-style-2 d-block">Cursos en Proceso</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -125,7 +121,7 @@
                                                     <i class="feather-award"></i>
                                                 </div>
                                                 <div class="content">
-                                                    <h3 class="counter without-icon color-violet"><span class="odometer" data-count="7">{{ termined_course_count }}</span>
+                                                    <h3 class="counter without-icon color-violet"><span class="odometer" [attr.data-count]="termined_course_count">{{ termined_course_count }}</span>
                                                     </h3>
                                                     <span class="rbt-title-style-2 d-block">Cursos Completados</span>
                                                 </div>
@@ -154,7 +150,7 @@
                                         </li>
                                         <li role="presentation">
                                             <a href="#" class="tab-button" id="profile-tab-4" data-bs-toggle="tab" data-bs-target="#profile-4" role="tab" aria-controls="profile-4" aria-selected="false">
-                                                <span class="title">Cursos Activos</span>
+                                                <span class="title">Cursos en Proceso</span>
                                             </a>
                                         </li>
                                         <li role="presentation">
@@ -187,27 +183,26 @@
                                                                         <i class="fas fa-star"></i>
                                                                         <i class="fas fa-star"></i>
                                                                     </div>
-                                                                    <span class="rating-count"> (15 Reseñas)</span>
-                                                                </div>
-                                                                <div class="rbt-bookmark-btn">
-                                                                    <a class="rbt-round-btn" title="Bookmark" href="#"><i class="feather-bookmark"></i></a>
+                                                                    <span class="rating-count"> ({{ enrolled_course.course.count_reviews }} Reseñas)</span>
                                                                 </div>
                                                             </div>
                                                             <h4 class="rbt-card-title"><a [href]="'/landing-curso/'+enrolled_course.course.slug">{{ enrolled_course.course.title }}</a>
                                                             </h4>
                                                             <ul class="rbt-meta">
-                                                                <li><i class="feather-book"></i>{{ enrolled_course.course.count_class }} Lessons</li>
-                                                                <li><i class="feather-users"></i>{{ enrolled_course.course.count_students }} Students</li>
+                                                                <li><i class="feather-book"></i>{{ enrolled_course.course.count_class }} Lecciones</li>
+                                                                <li><i class="feather-users"></i>{{ enrolled_course.course.count_students }} Estudiantes</li>
                                                             </ul>
     
                                                             <div class="rbt-progress-style-1 mb--20 mt--10">
                                                                 <div class="single-progress">
-                                                                    <h6 class="rbt-title-style-2 mb--10" *ngIf="enrolled_course.state == 2">Complete</h6>
-                                                                    <h6 class="rbt-title-style-2 mb--10" *ngIf="enrolled_course.state == 1">Proceso</h6>
-                                                                    <div class="progress">
-                                                                        <div class="progress-bar wow fadeInLeft bar-color-success" data-wow-duration="0.5s" data-wow-delay=".3s" role="progressbar" [ngStyle]="{'width': enrolled_course.percentage+'%'}" [attr.aria-valuenow]="enrolled_course.percentage" aria-valuemin="0" aria-valuemax="100">
+                                                                    <div class="d-flex justify-content-between align-items-center mb--10">
+                                                                        <h6 class="rbt-title-style-2 mb-0" *ngIf="enrolled_course.state == 2">Completado</h6>
+                                                                        <h6 class="rbt-title-style-2 mb-0" *ngIf="enrolled_course.state == 1">En Proceso</h6>
+                                                                        <span class="rbt-title-style-2 mb-0" style="font-weight: bold; color: #a855f7;">{{ enrolled_course.percentage }}%</span>
+                                                                    </div>
+                                                                    <div class="progress" style="height: 8px; background-color: rgba(255, 255, 255, 0.1);">
+                                                                        <div class="progress-bar bg-gradient-primary" role="progressbar" [ngStyle]="{'width': enrolled_course.percentage+'%'}" [attr.aria-valuenow]="enrolled_course.percentage" aria-valuemin="0" aria-valuemax="100" style="background: linear-gradient(90deg, #a855f7 0%, #6366f1 100%);">
                                                                         </div>
-                                                                        <span class="rbt-title-style-2 progress-number">{{ enrolled_course.percentage }}%</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -248,25 +243,24 @@
                                                                     </div>
                                                                     <span class="rating-count"> (15 Reseñas)</span>
                                                                 </div>
-                                                                <div class="rbt-bookmark-btn">
-                                                                    <a class="rbt-round-btn" title="Bookmark" href="#"><i class="feather-bookmark"></i></a>
-                                                                </div>
                                                             </div>
                                                             <h4 class="rbt-card-title"><a [href]="'/landing-curso/'+enrolled_course.course.slug">{{ enrolled_course.course.title }}</a>
                                                             </h4>
                                                             <ul class="rbt-meta">
-                                                                <li><i class="feather-book"></i>{{ enrolled_course.course.count_class }} Lessons</li>
-                                                                <li><i class="feather-users"></i>{{ enrolled_course.course.count_students }} Students</li>
+                                                                <li><i class="feather-book"></i>{{ enrolled_course.course.count_class }} Lecciones</li>
+                                                                <li><i class="feather-users"></i>{{ enrolled_course.course.count_students }} Estudiantes</li>
                                                             </ul>
     
                                                             <div class="rbt-progress-style-1 mb--20 mt--10">
                                                                 <div class="single-progress">
-                                                                    <h6 class="rbt-title-style-2 mb--10" *ngIf="enrolled_course.state == 2">Complete</h6>
-                                                                    <h6 class="rbt-title-style-2 mb--10" *ngIf="enrolled_course.state == 1">Proceso</h6>
-                                                                    <div class="progress">
-                                                                        <div class="progress-bar wow fadeInLeft bar-color-success" data-wow-duration="0.5s" data-wow-delay=".3s" role="progressbar" [ngStyle]="{'width': enrolled_course.percentage+'%'}" [attr.aria-valuenow]="enrolled_course.percentage" aria-valuemin="0" aria-valuemax="100">
+                                                                    <div class="d-flex justify-content-between align-items-center mb--10">
+                                                                        <h6 class="rbt-title-style-2 mb-0" *ngIf="enrolled_course.state == 2">Completado</h6>
+                                                                        <h6 class="rbt-title-style-2 mb-0" *ngIf="enrolled_course.state == 1">En Proceso</h6>
+                                                                        <span class="rbt-title-style-2 mb-0" style="font-weight: bold; color: #a855f7;">{{ enrolled_course.percentage }}%</span>
+                                                                    </div>
+                                                                    <div class="progress" style="height: 8px; background-color: rgba(255, 255, 255, 0.1);">
+                                                                        <div class="progress-bar bg-gradient-primary" role="progressbar" [ngStyle]="{'width': enrolled_course.percentage+'%'}" [attr.aria-valuenow]="enrolled_course.percentage" aria-valuemin="0" aria-valuemax="100" style="background: linear-gradient(90deg, #a855f7 0%, #6366f1 100%);">
                                                                         </div>
-                                                                        <span class="rbt-title-style-2 progress-number">{{ enrolled_course.percentage }}%</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -305,34 +299,36 @@
                                                                     </div>
                                                                     <span class="rating-count"> (15 Reseñas)</span>
                                                                 </div>
-                                                                <div class="rbt-bookmark-btn">
-                                                                    <a class="rbt-round-btn" title="Bookmark" href="#"><i class="feather-bookmark"></i></a>
-                                                                </div>
                                                             </div>
                                                             <h4 class="rbt-card-title"><a [href]="'/landing-curso/'+enrolled_course.course.slug">{{ enrolled_course.course.title }}</a>
                                                             </h4>
                                                             <ul class="rbt-meta">
-                                                                <li><i class="feather-book"></i>{{ enrolled_course.course.count_class }} Lessons</li>
-                                                                <li><i class="feather-users"></i>{{ enrolled_course.course.count_students }} Students</li>
+                                                                <li><i class="feather-book"></i>{{ enrolled_course.course.count_class }} Lecciones</li>
+                                                                <li><i class="feather-users"></i>{{ enrolled_course.course.count_students }} Estudiantes</li>
                                                             </ul>
     
                                                             <div class="rbt-progress-style-1 mb--20 mt--10">
                                                                 <div class="single-progress">
-                                                                    <h6 class="rbt-title-style-2 mb--10" *ngIf="enrolled_course.state == 2">Complete</h6>
-                                                                    <h6 class="rbt-title-style-2 mb--10" *ngIf="enrolled_course.state == 1">Proceso</h6>
-                                                                    <div class="progress">
-                                                                        <div class="progress-bar wow fadeInLeft bar-color-success" data-wow-duration="0.5s" data-wow-delay=".3s" role="progressbar" [ngStyle]="{'width': enrolled_course.percentage+'%'}" [attr.aria-valuenow]="enrolled_course.percentage" aria-valuemin="0" aria-valuemax="100">
+                                                                    <div class="d-flex justify-content-between align-items-center mb--10">
+                                                                        <h6 class="rbt-title-style-2 mb-0" *ngIf="enrolled_course.state == 2">Completado</h6>
+                                                                        <h6 class="rbt-title-style-2 mb-0" *ngIf="enrolled_course.state == 1">En Proceso</h6>
+                                                                        <span class="rbt-title-style-2 mb-0" style="font-weight: bold; color: #a855f7;">{{ enrolled_course.percentage }}%</span>
+                                                                    </div>
+                                                                    <div class="progress" style="height: 8px; background-color: rgba(255, 255, 255, 0.1);">
+                                                                        <div class="progress-bar bg-gradient-primary" role="progressbar" [ngStyle]="{'width': enrolled_course.percentage+'%'}" [attr.aria-valuenow]="enrolled_course.percentage" aria-valuemin="0" aria-valuemax="100" style="background: linear-gradient(90deg, #a855f7 0%, #6366f1 100%);">
                                                                         </div>
-                                                                        <span class="rbt-title-style-2 progress-number">{{ enrolled_course.percentage }}%</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <a class="rbt-btn btn-sm bg-primary-opacity w-100 text-center"
-                                                                href="#" onclick="return false;"
-                                                                (click)="downloadCertificate(enrolled_course)"
-                                                                *ngIf="enrolled_course.percentage == 100">
-                                                                    Download Certificate
+                                                            <div class="rbt-card-bottom">
+                                                                <a class="rbt-btn btn-gradient btn-sm w-100 text-center" 
+                                                                   href="#" 
+                                                                   onclick="return false;" 
+                                                                   (click)="downloadCertificate(enrolled_course)"
+                                                                   title="Descargar Certificado">
+                                                                    <i class="feather-download"></i> Certificado
                                                                 </a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -550,7 +546,7 @@
                                 <div class="tab-content">
                                     <div class="tab-pane fade active show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                         <div class="rbt-dashboard-content-wrapper">
-                                            <div class="tutor-bg-photo bg_image bg_image--23 height-245"></div>
+                                            <div class="tutor-bg-photo bg_image height-245" [ngStyle]="{'background-image': 'url(' + (user?.banner ? user.banner : 'assets/images/bg/bg-image-10.jpg') + ')'}" style="background-size: cover; background-position: center;"></div>
                                             <!-- Start Tutor Information  -->
                                             <div class="rbt-tutor-information">
                                                 <div class="rbt-tutor-information-left">
@@ -594,9 +590,15 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 col-md-6 col-sm-12 my-2">
-                                                <label class="form-label">Sube tu imagen:</label>
+                                                <label class="form-label">Sube tu foto de perfil:</label>
                                                 <div class="custom-file">
                                                     <input type="file" class="custom-file-input" id="customFile"  accept=".jpeg, .bmp, .jpg, .png, .gif, .webp"  (change)="processFile($event)">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-12 my-2">
+                                                <label class="form-label">Sube tu banner de fondo:</label>
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="customBanner"  accept=".jpeg, .bmp, .jpg, .png, .gif, .webp"  (change)="processBanner($event)">
                                                 </div>
                                             </div>
 

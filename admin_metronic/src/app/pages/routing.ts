@@ -64,6 +64,26 @@ const Routing: Routes = [
       import('../modules/discount/discount.module').then((m) => m.DiscountModule),
   },
   {
+    path: 'feedback',
+    loadChildren: () =>
+      import('../modules/feedback/feedback.module').then((m) => m.FeedbackModule),
+  },
+  {
+    path: 'campaigns',
+    loadChildren: () =>
+      import('../modules/campaigns/campaigns.module').then((m) => m.CampaignsModule),
+  },
+  {
+    path: 'promotions',
+    loadChildren: () =>
+      import('../modules/promotions/promotions.module').then((m) => m.PromotionsModule),
+  },
+  {
+    path: 'accounting',
+    loadChildren: () =>
+      import('../modules/accounting/accounting.module').then((m) => m.AccountingModule),
+  },
+  {
     path: '',
     redirectTo: '/dashboard',
     pathMatch: 'full',

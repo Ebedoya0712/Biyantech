@@ -5,33 +5,34 @@ import { AuthService } from 'src/app/modules/auth/service/auth.service';
 import { CartService } from 'src/app/modules/tienda-guest/service/cart.service';
 import { TiendaGuestService } from 'src/app/modules/tienda-guest/service/tienda-guest.service';
 
-declare function cartSidenav():any;
-declare function alertSuccess([]):any;
-declare function _clickDocTwo():any;
+declare function cartSidenav(): any;
+declare function alertSuccess([]): any;
+declare function _clickDocTwo(): any;
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit, AfterViewInit{
+export class HeaderComponent implements OnInit, AfterViewInit {
 
-  user:any = null;
-  listCarts:any = [];
-  totalSum:any = 0;
+  user: any = null;
+  listCarts: any = [];
+  totalSum: any = 0;
 
-  search:any = null;
+  search: any = null;
+  isDarkMode: boolean = false;
 
-  @ViewChild("filter") filter?:ElementRef;
-  source:any;
+  @ViewChild("filter") filter?: ElementRef;
+  source: any;
 
-  listCourses:any = [];
+  listCourses: any = [];
   constructor(
     public authService: AuthService,
     public cartService: CartService,
-    public router:Router,
+    public router: Router,
     public tiendaGuest: TiendaGuestService,
   ) {
-    
+
   }
 
   ngOnInit(): void {
@@ -40,19 +41,28 @@ export class HeaderComponent implements OnInit, AfterViewInit{
     console.log(this.authService.user);
     this.user = this.authService.user;
 
-    this.cartService.currentData$.subscribe((resp:any) => {
+    this.cartService.currentData$.subscribe((resp: any) => {
       console.log(resp);
       this.listCarts = resp;
-      this.totalSum = this.listCarts.reduce((sum:number, item:any) => sum + item.total,0);
+      this.totalSum = this.listCarts.reduce((sum: number, item: any) => sum + item.total, 0);
     })
 
-    if(this.user){
-      this.cartService.listCart().subscribe((resp:any) => {
+    if (this.user) {
+      this.cartService.listCart().subscribe((resp: any) => {
         console.log(resp);
-        resp.carts.data.forEach((cart:any) => {
+        resp.carts.data.forEach((cart: any) => {
           this.cartService.addCart(cart);
         });
       })
+    }
+
+    // Theme Initialization
+    const theme = localStorage.getItem('theme');
+    if (theme === 'dark') {
+      this.isDarkMode = true;
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
     }
 
     setTimeout(() => {
@@ -61,16 +71,27 @@ export class HeaderComponent implements OnInit, AfterViewInit{
     }, 50);
   }
 
+  toggleTheme() {
+    this.isDarkMode = !this.isDarkMode;
+    if (this.isDarkMode) {
+      document.body.classList.add('dark-mode');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.body.classList.remove('dark-mode');
+      localStorage.setItem('theme', 'light');
+    }
+  }
+
   ngAfterViewInit(): void {
-    this.source = fromEvent(this.filter?.nativeElement,"keyup");
-    this.source.pipe(debounceTime(500)).subscribe((resp:any) => {
+    this.source = fromEvent(this.filter?.nativeElement, "keyup");
+    this.source.pipe(debounceTime(500)).subscribe((resp: any) => {
       console.log(this.search);
       // es el filtro
       let data = {
         search: this.search
       }
-      if(this.search.length > 0){
-        this.tiendaGuest.listCourses(data).subscribe((resp:any) => {
+      if (this.search.length > 0) {
+        this.tiendaGuest.listCourses(data).subscribe((resp: any) => {
           console.log(resp);
           this.listCourses = resp.courses.data;
         })
@@ -78,20 +99,20 @@ export class HeaderComponent implements OnInit, AfterViewInit{
     })
   }
 
-  logout(){
+  logout() {
     this.authService.logout();
   }
 
-  removeItem(cart:any){
-    this.cartService.deleteCart(cart.id).subscribe((resp:any) => {
+  removeItem(cart: any) {
+    this.cartService.deleteCart(cart.id).subscribe((resp: any) => {
       console.log(resp);
       alertSuccess("EL ITEM SE A ELIMINADO CORRECTAMENTE ");
       this.cartService.removeItemCart(cart);
     })
   }
 
-  searchCourses(){
+  searchCourses() {
     // this.router.navigateByUrl();
-    window.location.href = "/listado-de-cursos?search="+this.search;
+    window.location.href = "/listado-de-cursos?search=" + this.search;
   }
 }

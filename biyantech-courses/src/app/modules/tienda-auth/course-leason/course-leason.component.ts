@@ -23,6 +23,8 @@ export class CourseLeasonComponent {
   ) {
     
   }
+  percentage_course:number = 0;
+
   ngOnInit(): void {
     
     this.activedRoute.params.subscribe((resp:any) => {
@@ -39,6 +41,21 @@ export class CourseLeasonComponent {
       this.courses_selected = resp.course;
 
       this.clase_selected = this.courses_selected.malla[0].clases[0];
+
+      // Calculate Progress
+      let total_clases = 0;
+      let completed_clases = 0;
+      this.courses_selected.malla.forEach((section:any) => {
+        // Count total classes
+        total_clases += section.clases.length;
+        
+        // Count completed classes (Check for common completion flags)
+        // Adjust 'completed' property name based on your actual API response if known
+        completed_clases += section.clases.filter((c:any) => c.state == 2 || c.completed).length; 
+      });
+
+      // Avoid division by zero
+      this.percentage_course = (total_clases > 0) ? Math.round((completed_clases / total_clases) * 100) : 0;
     })
 
   }

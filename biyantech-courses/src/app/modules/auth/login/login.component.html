@@ -17,16 +17,16 @@
                     <div>
                         <div class="rbt-contact-form shadow-none contact-form-style-1 max-width-auto"
                             *ngIf="isLoginView">
-                            <h3 class="title text-center h2 py-3">Iniciar Sesión</h3>
+                            <h3 class="title text-center h2 py-3" style="color: #192335 !important;">Iniciar Sesión</h3>
                           
                             <form class="max-width-auto mt-5">
                                 <div class="form-group-fixed">
-                                    <label>Email *</label>
+                                    <label style="color: #192335 !important;">Email *</label>
                                     <input name="email" [(ngModel)]="email" type="text" placeholder="Correo Electrónico"
                                         required />
                                 </div>
                                 <div class="form-group-fixed">
-                                    <label>Contraseña *</label>
+                                    <label style="color: #192335 !important;">Contraseña *</label>
                                     <input name="password" [(ngModel)]="password" type="password"
                                         placeholder="Tu contraseña" required>
                                 </div>
@@ -34,12 +34,12 @@
                                     <div class="col-lg-6">
                                         <div class="rbt-checkbox">
                                             <input type="checkbox" id="rememberme" name="rememberme">
-                                            <label for="rememberme">Recuérdame</label>
+                                            <label for="rememberme" style="color: #192335 !important;">Recuérdame</label>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="rbt-lost-password text-end">
-                                            <a class="rbt-btn-link" href="#">¿Olvidaste tu contraseña?</a>
+                                            <a class="rbt-btn-link" href="#" style="color: #192335 !important;">¿Olvidaste tu contraseña?</a>
                                         </div>
                                     </div>
                                 </div>
@@ -56,8 +56,8 @@
                             </form>
 
                             <div class="text-center mt--20">
-                                <p>¿No tienes una cuenta?
-                                    <a class="rbt-btn-link cursor-pointer" (click)="toggleView()">
+                                <p style="color: #192335 !important;">¿No tienes una cuenta?
+                                    <a class="rbt-btn-link cursor-pointer" (click)="toggleView()" style="color: #192335 !important;">
                                         Regístrate aquí
                                     </a>
                                 </p>
@@ -65,30 +65,30 @@
                         </div>
 
                         <div class="rbt-contact-form contact-form-style-1 max-width-auto" *ngIf="!isLoginView">
-                            <h3 class="title text-center mb-4">Registro</h3>
+                            <h3 class="title text-center mb-4" style="color: #192335 !important;">Registro</h3>
                             <form class="max-width-auto">
                                 <div class="form-group-fixed">
-                                    <label>Email *</label>
+                                    <label style="color: #192335 !important;">Email *</label>
                                     <input name="email" [(ngModel)]="email_register" type="text"
                                         placeholder="Introduce tu correo electrónico" required />
                                 </div>
                                 <div class="form-group-fixed">
-                                    <label>Nombre *</label>
+                                    <label style="color: #192335 !important;">Nombre *</label>
                                     <input name="name" [(ngModel)]="name" type="text" placeholder="Introduce tu nombre"
                                         required>
                                 </div>
                                 <div class="form-group-fixed">
-                                    <label>Apellido *</label>
+                                    <label style="color: #192335 !important;">Apellido *</label>
                                     <input name="surname" [(ngModel)]="surname" type="text"
                                         placeholder="Introduce tu apellido" required>
                                 </div>
                                 <div class="form-group-fixed">
-                                    <label>Contraseña *</label>
+                                    <label style="color: #192335 !important;">Contraseña *</label>
                                     <input name="password_register" [(ngModel)]="password_register" type="password"
                                         placeholder="Crea una contraseña segura" required>
                                 </div>
                                 <div class="form-group-fixed">
-                                    <label>Confirmar Contraseña *</label>
+                                    <label style="color: #192335 !important;">Confirmar Contraseña *</label>
                                     <input name="password_confirmation" [(ngModel)]="password_confirmation"
                                         type="password" placeholder="Confirma tu contraseña" required>
                                 </div>
@@ -105,8 +105,8 @@
                             </form>
 
                             <div class="text-center mt--20">
-                                <p>¿Ya tienes una cuenta?
-                                    <a class="rbt-btn-link cursor-pointer" (click)="toggleView()">
+                                <p style="color: #192335 !important;">¿Ya tienes una cuenta?
+                                    <a class="rbt-btn-link cursor-pointer" (click)="toggleView()" style="color: #192335 !important;">
                                         Inicia Sesión
                                     </a>
                                 </p>

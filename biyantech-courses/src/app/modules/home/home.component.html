@@ -8,10 +8,9 @@
                 <div class="col-md-12 pb--120 pt--70">
                     <div class="content">
                         <div class="inner">
-                            <div class="rbt-new-badge rbt-new-badge-one">
-                                <span class="rbt-new-badge-icon">🚀</span> En Biyantech Impulsamos tu futuro.
-                            </div>
-
+                            <span class="d-block mb--20" style="font-weight: bold; font-size: 22px;">
+                                🚀 En Biyantech Impulsamos tu futuro.
+                            </span>
                             <h1 class="title" data-sal="slide-up" data-sal-duration="800">
                                 Tu educación integral para el futuro. <br>
                             </h1>
@@ -39,7 +38,7 @@
                                     <div class="swiper-slide">
                                         <div class="rbt-card variation-01 rbt-hover">
                                             <div class="rbt-card-img">
-                                                <a [routerLink]="['landing-curso/',COURSE.slug]"
+                                                <a [routerLink]="['/landing-curso/',COURSE.slug]"
                                                     [queryParams]="{'campaing_discount': DESCOUNT_BANNER.id}">
                                                     <img [src]="COURSE.imagen" alt="Card image">
                                                     <div class="rbt-badge-3 bg-white">
@@ -60,7 +59,7 @@
                                                     <li><i class="feather-play"></i>{{ COURSE.time_course }}</li>
                                                 </ul>
                                                 <h4 class="rbt-card-title"><a
-                                                        [routerLink]="['landing-curso/',COURSE.slug]"
+                                                        [routerLink]="['/landing-curso/',COURSE.slug]"
                                                         [queryParams]="{'campaing_discount': DESCOUNT_BANNER.id}">{{
                                                         COURSE.title }}</a>
                                                 </h4>
@@ -187,7 +186,7 @@
                                 <div class="col-md-6 col-sm-12 col-12 py-3">
                                     <div class="rbt-card variation-01 rbt-hover">
                                         <div class="rbt-card-img">
-                                            <a [routerLink]="['landing-curso/',COURSE.slug]"
+                                            <a [routerLink]="['/landing-curso/',COURSE.slug]"
                                                 [queryParams]="{'campaing_discount': DESCOUNT_FLASH.id}">
                                                 <img [src]="COURSE.imagen" alt="Card image">
                                                 <div class="rbt-badge-3 bg-white">
@@ -217,11 +216,9 @@
                                                     <span class="rating-count"> ({{ COURSE.count_reviews }}
                                                         Reseñas)</span>
                                                 </div>
-                                                <div class="rbt-bookmark-btn">
-                                                    <a class="rbt-round-btn" title="Bookmark" href="#"></a>
-                                                </div>
+                                                <!-- Bookmark Removed -->
                                             </div>
-                                            <h4 class="rbt-card-title"><a [routerLink]="['landing-curso/',COURSE.slug]"
+                                            <h4 class="rbt-card-title"><a [routerLink]="['/landing-curso/',COURSE.slug]"
                                                     [queryParams]="{'campaing_discount': DESCOUNT_FLASH.id}">{{
                                                     COURSE.title }}</a>
                                             </h4>
@@ -262,7 +259,7 @@
                 <div class="col-lg-12">
                     <div class="section-title text-center" data-sal="slide-up" data-sal-duration="800">
                         <span class="subtitle bg-secondary-opacity">Cursos Más Populares</span>
-                        <h2 class="title">Miles de estudiantes ya están transformando su futuro con nosotros. <br />
+                        <h2 class="title" style="font-weight: 800; color: #192335 !important;">Miles de estudiantes ya están transformando su futuro con nosotros. <br />
                             ¡Únete a la comunidad Biyantech!"</h2>
                     </div>
                 </div>
@@ -276,7 +273,7 @@
                         [attr.data-sal-delay]="150">
                         <div class="rbt-card variation-01 rbt-hover">
                             <div class="rbt-card-img">
-                                <a [routerLink]="['landing-curso/',COURSE.slug]">
+                                <a [routerLink]="['/landing-curso/',COURSE.slug]">
                                     <img [src]="COURSE.imagen" style="height: 244px;" alt="Card image">
                                     <div class="rbt-badge-3 bg-white" *ngIf="COURSE.discount_g">
                                         <span *ngIf="COURSE.discount_g.type_discount == 1">-{{
@@ -299,11 +296,9 @@
                                         </div>
                                         <span class="rating-count"> ({{ COURSE.count_reviews }} Reseñas)</span>
                                     </div>
-                                    <div class="rbt-bookmark-btn">
-                                        <a class="rbt-round-btn" title="Bookmark" href="#"></a>
-                                    </div>
+                                    <!-- Bookmark Removed -->
                                 </div>
-                                <h4 class="rbt-card-title"><a [routerLink]="['landing-curso/',COURSE.slug]">{{
+                                <h4 class="rbt-card-title"><a [routerLink]="['/landing-curso/',COURSE.slug]">{{
                                         COURSE.title }}</a>
                                 </h4>
                                 <ul class="rbt-meta">
@@ -319,7 +314,7 @@
                                         </a>
                                     </div>
                                     <div class="rbt-author-info">
-                                        By <a href="profile.html">{{ COURSE.instructor.full_name }}</a> In <a
+                                        Por <a href="profile.html">{{ COURSE.instructor.full_name }}</a> En <a
                                             href="#">{{ COURSE.instructor.profesion }}</a>
                                     </div>
                                 </div>
@@ -348,7 +343,7 @@
                         <a class="rbt-btn btn-gradient btn-lg hover-icon-reverse" routerLink="/listado-de-cursos">
                             <span class="icon-reverse-wrapper">
                                 <!-- Traducción del texto al español -->
-                                <span class="btn-text">Ver Más Cursos</span>
+                                <span class="btn-text" style="color: #192335 !important;">Ver todos los cursos</span>
                                 <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                                 <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                             </span>
@@ -481,7 +476,7 @@
                         <!-- Título de la sección -->
                         <span class="subtitle bg-primary-opacity">POR QUÉ ELEGIR BIYANTECH</span>
                         <!-- Título principal, enfocado en el valor -->
-                        <h2 class="title" data-sal="slide-up">Una Comunidad Comprometida con la <br /> **Excelencia
+                        <h2 class="title" data-sal="slide-up" style="font-weight: 800; color: #192335 !important;">Una Comunidad Comprometida con la <br /> **Excelencia
                             Tecnológica**.</h2>
                     </div>
                 </div>
@@ -497,9 +492,9 @@
                             </div>
                             <div class="content">
                                 <!-- Los números deben reflejar la realidad de Biyantech al inicio -->
-                                <h3 class="counter"><span class="odometer" data-count="150">00</span>
+                                <h3 class="counter" style="color: #192335 !important;"><span class="odometer" data-count="150">00</span>
                                 </h3>
-                                <span class="subtitle">**Estudiantes Pioneros**</span>
+                                <span class="subtitle" style="color: #192335 !important;">**Estudiantes Pioneros**</span>
                             </div>
                         </div>
                     </div>
@@ -516,9 +511,9 @@
                             </div>
                             <div class="content">
                                 <!-- Enfoque en la calidad de la oferta -->
-                                <h3 class="counter"><span class="odometer" data-count="25">00</span>
+                                <h3 class="counter" style="color: #192335 !important;"><span class="odometer" data-count="25">00</span>
                                 </h3>
-                                <span class="subtitle">**Cursos de Alto Nivel**</span>
+                                <span class="subtitle" style="color: #192335 !important;">**Cursos de Alto Nivel**</span>
                             </div>
                         </div>
                     </div>
@@ -535,9 +530,9 @@
                             </div>
                             <div class="content">
                                 <!-- Enfoque en la calidad de los instructores -->
-                                <h3 class="counter"><span class="odometer" data-count="20">00</span>
+                                <h3 class="counter" style="color: #192335 !important;"><span class="odometer" data-count="20">00</span>
                                 </h3>
-                                <span class="subtitle">**Expertos Certificados**</span>
+                                <span class="subtitle" style="color: #192335 !important;">**Expertos Certificados**</span>
                             </div>
                         </div>
                     </div>
@@ -554,9 +549,9 @@
                             </div>
                             <div class="content">
                                 <!-- Enfoque en el feedback o las sesiones en vivo -->
-                                <h3 class="counter"><span class="odometer" data-count="90">00</span>
+                                <h3 class="counter" style="color: #192335 !important;"><span class="odometer" data-count="90">00</span>
                                 </h3>
-                                <span class="subtitle">**Satisfacción en +90%**</span>
+                                <span class="subtitle" style="color: #192335 !important;">**Satisfacción en +90%**</span>
                             </div>
                         </div>
                     </div>
@@ -613,7 +608,7 @@
                                             data-sal-duration="800">
                                             <div class="rbt-card variation-01 rbt-hover">
                                                 <div class="rbt-card-img">
-                                                    <a [routerLink]="['landing-curso/',courses.slug]">
+                                                    <a [routerLink]="['/landing-curso/',courses.slug]">
                                                         <img [src]="courses.imagen" style="height: 171px;"
                                                             alt="Card image">
                                                     </a>
@@ -644,12 +639,10 @@
                                                             <span class="rating-count"> ({{ courses.count_reviews }}
                                                                 Reseñas)</span>
                                                         </div>
-                                                        <div class="rbt-bookmark-btn">
-                                                            <a class="rbt-round-btn" title="Bookmark" href="#"></a>
-                                                        </div>
+                                                        <!-- Bookmark Removed -->
                                                     </div>
                                                     <h4 class="rbt-card-title"><a
-                                                            [routerLink]="['landing-curso/',courses.slug]">{{
+                                                            [routerLink]="['/landing-curso/',courses.slug]">{{
                                                             courses.title }}</a>
                                                     </h4>
                                                     <ul class="rbt-meta">

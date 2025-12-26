@@ -45,50 +45,66 @@ Route::group([
 Route::group([
     'middleware' => 'api',
 ], function ($router) {
-    Route::resource('/course',CourseGController::class);
-    Route::post('/course/upload_video/{id}',[CourseGController::class, "upload_video"]);
-    Route::post('/course/{id}',[CourseGController::class, "update"]);
+    Route::get('/course/config', [CourseGController::class, "config"]);
+    Route::resource('/course', CourseGController::class);
+    Route::post('/course/upload_video/{id}', [CourseGController::class, "upload_video"]);
+    Route::post('/course/{id}', [CourseGController::class, "update"]);
 
-    Route::resource('/course-section',SeccionGController::class);
+    Route::resource('/course-section', SeccionGController::class);
 
-    Route::resource('/course-clases',ClaseGController::class);
-    Route::post('/course-clases-file',[ClaseGController::class, "addFiles"]);
-    Route::delete('/course-clases-file/{id}',[ClaseGController::class, "removeFiles"]);
-    Route::post('/course-clases/upload_video/{id}',[ClaseGController::class, "upload_video"]);
+    Route::resource('/course-clases', ClaseGController::class);
+    Route::post('/course-clases-file', [ClaseGController::class, "addFiles"]);
+    Route::delete('/course-clases-file/{id}', [ClaseGController::class, "removeFiles"]);
+    Route::post('/course-clases/upload_video/{id}', [ClaseGController::class, "upload_video"]);
 
-    Route::get('/coupon/config',[CouponController::class, "config"]);
-    Route::resource('/coupon',CouponController::class);
+    Route::get('/coupon/config', [CouponController::class, "config"]);
+    Route::resource('/coupon', CouponController::class);
 
     // Rutas para gestión de pagos móviles
     Route::get('/pagos/movil-pendientes', [CheckoutController::class, 'listPagosMovilPendientes']);
     Route::put('/pagos/movil-aprobar/{id}', [CheckoutController::class, 'approvePagoMovil']);
     Route::delete('/pagos/movil-rechazar/{id}', [CheckoutController::class, 'rejectPagoMovil']);
 
-    Route::resource('/discount',DiscountController::class);
+    Route::resource('/discount', DiscountController::class);
 
     Route::get('/dashboard/admin', [\App\Http\Controllers\Admin\Dashboard\DashboardController::class, 'index']);
+
+    Route::post('/feedback/send', [\App\Http\Controllers\Admin\Feedback\FeedbackController::class, 'send']);
+
+    // Rutas de Marketing
+    Route::post('/marketing/email-campaign', [\App\Http\Controllers\Admin\Marketing\MarketingController::class, 'sendEmailCampaign']);
+    Route::post('/marketing/whatsapp-campaign', [\App\Http\Controllers\Admin\Marketing\MarketingController::class, 'sendWhatsappCampaign']);
+
+    // Rutas de Contabilidad (Accounting)
+    Route::prefix('accounting')->group(function () {
+        Route::get('/financial', [\App\Http\Controllers\Admin\Accounting\AccountingController::class, 'financial_summary']);
+        Route::get('/revenue', [\App\Http\Controllers\Admin\Accounting\AccountingController::class, 'revenue_details']);
+        Route::get('/costs', [\App\Http\Controllers\Admin\Accounting\AccountingController::class, 'cost_details']);
+        Route::post('/costs', [\App\Http\Controllers\Admin\Accounting\AccountingController::class, 'store_expense']);
+        Route::get('/departments', [\App\Http\Controllers\Admin\Accounting\AccountingController::class, 'department_details']);
+    });
 });
 
-Route::group(["prefix" => "ecommerce"],function($router){
-    Route::get("home",[HomeController::class,"home"]);
-    Route::get("config_all",[HomeController::class,"config_all"]);
-    Route::post("list_courses",[HomeController::class,"listCourses"]);
+Route::group(["prefix" => "ecommerce"], function ($router) {
+    Route::get("home", [HomeController::class, "home"]);
+    Route::get("config_all", [HomeController::class, "config_all"]);
+    Route::post("list_courses", [HomeController::class, "listCourses"]);
 
-    Route::get("course-detail/{slug}",[HomeController::class,"course_detail"]);
-    
+    Route::get("course-detail/{slug}", [HomeController::class, "course_detail"]);
+
     Route::group([
         'middleware' => 'api',
     ], function ($router) {
-        Route::get("course_leason/{slug}",[HomeController::class,"course_leason"]);
-        Route::post('/apply_coupon',[CartController::class, "apply_coupon"]);
-        Route::resource('/cart',CartController::class);
-        Route::post('/checkout',[CheckoutController::class,"store"]);
-        Route::post('/profile',[ProfileClientController::class,"profile"]);
-        Route::post('/update_client',[ProfileClientController::class,"update_client"]);
+        Route::get("course_leason/{slug}", [HomeController::class, "course_leason"]);
+        Route::post('/apply_coupon', [CartController::class, "apply_coupon"]);
+        Route::resource('/cart', CartController::class);
+        Route::post('/checkout', [CheckoutController::class, "store"]);
+        Route::post('/profile', [ProfileClientController::class, "profile"]);
+        Route::post('/update_client', [ProfileClientController::class, "update_client"]);
         Route::get('/download-certificate/{id}', [ProfileClientController::class, 'downloadCertificate']);
-        Route::resource('/review',ReviewController::class);
+        Route::resource('/review', ReviewController::class);
         Route::get('/download-certificate/{course_student}', [ProfileClientController::class, 'downloadCertificate']);
-        
+
         // Binance Pay Routes
         Route::post('/binance-pay/create', [CheckoutController::class, 'createBinancePayment']);
         Route::get('/binance-pay/status/{saleId}', [CheckoutController::class, 'checkBinanceStatus']);
@@ -96,5 +112,4 @@ Route::group(["prefix" => "ecommerce"],function($router){
 
     // Webhook de Binance Pay (sin autenticación)
     Route::post('/binance-pay/webhook', [CheckoutController::class, 'binanceWebhook']);
-
 });

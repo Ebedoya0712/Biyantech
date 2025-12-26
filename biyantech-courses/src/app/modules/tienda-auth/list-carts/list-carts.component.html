@@ -400,9 +400,32 @@
               </div>
             </div>
 
+            <!-- Campo de Número de Referencia -->
+            <div class="mt-4">
+              <div class="form-group">
+                <label for="referenceNumber" class="form-label fs-5 fw-bold">
+                  <i class="fas fa-hashtag me-2"></i>Número de Referencia
+                </label>
+                <input 
+                  type="text" 
+                  class="form-control form-control-lg" 
+                  id="referenceNumber"
+                  [(ngModel)]="referenceNumber"
+                  placeholder="Ingresa los últimos 4-8 dígitos"
+                  maxlength="8"
+                  pattern="[0-9]*"
+                  required
+                >
+                <small class="form-text text-muted">
+                  <i class="fas fa-info-circle me-1"></i>
+                  Ingresa el número de referencia que aparece en tu comprobante de Pago Móvil
+                </small>
+              </div>
+            </div>
+
             <div class="upload-tips">
               <i class="fas fa-lightbulb" style="font-size: 1.5rem;"></i>
-              <span class="fs-5">Asegurate de que el comprobante sea legible</span>
+              <span class="fs-5">Asegurate de que el comprobante sea legible y el número de referencia sea correcto</span>
             </div>
           </div>
         </div>
