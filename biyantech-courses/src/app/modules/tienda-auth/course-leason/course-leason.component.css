@@ -4,5 +4,55 @@
 } */
 .rating-a{
     color: black !important;
-    margin-right: 0px;
+}
+
+/* DARK MODE OVERRIDES */
+:host-context(.dark-mode) .rbt-shadow-box,
+:host-context(.dark-mode) .card,
+:host-context(.dark-mode) .accordion-item,
+:host-context(.dark-mode) .rbt-course-feature-inner {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+:host-context(.dark-mode) .rbt-title-style-3,
+:host-context(.dark-mode) .about-author .media-body .author-info .title {
+    color: #ffffff !important;
+}
+
+:host-context(.dark-mode) .accordion-button {
+    background-color: transparent !important;
+    color: #ffffff !important;
+}
+
+:host-context(.dark-mode) .course-content-left .text,
+:host-context(.dark-mode) .course-content-right .min-lable,
+:host-context(.dark-mode) .rbt-list-style-1 li,
+:host-context(.dark-mode) .description {
+    color: #bfafe9 !important; /* Soft purple/grey for body text */
+}
+
+/* Author Info - Black as requested for contrast on gradient */
+:host-context(.dark-mode) .rbt-author-info,
+:host-context(.dark-mode) .rbt-author-info a {
+    color: #000000 !important;
+}
+
+/* Banner Ratings & Meta - Black */
+:host-context(.dark-mode) .rbt-banner-content-top .rating a,
+:host-context(.dark-mode) .rbt-banner-content-top .total-rating a,
+:host-context(.dark-mode) .rbt-banner-content-top .total-student span,
+:host-context(.dark-mode) .rbt-meta li {
+    color: #000000 !important;
+}
+
+/* Badges (Time/Score) - Black text as requested */
+:host-context(.dark-mode) .rbt-badge-5 {
+    color: #192335 !important;
+    background-color: #f6f6f6 !important;
+}
+
+:host-context(.dark-mode) .accordion-button::after {
+    filter: invert(1); /* Make arrow white */
 }

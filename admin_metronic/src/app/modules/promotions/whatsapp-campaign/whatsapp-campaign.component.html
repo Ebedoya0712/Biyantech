@@ -1,0 +1,25 @@
+<div class="card">
+    <div class="card-header border-0 pt-6">
+        <div class="card-title">
+            <h3>Marketing: Campaña de Whatsapp</h3>
+        </div>
+    </div>
+    <div class="card-body py-4">
+        <div class="row mb-10">
+            <div class="col-12">
+                <label class="required fw-bold fs-6 mb-2">Mensaje de Whatsapp</label>
+                <textarea class="form-control form-control-solid" rows="5"
+                    placeholder="Escribe tu mensaje promocional aquí..." [(ngModel)]="message"></textarea>
+                <div class="text-muted fs-7 mt-2">Este mensaje se enviará a 3 estudiantes al azar.</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 d-flex justify-content-end">
+                <button type="button" class="btn btn-success" (click)="send()" [disabled]="isLoading">
+                    <span *ngIf="!isLoading"><i class="bi bi-whatsapp fs-4 me-2"></i> Enviar a 3 Estudiantes</span>
+                    <span *ngIf="isLoading" class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

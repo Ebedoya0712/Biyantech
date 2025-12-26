@@ -1,0 +1,64 @@
+<div class="card card-flush">
+    <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+        <div class="card-title">
+            <h3 class="card-title align-items-start flex-column">
+                <span class="card-label fw-bold text-gray-800">Contabilidad de Ingresos</span>
+                <span class="text-gray-400 mt-1 fw-semibold fs-6">Registro detallado de transacciones</span>
+            </h3>
+        </div>
+    </div>
+    <div class="card-body pt-0">
+        <div class="table-responsive">
+            <table class="table align-middle table-row-dashed fs-6 gy-5">
+                <thead>
+                    <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                        <th class="min-w-100px">ID Transacción</th>
+                        <th class="min-w-150px">Estudiante</th>
+                        <th class="min-w-150px">Curso(s)</th>
+                        <th class="min-w-100px">Método</th>
+                        <th class="text-end min-w-100px">Total</th>
+                        <th class="text-end min-w-100px">Fecha</th>
+                    </tr>
+                </thead>
+                <tbody class="fw-semibold text-gray-600">
+                    <tr *ngFor="let sale of sales">
+                        <td><span class="text-gray-800 text-hover-primary fw-bold">#{{ sale.n_transaccion }}</span></td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                    <a href="#">
+                                        <div class="symbol-label fs-3 bg-light-danger text-danger">
+                                            {{ sale.user.name.charAt(0) }}
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <a href="#" class="text-gray-800 text-hover-primary mb-1">{{ sale.user.name }}</a>
+                                    <span>{{ sale.user.email }}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <!-- Loop through sale details to show courses -->
+                            <div *ngFor="let item of sale.sale_details">
+                                <span class="badge badge-light-primary mb-1">{{ item.course.title }}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="badge badge-light fw-bold">{{ sale.method_payment }}</span>
+                        </td>
+                        <td class="text-end">
+                            <span class="text-dark fw-bold">{{ sale.total | currency:'USD' }}</span>
+                        </td>
+                        <td class="text-end">
+                            <span class="text-muted">{{ sale.created_at | date:'short' }}</span>
+                        </td>
+                    </tr>
+                    <tr *ngIf="sales.length === 0">
+                        <td colspan="6" class="text-center text-muted">No hay registros de ventas.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

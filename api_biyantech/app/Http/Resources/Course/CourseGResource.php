@@ -19,7 +19,7 @@ class CourseGResource extends JsonResource
             "title" => $this->resource->title,
             "slug" => $this->resource->slug,
             "subtitle" => $this->resource->subtitle,
-            "imagen" => $this->resource->imagen ? env("APP_URL")."storage/".$this->resource->imagen : null,
+            "imagen" => $this->resource->imagen,
             "user_id" => $this->resource->user_id,
             "user" => $this->resource->instructor ? [
                 "id" => $this->resource->instructor->id,

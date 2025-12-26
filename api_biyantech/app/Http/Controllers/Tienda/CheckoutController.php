@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage; // NECESARIO para manejar archivos
 use App\Services\BinancePayService;
+use App\Services\ImageVerificationService;
 
 class CheckoutController extends Controller
 {
@@ -81,6 +82,42 @@ class CheckoutController extends Controller
             // status_pgmovil: 0 para Pago Móvil (Pendiente), 1 para pagos automáticos
             "status_pgmovil" => ($request->method_payment !== 'PAGO_MOVIL') ? 1 : 0, 
         ]);
+
+        // ----------------------------------------------------
+        // VERIFICACIÓN AUTOMÁTICA DE COMPROBANTE (Google Cloud Vision)
+        // ----------------------------------------------------
+        if ($comprobante_url && $request->method_payment === 'PAGO_MOVIL') {
+            try {
+                $verificationService = new ImageVerificationService();
+                $fullPath = storage_path('app/public/' . $comprobante_url);
+                $result = $verificationService->verifyScreenshot(
+                    $fullPath, 
+                    $request->reference_number, 
+                    $request->total_bs
+                );
+
+                if ($result['success']) {
+                    $request->request->add([
+                        'screenshot_verified' => $result['is_valid'],
+                        'verification_details' => $result['details']
+                    ]);
+                    Log::info("Verificación de Pago Móvil: " . ($result['is_valid'] ? 'VÁLIDO' : 'SOSPECHOSO') . " - Ref: " . $request->reference_number);
+                } else {
+                    // Si falla por error técnico (ej: API no habilitada), dejamos en NULL para que salga como PENDIENTE
+                    // Pero guardamos el error en detalles para que el admin sepa qué pasó.
+                    $request->request->add([
+                        'screenshot_verified' => null,
+                        'verification_details' => $result['details'] ?? 'Error desconocido en el servicio de verificación.'
+                    ]);
+                }
+            } catch (\Exception $e) {
+                Log::error("Fallo la verificación automática de imagen: " . $e->getMessage());
+                $request->request->add([
+                    'screenshot_verified' => null,
+                    'verification_details' => "Excepción: " . $e->getMessage()
+                ]);
+            }
+        }
         
         // Crea el registro de Venta con todos los datos (total_bs, exchange_rate, etc.)
         $sale = Sale::create($request->all());

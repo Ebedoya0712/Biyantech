@@ -25,7 +25,10 @@ class SaleResource extends JsonResource
             "total_bs" => $this->resource->total_bs,
             "exchange_rate" => $this->resource->exchange_rate,
             "exchange_source" => $this->resource->exchange_source,
-            "capture_pgmovil" => $this->resource->capture_pgmovil ? env("APP_URL")."storage/".$this->resource->capture_pgmovil : null, // 🚨 Generamos la URL completa
+            "reference_number" => $this->resource->reference_number, // Número de referencia del Pago Móvil
+            "screenshot_verified" => $this->resource->screenshot_verified, // IA: Válido/Sospechoso
+            "verification_details" => $this->resource->verification_details, // Detalles de la validación
+            "capture_pgmovil" => $this->resource->capture_pgmovil ? env("APP_URL")."/storage/".$this->resource->capture_pgmovil : null, // 🚨 Generamos la URL completa corregida con slash
             "status_pgmovil" => $this->resource->status_pgmovil, // Estado de verificación (0/1)
             "n_transaccion" => $this->resource->n_transaccion,
             
@@ -36,7 +39,9 @@ class SaleResource extends JsonResource
                 "email" => $this->resource->user->email,
             ] : null,
             
-            "sale_details" => $this->resource->sale_details->map(function($sale_detail){
+            "sale_details" => $this->resource->sale_details->filter(function($sale_detail){
+                return $sale_detail->course; // Filter out if course is null
+            })->map(function($sale_detail){
                 return [
                     "id" => $sale_detail->id,
                     "course" => [

@@ -21,11 +21,11 @@ class CategorieResource extends JsonResource
         return [
             "id" => $this->resource->id,
             "name" =>$this->resource->name,
-            "imagen" => $this->resource->imagen ? env("APP_URL")."storage/".$this->resource->imagen : NULL,
+            "imagen" => $this->resource->imagen,
             "categorie_id" =>$this->resource->categorie_id,
             "categorie" =>$this->resource->father ? [
                 "name" => $this->resource->father->name,
-                "imagen" => $this->resource->father->imagen ? env("APP_URL")."storage/".$this->resource->father->imagen : NULL,
+                "imagen" => $this->resource->father->imagen,
             ] : NULL,
             "state" =>$this->resource->state ?? 1,
         ];

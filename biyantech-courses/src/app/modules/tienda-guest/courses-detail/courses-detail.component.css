@@ -1,8 +1,173 @@
-.rating-a i{
-    color: black !important;
-    margin-right: 0px;
+/* Dark Mode Overrides for Course Detail using :host-context for Angular Encapsulation */
+
+/* --- Specific Overrides --- */
+
+/* --- Specific Overrides --- */
+
+/* 1. HERO SECTION (Breadcrumb) */
+/* Reverting Title Color to Dark as per user request to "leave it as before" */
+:host-context(.dark-mode) .rbt-breadcrumb-default .title,
+:host-context(.dark-mode) .rbt-breadcrumb-default .description,
+:host-context(.dark-mode) .rbt-breadcrumb-default .rbt-breadcrumb-item,
+:host-context(.dark-mode) .rbt-breadcrumb-default .rbt-breadcrumb-item a,
+:host-context(.dark-mode) .rbt-breadcrumb-default .rbt-meta li,
+:host-context(.dark-mode) .rbt-breadcrumb-default .total-rating a,
+:host-context(.dark-mode) .rbt-breadcrumb-default .total-student span,
+:host-context(.dark-mode) .rbt-breadcrumb-default .rbt-author-info a {
+    color: #192335 !important; 
 }
-.rating{
-    color: black !important;
-    margin-right: 0px;
+
+:host-context(.dark-mode) .rbt-breadcrumb-default .rbt-breadcrumb-item.active {
+    color: #555555 !important;
+}
+
+/* 2. SIDEBAR: White Background with Dark Text */
+:host-context(.dark-mode) .course-sidebar,
+:host-context(.dark-mode) .course-sidebar .inner,
+:host-context(.dark-mode) .course-sidebar.rbt-shadow-box,
+:host-context(.dark-mode) .course-sidebar.rbt-gradient-border {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05) !important;
+    border-radius: 10px;
+    border: 0px solid transparent !important; /* FORCE REMOVE BORDER */
+}
+
+/* Remove gradient border pseudo-elements */
+:host-context(.dark-mode) .rbt-gradient-border::before, 
+:host-context(.dark-mode) .rbt-gradient-border::after {
+    display: none !important;
+    content: none !important;
+    border: none !important;
+}
+
+:host-context(.dark-mode) .course-sidebar .title,
+:host-context(.dark-mode) .course-sidebar .current-price,
+:host-context(.dark-mode) .course-sidebar .rbt-widget-details ul li span,
+:host-context(.dark-mode) .course-sidebar p,
+:host-context(.dark-mode) .course-sidebar span {
+    color: #192335 !important;
+}
+
+/* Sidebar Button Text - White (User Request) */
+:host-context(.dark-mode) .add-to-card-button .rbt-btn,
+:host-context(.dark-mode) .add-to-card-button .rbt-btn span,
+:host-context(.dark-mode) .add-to-card-button .rbt-btn i {
+    color: #ffffff !important;
+}
+
+/* 3. GENERAL CONTENT: Keep Dark Backgrounds */
+:host-context(.dark-mode) .rbt-shadow-box, 
+:host-context(.dark-mode) .course-content,
+:host-context(.dark-mode) .rbt-course-feature-box,
+:host-context(.dark-mode) .card,
+:host-context(.dark-mode) .accordion-item,
+:host-context(.dark-mode) .rbt-accordion-style .accordion-body {
+    background-color: #192335 !important;
+    background: #192335 !important;
+    border-color: #333333 !important;
+    box-shadow: none !important;
+}
+
+/* Ensure inner wrappers don't have white backgrounds overlapping */
+:host-context(.dark-mode) .rbt-course-feature-inner,
+:host-context(.dark-mode) .rbt-accordion-style .card-body {
+    background-color: transparent !important;
+}
+
+/* --- 2. Typography & Colors --- */
+
+/* TITLES: Purple (Biyantech Purple) */
+:host-context(.dark-mode) .title,
+:host-context(.dark-mode) h1, :host-context(.dark-mode) h2, :host-context(.dark-mode) h3, :host-context(.dark-mode) h4, :host-context(.dark-mode) h5, :host-context(.dark-mode) h6,
+:host-context(.dark-mode) .rbt-title-style-3,
+:host-context(.dark-mode) .section-title .title,
+:host-context(.dark-mode) .accordion-header button {
+    color: #a855f7 !important;
+}
+
+/* Accordion Buttons */
+:host-context(.dark-mode) .rbt-accordion-style .accordion-button {
+    color: #a855f7 !important; 
+    background-color: #192335 !important;
+}
+
+/* TEXT: White (Description, Content, Lists) */
+:host-context(.dark-mode) p, 
+:host-context(.dark-mode) li, 
+:host-context(.dark-mode) span,
+:host-context(.dark-mode) .description,
+:host-context(.dark-mode) .rbt-course-feature-inner,
+:host-context(.dark-mode) .rbt-list-style-1 li,
+:host-context(.dark-mode) .rbt-meta li,
+:host-context(.dark-mode) .rbt-widget-details ul li span {
+    color: #ffffff !important;
+}
+
+:host-context(.dark-mode) .rbt-list-style-1 li i {
+    color: #a855f7 !important;
+}
+
+/* Links inside content */
+:host-context(.dark-mode) .rbt-course-main-content li a,
+:host-context(.dark-mode) .rbt-course-main-content li a span.text {
+    color: #ffffff !important;
+}
+
+:host-context(.dark-mode) .rbt-course-main-content li a:hover span.text {
+    color: #a855f7 !important;
+}
+
+/* Icons */
+:host-context(.dark-mode) .rbt-course-main-content li .course-content-left i, 
+:host-context(.dark-mode) .rbt-course-main-content li .course-content-right .min-lable {
+    color: #cccccc !important;
+}
+
+/* Price Section */
+:host-context(.dark-mode) .rbt-price .current-price {
+    color: #a855f7 !important;
+    font-weight: bold;
+}
+:host-context(.dark-mode) .rbt-price .off-price {
+    color: #888888 !important;
+}
+
+/* Instructor Name */
+:host-context(.dark-mode) .about-author .author-info .title a {
+    color: #a855f7 !important;
+}
+
+/* Reviews / Stars */
+:host-context(.dark-mode) .rbt-rating i {
+    color: #f8bc24 !important;
+}
+
+/* Fix Badge Visibility (Time Duration) in Accordion - Dark Mode */
+:host-context(.dark-mode) .rbt-accordion-style .accordion-button .rbt-badge-5 {
+    color: #192335 !important;
+    background-color: #f6f6f6 !important; /* Ensure bg is light */
+}
+
+/* Fix Badge Visibility (Instructor Rating) - Dark Mode */
+:host-context(.dark-mode) .rbt-instructor .rbt-badge-5 {
+    color: #192335 !important;
+    background-color: #f6f6f6 !important;
+}
+
+/* Fix Badge Visibility (Instructor Rating) - Dark Mode */
+:host-context(.dark-mode) .rbt-instructor .rbt-badge-5 {
+    color: #192335 !important;
+    background-color: #f6f6f6 !important;
+}
+
+/* Related Courses - Author Info visibility */
+/* 1. Wrapper text ("Por", "En") -> White (User Request) */
+:host-context(.dark-mode) .rbt-card .rbt-author-info {
+    color: #ffffff !important;
+}
+
+/* 2. Links (Instructor Name, Profession) -> Purple */
+:host-context(.dark-mode) .rbt-card .rbt-author-info a {
+    color: #a855f7 !important;
 }

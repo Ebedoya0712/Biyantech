@@ -2,3 +2,70 @@
     color: black !important;
     margin-right: 0px;
 }
+
+/* Fix certificate download button to keep text inside */
+.rbt-card-bottom .rbt-btn {
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    display: inline-block !important;
+    padding: 8px 16px !important;
+    line-height: 1.5 !important;
+}
+
+/* Dark mode: Make table headers white */
+:host-context(.dark-mode) .rbt-table thead th {
+    color: #ffffff !important;
+}
+
+/* Dark mode: Make form labels white */
+:host-context(.dark-mode) .form-label,
+:host-context(.dark-mode) label {
+    color: #ffffff !important;
+}
+
+/* Premium Progress Bar Styling */
+.progress {
+    height: 12px !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-radius: 10px !important;
+    overflow: visible !important;
+    margin-bottom: 25px !important;
+}
+
+.progress-bar {
+    background: linear-gradient(90deg, #6c5ce7 0%, #a29bfe 100%) !important;
+    border-radius: 10px !important;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(108, 92, 231, 0.3);
+}
+
+.progress-number {
+    position: absolute;
+    right: 0;
+    top: -25px;
+    font-weight: 700;
+    color: #6c5ce7;
+    font-size: 14px;
+}
+
+:host-context(.dark-mode) .progress-number {
+    color: #a29bfe;
+}
+
+.bar-color-success {
+    background: linear-gradient(90deg, #00b894 0%, #55efc4 100%) !important;
+}
+
+.rbt-title-style-2 {
+    font-size: 14px !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+/* Fix squashed avatar images */
+.rbt-avatars img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}

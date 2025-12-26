@@ -30,6 +30,7 @@
                     <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                         <th class="min-w-50px p-3 text-start">ID VENTA</th>
                         <th class="min-w-150px p-3 text-start">CLIENTE / EMAIL</th>
+                        <th class="min-w-100px p-3 text-start">N° REFERENCIA</th>
 
                         <th class="min-w-100px p-3 text-start">FECHA PAGO</th>
                         <th class="min-w-100px p-3 text-end">MONTO (USD)</th>
@@ -42,7 +43,7 @@
                     </tr>
                 </thead>
                 <tbody class="text-gray-600 fw-bold">
-                    <tr *ngIf="PAGOS_PENDIENTES.length === 0 && !(isLoading | async)">
+                    <tr *ngIf="PAGOS_PENDIENTES.length === 0 && (isLoading | async) === false">
                         <td colspan="10" class="text-center text-muted py-5">
                             No hay pagos móviles pendientes de verificación.
                         </td>
@@ -64,9 +65,13 @@
                             </td>
 
                             <td class="p-3 text-start">
-                                <span class="text-gray-600 fs-7">{{ pago.created_at }}</span>
+                                <span class="badge badge-light-primary fw-boldest fs-7">{{ pago.reference_number || 'S/N' }}</span>
                             </td>
 
+                            <td class="p-3 text-start">
+                                <span class="text-gray-600 fs-7">{{ pago.created_at }}</span>
+                            </td>
+                            
                             <td class="p-3 text-end">
                                 <span class="fw-bolder text-success fs-7">${{ pago.total | number:'1.2-2' }}</span>
                             </td>
@@ -80,10 +85,11 @@
                                 <span class="text-muted fs-8 d-block">({{ pago.exchange_source }})</span>
                             </td>
 
+
                             <td class="p-3 text-start">
-                                <div class="badge badge-light-warning fw-bolder" *ngIf="pago.status_pgmovil == 0">
+                                <div class="badge badge-light-warning fw-bolder" *ngIf="pago.status_pgmovil === 0">
                                     PENDIENTE</div>
-                                <div class="badge badge-light-success fw-bolder" *ngIf="pago.status_pgmovil == 1">
+                                <div class="badge badge-light-success fw-bolder" *ngIf="pago.status_pgmovil === 1">
                                     APROBADO</div>
                             </td>
 
@@ -100,19 +106,19 @@
 
                             <td class="text-center">
                                 <!-- Botón Aprobar (solo si está pendiente) -->
-                                <button *ngIf="pago.status_pgmovil == 0" class="btn btn-sm btn-success me-2"
+                                <button *ngIf="pago.status_pgmovil === 0" class="btn btn-sm btn-success me-2 mb-2"
                                     (click)="approvePayment(pago)" title="Aprobar pago">
                                     <i class="bi bi-check-circle"></i> Aprobar
                                 </button>
 
                                 <!-- Botón Rechazar (solo si está pendiente) -->
-                                <button *ngIf="pago.status_pgmovil == 0" class="btn btn-sm btn-danger"
+                                <button *ngIf="pago.status_pgmovil === 0" class="btn btn-sm btn-danger mb-2"
                                     (click)="rejectPayment(pago)" title="Rechazar y eliminar pago">
                                     <i class="bi bi-x-circle"></i> Rechazar
                                 </button>
 
                                 <!-- Badge Aprobado (si ya fue aprobado) -->
-                                <span *ngIf="pago.status_pgmovil == 1" class="badge badge-success">
+                                <span *ngIf="pago.status_pgmovil === 1" class="badge badge-success">
                                     <i class="bi bi-check-circle-fill"></i> APROBADO
                                 </span>
                             </td>
@@ -122,7 +128,7 @@
             </table>
         </div>
     </div>
-    <div *ngIf="lastPage > 1 && !(isLoading | async)" class="card-footer py-5 d-flex justify-content-center">
+    <div *ngIf="lastPage > 1 && (isLoading | async) === false" class="card-footer py-5 d-flex justify-content-center">
         <ul class="pagination">
             <li class="page-item" [ngClass]="{'disabled': page === 1}">
                 <a class="page-link" (click)="goToPage(page - 1)" aria-label="Previous">

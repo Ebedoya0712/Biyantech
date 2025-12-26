@@ -1,0 +1,88 @@
+<div class="card card-flush">
+    <div class="card-header align-items-center py-5">
+        <h3 class="card-title align-items-start flex-column">
+            <span class="card-label fw-bold text-gray-800">Contabilidad de Costos</span>
+            <span class="text-gray-400 mt-1 fw-semibold fs-6">Comisiones, Reembolsos y Gastos Operativos</span>
+        </h3>
+        <div class="card-toolbar">
+            <button class="btn btn-primary" (click)="openModal(createModal)">Registrar Gasto</button>
+        </div>
+    </div>
+    <div class="card-body pt-0">
+        <!-- Info Alert -->
+        
+        <div class="table-responsive">
+            <table class="table align-middle table-row-dashed fs-6 gy-5">
+                <thead>
+                    <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                        <th class="min-w-100px">Concepto</th>
+                        <th class="min-w-100px">Tipo</th>
+                        <th class="text-end min-w-100px">Monto</th>
+                        <th class="text-end min-w-100px">Fecha</th>
+                    </tr>
+                </thead>
+                <tbody class="fw-semibold text-gray-600">
+                    <tr *ngFor="let item of costs">
+                        <td>
+                            <span class="text-gray-800 fw-bold d-block">{{ item.title }}</span>
+                            <span class="text-muted fs-7">{{ item.description }}</span>
+                        </td>
+                        <td>
+                            <span class="badge badge-light-primary" *ngIf="item.type == 1">Profesor</span>
+                            <span class="badge badge-light-warning" *ngIf="item.type == 2">Equipo</span>
+                            <span class="badge badge-light-info" *ngIf="item.type == 3">Servicios</span>
+                            <span class="badge badge-light-danger" *ngIf="item.type == 4">Otros</span>
+                        </td>
+                        <td class="text-end">
+                            <span class="text-danger fw-bold">- {{ item.amount | currency:'USD' }}</span>
+                        </td>
+                        <td class="text-end">
+                            <span class="text-muted">{{ item.date | date:'shortDate' }}</span>
+                        </td>
+                    </tr>
+                    <tr *ngIf="costs.length === 0">
+                        <td colspan="4" class="text-center text-muted">No se han registrado costos o comisiones aún.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<ng-template #createModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Registrar Nuevo Gasto</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <div class="fv-row mb-7">
+            <label class="required fw-bold fs-6 mb-2">Concepto</label>
+            <input type="text" class="form-control form-control-solid" [(ngModel)]="title" placeholder="Ej: Pago de Servidor">
+        </div>
+        <div class="fv-row mb-7">
+            <label class="required fw-bold fs-6 mb-2">Monto (USD)</label>
+            <input type="number" class="form-control form-control-solid" [(ngModel)]="amount" placeholder="0.00">
+        </div>
+        <div class="fv-row mb-7">
+            <label class="required fw-bold fs-6 mb-2">Tipo</label>
+            <select class="form-select form-select-solid" [(ngModel)]="type">
+                <option [value]="1">Pago a Profesor</option>
+                <option [value]="2">Equipo / Personal</option>
+                <option [value]="3">Servicios / Herramientas</option>
+                <option [value]="4">Otros</option>
+            </select>
+        </div>
+        <div class="fv-row mb-7">
+            <label class="required fw-bold fs-6 mb-2">Fecha</label>
+            <input type="date" class="form-control form-control-solid" [(ngModel)]="date">
+        </div>
+         <div class="fv-row mb-7">
+            <label class="fw-bold fs-6 mb-2">Descripción (Opcional)</label>
+            <textarea class="form-control form-control-solid" [(ngModel)]="description" rows="3"></textarea>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.dismiss()">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="save()">Guardar Gasto</button>
+    </div>
+</ng-template>

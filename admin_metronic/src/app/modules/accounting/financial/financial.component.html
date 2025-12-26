@@ -1,0 +1,117 @@
+<div class="card card-flush h-xl-100">
+    <!-- Header -->
+    <div class="card-header pt-7">
+        <h3 class="card-title align-items-start flex-column">
+            <span class="card-label fw-bold text-gray-800">Resumen Financiero</span>
+            <span class="text-gray-400 mt-1 fw-semibold fs-6">Estado General de la Plataforma</span>
+        </h3>
+    </div>
+
+    <!-- Body -->
+    <div class="card-body pt-5">
+        <div class="row g-5 g-xl-8">
+            <!-- Total Revenue -->
+            <div class="col-xl-4">
+                <div class="card bg-light-success card-xl-stretch mb-xl-8">
+                    <div class="card-body my-3">
+                        <span class="card-title fw-bold text-success fs-5 mb-3 d-block">Ingresos Totales</span>
+                        <div class="py-1">
+                            <span class="text-dark fs-1 fw-bold me-2">{{ total_revenue | currency:'USD' }}</span>
+                            <span class="fw-semibold text-muted fs-7">Ventas Brutas</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Costs -->
+            <div class="col-xl-4">
+                <div class="card bg-light-danger card-xl-stretch mb-xl-8">
+                    <div class="card-body my-3">
+                        <span class="card-title fw-bold text-danger fs-5 mb-3 d-block">Costos Totales</span>
+                        <div class="py-1">
+                            <span class="text-dark fs-1 fw-bold me-2">{{ total_costs | currency:'USD' }}</span>
+                            <span class="fw-semibold text-muted fs-7">Comisiones y Reembolsos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Net Profit -->
+            <div class="col-xl-4">
+                <div class="card bg-light-primary card-xl-stretch mb-xl-8">
+                    <div class="card-body my-3">
+                        <span class="card-title fw-bold text-primary fs-5 mb-3 d-block">Ganancia Neta</span>
+                        <div class="py-1">
+                            <span class="text-dark fs-1 fw-bold me-2">{{ net_profit | currency:'USD' }}</span>
+                            <span class="fw-semibold text-muted fs-7">Revenue - Costs</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Company Reserve -->
+             <div class="col-xl-4">
+                <div class="card bg-light-success card-xl-stretch mb-xl-8">
+                    <div class="card-body my-3">
+                        <span class="card-title fw-bold text-success fs-5 mb-3 d-block">Fondo Empresa (20%)</span>
+                        <div class="py-1">
+                            <span class="text-dark fs-1 fw-bold me-2">{{ company_reserve | currency:'USD' }}</span>
+                            <span class="fw-semibold text-muted fs-7">Reserva operativa</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-5 g-xl-8">
+             <!-- My Profit (50%) -->
+             <div class="col-xl-6">
+                <div class="card bg-light-info card-xl-stretch mb-xl-8">
+                    <div class="card-body my-3">
+                        <span class="card-title fw-bold text-info fs-5 mb-3 d-block">Mi Ganancia (50%)</span>
+                        <div class="py-1">
+                            <span class="text-dark fs-1 fw-bold me-2">{{ profit_split.me | currency:'USD' }}</span>
+                            <span class="fw-semibold text-muted fs-7">Tu parte de la ganancia neta</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <!-- Partner Profit (50%) -->
+             <div class="col-xl-6">
+                <div class="card bg-light-warning card-xl-stretch mb-xl-8">
+                    <div class="card-body my-3">
+                        <span class="card-title fw-bold text-warning fs-5 mb-3 d-block">Ganancia Socio (50%)</span>
+                        <div class="py-1">
+                            <span class="text-dark fs-1 fw-bold me-2">{{ profit_split.partner | currency:'USD' }}</span>
+                            <span class="fw-semibold text-muted fs-7">Parte del socio</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Trend Chart Placeholder (Or Table for now) -->
+        <h3 class="card-title align-items-start flex-column mt-10">
+            <span class="card-label fw-bold text-gray-800">Tendencia Mensual</span>
+        </h3>
+        <div class="table-responsive">
+            <table class="table table-row-dashed align-middle gs-0 gy-4 my-0">
+                <thead>
+                    <tr class="fs-7 fw-bold text-gray-500 border-bottom-0">
+                        <th class="ps-0 min-w-150px">Mes</th>
+                        <th class="text-end min-w-140px">Ingresos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of monthly_trend">
+                        <td class="ps-0">
+                            <span class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6">{{ item.months }}</span>
+                        </td>
+                        <td class="text-end">
+                            <span class="text-gray-800 fw-bold fs-6">{{ item.sums | currency:'USD' }}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

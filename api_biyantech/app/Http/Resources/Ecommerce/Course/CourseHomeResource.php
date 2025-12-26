@@ -43,7 +43,7 @@ class CourseHomeResource extends JsonResource
             "title" => $this->resource->title,
             "slug" => $this->resource->slug,
             "subtitle" => $this->resource->subtitle,
-            "imagen" => env("APP_URL")."storage/".$this->resource->imagen,
+            "imagen" => $this->resource->imagen,
             "precio_usd" => $this->resource->precio_usd,
             "precio_pen" => $this->resource->precio_pen,
             "count_class" => $this->resource->count_class,
@@ -55,7 +55,7 @@ class CourseHomeResource extends JsonResource
             "instructor" => $this->resource->instructor ? [
                 "id" => $this->resource->instructor->id,
                 "full_name" => $this->resource->instructor->name. ' '. $this->resource->instructor->surname,
-                "avatar" => env("APP_URL")."storage/".$this->resource->instructor->avatar,
+                "avatar" => $this->resource->instructor->avatar,
                 "profesion" => $this->resource->instructor->profesion,
             ] : NULL
         ];

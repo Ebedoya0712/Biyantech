@@ -114,6 +114,9 @@ export class FilterCoursesComponent {
     }
   }
 
+  page:number = 1;
+  totalPages:number = 0;
+
   listCourses(){
     console.log(this.search);
     let data = {
@@ -125,11 +128,18 @@ export class FilterCoursesComponent {
       idiomas_selected: this.idiomas_selected,
       levels_selected: this.levels_selected,
       rating_selected: this.rating_selected,
+      page: this.page,
     }
     this.tiendaGuestService.listCourses(data).subscribe((resp:any) => {
       console.log(resp);
       this.LISTCOURSES = resp.courses.data;
+      this.totalPages = resp.courses.last_page;
     })
+  }
+
+  selectedPage(page:number){
+    this.page = page;
+    this.listCourses();
   }
 
   getNewTotal(COURSE:any, DESCOUNT_BANNER:any) {

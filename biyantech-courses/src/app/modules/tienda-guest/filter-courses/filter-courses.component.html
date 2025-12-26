@@ -13,18 +13,18 @@
                     <div class="col-lg-12">
                         <!-- Start Breadcrumb Area  -->
                         <ul class="page-list">
-                            <li class="rbt-breadcrumb-item"><a href="index.html">Inicio</a></li>
+                            <li class="rbt-breadcrumb-item"><a href="index.html" style="color: #192335 !important;">Inicio</a></li>
                             <li>
                                 <div class="icon-right"><i class="feather-chevron-right"></i></div>
                             </li>
-                            <li class="rbt-breadcrumb-item active">Todos los cursos</li>
+                            <li class="rbt-breadcrumb-item active" style="color: #192335 !important;">Todos los cursos</li>
                         </ul>
                         <!-- End Breadcrumb Area  -->
 
                         <div class=" title-wrapper">
-                            <h1 class="title mb--0">Todos los cursos</h1>
+                            <h1 class="title mb--0" style="color: #192335 !important;">Todos los cursos</h1>
                         </div>
-                        <p class="description">Cursos que forjan a principiantes en profesionales de alto rendimiento. </p>
+                        <p class="description" style="color: #192335 !important;">Cursos que forjan a principiantes en profesionales de alto rendimiento. </p>
                     </div>
                 </div>
             </div>
@@ -38,8 +38,8 @@
                         <div class="rbt-sorting-list d-flex flex-wrap align-items-center">
                             <div class="rbt-short-item switch-layout-container">
                                 <ul class="course-switch-layout">
-                                    <li class="course-switch-item"><button class="rbt-grid-view" [ngClass]="{'active': selected_option == 1}" title="Grid Layout" (click)="addOption(1)"><i class="feather-grid"></i> <span class="text">Desactivar filtro</span></button></li>
-                                    <li class="course-switch-item"><button class="rbt-list-view" [ngClass]="{'active': selected_option == 2}" title="List Layout" (click)="addOption(2)"><i class="feather-list"></i> <span class="text">Activar filtro</span></button></li>
+                                    <li class="course-switch-item"><button class="rbt-grid-view" [ngClass]="{'active': selected_option == 1}" title="Grid Layout" (click)="addOption(1)"><i class="feather-grid"></i> <span class="text" style="color: #192335 !important;">Desactivar filtro</span></button></li>
+                                    <li class="course-switch-item"><button class="rbt-list-view" [ngClass]="{'active': selected_option == 2}" title="List Layout" (click)="addOption(2)"><i class="feather-list"></i> <span class="text" style="color: #192335 !important;">Activar filtro</span></button></li>
                                 </ul>
                             </div>
                         </div>
@@ -81,12 +81,12 @@
                                 <div class="col-lg-2 col-md-4 col-sm-6 col-12">
                                     <div class="rbt-single-widget rbt-widget-categories has-show-more">
                                         <div class="inner">
-                                            <h4 class="rbt-widget-title-2">Categories</h4>
+                                            <h4 class="rbt-widget-title-2" style="color: #192335 !important;">Categories</h4>
                                             <ul class="rbt-sidebar-list-wrapper categories-list-check has-show-more-inner-content">
                                                 <ng-container *ngFor="let CATEGORIE of CATEGORIES">
                                                     <li class="rbt-check-group">
                                                         <input [id]="'cat-list-'+CATEGORIE.id" type="checkbox" [name]="'cat-list-'+CATEGORIE.id" (click)="addCategorie(CATEGORIE.id)">
-                                                        <label [attr.for]="'cat-list-'+CATEGORIE.id">{{ CATEGORIE.name }} <span class="rbt-lable count">{{ CATEGORIE.courses_count }}</span></label>
+                                                        <label [attr.for]="'cat-list-'+CATEGORIE.id" style="color: #192335 !important;">{{ CATEGORIE.name }} <span class="rbt-lable count">{{ CATEGORIE.courses_count }}</span></label>
                                                     </li>
                                                 </ng-container>
                                                 
@@ -102,7 +102,7 @@
                                 <div class="col-lg-2 col-md-4 col-sm-6 col-12">
                                     <div class="rbt-single-widget rbt-widget-rating">
                                         <div class="inner">
-                                            <h4 class="rbt-widget-title-2">Ratings</h4>
+                                            <h4 class="rbt-widget-title-2" style="color: #192335 !important;">Ratings</h4>
                                             <ul class="rbt-sidebar-list-wrapper rating-list-check">
                                                 <li class="rbt-check-group">
                                                     <input id="cat-radio-1" type="radio" name="rbt-radio" (click)="selectedRating(5)">
@@ -180,12 +180,12 @@
                                 <div class="col-lg-2 col-md-4 col-sm-6 col-12">
                                     <div class="rbt-single-widget rbt-widget-instructor">
                                         <div class="inner">
-                                            <h4 class="rbt-widget-title-2">Instructors</h4>
+                                            <h4 class="rbt-widget-title-2" style="color: #192335 !important;">Instructors</h4>
                                             <ul class="rbt-sidebar-list-wrapper instructor-list-check">
                                                 <ng-container *ngFor="let INSTRUCT of INSTRUCTORES;let i=index">
                                                     <li class="rbt-check-group">
                                                         <input [id]="'ins-list-'+INSTRUCT.id" type="checkbox" [name]="'ins-list-'+INSTRUCT.id" (click)="addInstructores(INSTRUCT)">
-                                                        <label [attr.for]="'ins-list-'+INSTRUCT.id">{{ INSTRUCT.full_name }} <span class="rbt-lable count">{{ INSTRUCT.courses_count }}</span></label>
+                                                        <label [attr.for]="'ins-list-'+INSTRUCT.id" style="color: #192335 !important;">{{ INSTRUCT.full_name }} <span class="rbt-lable count">{{ INSTRUCT.courses_count }}</span></label>
                                                     </li>
                                                 </ng-container>
                                                 
@@ -211,7 +211,7 @@
                                 <div class="col-lg-2 col-md-4 col-sm-6 col-12">
                                     <div class="filter-select-option">
                                         <div class="filter-select">
-                                            <span class="select-label d-block">Price Range</span>
+                                            <span class="select-label d-block" style="color: #192335 !important;">Price Range</span>
         
                                             <div class="price_filter s-filter clear">
                                                 <form action="#" method="GET">
@@ -219,7 +219,7 @@
                                                     <div class="slider__range--output">
                                                         <div class="price__output--wrap">
                                                             <div class="price--output">
-                                                                <span>Price :</span><input type="text" id="amount">
+                                                                <span style="color: #192335 !important;">Price :</span><input type="text" id="amount">
                                                             </div>
                                                             <div class="price--filter">
                                                                 <a class="rbt-btn btn-gradient btn-sm" href="#">Filter</a>
@@ -239,12 +239,12 @@
                                 <div class="col-lg-2 col-md-4 col-sm-6 col-12">
                                     <div class="rbt-single-widget rbt-widget-lavels">
                                         <div class="inner">
-                                            <h4 class="rbt-widget-title-2">Levels</h4>
+                                            <h4 class="rbt-widget-title-2" style="color: #192335 !important;">Levels</h4>
                                             <ul class="rbt-sidebar-list-wrapper lavels-list-check">
                                                 <ng-container *ngFor="let LEVEL of LEVELS;let i=index">
                                                     <li class="rbt-check-group">
                                                         <input [id]="'lavels-list-'+i" type="checkbox" [name]="'lavels-list-'+i" (click)="addLevels(LEVEL)">
-                                                        <label [attr.for]="'lavels-list-'+i">{{ LEVEL }}</label>
+                                                        <label [attr.for]="'lavels-list-'+i" style="color: #192335 !important;">{{ LEVEL }}</label>
                                                     </li>
                                                 </ng-container>
                                                 
@@ -270,12 +270,12 @@
                                 <div class="col-lg-2 col-md-4 col-sm-6 col-12">
                                     <div class="rbt-single-widget rbt-widget-features">
                                         <div class="inner">
-                                            <h4 class="rbt-widget-title-2">Idioma</h4>
+                                            <h4 class="rbt-widget-title-2" style="color: #192335 !important;">Idioma</h4>
                                             <ul class="rbt-sidebar-list-wrapper features-list-check">
                                                 <ng-container *ngFor="let IDIOMA of IDIOMAS;let i=index">
                                                     <li class="rbt-check-group">
                                                         <input [id]="'features-list-'+i" type="checkbox" [name]="'features-list-'+i" (click)="addIdiomas(IDIOMA)">
-                                                        <label [attr.for]="'features-list-'+i">{{ IDIOMA }}</label>
+                                                        <label [attr.for]="'features-list-'+i" style="color: #192335 !important;">{{ IDIOMA }}</label>
                                                     </li>
                                                 </ng-container>
                                                 
@@ -318,7 +318,7 @@
                         <div class="course-grid-3">
                             <div class="rbt-card variation-01 rbt-hover">
                                 <div class="rbt-card-img">
-                                    <a [routerLink]="['landing-curso/',COURSE.slug]">
+                                    <a [routerLink]="['/landing-curso/',COURSE.slug]">
                                         <img [src]="COURSE.imagen" style="height: 244px;" alt="Card image">
                                         <div class="rbt-badge-3 bg-white" *ngIf="COURSE.discount_g">
                                             <span *ngIf="COURSE.discount_g.type_discount == 1">-{{ COURSE.discount_g.discount }}%</span>
@@ -337,13 +337,10 @@
                                                 <i class="fas fa-star" [ngClass]="{'ratingT': COURSE.avg_reviews < 4}"></i>
                                                 <i class="fas fa-star" [ngClass]="{'ratingT': COURSE.avg_reviews < 5}"></i>
                                             </div>
-                                            <span class="rating-count"> ({{ COURSE.count_reviews }} Reviews)</span>
-                                        </div>
-                                        <div class="rbt-bookmark-btn">
-                                            <a class="rbt-round-btn" title="Bookmark" href="#"><i class="feather-bookmark"></i></a>
+                                            <span class="rating-count"> ({{ COURSE.count_reviews }} Reseñas)</span>
                                         </div>
                                     </div>
-                                    <h4 class="rbt-card-title"><a [routerLink]="['landing-curso/',COURSE.slug]">{{ COURSE.title }}</a>
+                                    <h4 class="rbt-card-title"><a [routerLink]="['/landing-curso/',COURSE.slug]">{{ COURSE.title }}</a>
                                     </h4>
                                     <ul class="rbt-meta">
                                         <li><i class="feather-book"></i>{{ COURSE.count_class }} Lessons</li>
@@ -358,7 +355,7 @@
                                             </a>
                                         </div>
                                         <div class="rbt-author-info">
-                                            By <a href="profile.html">{{ COURSE.instructor.full_name }}</a> In <a href="#">{{ COURSE.instructor.profesion }}</a>
+                                            Por <a href="profile.html">{{ COURSE.instructor.full_name }}</a> En <a href="#">{{ COURSE.instructor.profesion }}</a>
                                         </div>
                                     </div>
                                     <div class="rbt-card-bottom">
@@ -366,7 +363,7 @@
                                             <span class="current-price">{{ getTotalPriceCourse(COURSE) }} USD</span>
                                             <span class="off-price" *ngIf="COURSE.discount_g">{{ COURSE.precio_usd }}</span>
                                         </div>
-                                        <a class="rbt-btn-link left-icon" href="#" onclick="return false;" (click)="addCart(COURSE)"><i class="feather-shopping-cart"></i> Add To Cart</a>
+                                        <a class="rbt-btn-link left-icon" href="#" onclick="return false;" (click)="addCart(COURSE)"><i class="feather-shopping-cart"></i> Añadir al Carrito</a>
                                     </div>
                                 </div>
                             </div>
@@ -376,6 +373,21 @@
                     
 
                 </div>
+                
+                <div class="row">
+                    <div class="col-lg-12 mt--60">
+                        <nav>
+                            <ul class="rbt-pagination">
+                                <li><a href="#" onclick="return false;" (click)="selectedPage(page-1)" [ngClass]="{'disabled': page == 1}" aria-label="Previous"><i class="feather-chevron-left"></i></a></li>
+                                <ng-container *ngFor="let p of [].constructor(totalPages); let i = index">
+                                    <li [ngClass]="{'active': page == (i+1)}"><a href="#" onclick="return false;" (click)="selectedPage(i+1)">{{ i + 1 }}</a></li>
+                                </ng-container>
+                                <li><a href="#" onclick="return false;" (click)="selectedPage(page+1)" [ngClass]="{'disabled': page == totalPages}" aria-label="Next"><i class="feather-chevron-right"></i></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
