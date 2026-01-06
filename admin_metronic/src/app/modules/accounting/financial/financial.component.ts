@@ -10,6 +10,7 @@ export class FinancialComponent implements OnInit {
 
   total_revenue: number = 0;
   total_costs: number = 0;
+  total_instructor_commission: number = 0;
   net_profit: number = 0;
   company_reserve: number = 0;
   profit_split: any = { me: 0, partner: 0 };
@@ -28,6 +29,7 @@ export class FinancialComponent implements OnInit {
       console.log(resp);
       this.total_revenue = resp.total_revenue;
       this.total_costs = resp.total_costs;
+      this.total_instructor_commission = resp.total_instructor_commission;
       this.net_profit = resp.net_profit;
       this.company_reserve = resp.company_reserve;
       this.profit_split = resp.profit_split;

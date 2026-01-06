@@ -35,21 +35,11 @@
                         <div class="feature-sin rating">
                             <a href="#"></a> {{ LANDING_COURSE.count_reviews }}
                             <!-- Estrellas generadas dinámicamente -->
-                            <a href="#" [ngClass]="{'rating-a': LANDING_COURSE.avg_reviews < 1}">
-                                <i class="fas fa-star" ></i>
-                            </a>
-                            <a href="#" [ngClass]="{'rating-a': LANDING_COURSE.avg_reviews < 2}">
-                                <i class="fas fa-star" ></i>
-                            </a>
-                            <a href="#" [ngClass]="{'rating-a': LANDING_COURSE.avg_reviews < 3}">
-                                <i class="fas fa-star" ></i>
-                            </a>
-                            <a href="#" [ngClass]="{'rating-a': LANDING_COURSE.avg_reviews < 4}">
-                                <i class="fas fa-star" ></i>
-                            </a>
-                            <a href="#" [ngClass]="{'rating-a': LANDING_COURSE.avg_reviews < 5}">
-                                <i class="fas fa-star" ></i>
-                            </a>
+                            <i class="fas fa-star" [ngClass]="(LANDING_COURSE.avg_reviews >= 1) ? 'star-filled' : 'star-empty'"></i>
+                            <i class="fas fa-star" [ngClass]="(LANDING_COURSE.avg_reviews >= 2) ? 'star-filled' : 'star-empty'"></i>
+                            <i class="fas fa-star" [ngClass]="(LANDING_COURSE.avg_reviews >= 3) ? 'star-filled' : 'star-empty'"></i>
+                            <i class="fas fa-star" [ngClass]="(LANDING_COURSE.avg_reviews >= 4) ? 'star-filled' : 'star-empty'"></i>
+                            <i class="fas fa-star" [ngClass]="(LANDING_COURSE.avg_reviews >= 5) ? 'star-filled' : 'star-empty'"></i>
                         </div>
 
                         <!-- Total de Calificación y Estudiantes -->
@@ -214,7 +204,7 @@
                                         </h5>
                                         <span class="b3 subtitle">{{ LANDING_COURSE.instructor.profesion }}</span>
                                         <ul class="rbt-meta mb--20 mt--10">
-                                            <li><i class="fa fa-star color-warning"></i>{{ LANDING_COURSE.instructor.count_reviews }} Reseñas <span class="rbt-badge-5 ml--5">{{ LANDING_COURSE.instructor.avg_reviews }} Puntuación</span></li>
+                                            <li><i class="fas fa-star star-filled"></i> {{ LANDING_COURSE.instructor.count_reviews }} Reseñas <span class="rbt-badge-5 ml--5">{{ LANDING_COURSE.instructor.avg_reviews }} Puntuación</span></li>
                                             <li><i class="feather-users"></i>{{ LANDING_COURSE.instructor.count_students }} Estudiantes</li>
                                             <li><i class="feather-video"></i>{{ LANDING_COURSE.instructor.courses_count }} Cursos</li>
                                         </ul>
@@ -262,11 +252,11 @@
                                         <div class="rbt-card-top">
                                             <div class="rbt-review">
                                                 <div class="rating">
-                                                    <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 1}"></i>
-                                                        <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 2}"></i>
-                                                        <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 3}"></i>
-                                                        <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 4}"></i>
-                                                        <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 5}"></i>
+                                                    <i class="fas fa-star" [ngClass]="(COURSE.avg_reviews >= 1) ? 'star-filled' : 'star-empty'"></i>
+                                                    <i class="fas fa-star" [ngClass]="(COURSE.avg_reviews >= 2) ? 'star-filled' : 'star-empty'"></i>
+                                                    <i class="fas fa-star" [ngClass]="(COURSE.avg_reviews >= 3) ? 'star-filled' : 'star-empty'"></i>
+                                                    <i class="fas fa-star" [ngClass]="(COURSE.avg_reviews >= 4) ? 'star-filled' : 'star-empty'"></i>
+                                                    <i class="fas fa-star" [ngClass]="(COURSE.avg_reviews >= 5) ? 'star-filled' : 'star-empty'"></i>
                                                 </div>
                                                 <span class="rating-count"> ({{ COURSE.count_reviews }} Reseñas)</span>
                                             </div>
@@ -275,8 +265,8 @@
                                         <h4 class="rbt-card-title"><a [attr.href]="'landing-curso/'+COURSE.slug">{{ COURSE.title }}</a>
                                         </h4>
                                         <ul class="rbt-meta">
-                                            <li><i class="feather-book"></i>{{ COURSE.count_class }} Lessons</li>
-                                            <li><i class="feather-users"></i>{{ COURSE.count_students }} Students</li>
+                                            <li><i class="feather-book"></i>{{ COURSE.count_class }} Lecciones</li>
+                                            <li><i class="feather-users"></i>{{ COURSE.count_students }} Estudiantes</li>
                                             <li><i class="feather-play"></i>{{ COURSE.time_course }}</li>
                                         </ul>
                                         <p class="rbt-card-text">{{ COURSE.subtitle }}.</p>
@@ -359,7 +349,7 @@
     </ng-container>
 
     <!-- Detalles y Características del Curso -->
-    <div class="rbt-widget-details has-show-more" [class.expanded]="showAllDetails">
+    <div class="rbt-widget-details has-show-more" [class.active]="showAllDetails">
     <ul class="has-show-more-inner-content rbt-course-details-list-wrapper">
         <li><span>Fecha de Inicio</span><span class="rbt-feature-value rbt-badge-5">{{ LANDING_COURSE.time_course }}</span>
         </li>
@@ -374,7 +364,7 @@
     </ul>
     
     <!-- Agregamos el evento de click y la lógica para cambiar el texto del botón -->
-    <div class="rbt-show-more-btn" (click)="toggleDetails()">
+    <div class="rbt-show-more-btn" (click)="toggleDetails()" [class.active]="showAllDetails">
         {{ showAllDetails ? 'Mostrar menos' : 'Mostrar más' }}
     </div>
 </div>
@@ -417,13 +407,13 @@
                         <div class="rbt-card-body">
                             <div class="rbt-card-top">
                                 <div class="rbt-review">
-                                    <div class="rating">
-                                        <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 1}"></i>
-                                        <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 2}"></i>
-                                        <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 3}"></i>
-                                        <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 4}"></i>
-                                        <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 5}"></i>
-                                    </div>
+                                            <div class="rating">
+                                                <i class="fas fa-star" [ngClass]="(COURSE.avg_reviews >= 1) ? 'star-filled' : 'star-empty'"></i>
+                                                <i class="fas fa-star" [ngClass]="(COURSE.avg_reviews >= 2) ? 'star-filled' : 'star-empty'"></i>
+                                                <i class="fas fa-star" [ngClass]="(COURSE.avg_reviews >= 3) ? 'star-filled' : 'star-empty'"></i>
+                                                <i class="fas fa-star" [ngClass]="(COURSE.avg_reviews >= 4) ? 'star-filled' : 'star-empty'"></i>
+                                                <i class="fas fa-star" [ngClass]="(COURSE.avg_reviews >= 5) ? 'star-filled' : 'star-empty'"></i>
+                                            </div>
                                     <span class="rating-count"> ({{ COURSE.count_reviews }} Reseñas)</span>
                                 </div>
                                 <!-- Bookmark Removed -->
@@ -431,8 +421,8 @@
                             <h4 class="rbt-card-title"><a [attr.href]="'landing-curso/'+COURSE.slug">{{ COURSE.title }}</a>
                             </h4>
                             <ul class="rbt-meta">
-                                <li><i class="feather-book"></i>{{ COURSE.count_class }} Lessons</li>
-                                <li><i class="feather-users"></i>{{ COURSE.count_students }} Students</li>
+                                <li><i class="feather-book"></i>{{ COURSE.count_class }} Lecciones</li>
+                                <li><i class="feather-users"></i>{{ COURSE.count_students }} Estudiantes</li>
                                 <li><i class="feather-play"></i>{{ COURSE.time_course }}</li>
                             </ul>
                             <p class="rbt-card-text">{{ COURSE.subtitle }}.</p>

@@ -227,4 +227,32 @@ export class CourseService {
       finalize(() => this.isLoadingSubject.next(false))
     );
   }
+
+  // 🚨 MÉTODOS PARA TRAILER DE NUEVO CURSO
+  getTrailer() {
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+    let URL = URL_SERVICIOS + "/course-trailer";
+    return this.http.get(URL, { headers: headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+
+  saveTrailer(data: any) {
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+    let URL = URL_SERVICIOS + "/course-trailer";
+    return this.http.post(URL, data, { headers: headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+
+  uploadVideoTrailer(data: any) {
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+    let URL = URL_SERVICIOS + "/course-trailer/upload_video";
+    return this.http.post(URL, data, { headers: headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
 }

@@ -177,11 +177,11 @@
                                                             <div class="rbt-card-top">
                                                                 <div class="rbt-review">
                                                                     <div class="rating">
-                                                                        <i class="fas fa-star"></i>
-                                                                        <i class="fas fa-star"></i>
-                                                                        <i class="fas fa-star"></i>
-                                                                        <i class="fas fa-star"></i>
-                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star" [ngClass]="(enrolled_course.course.avg_reviews >= 1) ? 'star-filled' : 'star-empty'"></i>
+                                                                        <i class="fas fa-star" [ngClass]="(enrolled_course.course.avg_reviews >= 2) ? 'star-filled' : 'star-empty'"></i>
+                                                                        <i class="fas fa-star" [ngClass]="(enrolled_course.course.avg_reviews >= 3) ? 'star-filled' : 'star-empty'"></i>
+                                                                        <i class="fas fa-star" [ngClass]="(enrolled_course.course.avg_reviews >= 4) ? 'star-filled' : 'star-empty'"></i>
+                                                                        <i class="fas fa-star" [ngClass]="(enrolled_course.course.avg_reviews >= 5) ? 'star-filled' : 'star-empty'"></i>
                                                                     </div>
                                                                     <span class="rating-count"> ({{ enrolled_course.course.count_reviews }} Reseñas)</span>
                                                                 </div>
@@ -235,13 +235,13 @@
                                                             <div class="rbt-card-top">
                                                                 <div class="rbt-review">
                                                                     <div class="rating">
-                                                                        <i class="fas fa-star"></i>
-                                                                        <i class="fas fa-star"></i>
-                                                                        <i class="fas fa-star"></i>
-                                                                        <i class="fas fa-star"></i>
-                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star" [ngClass]="(enrolled_course.course.avg_reviews >= 1) ? 'star-filled' : 'star-empty'"></i>
+                                                                        <i class="fas fa-star" [ngClass]="(enrolled_course.course.avg_reviews >= 2) ? 'star-filled' : 'star-empty'"></i>
+                                                                        <i class="fas fa-star" [ngClass]="(enrolled_course.course.avg_reviews >= 3) ? 'star-filled' : 'star-empty'"></i>
+                                                                        <i class="fas fa-star" [ngClass]="(enrolled_course.course.avg_reviews >= 4) ? 'star-filled' : 'star-empty'"></i>
+                                                                        <i class="fas fa-star" [ngClass]="(enrolled_course.course.avg_reviews >= 5) ? 'star-filled' : 'star-empty'"></i>
                                                                     </div>
-                                                                    <span class="rating-count"> (15 Reseñas)</span>
+                                                                    <span class="rating-count"> ({{ enrolled_course.course.count_reviews }} Reseñas)</span>
                                                                 </div>
                                                             </div>
                                                             <h4 class="rbt-card-title"><a [href]="'/landing-curso/'+enrolled_course.course.slug">{{ enrolled_course.course.title }}</a>
@@ -291,13 +291,13 @@
                                                             <div class="rbt-card-top">
                                                                 <div class="rbt-review">
                                                                     <div class="rating">
-                                                                        <i class="fas fa-star"></i>
-                                                                        <i class="fas fa-star"></i>
-                                                                        <i class="fas fa-star"></i>
-                                                                        <i class="fas fa-star"></i>
-                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star" [ngClass]="(enrolled_course.course.avg_reviews >= 1) ? 'star-filled' : 'star-empty'"></i>
+                                                                        <i class="fas fa-star" [ngClass]="(enrolled_course.course.avg_reviews >= 2) ? 'star-filled' : 'star-empty'"></i>
+                                                                        <i class="fas fa-star" [ngClass]="(enrolled_course.course.avg_reviews >= 3) ? 'star-filled' : 'star-empty'"></i>
+                                                                        <i class="fas fa-star" [ngClass]="(enrolled_course.course.avg_reviews >= 4) ? 'star-filled' : 'star-empty'"></i>
+                                                                        <i class="fas fa-star" [ngClass]="(enrolled_course.course.avg_reviews >= 5) ? 'star-filled' : 'star-empty'"></i>
                                                                     </div>
-                                                                    <span class="rating-count"> (15 Reseñas)</span>
+                                                                    <span class="rating-count"> ({{ enrolled_course.course.count_reviews }} Reseñas)</span>
                                                                 </div>
                                                             </div>
                                                             <h4 class="rbt-card-title"><a [href]="'/landing-curso/'+enrolled_course.course.slug">{{ enrolled_course.course.title }}</a>
@@ -365,13 +365,13 @@
                                                     </th>
                                                     <td>
                                                         <div class="rbt-review" *ngIf="sale_detail.review">
-                                                            <div class="rating">
-                                                                <i class="fas fa-star" [ngClass]="{'rating': sale_detail.review.rating < 1}"></i>
-                                                                <i class="fas fa-star" [ngClass]="{'rating': sale_detail.review.rating < 2}"></i>
-                                                                <i class="fas fa-star" [ngClass]="{'rating': sale_detail.review.rating < 3}"></i>
-                                                                <i class="fas fa-star" [ngClass]="{'rating': sale_detail.review.rating < 4}"></i>
-                                                                <i class="fas fa-star" [ngClass]="{'rating': sale_detail.review.rating < 5}"></i>
-                                                            </div>
+                                                                    <div class="rating">
+                                                                        <i class="fas fa-star" [ngClass]="(sale_detail.review.rating >= 1) ? 'star-filled' : 'star-empty'"></i>
+                                                                        <i class="fas fa-star" [ngClass]="(sale_detail.review.rating >= 2) ? 'star-filled' : 'star-empty'"></i>
+                                                                        <i class="fas fa-star" [ngClass]="(sale_detail.review.rating >= 3) ? 'star-filled' : 'star-empty'"></i>
+                                                                        <i class="fas fa-star" [ngClass]="(sale_detail.review.rating >= 4) ? 'star-filled' : 'star-empty'"></i>
+                                                                        <i class="fas fa-star" [ngClass]="(sale_detail.review.rating >= 5) ? 'star-filled' : 'star-empty'"></i>
+                                                                    </div>
                                                             <span class="rating-count"> ({{ sale_detail.review.rating }})</span>
                                                         </div>
                                                         <div class="rbt-review" *ngIf="!sale_detail.review">
@@ -398,11 +398,11 @@
                                         <div class="col-12">
                                             <label for="bio">CALIFICACIÓN: </label>
                                             <div class="d-flex">
-                                                <i class="fa fa-star mx-2" [ngClass]="{'color-warning': rating >= 1}" (click)="selectedRating(1)" style="font-size: x-large;cursor: pointer;"></i>
-                                                <i class="fa fa-star mx-2" [ngClass]="{'color-warning': rating >= 2}" (click)="selectedRating(2)" style="font-size: x-large;cursor: pointer;"></i>
-                                                <i class="fa fa-star mx-2" [ngClass]="{'color-warning': rating >= 3}" (click)="selectedRating(3)" style="font-size: x-large;cursor: pointer;"></i>
-                                                <i class="fa fa-star mx-2" [ngClass]="{'color-warning': rating >= 4}" (click)="selectedRating(4)" style="font-size: x-large;cursor: pointer;"></i>
-                                                <i class="fa fa-star mx-2" [ngClass]="{'color-warning': rating >= 5}" (click)="selectedRating(5)" style="font-size: x-large;cursor: pointer;"></i>
+                                                <i class="fas fa-star mx-2" [ngClass]="(rating >= 1) ? 'star-filled' : 'star-empty'" (click)="selectedRating(1)" style="font-size: x-large;cursor: pointer;"></i>
+                                                <i class="fas fa-star mx-2" [ngClass]="(rating >= 2) ? 'star-filled' : 'star-empty'" (click)="selectedRating(2)" style="font-size: x-large;cursor: pointer;"></i>
+                                                <i class="fas fa-star mx-2" [ngClass]="(rating >= 3) ? 'star-filled' : 'star-empty'" (click)="selectedRating(3)" style="font-size: x-large;cursor: pointer;"></i>
+                                                <i class="fas fa-star mx-2" [ngClass]="(rating >= 4) ? 'star-filled' : 'star-empty'" (click)="selectedRating(4)" style="font-size: x-large;cursor: pointer;"></i>
+                                                <i class="fas fa-star mx-2" [ngClass]="(rating >= 5) ? 'star-filled' : 'star-empty'" (click)="selectedRating(5)" style="font-size: x-large;cursor: pointer;"></i>
                                             </div>
                                         </div>
                                         <div class="col-12 mt-3">

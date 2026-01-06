@@ -15,12 +15,12 @@
 
                                 <div class="d-flex align-items-center flex-wrap justify-content-center mb--15 rbt-course-details-feature">
                                     <div class="feature-sin rating">
-                                        <a href="#">{{ courses_selected.avg_reviews }}</a>
-                                        <a href="#"><i class="fa fa-star" [ngClass]="{'rating-a': courses_selected.avg_reviews < 1}"></i></a>
-                                        <a href="#"><i class="fa fa-star" [ngClass]="{'rating-a': courses_selected.avg_reviews < 2}"></i></a>
-                                        <a href="#"><i class="fa fa-star" [ngClass]="{'rating-a': courses_selected.avg_reviews < 3}"></i></a>
-                                        <a href="#"><i class="fa fa-star" [ngClass]="{'rating-a': courses_selected.avg_reviews < 4}"></i></a>
-                                        <a href="#"><i class="fa fa-star" [ngClass]="{'rating-a': courses_selected.avg_reviews < 5}"></i></a>
+                                        <a href="#" style="color: black !important;">{{ courses_selected.avg_reviews }}</a>
+                                        <a href="#"><i class="fa fa-star" [ngClass]="{'rating-a': courses_selected.avg_reviews < 1}" style="color: black !important;"></i></a>
+                                        <a href="#"><i class="fa fa-star" [ngClass]="{'rating-a': courses_selected.avg_reviews < 2}" style="color: black !important;"></i></a>
+                                        <a href="#"><i class="fa fa-star" [ngClass]="{'rating-a': courses_selected.avg_reviews < 3}" style="color: black !important;"></i></a>
+                                        <a href="#"><i class="fa fa-star" [ngClass]="{'rating-a': courses_selected.avg_reviews < 4}" style="color: black !important;"></i></a>
+                                        <a href="#"><i class="fa fa-star" [ngClass]="{'rating-a': courses_selected.avg_reviews < 5}" style="color: black !important;"></i></a>
                                     </div>
                                     <div class="feature-sin total-rating">
                                         <a class="rbt-badge-4" href="#">{{ courses_selected.count_reviews }} valoraciones</a>
@@ -37,16 +37,11 @@
                                             <img [src]="courses_selected.instructor.avatar" alt="Sophia Jaymes">
                                         </a>
                                     </div>
-                                    <div class="rbt-author-info">
-                                        Curso hecho por: <a href="#" onclick="return false;">{{ courses_selected.instructor.full_name }}</a> - profesional en: <a href="#">{{ courses_selected.instructor.profesion }}</a>
+                                    <div class="rbt-author-info" style="color: #000000 !important;">
+                                        <a href="#" onclick="return false;" style="color: #000000 !important; font-weight: 600;">{{ courses_selected.instructor.full_name }}</a> - <span style="color: #000000 !important;">{{ courses_selected.instructor.profesion }}</span>
                                     </div>
                                 </div>
 
-                                <ul class="rbt-meta">
-                                    <li><i class="feather-calendar"></i>Última actualización {{ courses_selected.updated_at }}</li>
-                                    <li><i class="feather-globe"></i>{{ courses_selected.idioma }}</li>
-                                    <li><i class="feather-award"></i>Curso con certificado incluido</li>
-                                </ul>
                             </div>
                         </div>
                     </div>
@@ -75,13 +70,63 @@
 
 
                     <ng-container *ngIf="clase_selected">
-                        <iframe style="width: 100%;" height="800" 
-                            [src]="urlVideo(clase_selected)"
-                            [title]="clase_selected.name"
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                            allowfullscreen>
-                        </iframe>
+                        <div class="video-container-wrapper" style="position: relative; background: #000; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 2px solid rgba(168, 85, 247, 0.2); height: 650px;">
+                            <iframe style="width: 100%; height: 100%; display: block; border: none;" 
+                                [src]="safeUrl"
+                                [title]="clase_selected.name"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                allowfullscreen>
+                            </iframe>
+
+                            <!-- Overlay de Próxima Clase (Udemy Style) -->
+                            <div class="next-clase-overlay" *ngIf="show_next_overlay" 
+                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 10, 20, 0.95); z-index: 100; display: flex; align-items: center; justify-content: center; color: white; text-align: center; padding: 40px; animation: fadeIn 0.5s ease;">
+                                <div class="overlay-content" style="max-width: 500px; width: 100%;">
+                                    <span class="subtitle" style="text-transform: uppercase; letter-spacing: 3px; color: #a855f7; font-weight: 800; margin-bottom: 25px; display: block; font-size: 14px;">SIGUIENTE CLASE EN</span>
+                                    
+                                    <div class="countdown-loader" style="position: relative; width: 100px; height: 100px; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center;">
+                                        <svg style="position: absolute; width: 100%; height: 100%; transform: rotate(-90deg);">
+                                            <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="6" />
+                                            <circle cx="50" cy="50" r="45" fill="none" stroke="#a855f7" stroke-width="6" 
+                                                    [attr.stroke-dasharray]="282.7"
+                                                    [attr.stroke-dashoffset]="282.7 - (282.7 * countdown / 12)"
+                                                    style="transition: stroke-dashoffset 1s linear;" />
+                                        </svg>
+                                        <span class="countdown-number" style="font-size: 36px; font-weight: 900;">{{ countdown }}</span>
+                                    </div>
+
+                                    <h3 class="next-title" style="color: white; margin-bottom: 35px; font-size: 24px; font-weight: 700; line-height: 1.4;">{{ next_clase?.name }}</h3>
+                                    
+                                    <div class="d-flex justify-content-center gap-4">
+                                        <button (click)="goToNextClase()" class="rbt-btn btn-white btn-sm" style="background: white; color: black; font-weight: 700; border: none; padding: 12px 35px; border-radius: 5px; height: 50px; display: flex; align-items: center; justify-content: center;">Continuar</button>
+                                        <button (click)="cancelNextClase()" class="rbt-btn btn-border btn-sm" style="color: white; border: 2px solid rgba(255,255,255,0.4); padding: 12px 35px; border-radius: 5px; font-weight: 600; height: 50px; display: flex; align-items: center; justify-content: center;">Cancelar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt--20 d-flex align-items-center justify-content-between" style="margin-top: 25px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <div>
+                                <h3 class="title" style="font-size: 24px; font-weight: 700; color: #ffffff; margin-bottom: 5px;">{{ clase_selected.name }}</h3>
+                                <div class="d-flex align-items-center flex-wrap gap-3">
+                                    <p style="color: #bfafe9; font-size: 14px; display: flex; align-items: center; gap: 5px; margin-bottom: 0;">
+                                        <i class="feather-video"></i> Clase: {{ clase_selected.time_clase }}
+                                    </p>
+                                    <span style="color: rgba(255,255,255,0.2);">|</span>
+                                    <p style="color: #000000; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 5px; margin-bottom: 0;">
+                                        <i class="fa fa-star color-warning" style="font-size: 12px;"></i> {{ courses_selected.instructor.full_name }}
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- Botón para marcar manualmente -->
+                            <button (click)="onToggleClase(clase_selected)" 
+                                    class="rbt-btn btn-sm" 
+                                    [ngClass]="isCompleted(clase_selected.id) ? 'btn-gradient' : 'btn-border'"
+                                    style="height: 45px; padding: 0 20px; font-size: 14px;">
+                                <i [ngClass]="isCompleted(clase_selected.id) ? 'feather-check-circle' : 'feather-circle'"></i>
+                                {{ isCompleted(clase_selected.id) ? 'Clase Completada' : 'Marcar como completada' }}
+                            </button>
+                        </div>
                     </ng-container>
                     
 
@@ -173,115 +218,76 @@
                             <div class="course-details-content">
 
                                 <!-- Start Progress Box -->
-                                <div class="rbt-shadow-box mb--30" style="padding: 30px;">
-                                    <div class="d-flex align-items-center justify-content-between mb--10">
-                                        <h4 class="rbt-title-style-3 mb-0">Tu Progreso</h4>
-                                        <span class="percentage" style="font-weight: bold; color: #a855f7; font-size: 18px;">{{ percentage_course | number:'1.0-0' }}% Completado</span>
+                                <div class="rbt-shadow-box mb--30" style="padding: 30px; border: 1px solid rgba(168, 85, 247, 0.2); background: #192335; border-radius: 12px;">
+                                    <div class="d-flex align-items-center justify-content-between mb--15">
+                                        <div>
+                                            <h4 class="mb-0" style="font-size: 20px; font-weight: 700; color: #ffffff;">Progreso del curso</h4>
+                                            <p class="mb-0" style="font-size: 14px; color: #bfafe9;">Has completado {{ clases_completed.length }} lecciones</p>
+                                        </div>
+                                        <div class="percentage-badge" style="background: #a855f7; color: white; padding: 5px 15px; border-radius: 20px; font-weight: 800; font-size: 18px;">
+                                            {{ percentage_course | number:'1.0-0' }}%
+                                        </div>
                                     </div>
-                                    <div class="progress" style="height: 12px; background-color: rgba(128, 128, 128, 0.1); border-radius: 10px;">
-                                        <div class="progress-bar bg-gradient-primary" role="progressbar" 
+                                    <div class="progress" style="height: 10px; background-color: rgba(255, 255, 255, 0.05); border-radius: 10px; overflow: hidden;">
+                                        <div class="progress-bar" role="progressbar" 
                                              [style.width.%]="percentage_course" 
                                              [attr.aria-valuenow]="percentage_course" 
                                              aria-valuemin="0" aria-valuemax="100"
-                                             style="border-radius: 10px;">
+                                             style="background: linear-gradient(90deg, #a855f7, #7c3aed); box-shadow: 0 0 10px rgba(168, 85, 247, 0.4); border-radius: 10px; transition: width 0.6s ease;">
                                         </div>
                                     </div>
                                 </div>
                                 <!-- End Progress Box -->
 
                                 <!-- Start Course Content  -->
-                                <div class="course-content rbt-shadow-box coursecontent-wrapper mt--30 has-show-more" id="coursecontent">
-                                    <div class="rbt-course-feature-inner">
-                                        <div class="section-title">
-                                            <h4 class="rbt-title-style-3">Contenido del curso</h4>
-                                            
-
-
+                                <div class="course-content rbt-shadow-box coursecontent-wrapper mt--30" id="coursecontent">
+                                    <div class="rbt-course-feature-inner" style="padding: 0;">
+                                        <div class="section-title" style="padding: 30px 30px 10px;">
+                                            <h4 class="rbt-title-style-3" style="margin-bottom: 0;">Contenido del curso</h4>
                                         </div>
                                         <div class="rbt-accordion-style rbt-accordion-02 accordion">
                                             <div class="accordion" id="accordionExampleb2">
-
-                                                <!-- <div class="accordion-item card">
-                                                    <h2 class="accordion-header card-header" id="headingTwo1">
-                                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo1" aria-expanded="true" aria-controls="collapseTwo1">
-                                                            Intro to Course and Histudy <span class="rbt-badge-5 ml--10">1hr 30min</span>
-                                                        </button>
-                                                    </h2>
-                                                    <div id="collapseTwo1" class="accordion-collapse collapse show" aria-labelledby="headingTwo1" data-bs-parent="#accordionExampleb2">
-                                                        <div class="accordion-body card-body pr--0">
-                                                            <ul class="rbt-course-main-content liststyle">
-                                                                <li>
-                                                                    <a href="#">
-                                                                        <div class="course-content-left">
-                                                                            <i class="feather-play-circle"></i> <span
-                                                                                    class="text">Course Intro</span>
-                                                                        </div>
-                                                                        <div class="course-content-right">
-                                                                            <span class="min-lable">30 min</span>
-                                                                            <span class="rbt-badge variation-03 bg-primary-opacity"><i class="feather-eye"></i> Preview</span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-
-                                                                <li>
-                                                                    <a href="#">
-                                                                        <div class="course-content-left">
-                                                                            <i class="feather-play-circle"></i> <span
-                                                                                    class="text">Watch Before Start</span>
-                                                                        </div>
-                                                                        <div class="course-content-right">
-                                                                            <span class="min-lable">0.5 min</span>
-                                                                            <span class="rbt-badge variation-03 bg-primary-opacity"><i class="feather-eye"></i> Preview</span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-
-                                                                <li>
-                                                                    <a href="#">
-                                                                        <div class="course-content-left">
-                                                                            <i class="feather-file-text"></i> <span
-                                                                                    class="text">Read Before You Start</span>
-                                                                        </div>
-                                                                        <div class="course-content-right">
-                                                                            <span class="course-lock"><i class="feather-lock"></i></span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div> -->
-
+                                                
                                                 <ng-container *ngFor="let section of courses_selected.malla;let i=index">
-                                                    <div class="accordion-item card">
-                                                        <h2 class="accordion-header card-header" id="headingTwo1">
-                                                            <button class="accordion-button" [ngClass]="{'collapsed': i!=0}" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseTwo'+section.id" aria-expanded="true" [attr.aria-controls]="'#collapseTwo'+section.id">
-                                                                {{ section.name }} <span class="rbt-badge-5 ml--10">{{ section.time_section }}</span>
+                                                    <div class="accordion-item card" style="border: none !important; border-bottom: 1px solid rgba(255,255,255,0.05) !important; border-radius: 0 !important; background: transparent;">
+                                                        <h2 class="accordion-header card-header" [id]="'heading'+section.id" style="background: transparent;">
+                                                            <button class="accordion-button" [ngClass]="{'collapsed': i!=0}" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseTwo'+section.id" aria-expanded="true" [attr.aria-controls]="'#collapseTwo'+section.id" style="padding: 20px 30px; font-weight: 700; font-size: 16px; background: #242e42; color: #ffffff;">
+                                                                {{ section.name }} 
+                                                                <div class="ms-auto d-flex align-items-center gap-3">
+                                                                    <span class="rbt-badge-5" style="font-size: 12px; font-weight: 500; background: rgba(168, 85, 247, 0.2); color: #a855f7; border: none;">{{ section.clases.length }} clases</span>
+                                                                    <span style="font-size: 13px; color: #bfafe9;">{{ section.time_section }}</span>
+                                                                </div>
                                                             </button>
                                                         </h2>
-                                                        <div [attr.id]="'collapseTwo'+section.id" class="accordion-collapse collapse" [ngClass]="{'show': i==0}" aria-labelledby="headingTwo1" data-bs-parent="#accordionExampleb2">
-                                                            <div class="accordion-body card-body pr--0">
-                                                                <ul class="rbt-course-main-content liststyle">
+                                                        <div [attr.id]="'collapseTwo'+section.id" class="accordion-collapse collapse" [ngClass]="{'show': i==0}" [attr.aria-labelledby]="'heading'+section.id" data-bs-parent="#accordionExampleb2">
+                                                            <div class="accordion-body card-body p-0">
+                                                                <ul class="rbt-course-main-content liststyle" style="margin: 0;">
                                                                     
                                                                     <ng-container *ngFor="let clase of section.clases">
-                                                                        <li>
-                                                                            <a href="#" onclick="return false;" (click)="openClase(clase)">
-                                                                                <div class="course-content-left">
-                                                                                    <i class="feather-play-circle"></i> <span
-                                                                                        class="text">{{ clase.name }}</span>
+                                                                        <li class="lesson-item" [ngClass]="{'active': clase_selected?.id == clase.id, 'completed': isCompleted(clase.id)}" style="list-style: none; transition: all 0.2s;">
+                                                                            <div class="d-flex align-items-start w-100" style="padding: 15px 30px;">
+                                                                                
+                                                                                <!-- Custom Checkbox -->
+                                                                                <div class="custom-checkbox-container" (click)="$event.stopPropagation(); onToggleClase(clase)" style="margin-top: 3px; margin-right: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                                                                                    <div class="custom-checkbox" [ngClass]="{'checked': isCompleted(clase.id)}" 
+                                                                                         style="width: 22px; height: 22px; border: 2px solid #ddd; border-radius: 4px; display: flex; align-items: center; justify-content: center; transition: all 0.2s;">
+                                                                                        <i class="feather-check" *ngIf="isCompleted(clase.id)" style="color: white; font-size: 14px; font-weight: 900;"></i>
+                                                                                    </div>
                                                                                 </div>
-                                                                                <div class="course-content-right">
-                                                                                    <span class="min-lable">{{ clase.time_clase }}</span>
-                                                                                </div>
-                                                                            </a>
+
+                                                                                <a href="#" onclick="return false;" (click)="openClase(clase)" class="w-100 d-flex flex-column" style="text-decoration: none;">
+                                                                                     <div class="d-flex justify-content-between align-items-start">
+                                                                                         <span class="lesson-title" [style.color]="clase_selected?.id == clase.id ? '#a855f7' : '#ffffff'" style="font-weight: 500; font-size: 15px; line-height: 1.4;">{{ clase.name }}</span>
+                                                                                         <span class="lesson-time" style="font-size: 12px; color: #bfafe9; white-space: nowrap; margin-left: 10px;">{{ clase.time_clase }}</span>
+                                                                                     </div>
+                                                                                     <div class="lesson-meta mt-1" style="display: flex; align-items: center; gap: 8px;">
+                                                                                         <i class="feather-play-circle" style="font-size: 12px; color: #a855f7;"></i>
+                                                                                         <span style="font-size: 11px; color: #bfafe9; text-transform: uppercase; letter-spacing: 0.5px;">{{ clase.time_clase }} de duración</span>
+                                                                                     </div>
+                                                                                 </a>
+                                                                            </div>
                                                                         </li>
                                                                     </ng-container>
-                                                                    
-            
-                
-                                                               
-                
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -387,11 +393,11 @@
                                             <div class="media-body">
                                                 <div class="author-info">
                                                     <h5 class="title">
-                                                        <a class="hover-flip-item-wrapper" href="#" onclick="return false;">{{ courses_selected.instructor.full_name }}</a>
+                                                        <a class="hover-flip-item-wrapper" href="#" onclick="return false;" style="color: #ffffff !important; font-weight: 600;">{{ courses_selected.instructor.full_name }}</a>
                                                     </h5>
-                                                    <span class="b3 subtitle">{{ courses_selected.instructor.profesion }}</span>
+                                                    <span class="b3 subtitle" style="color: #ffffff !important;">{{ courses_selected.instructor.profesion }}</span>
                                                     <ul class="rbt-meta mb--20 mt--10">
-                                                        <li><i class="fa fa-star color-warning"></i>{{ courses_selected.instructor.count_reviews }} Reseñas <span class="rbt-badge-5 ml--5">{{ courses_selected.instructor.avg_reviews }} Puntuación</span></li>
+                                                        <li style="color: #ffffff !important;"><i class="fa fa-star color-warning"></i>{{ courses_selected.instructor.count_reviews }} Reseñas <span class="rbt-badge-5 ml--5">{{ courses_selected.instructor.avg_reviews }} Puntuación</span></li>
                                                         <li><i class="feather-users"></i>{{ courses_selected.instructor.count_students }} Estudiantes</li>
                                                         <li>
                                                         <i class="feather-video"></i>

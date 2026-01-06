@@ -45,6 +45,18 @@ class DashboardController extends Controller
             DB::raw("DATE_FORMAT(created_at,'%M') as month_name"),
             DB::raw("MONTH(created_at) as month_num")
         )
+        ->where(function($q) {
+            // Pago Móvil Aprobado
+            $q->where('method_payment', 'PAGO_MOVIL')
+              ->where('status_pgmovil', 1);
+        })->orWhere(function($q) {
+            // Binance Pay Pagado
+            $q->where('method_payment', 'BINANCE_PAY')
+              ->where('binance_status', 'PAID');
+        })->orWhere(function($q) {
+            // Otros métodos (asumimos aprobación inmediata si no son los anteriores)
+            $q->whereNotIn('method_payment', ['PAGO_MOVIL', 'BINANCE_PAY']);
+        })
         ->whereYear('created_at', date('Y'))
         ->groupBy('month_name', 'month_num')
         ->orderBy('month_num')

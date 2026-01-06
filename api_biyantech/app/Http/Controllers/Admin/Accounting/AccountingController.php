@@ -16,24 +16,50 @@ class AccountingController extends Controller
     // 1. Contabilidad Financiera: Resumen General
     public function financial_summary(Request $request)
     {
-        // Total Revenue (Ingresos Totales)
-        $total_revenue = Sale::sum('total');
+        // 1. Total Revenue (Ingresos Totales) - Solo ventas aprobadas
+        $total_revenue = Sale::where(function($q) {
+            $q->where('method_payment', 'PAGO_MOVIL')->where('status_pgmovil', 1);
+        })->orWhere(function($q) {
+            $q->where('method_payment', 'BINANCE_PAY')->where('binance_status', 'PAID');
+        })->orWhere(function($q) {
+            $q->whereNotIn('method_payment', ['PAGO_MOVIL', 'BINANCE_PAY']);
+        })->sum('total');
 
-        // Total Costs (Gastos Registrados)
+        // 2. Total Costs (Gastos Registrados Manualmente)
         $total_costs = Expense::sum('amount');
 
-        // Net Profit (Ganancia Neta)
-        $net_profit = $total_revenue - $total_costs;
+        // 3. Cálculo de Comisiones de Profesores (5% Automático)
+        $details = SaleDetail::with('course')
+            ->whereHas('sale', function($q) {
+                $q->where(function($sub) {
+                    $sub->where('method_payment', 'PAGO_MOVIL')->where('status_pgmovil', 1);
+                })->orWhere(function($sub) {
+                    $sub->where('method_payment', 'BINANCE_PAY')->where('binance_status', 'PAID');
+                })->orWhere(function($sub) {
+                    $sub->whereNotIn('method_payment', ['PAGO_MOVIL', 'BINANCE_PAY']);
+                });
+            })->get();
 
-        // Company Reserve (20%)
-        $company_reserve = $net_profit * 0.20;
+        $total_instructor_commission = 0;
+        foreach ($details as $detail) {
+            $total_instructor_commission += $detail->total * 0.05;
+        }
 
-        // Distributable Amount (Monto a Repartir)
+        // 4. Ganancia Neta Real (Ingresos - Gastos - Comisiones Profesores)
+        $net_profit = round($total_revenue - $total_costs - $total_instructor_commission, 2);
+
+        // 5. Distribución de Utilidades
+        // Empresa: 20%
+        $company_reserve = round($net_profit * 0.20, 2);
+
+        // Monto a Repartir entre Socios (el 80% restante)
         $distributable = $net_profit - $company_reserve;
 
-        // Profit Split (50/50 of Distributable)
-        $profit_me = $distributable * 0.50;
-        $profit_partner = $distributable * 0.50;
+        // Socio: 50% de lo repartible
+        $profit_partner = round($distributable * 0.50, 2);
+        
+        // Dueño: 50% de lo repartible (el otro 50% que lo hace 100% de lo repartible)
+        $profit_me = round($distributable * 0.50, 2);
 
         // Monthly Revenue Trend (Last 12 Months)
         $monthly_revenue = Sale::select(
@@ -46,8 +72,9 @@ class AccountingController extends Controller
         ->get();
 
         return response()->json([
-            'total_revenue' => $total_revenue,
-            'total_costs' => $total_costs,
+            'total_revenue' => round($total_revenue, 2),
+            'total_costs' => round($total_costs, 2),
+            'total_instructor_commission' => round($total_instructor_commission, 2),
             'net_profit' => $net_profit,
             'company_reserve' => $company_reserve,
             'profit_split' => [
@@ -103,6 +130,54 @@ class AccountingController extends Controller
 
         return response()->json([
             'departments' => $departments
+        ]);
+    }
+
+    public function instructor_summary(Request $request) {
+        $user = auth('api')->user();
+        
+        // Obtenemos los detalles de venta de los cursos que pertenecen a este instructor
+        $details = SaleDetail::with('course')
+            ->whereHas('course', function($q) use($user) {
+                $q->where('user_id', $user->id);
+            })
+            ->whereHas('sale', function($q) {
+                $q->where(function($sub) {
+                    $sub->where('method_payment', 'PAGO_MOVIL')->where('status_pgmovil', 1);
+                })->orWhere(function($sub) {
+                    $sub->where('method_payment', 'BINANCE_PAY')->where('binance_status', 'PAID');
+                })->orWhere(function($sub) {
+                    $sub->whereNotIn('method_payment', ['PAGO_MOVIL', 'BINANCE_PAY']);
+                });
+            })->get();
+
+        $total_revenue = $details->sum('total');
+        $total_commission = $total_revenue * 0.05;
+
+        // Agrupado por curso para mayor detalle
+        $earnings_by_course = SaleDetail::join('courses', 'sale_details.course_id', '=', 'courses.id')
+            ->where('courses.user_id', $user->id)
+            ->whereHas('sale', function($q) {
+                $q->where(function($sub) {
+                    $sub->where('method_payment', 'PAGO_MOVIL')->where('status_pgmovil', 1);
+                })->orWhere(function($sub) {
+                    $sub->where('method_payment', 'BINANCE_PAY')->where('binance_status', 'PAID');
+                })->orWhere(function($sub) {
+                    $sub->whereNotIn('method_payment', ['PAGO_MOVIL', 'BINANCE_PAY']);
+                });
+            })
+            ->select('courses.title', DB::raw('sum(sale_details.total) as total_revenue'))
+            ->groupBy('courses.title')
+            ->get()
+            ->map(function($item) {
+                $item->commission = $item->total_revenue * 0.05;
+                return $item;
+            });
+
+        return response()->json([
+            'total_revenue' => $total_revenue,
+            'total_commission' => $total_commission,
+            'earnings_by_course' => $earnings_by_course
         ]);
     }
 }

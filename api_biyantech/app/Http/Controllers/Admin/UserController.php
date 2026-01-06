@@ -23,9 +23,16 @@ class UserController extends Controller
     {
         $search = $request->search;
         $state = $request->state;
+        $type = $request->type;
 
         $users = User::filterAdvance($search, $state)
-                    ->where("type_user", 2)
+                    ->where("id", "<>", auth('api')->id())
+                    ->when($type == 'instructor', function($q) {
+                        return $q->where('is_instructor', 1);
+                    })
+                    ->when($type == 'student', function($q) {
+                        return $q->where('is_instructor', 0)->orWhereNull('is_instructor');
+                    })
                     ->orderBy("id", "desc")
                     ->get();
 

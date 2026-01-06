@@ -6,7 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Validator;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use App\Mail\ForgotPasswordMail;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -121,8 +127,77 @@ class AuthController extends Controller
             'expires_in' => auth('api')->factory()->getTTL() * 60,
             "user" => [
                 "name" => auth('api')->user()->name,
+                "surname" => auth('api')->user()->surname,
                 "email" => auth('api')->user()->email,
+                "role" => auth('api')->user()->role,
+                "role_id" => auth('api')->user()->role_id,
+                "is_instructor" => auth('api')->user()->is_instructor,
+                "avatar" => auth('api')->user()->avatar,
             ]
         ]);
+    }
+
+    public function forgotPassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|exists:users,email',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => 'El correo no existe en nuestro sistema'], 400);
+        }
+
+        $user = User::where('email', $request->email)->first();
+        $token = Str::random(60);
+
+        // Guardar token en tabla password_resets (asumiendo que existe por defecto en Laravel)
+        \DB::table('password_resets')->updateOrInsert(
+            ['email' => $user->email],
+            [
+                'email' => $user->email,
+                'token' => Hash::make($token),
+                'created_at' => now()
+            ]
+        );
+
+        // Enviar Correo
+        try {
+            Mail::to($user->email)->send(new ForgotPasswordMail($user, $token));
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error al enviar el correo: ' . $e->getMessage()], 500);
+        }
+
+        return response()->json(['message' => 'Se ha enviado un correo con las instrucciones para restablecer tu contraseña']);
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'token' => 'required',
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required|min:8|confirmed',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
+
+        $resetData = \DB::table('password_resets')
+            ->where('email', $request->email)
+            ->first();
+
+        if (!$resetData || !Hash::check($request->token, $resetData->token)) {
+            return response()->json(['error' => 'El token es inválido o ha expirado'], 400);
+        }
+
+        // Actualizar contraseña
+        $user = User::where('email', $request->email)->first();
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        // Borrar token usado
+        \DB::table('password_resets')->where('email', $request->email)->delete();
+
+        return response()->json(['message' => 'Contraseña restablecida correctamente']);
     }
 }

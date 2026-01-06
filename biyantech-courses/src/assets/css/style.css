@@ -15385,6 +15385,44 @@ span.transparent-button:hover i {
   color: #FF9747;
   transition: 0.3s;
 }
+
+/* Star Rating Styles */
+.star-filled {
+    color: #ffcc00 !important; /* Amarillo en modo claro */
+}
+
+/* Colores de Estrellas Personalizados (Reforzados) */
+.rating i.star-filled,
+.rbt-review i.star-filled,
+i.star-filled {
+    color: #ffcc00 !important;
+}
+
+.rating i.star-empty,
+.rbt-review i.star-empty,
+i.star-empty {
+    color: #000000 !important;
+}
+
+/* Modo Oscuro */
+body.dark-mode .rating i.star-filled,
+body.dark-mode .rbt-review i.star-filled,
+body.dark-mode .filter-top-2 .rating i.star-filled,
+body.dark-mode i.star-filled {
+    color: #ffcc00 !important;
+}
+
+body.dark-mode .rating i.star-empty,
+body.dark-mode .rbt-review i.star-empty,
+body.dark-mode i.star-empty {
+    color: #6b7385 !important; /* Gris en modo oscuro */
+}
+
+/* Limpieza de clases de tema antiguas que puedan interferir */
+.rating-a i, .rating-a {
+    color: inherit !important;
+}
+
 .rbt-review .rating-count {
   display: inline-block;
   font-size: 14px;

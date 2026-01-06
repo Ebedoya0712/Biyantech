@@ -32,4 +32,9 @@ export class TiendaGuestService {
     let URL = URL_SERVICIOS+"/ecommerce/config_all";
     return this.http.get(URL);
   }
+
+  verifyCertificate(code: string) {
+    let URL = URL_SERVICIOS + "/ecommerce/verify-certificate?code=" + code;
+    return this.http.get(URL);
+  }
 }

@@ -31,6 +31,22 @@ export class HomeComponent implements OnInit, AfterViewInit { // Implementamos A
   DESCOUNT_FLASH: any = null; // Variable clave para el error
   DESCOUNT_FLASH_COURSES: any = [];
   user: any = null;
+  TRAILER: any = null;
+
+  // Lógica del Typewriter Effect
+  typewriterText: string = '';
+  private phrases: string[] = [
+    'Tu educación integral para el futuro.',
+    'Transforma tu talento en éxito profesional.',
+    'Aumenta tus ingresos con educación de alto impacto.',
+    'Domina las habilidades que las empresas buscan hoy.',
+    'Tu camino hacia el liderazgo empieza aquí.',
+    'Construye el futuro tecnológico que siempre soñaste.',
+    'Aprende de los mejores y sé el mejor en tu campo.'
+  ];
+  private currentPhraseIndex: number = 0;
+  private isDeleting: boolean = false;
+  private typingSpeed: number = 100;
 
   constructor(
     public homeService: HomeService,
@@ -43,7 +59,7 @@ export class HomeComponent implements OnInit, AfterViewInit { // Implementamos A
   }
 
   ngOnInit(): void {
-
+    this.startTypewriter();
     this.homeService.home().subscribe((resp: any) => {
       console.log(resp);
       this.CATEGORIES = resp.categories;
@@ -70,7 +86,34 @@ export class HomeComponent implements OnInit, AfterViewInit { // Implementamos A
       }, 50);
     })
 
+    this.homeService.getTrailer().subscribe((resp: any) => {
+      this.TRAILER = resp.trailer;
+    })
+
     this.user = this.cartService.authService.user;
+  }
+
+  private startTypewriter(): void {
+    const currentPhrase = this.phrases[this.currentPhraseIndex];
+    
+    if (this.isDeleting) {
+      this.typewriterText = currentPhrase.substring(0, this.typewriterText.length - 1);
+      this.typingSpeed = 50;
+    } else {
+      this.typewriterText = currentPhrase.substring(0, this.typewriterText.length + 1);
+      this.typingSpeed = 100;
+    }
+
+    if (!this.isDeleting && this.typewriterText === currentPhrase) {
+      this.isDeleting = true;
+      this.typingSpeed = 2000; // Pausa al final de la frase
+    } else if (this.isDeleting && this.typewriterText === '') {
+      this.isDeleting = false;
+      this.currentPhraseIndex = (this.currentPhraseIndex + 1) % this.phrases.length;
+      this.typingSpeed = 500; // Pausa antes de empezar la siguiente
+    }
+
+    setTimeout(() => this.startTypewriter(), this.typingSpeed);
   }
 
   ngAfterViewInit(): void {

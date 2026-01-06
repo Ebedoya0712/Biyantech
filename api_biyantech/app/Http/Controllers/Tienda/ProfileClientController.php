@@ -192,16 +192,104 @@ class ProfileClientController extends Controller
         }
 
         // Pasamos los datos del estudiante y del curso a una vista de Blade
+        $course = $course_student->course;
+        $user = $course_student->user;
+        
+        // Generación de códigos y datos adicionales para el certificado
+        $certificate_number = "BY-CODE-BEDI-REF-" . str_pad($course_student->id, 4, '0', STR_PAD_LEFT);
+        $reference_number = str_pad($course_student->id, 4, '0', STR_PAD_LEFT);
+        $mmpe_code = "0000-" . str_pad($course_student->id, 4, '0', STR_PAD_LEFT); // MMPE basado en el ID de inscripción
+        // CAMBIO: Usamos localhost:4200 por defecto para que funcione en tus pruebas locales
+        $verification_url = env("APP_URL_FRONTEND", "http://localhost:4200") . "/verificar-certificado/" . $certificate_number;
+        
+        // El tiempo de duración ya se calcula en el modelo Course
+        $duration = $course->time_course; // Devolverá "X hrs Y mins"
+
+        // Generar QR usando librería local simplesoftwareio/simple-qrcode
+        // Esto evita dependencias externas y problemas SSL
+        // Generar QR usando librería local simplesoftwareio/simple-qrcode
+        // Usamos SVG que es más compatible y no requiere Imagick
+        try {
+             $qr_image = 'data:image/svg+xml;base64,' . base64_encode(
+                \SimpleSoftwareIO\QrCode\Facades\QrCode::format('svg')
+                    ->size(150)
+                    ->margin(1)
+                    ->color(123, 62, 191) // Color morado #7B3EBF
+                    ->backgroundColor(255, 255, 255, 0) // Fondo transparente
+                    ->style('round')      // Puntos redondeados
+                    ->eye('circle')       // Ojos circulares
+                    ->generate($verification_url)
+            );
+        } catch (\Exception $e) {
+            // Loguear el error para depuración
+            \Illuminate\Support\Facades\Log::error("Error generando QR: " . $e->getMessage());
+            
+            // Fallback en caso de error: usar URL de Google Charts (sin estilo)
+            $qr_url = "https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=" . urlencode($verification_url) . "&choe=UTF-8";
+            $qr_image = $qr_url;
+        }
+
         $data = [
-            "user" => $course_student->user,
-            "course" => $course_student->course,
+            "user" => $user,
+            "course" => $course,
+            "instructor" => $course->instructor ? $course->instructor->name . ' ' . ($course->instructor->surname ?? '') : 'BIYANTECH',
+            "certificate_number" => $certificate_number,
+            "reference_number" => $reference_number,
+            "mmpe_code" => $mmpe_code,
+            "verification_url" => $verification_url,
+            "qr_image" => $qr_image,
+            "duration" => $duration,
+            "date" => now()->format('d/m/Y'),
         ];
 
         // Generamos el PDF desde una vista de Blade llamada 'certificate-template'
-        // Debes crear este archivo en resources/views/certificate-template.blade.php
         $pdf = PDF::loadView('certificate-template', $data)->setPaper('a4', 'landscape');
         
         // Enviamos el PDF para que se descargue en el navegador
-        return $pdf->download('certificado-'.$course_student->course->slug.'.pdf');
+        return $pdf->download('certificado-'.$course->slug.'.pdf');
+    }
+
+    public function update_course_clase_status(Request $request) {
+        $course_id = $request->course_id;
+        $clase_id = $request->clase_id;
+        $user = auth('api')->user();
+
+        $course_student = CoursesStudent::where("course_id", $course_id)->where("user_id", $user->id)->first();
+
+        if(!$course_student){
+            return response()->json(["message" => 403, "message_text" => "No estás inscrito en este curso."]);
+        }
+
+        $clases_checkeds = $course_student->clases_checkeds ? explode(',', $course_student->clases_checkeds) : [];
+
+        // Toggle: Si existe lo quitamos, si no existe lo agregamos
+        if(in_array($clase_id, $clases_checkeds)){
+            $key = array_search($clase_id, $clases_checkeds);
+            unset($clases_checkeds[$key]);
+        }else{
+            array_push($clases_checkeds, $clase_id);
+        }
+
+        $course_student->clases_checkeds = implode(',', $clases_checkeds);
+
+        // Calcular progreso y actualizar estado
+        $total_clases = $course_student->course->count_class;
+        $completed_count = count($clases_checkeds);
+        
+        // Si completó todas las clases, estado = 2 (Terminado)
+        if($total_clases > 0 && $completed_count >= $total_clases){
+            $course_student->state = 2;
+        }else{
+            $course_student->state = 1; // En progreso
+        }
+
+        $course_student->save();
+
+        return response()->json([
+            "message" => 200,
+            "clases_checkeds" => array_values($clases_checkeds), // array_values para reindexar si se usó unset
+            "state" => $course_student->state,
+            "percentage" => ($total_clases > 0) ? round(($completed_count / $total_clases) * 100) : 0, 
+        ]);
     }
 }

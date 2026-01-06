@@ -9,6 +9,7 @@ import { ClaseAddComponent } from './section/clases/clase-add/clase-add.componen
 
 // 🚨 Importamos el nuevo componente de pagos pendientes
 import { PagosMovilPendientesComponent } from './pagos-movil-pendientes/pagos-movil-pendientes.component';
+import { CourseTrailerComponent } from './course-trailer/course-trailer.component';
 
 const routes: Routes = [{
   path: '',
@@ -38,6 +39,10 @@ const routes: Routes = [{
     {
         path: 'pagos-movil-pendientes', 
         component: PagosMovilPendientesComponent,
+    },
+    {
+        path: 'trailer',
+        component: CourseTrailerComponent,
     },
   ]
 }];

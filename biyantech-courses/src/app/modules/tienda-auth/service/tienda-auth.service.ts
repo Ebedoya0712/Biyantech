@@ -38,6 +38,12 @@ export class TiendaAuthService {
     return this.http.post(URL,data,{headers: headers});
   }
 
+  updateClaseStatus(data:any){
+    let headers = new HttpHeaders({'Authorization': 'Bearer '+this.authService.token});
+    let URL = URL_SERVICIOS+"/ecommerce/course-clase-status";
+    return this.http.post(URL,data,{headers: headers});
+  }
+
   showCourse(slug:any){
     let headers = new HttpHeaders({'Authorization': 'Bearer '+this.authService.token});
     let URL = URL_SERVICIOS+"/ecommerce/course_leason/"+slug;

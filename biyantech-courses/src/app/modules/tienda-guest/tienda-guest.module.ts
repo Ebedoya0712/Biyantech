@@ -9,13 +9,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FilterCoursesComponent } from './filter-courses/filter-courses.component';
+import { CertificateVerificationComponent } from './certificate-verification/certificate-verification.component';
 
 
 @NgModule({
   declarations: [
     TiendaGuestComponent,
     CoursesDetailComponent,
-    FilterCoursesComponent
+    FilterCoursesComponent,
+    CertificateVerificationComponent
   ],
   imports: [
     CommonModule,

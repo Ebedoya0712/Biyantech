@@ -80,7 +80,7 @@ class LandigCourseResource extends JsonResource
                         return [
                             "id" => $clase->id,
                             "name" => $clase->name,
-                            "time_clase" => $clase->time_clase,
+                            "time_clase" => $clase->time,
                             "vimeo" => $clase->vimeo_id ? "https://player.vimeo.com/video/".$clase->vimeo_id : NULL,
                             "files" => $clase->files->map(function($file) {
                                 return [

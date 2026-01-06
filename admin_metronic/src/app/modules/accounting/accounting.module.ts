@@ -10,6 +10,7 @@ import { FinancialComponent } from './financial/financial.component';
 import { RevenueComponent } from './revenue/revenue.component';
 import { CostsComponent } from './costs/costs.component';
 import { DepartmentComponent } from './department/department.component';
+import { InstructorEarningsComponent } from './instructor-earnings/instructor-earnings.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { DepartmentComponent } from './department/department.component';
     FinancialComponent,
     RevenueComponent,
     CostsComponent,
-    DepartmentComponent
+    DepartmentComponent,
+    InstructorEarningsComponent
   ],
   imports: [
     CommonModule,

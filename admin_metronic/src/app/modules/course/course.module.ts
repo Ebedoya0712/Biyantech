@@ -20,6 +20,8 @@ import { ClaseEditComponent } from './section/clases/clase-edit/clase-edit.compo
 import { ClaseDeleteComponent } from './section/clases/clase-delete/clase-delete.component';
 import { ClaseFileDeleteComponent } from './section/clases/clase-file-delete/clase-file-delete.component';
 import { PagosMovilPendientesComponent } from './pagos-movil-pendientes/pagos-movil-pendientes.component';
+import { CourseTrailerComponent } from './course-trailer/course-trailer.component';
+import { SafePipe } from 'src/app/shared/pipes/safe.pipe';
 
 
 @NgModule({
@@ -36,7 +38,9 @@ import { PagosMovilPendientesComponent } from './pagos-movil-pendientes/pagos-mo
     ClaseEditComponent,
     ClaseDeleteComponent,
     ClaseFileDeleteComponent,
-    PagosMovilPendientesComponent
+    PagosMovilPendientesComponent,
+    CourseTrailerComponent,
+    SafePipe
   ],
   imports: [
     CommonModule,
