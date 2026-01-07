@@ -48,4 +48,10 @@ export class AccountingService {
       // finalize(() => this.isLoading$?.next(false)) // Ideally use finalize
     );
   }
+
+  getInstructorEarnings() {
+    let headers = new HttpHeaders({'Authorization': 'Bearer ' + this.authService.token});
+    let URL = URL_SERVICIOS + "/accounting/instructor-earnings";
+    return this.http.get(URL, {headers: headers});
+  }
 }

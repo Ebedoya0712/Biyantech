@@ -34,7 +34,7 @@ class HomeController extends Controller
             $group_courses_categories->push([
                 "id" => $categories_course->id,
                 "name" => $categories_course->name,
-                "name_empty" => str_replace(" ","",$categories_course->name),
+                "name_empty" => "category-" . $categories_course->id,
                 "courses_count" => $categories_course->courses_count,
                 "courses" => CourseHomeCollection::make($categories_course->courses),
             ]);
@@ -178,8 +178,11 @@ class HomeController extends Controller
             return response()->json(["message" => 403, "message_text" => "TU NO ESTAS INSCRITO EN ESTE CURSO"]);
         }
         
+        $clases_checkeds = $course_student->clases_checkeds ? explode(',', $course_student->clases_checkeds) : [];
+
         return response()->json([
             "course" => LandigCourseResource::make($course),
+            "clases_completed" => $clases_checkeds,
         ]);
     }
     public function listCourses(Request $request)
@@ -234,6 +237,40 @@ class HomeController extends Controller
             }),
             "levels" => ["Basico","Intermedio","Avanzado"],
             "idiomas" => ["Español","Ingles","Portuges"],
+        ]);
+    }
+
+    public function verify_certificate(Request $request)
+    {
+        $code = $request->get('code');
+        // El formato es BY-CODE-BEDI-REF-YYYY
+        // Extraemos la parte numérica final
+        $parts = explode('-', $code);
+        $course_student_id = intval(end($parts));
+
+        $course_student = CoursesStudent::find($course_student_id);
+
+        if(!$course_student || $course_student->state != 2){
+            return response()->json(["message" => "Certificado no encontrado o no válido"], 404);
+        }
+
+        $course = $course_student->course;
+        $user = $course_student->user;
+        $instructor = $course->instructor;
+
+        return response()->json([
+            "valid" => true,
+            "student" => [
+                "full_name" => $user->name . ' ' . $user->surname,
+                "email" => $user->email,
+            ],
+            "course" => [
+                "title" => $course->title,
+                "instructor" => $instructor->name . ' ' . $instructor->surname,
+                "duration" => $course->time_course,
+            ],
+            "completed_at" => $course_student->updated_at->format('d/m/Y'),
+            "code" => $code
         ]);
     }
 }

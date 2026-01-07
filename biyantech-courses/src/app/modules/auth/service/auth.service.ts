@@ -62,4 +62,14 @@ export class AuthService {
       window.location.href = "/auth/login";
     }, 50);
   }
+
+  forgotPassword(email: string) {
+    let URL = URL_SERVICIOS + "/auth/forgot-password";
+    return this.http.post(URL, { email: email });
+  }
+
+  resetPassword(data: any) {
+    let URL = URL_SERVICIOS + "/auth/reset-password";
+    return this.http.post(URL, data);
+  }
 }

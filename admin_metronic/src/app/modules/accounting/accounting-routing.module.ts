@@ -5,6 +5,7 @@ import { FinancialComponent } from './financial/financial.component';
 import { RevenueComponent } from './revenue/revenue.component';
 import { CostsComponent } from './costs/costs.component';
 import { DepartmentComponent } from './department/department.component';
+import { InstructorEarningsComponent } from './instructor-earnings/instructor-earnings.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
       { path: 'revenue', component: RevenueComponent },
       { path: 'costs', component: CostsComponent },
       { path: 'departments', component: DepartmentComponent },
+      { path: 'instructor-earnings', component: InstructorEarningsComponent },
       { path: '', redirectTo: 'financial', pathMatch: 'full' }
     ]
   }

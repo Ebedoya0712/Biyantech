@@ -1,0 +1,53 @@
+<div class="card">
+    <div class="card-header">
+        <div class="card-title fs-3 fw-bolder">Gestionar Tráiler del Próximo Curso</div>
+    </div>
+    <div class="card-body p-9">
+        <div class="row mb-8">
+            <div class="col-6">
+                <label class="fs-6 fw-bold mt-2 mb-3">Título principal:</label>
+                <input type="text" class="form-control form-control-solid" name="title" [(ngModel)]="title" placeholder="Prepárate para Nuestro Próximo Curso Top">
+            </div>
+            <div class="col-6">
+                <label class="fs-6 fw-bold mt-2 mb-3">Sub-título / Etiqueta:</label>
+                <input type="text" class="form-control form-control-solid" name="subtitle" [(ngModel)]="subtitle" placeholder="¡PRÓXIMAMENTE!">
+            </div>
+        </div>
+
+        <div class="row mb-8">
+            <div class="col-12">
+                <label class="fs-6 fw-bold mt-2 mb-3">Descripción:</label>
+                <textarea class="form-control form-control-solid" name="description" [(ngModel)]="description" rows="3" placeholder="Descripción que aparecerá en la landing page"></textarea>
+            </div>
+        </div>
+
+        <div class="row mb-8">
+            <div class="col-6">
+                <label class="form-label">Imagen de miniatura (Background):</label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFile" accept=".jpeg, .bmp, .jpg, .png, .gif, .webp" (change)="processFile($event)">
+                </div>
+                <div class="py-3" *ngIf="IMAGEN_PREVISUALIZA">
+                    <img [src]="IMAGEN_PREVISUALIZA" width="100%" class="rounded shadow-sm" alt="Preview">
+                </div>
+            </div>
+            <div class="col-6 border-start">
+                <label class="form-label">Subir Video (Tráiler):</label>
+                <div class="d-flex mb-3">
+                    <input type="file" class="form-control" (change)="processVideo($event)" accept="video/*">
+                    <button class="btn btn-primary ms-2" (click)='uploadVideo()'>SUBIR</button>
+                </div>
+                
+                <div *ngIf="link_video" class="mt-4">
+                    <label class="fw-bold mb-2">Vista previa del video:</label>
+                    <div class="ratio ratio-16x9">
+                        <video [src]="link_video" controls width="100%" class="rounded shadow-sm"></video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer d-flex justify-content-end py-6 px-9">
+        <button type="button" (click)="save()" class="btn btn-success" id="kt_project_settings_submit">GUARDAR CAMBIOS</button>
+    </div>
+</div>

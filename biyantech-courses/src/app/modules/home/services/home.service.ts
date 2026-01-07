@@ -15,4 +15,9 @@ export class HomeService {
       let URL = URL_SERVICIOS+"/ecommerce/home";
       return this.http.get(URL);
   }
+
+  getTrailer() {
+      let URL = URL_SERVICIOS+"/ecommerce/course-trailer";
+      return this.http.get(URL);
+  }
 }

@@ -11,8 +11,11 @@ declare function _clickDoc():any;
 })
 export class LoginComponent implements OnInit {
 
-  // Variable de control para alternar entre Login (true) y Register (false)
+  // Variable de control para alternar entre Login (true), Register (false) o Forgot (extra)
   isLoginView: boolean = true; 
+  isForgotPasswordView: boolean = false;
+
+  rememberMe: boolean = false;
 
   // auth-login
   email:any = null;
@@ -36,21 +39,31 @@ export class LoginComponent implements OnInit {
       _clickDoc();
     }, 50);
 
+    const savedEmail = localStorage.getItem("remember_email");
+    if(savedEmail){
+      this.email = savedEmail;
+      this.rememberMe = true;
+    }
+
     if(this.authService.user){
         this.router.navigateByUrl("/");
         return;
     }
   }
 
-  // Nueva función para alternar la vista (Login <-> Register)
-  toggleView() {
-    this.isLoginView = !this.isLoginView;
-    
-    // Opcional: Limpiar los campos cuando se cambia de vista
-    if(this.isLoginView) {
+  // Nueva función para alternar la vista (Login <-> Register <-> Forgot)
+  toggleView(view: 'login' | 'register' | 'forgot') {
+    if(view === 'login'){
+      this.isLoginView = true;
+      this.isForgotPasswordView = false;
       this.clearRegisterFields();
-    } else {
+    } else if (view === 'register'){
+      this.isLoginView = false;
+      this.isForgotPasswordView = false;
       this.clearLoginFields();
+    } else if (view === 'forgot'){
+      this.isLoginView = false;
+      this.isForgotPasswordView = true;
     }
   }
 
@@ -77,10 +90,30 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.email,this.password).subscribe((resp:any) => {
       console.log(resp);
       if(resp){
+        if(this.rememberMe){
+          localStorage.setItem("remember_email", this.email);
+        } else {
+          localStorage.removeItem("remember_email");
+        }
         window.location.reload();
       }else{
         alert("LAS CREDENCIALES NO EXISTEN");
       }
+    })
+  }
+
+  forgotPassword(){
+    if(!this.email){
+      alert("POR FAVOR INGRESA TU CORREO ELECTRÓNICO");
+      return;
+    }
+    this.authService.forgotPassword(this.email).subscribe((resp:any) => {
+      console.log(resp);
+      alert(resp.message || "CORREO DE RECUPERACIÓN ENVIADO");
+      this.toggleView('login');
+    }, error => {
+      alert("EL CORREO NO EXISTE O HUBO UN ERROR");
+      console.log(error);
     })
   }
 
@@ -104,7 +137,7 @@ export class LoginComponent implements OnInit {
       alert("EL USUARIO SE HA REGISTRADO CORRECTAMENTE");
       
       // Tras el registro exitoso, puedes cambiar automáticamente a la vista de Login
-      this.toggleView(); // Mueve a la vista de Login
+      this.toggleView('login'); // Mueve a la vista de Login
       this.email = data.email; // Pre-llena el email en el formulario de Login
       this.password = null; // Mantiene el campo de contraseña vacío para que inicie sesión
       

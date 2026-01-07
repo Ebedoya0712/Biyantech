@@ -7,6 +7,15 @@
   </a>
 </div>
 
+<!-- Mis Ganancias (Instructor) -->
+<div class="menu-item" *ngIf="user && user.is_instructor === 1 && user.role_id !== 1">
+  <a class="menu-link without-sub" routerLink="/accounting/instructor-earnings" routerLinkActive="active"><span class="menu-icon">
+      <span [inlineSVG]="'./assets/media/icons/duotune/finance/fin002.svg'" class="svg-icon svg-icon-2"></span>
+    </span>
+    Mis Ganancias
+  </a>
+</div>
+
 <!-- Layout builder -->
 <!--<div class="menu-item">
   <a
@@ -87,7 +96,6 @@
     </div>
   </div>
 </div>
-<!-- Pages -->
 <div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
   <span class="menu-link"><span class="menu-icon"><span class="svg-icon svg-icon-2"
         [inlineSVG]="'./assets/media/icons/duotune/communication/com013.svg'"></span></span><span
@@ -99,30 +107,30 @@
           usuarios</span></a>
     </div>
     <div class="menu-item">
-      <a class="menu-link without-sub" routerLinkActive="active" routerLink="/users/list"><span
+      <a class="menu-link without-sub" routerLinkActive="active" routerLink="/users/list" [queryParams]="{type: 'student'}"><span
           class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
           class="menu-title">Estudiantes</span></a>
     </div>
     <div class="menu-item">
-      <a class="menu-link without-sub" routerLinkActive="active" routerLink="/users/list"><span
+      <a class="menu-link without-sub" routerLinkActive="active" routerLink="/users/list" [queryParams]="{type: 'instructor'}"><span
           class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
           class="menu-title">Profesores</span></a>
     </div>
-    <div class="menu-item">
+    <!-- <div class="menu-item">
       <a class="menu-link without-sub" routerLinkActive="active" routerLink="/users/list"><span
           class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
           class="menu-title">Afiliados</span></a>
-    </div>
-    <div class="menu-item">
+    </div> -->
+    <!-- <div class="menu-item">
       <a class="menu-link without-sub" routerLinkActive="active" routerLink="/users/list"><span
           class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
           class="menu-title">Estudiantes</span></a>
-    </div>
-    <div class="menu-item">
+    </div> -->
+    <!-- <div class="menu-item">
       <a class="menu-link without-sub" routerLinkActive="active" routerLink="/cupones/list"><span
           class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">Programa de
           Referidos</span></a>
-    </div>
+    </div> -->
   </div>
 </div>
 
@@ -147,6 +155,10 @@
       <a class="menu-link without-sub" routerLinkActive="active" routerLink="/cursos/pagos-movil-pendientes"><span
           class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">Autorizar cursos de
           pago móvil</span></a>
+    </div>
+    <div class="menu-item">
+      <a class="menu-link without-sub" routerLinkActive="active" routerLink="/cursos/trailer"><span
+          class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">Tráiler de Nuevo Curso</span></a>
     </div>
   </div>
 </div>
@@ -201,42 +213,14 @@
   </div>
 </div>
 
-<!-- Accounts -->
-<!--<div
-  class="menu-item menu-accordion"
-  data-kt-menu-trigger="click"
-  routerLinkActive="here show"
->
-  <span class="menu-link"
-    ><span class="menu-icon"
-      ><span
-        class="svg-icon svg-icon-2"
-        [inlineSVG]="'./assets/media/icons/duotune/communication/com006.svg'"
-      ></span></span
-    ><span class="menu-title" data-link="/crafted/account">Accounts</span
-    ><span class="menu-arrow"></span
-  ></span>
-  <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
-    <div class="menu-item">
-      <a
-        class="menu-link without-sub"
-        routerLinkActive="active"
-        routerLink="/crafted/account/overview"
-        ><span class="menu-bullet"><span class="bullet bullet-dot"></span></span
-        ><span class="menu-title">Overview</span></a
-      >
-    </div>
-    <div class="menu-item">
-      <a
-        class="menu-link without-sub"
-        routerLinkActive="active"
-        routerLink="/crafted/account/settings"
-        ><span class="menu-bullet"><span class="bullet bullet-dot"></span></span
-        ><span class="menu-title">Settings</span></a
-      >
-    </div>
-  </div>
-</div>-->
+<!-- Mi Perfil -->
+<div class="menu-item">
+  <a class="menu-link without-sub" routerLink="/crafted/account/settings" routerLinkActive="active"><span class="menu-icon">
+      <span [inlineSVG]="'./assets/media/icons/duotune/communication/com006.svg'" class="svg-icon svg-icon-2"></span>
+    </span>
+    <span class="menu-title">Mi Perfil</span>
+  </a>
+</div>
 
 <!-- Errors -->
 <!--<div

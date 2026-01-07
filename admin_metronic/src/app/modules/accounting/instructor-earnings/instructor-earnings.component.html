@@ -1,0 +1,71 @@
+<div class="card card-flush">
+    <!--begin::Card header-->
+    <div class="card-header pt-8">
+        <div class="card-title">
+            <div class="d-flex align-items-center position-relative my-1">
+                <h2 class="fw-bold fs-2">Mis Ganancias (Bono 5%)</h2>
+            </div>
+        </div>
+    </div>
+    <!--end::Card header-->
+    <!--begin::Card body-->
+    <div class="card-body">
+        <div class="row g-5 mb-10">
+            <!--begin::Col-->
+            <div class="col-md-6 col-lg-6 col-xl-4">
+                <div class="card card-flush shadow-sm h-100 bg-light-info">
+                    <div class="card-header pt-5">
+                        <div class="card-title d-flex flex-column">
+                            <span class="fs-2hx fw-bold text-dark me-2 lh-1 ls-n2">{{ total_revenue | currency:'USD' }}</span>
+                            <span class="text-gray-600 pt-1 fw-semibold fs-6">Ventas Brutas de mis Cursos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::Col-->
+            <!--begin::Col-->
+            <div class="col-md-6 col-lg-6 col-xl-4">
+                <div class="card card-flush shadow-sm h-100 bg-success">
+                    <div class="card-header pt-5">
+                        <div class="card-title d-flex flex-column">
+                            <span class="fs-2hx fw-bold text-white me-2 lh-1 ls-n2">{{ total_commission | currency:'USD' }}</span>
+                            <span class="text-white opacity-75 pt-1 fw-semibold fs-6">Mi Bono Extra (5%)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::Col-->
+        </div>
+
+        <div class="table-responsive mt-5">
+            <table class="table align-middle table-row-dashed fs-6 gy-5">
+                <thead>
+                    <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                        <th class="min-w-150px">Curso</th>
+                        <th class="min-w-125px">Venta Total</th>
+                        <th class="min-w-125px">Mi Ganancia (5%)</th>
+                    </tr>
+                </thead>
+                <tbody class="fw-semibold text-gray-600">
+                    <tr *ngFor="let item of earnings_by_course">
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="ms-1">
+                                    <span class="text-gray-800 text-hover-primary fs-6 fw-bold">{{ item.title }}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>{{ item.total_revenue | currency:'USD' }}</td>
+                        <td><span class="badge badge-light-success fs-7 fw-bold">{{ item.commission | currency:'USD' }}</span></td>
+                    </tr>
+                    <tr *ngIf="earnings_by_course.length === 0">
+                        <td colspan="3" class="text-center py-10">
+                            <span class="text-gray-400 fs-5">Aún no tienes ventas registradas.</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--end::Card body-->
+</div>

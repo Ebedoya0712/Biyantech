@@ -26,7 +26,7 @@ export class UserService {
     });
   }
 
-  listUsers(search: any, state: any) {
+  listUsers(search: any, state: any, type: any = null) {
     this.isLoadingSubject.next(true);
     let headers = this.getHeaders();
     let LINK = "?T=";
@@ -35,6 +35,9 @@ export class UserService {
     }
     if(state) {
       LINK += "&state=" + state;
+    }
+    if(type) {
+      LINK += "&type=" + type;
     }
     let URL = URL_SERVICIOS + "/users" + LINK;
     return this.http.get(URL, { headers: headers }).pipe(

@@ -15,6 +15,7 @@ use App\Http\Controllers\Tienda\ProfileClientController;
 use App\Http\Controllers\Admin\Course\SeccionGController;
 use App\Http\Controllers\Admin\Course\CategorieController;
 use App\Http\Controllers\Admin\Discount\DiscountController;
+use App\Http\Controllers\Admin\Course\LandingCourseTrailerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,8 @@ Route::group([
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::post('/refresh', [AuthController::class, 'refresh'])->name('refresh');
     Route::post('/me', [AuthController::class, 'me'])->name('me');
+    Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
+    Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 });
 Route::group([
     'middleware' => 'api',
@@ -65,7 +68,15 @@ Route::group([
     Route::put('/pagos/movil-aprobar/{id}', [CheckoutController::class, 'approvePagoMovil']);
     Route::delete('/pagos/movil-rechazar/{id}', [CheckoutController::class, 'rejectPagoMovil']);
 
+    Route::get('/users/roles', [UserController::class, 'getRoles']);
+    Route::resource('/users', UserController::class);
+    Route::resource('/categorie', CategorieController::class);
     Route::resource('/discount', DiscountController::class);
+    
+    // Rutas para Trailer de Nuevo Curso
+    Route::get('/course-trailer', [LandingCourseTrailerController::class, 'index']);
+    Route::post('/course-trailer', [LandingCourseTrailerController::class, 'store']);
+    Route::post('/course-trailer/upload_video', [LandingCourseTrailerController::class, 'upload_video']);
 
     Route::get('/dashboard/admin', [\App\Http\Controllers\Admin\Dashboard\DashboardController::class, 'index']);
 
@@ -82,13 +93,16 @@ Route::group([
         Route::get('/costs', [\App\Http\Controllers\Admin\Accounting\AccountingController::class, 'cost_details']);
         Route::post('/costs', [\App\Http\Controllers\Admin\Accounting\AccountingController::class, 'store_expense']);
         Route::get('/departments', [\App\Http\Controllers\Admin\Accounting\AccountingController::class, 'department_details']);
+        Route::get('/instructor-earnings', [\App\Http\Controllers\Admin\Accounting\AccountingController::class, 'instructor_summary']);
     });
 });
 
 Route::group(["prefix" => "ecommerce"], function ($router) {
     Route::get("home", [HomeController::class, "home"]);
     Route::get("config_all", [HomeController::class, "config_all"]);
-    Route::post("list_courses", [HomeController::class, "listCourses"]);
+    Route::get("list_courses", [HomeController::class, "listCourses"]);
+    Route::get("course-trailer", [LandingCourseTrailerController::class, "index"]);
+    Route::get("verify-certificate", [HomeController::class, "verify_certificate"]);
 
     Route::get("course-detail/{slug}", [HomeController::class, "course_detail"]);
 
@@ -101,6 +115,7 @@ Route::group(["prefix" => "ecommerce"], function ($router) {
         Route::post('/checkout', [CheckoutController::class, "store"]);
         Route::post('/profile', [ProfileClientController::class, "profile"]);
         Route::post('/update_client', [ProfileClientController::class, "update_client"]);
+        Route::post('/course-clase-status', [ProfileClientController::class, "update_course_clase_status"]);
         Route::get('/download-certificate/{id}', [ProfileClientController::class, 'downloadCertificate']);
         Route::resource('/review', ReviewController::class);
         Route::get('/download-certificate/{course_student}', [ProfileClientController::class, 'downloadCertificate']);

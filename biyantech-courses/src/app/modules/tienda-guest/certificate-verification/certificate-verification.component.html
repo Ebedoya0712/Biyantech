@@ -1,0 +1,41 @@
+<div class="container" style="padding: 50px 20px; text-align: center; max-width: 800px; margin: 0 auto;">
+    
+    <div *ngIf="loading" class="spinner-border text-primary" role="status">
+        <span class="sr-only">Verificando...</span>
+    </div>
+
+    <div *ngIf="!loading && error" class="alert alert-danger">
+        <h3><i class="fa fa-times-circle"></i> Error</h3>
+        <p>{{ error }}</p>
+        <p class="text-muted">Código: {{ code }}</p>
+    </div>
+
+    <div *ngIf="!loading && verificationResult" class="card shadow-lg border-0">
+        <div class="card-header bg-success text-white">
+            <h3 class="mb-0"><i class="fa fa-check-circle"></i> Certificado Verificado</h3>
+        </div>
+        <div class="card-body">
+            <h5 class="text-muted mb-4">Este documento certifica que:</h5>
+            <h2 class="text-primary font-weight-bold mb-4">{{ verificationResult.student.full_name }}</h2>
+            
+            <p>Ha completado satisfactoriamente el curso:</p>
+            <h4 class="font-weight-bold">{{ verificationResult.course.title }}</h4>
+            
+            <hr>
+            
+            <div class="row text-left mt-4">
+                <div class="col-md-6">
+                    <p><strong>Instructor:</strong> {{ verificationResult.course.instructor }}</p>
+                    <p><strong>Duración:</strong> {{ verificationResult.course.duration }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Fecha de finalización:</strong> {{ verificationResult.completed_at }}</p>
+                    <p><strong>Código único:</strong> {{ verificationResult.code }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-muted">
+            Verificado por Biyantech Platform
+        </div>
+    </div>
+</div>

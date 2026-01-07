@@ -11,13 +11,10 @@
                             <span class="d-block mb--20" style="font-weight: bold; font-size: 22px;">
                                 🚀 En Biyantech Impulsamos tu futuro.
                             </span>
-                            <h1 class="title" data-sal="slide-up" data-sal-duration="800">
-                                Tu educación integral para el futuro. <br>
+                            <h1 class="title">
+                                {{ typewriterText }}<span class="typewriter-cursor">|</span>
                             </h1>
-                            <p class="description" data-sal="slide-up" data-sal-duration="800">
-                                Fusionamos campos clave: Tecnología, Salud, Emprendimiento y Liderazgo. Fórmate para ser
-                                el profesional que las grandes empresas buscan.
-                            </p>
+                            <p class="description">Fusionamos campos clave: Tecnología, Salud, Emprendimiento y Liderazgo. Fórmate para ser el profesional que las grandes empresas buscan.</p>
                         </div>
                         <div class="shape-wrapper" id="scene">
                             <img src="assets/images/banner/banner-02.png" alt="Hero Image" class="float-animation">
@@ -67,15 +64,15 @@
                                                 <div class="rbt-review">
                                                     <div class="rating">
                                                         <i class="fas fa-star"
-                                                            [ngClass]="{'rating': COURSE.avg_reviews < 1}"></i>
+                                                            [ngClass]="(COURSE.avg_reviews >= 1) ? 'star-filled' : 'star-empty'"></i>
                                                         <i class="fas fa-star"
-                                                            [ngClass]="{'rating': COURSE.avg_reviews < 2}"></i>
+                                                            [ngClass]="(COURSE.avg_reviews >= 2) ? 'star-filled' : 'star-empty'"></i>
                                                         <i class="fas fa-star"
-                                                            [ngClass]="{'rating': COURSE.avg_reviews < 3}"></i>
+                                                            [ngClass]="(COURSE.avg_reviews >= 3) ? 'star-filled' : 'star-empty'"></i>
                                                         <i class="fas fa-star"
-                                                            [ngClass]="{'rating': COURSE.avg_reviews < 4}"></i>
+                                                            [ngClass]="(COURSE.avg_reviews >= 4) ? 'star-filled' : 'star-empty'"></i>
                                                         <i class="fas fa-star"
-                                                            [ngClass]="{'rating': COURSE.avg_reviews < 5}"></i>
+                                                            [ngClass]="(COURSE.avg_reviews >= 5) ? 'star-filled' : 'star-empty'"></i>
                                                     </div>
                                                     <span class="rating-count"> ({{ COURSE.count_reviews }}
                                                         Reseñas)</span>
@@ -163,19 +160,19 @@
                             <div class="countdown" [attr.data-date]="DESCOUNT_FLASH.end_date" style="">
                                 <div class="countdown-container days">
                                     <span class="countdown-value">87</span>
-                                    <span class="countdown-heading">Days</span>
+                                    <span class="countdown-heading">Días</span>
                                 </div>
                                 <div class="countdown-container hours">
                                     <span class="countdown-value">23</span>
-                                    <span class="countdown-heading">Hours</span>
+                                    <span class="countdown-heading">Horas</span>
                                 </div>
                                 <div class="countdown-container minutes">
                                     <span class="countdown-value">38</span>
-                                    <span class="countdown-heading">Minutes</span>
+                                    <span class="countdown-heading">Minutos</span>
                                 </div>
                                 <div class="countdown-container seconds">
                                     <span class="countdown-value">27</span>
-                                    <span class="countdown-heading">Seconds</span>
+                                    <span class="countdown-heading">Segundos</span>
                                 </div>
                             </div>
                         </div>
@@ -203,15 +200,15 @@
                                                 <div class="rbt-review">
                                                     <div class="rating">
                                                         <i class="fas fa-star"
-                                                            [ngClass]="{'rating': COURSE.avg_reviews < 1}"></i>
+                                                            [ngClass]="(COURSE.avg_reviews >= 1) ? 'star-filled' : 'star-empty'"></i>
                                                         <i class="fas fa-star"
-                                                            [ngClass]="{'rating': COURSE.avg_reviews < 2}"></i>
+                                                            [ngClass]="(COURSE.avg_reviews >= 2) ? 'star-filled' : 'star-empty'"></i>
                                                         <i class="fas fa-star"
-                                                            [ngClass]="{'rating': COURSE.avg_reviews < 3}"></i>
+                                                            [ngClass]="(COURSE.avg_reviews >= 3) ? 'star-filled' : 'star-empty'"></i>
                                                         <i class="fas fa-star"
-                                                            [ngClass]="{'rating': COURSE.avg_reviews < 4}"></i>
+                                                            [ngClass]="(COURSE.avg_reviews >= 4) ? 'star-filled' : 'star-empty'"></i>
                                                         <i class="fas fa-star"
-                                                            [ngClass]="{'rating': COURSE.avg_reviews < 5}"></i>
+                                                            [ngClass]="(COURSE.avg_reviews >= 5) ? 'star-filled' : 'star-empty'"></i>
                                                     </div>
                                                     <span class="rating-count"> ({{ COURSE.count_reviews }}
                                                         Reseñas)</span>
@@ -287,13 +284,13 @@
                             <div class="rbt-card-body">
                                 <div class="rbt-card-top">
                                     <div class="rbt-review">
-                                        <div class="rating">
-                                            <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 1}"></i>
-                                            <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 2}"></i>
-                                            <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 3}"></i>
-                                            <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 4}"></i>
-                                            <i class="fas fa-star" [ngClass]="{'rating': COURSE.avg_reviews < 5}"></i>
-                                        </div>
+                                            <div class="rating">
+                                                <i class="fas fa-star" [ngClass]="(COURSE.avg_reviews >= 1) ? 'star-filled' : 'star-empty'"></i>
+                                                <i class="fas fa-star" [ngClass]="(COURSE.avg_reviews >= 2) ? 'star-filled' : 'star-empty'"></i>
+                                                <i class="fas fa-star" [ngClass]="(COURSE.avg_reviews >= 3) ? 'star-filled' : 'star-empty'"></i>
+                                                <i class="fas fa-star" [ngClass]="(COURSE.avg_reviews >= 4) ? 'star-filled' : 'star-empty'"></i>
+                                                <i class="fas fa-star" [ngClass]="(COURSE.avg_reviews >= 5) ? 'star-filled' : 'star-empty'"></i>
+                                            </div>
                                         <span class="rating-count"> ({{ COURSE.count_reviews }} Reseñas)</span>
                                     </div>
                                     <!-- Bookmark Removed -->
@@ -314,8 +311,8 @@
                                         </a>
                                     </div>
                                     <div class="rbt-author-info">
-                                        Por <a href="profile.html">{{ COURSE.instructor.full_name }}</a> En <a
-                                            href="#">{{ COURSE.instructor.profesion }}</a>
+                                        Por <a href="profile.html" style="color: #a855f7 !important; font-weight: 600;">{{ COURSE.instructor.full_name }}</a> En <a
+                                            href="#" style="color: #a855f7 !important; font-weight: 600;">{{ COURSE.instructor.profesion }}</a>
                                     </div>
                                 </div>
                                 <div class="rbt-card-bottom">
@@ -429,31 +426,30 @@
         <div class="container">
             <!-- Nueva fila para centrar el contenido, usando col-lg-10 para no hacerlo excesivamente grande -->
             <div class="row g-5 justify-content-center">
-                <div class="col-lg-10">
+                <div class="col-lg-12">
                     <div class="rbt-callto-action callto-action-default bg-color-white rbt-radius shadow-1"
-                        data-sal="zoom-in" data-sal-duration="800">
-                        <div class="row align-items-center">
-                            <!-- El texto (izquierda) y el video (derecha) -->
-                            <div class="col-lg-12 col-xl-5">
+                        data-sal="zoom-in" data-sal-duration="800" style="padding: 0 !important; overflow: hidden;">
+                        <div class="row align-items-center g-5">
+                            <!-- El texto (izquierda) -->
+                            <div class="col-lg-5 order-lg-1" *ngIf="TRAILER" style="padding: 40px 50px;">
                                 <div class="inner">
                                     <div class="rbt-category mb--20">
-                                        <!-- Texto modificado 1: Etiqueta de Próximamente -->
-                                        <a href="#">¡PRÓXIMAMENTE!</a>
+                                        <a href="#" (click)="$event.preventDefault()">{{ TRAILER.subtitle }}</a>
                                     </div>
-                                    <!-- Texto modificado 2: Título principal (Enfoque en el lanzamiento) -->
-                                    <h4 class="title mb--15">Prepárate para Nuestro Próximo Curso Top</h4>
-                                    <!-- Texto modificado 3: Invitación a ver el trailer (Énfasis en la novedad) -->
-                                    <p class="mb--15">Sé el primero en ver el tráiler y descubre la habilidad que
-                                        transformará tu perfil en 2025. ¡Algo grande está llegando!</p>
+                                    <h4 class="title mb--15">{{ TRAILER.title }}</h4>
+                                    <p class="mb--15">{{ TRAILER.description }}</p>
                                 </div>
                             </div>
-                            <div class="col-lg-12 col-xl-7">
-                                <div class="video-popup-wrapper mt_lg--10 mt_md--20 mt_sm--20">
-                                    <!-- Nota: La imagen de fondo y el enlace al video de YouTube siguen siendo los mismos -->
-                                    <img class="w-100 rbt-radius" src="assets/images/others/video-01.jpg"
-                                        alt="Video Images">
-                                    <a class="rbt-btn rounded-player-2 sm-size popup-video position-to-top with-animation"
-                                        href="https://www.youtube.com/watch?v=nA1Aqp0sPQo">
+                            <!-- El video (derecha) -->
+                            <div class="col-lg-7 order-lg-2 d-flex justify-content-end" *ngIf="TRAILER">
+                                <div class="video-popup-wrapper" style="position: relative; width: 100%; height: 550px;">
+                                    <video #trailerVideo [src]="TRAILER.link_video" controls class="w-100 h-100" 
+                                           [poster]="TRAILER.imagen"
+                                           style="object-fit: cover; display: block; object-position: center;"></video>
+                                    
+                                    <a (click)="trailerVideo.play()" class="rbt-btn rounded-player-2 sm-size popup-video position-to-top with-animation" 
+                                       style="cursor: pointer; z-index: 10; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
+                                       *ngIf="trailerVideo.paused">
                                         <span class="play-icon"></span>
                                     </a>
                                 </div>
@@ -492,8 +488,7 @@
                             </div>
                             <div class="content">
                                 <!-- Los números deben reflejar la realidad de Biyantech al inicio -->
-                                <h3 class="counter" style="color: #192335 !important;"><span class="odometer" data-count="150">00</span>
-                                </h3>
+                                <h3 class="counter" style="color: #192335 !important;"><span class="odometer" data-count="150" style="color: #000000 !important;">00</span></h3>
                                 <span class="subtitle" style="color: #192335 !important;">**Estudiantes Pioneros**</span>
                             </div>
                         </div>
@@ -511,8 +506,7 @@
                             </div>
                             <div class="content">
                                 <!-- Enfoque en la calidad de la oferta -->
-                                <h3 class="counter" style="color: #192335 !important;"><span class="odometer" data-count="25">00</span>
-                                </h3>
+                                <h3 class="counter" style="color: #192335 !important;"><span class="odometer" data-count="25" style="color: #000000 !important;">00</span></h3>
                                 <span class="subtitle" style="color: #192335 !important;">**Cursos de Alto Nivel**</span>
                             </div>
                         </div>
@@ -530,8 +524,7 @@
                             </div>
                             <div class="content">
                                 <!-- Enfoque en la calidad de los instructores -->
-                                <h3 class="counter" style="color: #192335 !important;"><span class="odometer" data-count="20">00</span>
-                                </h3>
+                                <h3 class="counter" style="color: #192335 !important;"><span class="odometer" data-count="20" style="color: #000000 !important;">00</span></h3>
                                 <span class="subtitle" style="color: #192335 !important;">**Expertos Certificados**</span>
                             </div>
                         </div>
@@ -549,8 +542,7 @@
                             </div>
                             <div class="content">
                                 <!-- Enfoque en el feedback o las sesiones en vivo -->
-                                <h3 class="counter" style="color: #192335 !important;"><span class="odometer" data-count="90">00</span>
-                                </h3>
+                                <h3 class="counter" style="color: #192335 !important;"><span class="odometer" data-count="90" style="color: #000000 !important;">00</span></h3>
                                 <span class="subtitle" style="color: #192335 !important;">**Satisfacción en +90%**</span>
                             </div>
                         </div>
@@ -625,16 +617,11 @@
                                                     <div class="rbt-card-top">
                                                         <div class="rbt-review">
                                                             <div class="rating">
-                                                                <i class="fas fa-star"
-                                                                    [ngClass]="{'rating': courses.avg_reviews < 1}"></i>
-                                                                <i class="fas fa-star"
-                                                                    [ngClass]="{'rating': courses.avg_reviews < 2}"></i>
-                                                                <i class="fas fa-star"
-                                                                    [ngClass]="{'rating': courses.avg_reviews < 3}"></i>
-                                                                <i class="fas fa-star"
-                                                                    [ngClass]="{'rating': courses.avg_reviews < 4}"></i>
-                                                                <i class="fas fa-star"
-                                                                    [ngClass]="{'rating': courses.avg_reviews < 5}"></i>
+                                                                <i class="fas fa-star" [ngClass]="(courses.avg_reviews >= 1) ? 'star-filled' : 'star-empty'"></i>
+                                                                <i class="fas fa-star" [ngClass]="(courses.avg_reviews >= 2) ? 'star-filled' : 'star-empty'"></i>
+                                                                <i class="fas fa-star" [ngClass]="(courses.avg_reviews >= 3) ? 'star-filled' : 'star-empty'"></i>
+                                                                <i class="fas fa-star" [ngClass]="(courses.avg_reviews >= 4) ? 'star-filled' : 'star-empty'"></i>
+                                                                <i class="fas fa-star" [ngClass]="(courses.avg_reviews >= 5) ? 'star-filled' : 'star-empty'"></i>
                                                             </div>
                                                             <span class="rating-count"> ({{ courses.count_reviews }}
                                                                 Reseñas)</span>

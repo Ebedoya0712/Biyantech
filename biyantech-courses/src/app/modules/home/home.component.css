@@ -1,26 +1,12 @@
-/*# sourceMappingURL=../maps/style.css.map */
-.countdown{
-    background-color: #807bf2;
-    border-radius: 10px;
+.typewriter-cursor {
+  font-weight: 100;
+  color: #a855f7;
+  animation: blink 0.7s infinite;
+  margin-left: 5px;
 }
 
-.rating{
-    color: black !important;
-    margin-right: 0px;
-}
-
-.float-animation {
-    animation: float 3s ease-in-out infinite; /* Nombre de la animación, duración, tipo y si se repite */
-}
-
-@keyframes float {
-    0% {
-        transform: translateY(0px); /* Posición inicial */
-    }
-    50% {
-        transform: translateY(-20px); /* Sube 20px */
-    }
-    100% {
-        transform: translateY(0px); /* Vuelve a la posición inicial */
-    }
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
 }

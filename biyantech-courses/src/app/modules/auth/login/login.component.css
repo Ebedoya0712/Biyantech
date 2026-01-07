@@ -1,0 +1,8 @@
+.cursor-pointer {
+    cursor: pointer !important;
+}
+
+.rbt-btn-link:hover {
+    color: #a855f7 !important;
+    text-decoration: underline !important;
+}

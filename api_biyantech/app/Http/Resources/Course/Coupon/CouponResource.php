@@ -23,7 +23,9 @@ class CouponResource extends JsonResource
             "num_use" => $this->resource->num_use,// el numero de usos permitidos
             "type_coupon" => $this->resource->type_coupon, // 1 es por productos y 2 es por categorias
             "state" => $this->resource->state ?? 1,
-            "courses" => $this->resource->courses->map(function($course_axu) {
+            "courses" => $this->resource->courses->filter(function($course_axu) {
+                return !is_null($course_axu->course);
+            })->map(function($course_axu) {
                 return [
                     "id" => $course_axu->course->id,
                     "title" => $course_axu->course->title,
@@ -31,7 +33,9 @@ class CouponResource extends JsonResource
                     "axu_id" => $course_axu->id,
                 ];
             }),
-            "categories" => $this->resource->categories->map(function($categorie_axu) {
+            "categories" => $this->resource->categories->filter(function($categorie_axu) {
+                return !is_null($categorie_axu->categorie);
+            })->map(function($categorie_axu) {
                 return [
                     "id" => $categorie_axu->categorie->id,
                     "name" => $categorie_axu->categorie->name,
